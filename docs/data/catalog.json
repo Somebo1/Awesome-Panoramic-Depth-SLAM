@@ -3,7 +3,7 @@
   "repoUrl": "https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM",
   "title": "Panoramic Depth Atlas",
   "description": "Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.",
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "records": [
     {
       "id": "da2_panorama",
@@ -110,7 +110,37 @@
         "src/da2/",
         "configs/eval.json"
       ],
-      "environment": "Official tested Ubuntu20.04 Python3.12 CUDA12.2 RTX3090; xformers0.0.28.post2"
+      "environment": "Official tested Ubuntu20.04 Python3.12 CUDA12.2 RTX3090; xformers0.0.28.post2",
+      "figure": {
+        "thumbnail": "assets/papers/da2_panorama-thumb.webp",
+        "image": "assets/papers/da2_panorama.webp",
+        "paperUrl": "https://arxiv.org/pdf/2509.26618",
+        "page": 5,
+        "figureLabel": "Figure 4",
+        "caption": {
+          "zh": "SphereViT 的球面嵌入、网络结构与训练监督。",
+          "en": "SphereViT spherical embeddings, architecture and training supervision."
+        },
+        "credit": {
+          "zh": "来源：Haodong Li 等，原论文图 4。",
+          "en": "Source: Haodong Li et al., Figure 4 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          108,
+          75,
+          506,
+          260
+        ],
+        "originalCaption": "Figure 4: The architecture of SphereViT and training losses. By leveraging the spherical embedding E , which is explicitly derived from the spherical coordinates of",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "76bbe903e6d73b83c0066194f580f6c63472c4d0947733c63144500931938695",
+        "imageSha256": "086191c134d223dd16d8a41ee6ce04efae61d6f450b222da1764a427efd9ab41",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "dap",
@@ -222,7 +252,37 @@
         "networks/models.py",
         "depth2point.py"
       ],
-      "environment": "Official Python3.12, tested torch2.7.1 torchvision0.22.1; torch>2; DINOv3-L backbone"
+      "environment": "Official Python3.12, tested torch2.7.1 torchvision0.22.1; torch>2; DINOv3-L backbone",
+      "figure": {
+        "thumbnail": "assets/papers/dap-thumb.webp",
+        "image": "assets/papers/dap.webp",
+        "paperUrl": "https://arxiv.org/pdf/2512.16913",
+        "page": 5,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "DAP 的畸变感知深度解码与几何训练约束。",
+          "en": "DAP distortion-aware depth decoding and geometric training constraints."
+        },
+        "credit": {
+          "zh": "来源：Xin Lin 等，原论文图 3。",
+          "en": "Source: Xin Lin et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          68,
+          555,
+          209
+        ],
+        "originalCaption": "Figure 3. Architecture of the proposed DAP network. Built upon DINOv3-Large [38] as the visual backbone, our model adopts a distortion-aware depth decoder and a",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "d8e8003a95388f671218d7a12e2f5666aaf538fca7fbaf5cd693d52a36ce66c0",
+        "imageSha256": "97010ab31913bd2cadef833d10d069d8958d933900dfaefbfc73ac424161fc5f",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "mcpdepth",
@@ -322,7 +382,37 @@
         "test_fusion.py",
         "pretrained_model/"
       ],
-      "environment": "Unknown; official requirements must be checked for the selected version."
+      "environment": "Unknown; official requirements must be checked for the selected version.",
+      "figure": {
+        "thumbnail": "assets/papers/mcpdepth-thumb.webp",
+        "image": "assets/papers/mcpdepth.webp",
+        "paperUrl": "https://arxiv.org/pdf/2408.01653",
+        "page": 5,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "多柱面立体匹配、置信度与深度融合流程。",
+          "en": "Multicylindrical stereo matching, confidence prediction and depth fusion."
+        },
+        "credit": {
+          "zh": "来源：Feng Qiao 等，原论文图 3。",
+          "en": "Source: Feng Qiao et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          65,
+          555,
+          266
+        ],
+        "originalCaption": "Figure 3. Framework of MCPDepth. (a) represents 6 pairs of cylindrical panoramas, (b) shows the disparity and confidence maps, and (c) shows the depth and",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "87e122fedde076d5430349e4d8b327275ced54c625c7fe51f2499c5dc834d2a8",
+        "imageSha256": "a0f02d3c44ee4744ccfe48387f3126e10af6b63a7e740eba584e8f04ae8d0d6c",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "pager",
@@ -435,7 +525,37 @@
         "generate_point_cloud.py",
         "evaluation/depth_evaluation.py"
       ],
-      "environment": "Official tested Linux, Python 3.10, PyTorch ≥2.0, CUDA ≥12.1."
+      "environment": "Official tested Linux, Python 3.10, PyTorch ≥2.0, CUDA ≥12.1.",
+      "figure": {
+        "thumbnail": "assets/papers/pager-thumb.webp",
+        "image": "assets/papers/pager.webp",
+        "paperUrl": "https://arxiv.org/pdf/2605.26368",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "共享几何骨干与尺度不变深度、米制深度、法线和天空预测。",
+          "en": "Shared geometry backbone with scale-invariant/metric depth, normals and sky prediction."
+        },
+        "credit": {
+          "zh": "来源：Vukasin Bozic 等，原论文图 2。",
+          "en": "Source: Vukasin Bozic et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          94,
+          65,
+          506,
+          171
+        ],
+        "originalCaption": "Figure 2: PaGeR Architecture. An input RGB panorama is processed by a shared geometry transformer backbone to predict a sky mask, scale-invariant (SI) depth, surface",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "88cf2516fac672870f10dc364c14742a87f7501dae6ce2122507561725868193",
+        "imageSha256": "884636e4174249d78c86df1bd29ffc6a389dab86db47f2ab6ff5ebbcbf38be73",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "reper360",
@@ -535,7 +655,37 @@
         "network/reper360.py",
         "util/ecc_loss.py"
       ],
-      "environment": "Official setup uses Python 3.9 and requirements.txt."
+      "environment": "Official setup uses Python 3.9 and requirements.txt.",
+      "figure": {
+        "thumbnail": "assets/papers/reper360-thumb.webp",
+        "image": "assets/papers/reper360.webp",
+        "paperUrl": "https://arxiv.org/pdf/2603.05999",
+        "page": 5,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "几何对齐引导、自调制与全景深度监督的整体框架。",
+          "en": "Geometry-aligned guidance, self-modulation and panoramic depth supervision."
+        },
+        "credit": {
+          "zh": "来源：Cheng Guan 等，原论文图 2。",
+          "en": "Source: Cheng Guan et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          134,
+          116,
+          482,
+          244
+        ],
+        "originalCaption": "Fig. 2: Overview of the proposed framework. Our framework takes a single panorama as input and outputs the corresponding depth map. The network leverages the",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "bf3b5ac5250340a6e7104e340749c5ed0d77f4ce5426ef8be3a54e776efdef55",
+        "imageSha256": "5265810b1f9736591389d9b8e635a1ce9a91b5354f53901925888dbe961eec43",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "unidac",
@@ -642,7 +792,37 @@
         "unidac/models/unidac.py::UniDAC.forward",
         "configs/test/"
       ],
-      "environment": "Python3.10.18, torch2.7.0/torchvision0.22.0, cu118 official; DINOv3 ViT-L16"
+      "environment": "Python3.10.18, torch2.7.0/torchvision0.22.0, cu118 official; DINOv3 ViT-L16",
+      "figure": {
+        "thumbnail": "assets/papers/unidac-thumb.webp",
+        "image": "assets/papers/unidac.webp",
+        "paperUrl": "https://arxiv.org/pdf/2603.27105",
+        "page": 4,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "相对深度与深度引导尺度估计解耦的方法总览。",
+          "en": "Method overview decoupling relative depth and depth-guided scale estimation."
+        },
+        "credit": {
+          "zh": "来源：Girish Chandar Ganesan 等，原论文图 3。",
+          "en": "Source: Girish Chandar Ganesan et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          65,
+          560,
+          263
+        ],
+        "originalCaption": "Figure 3. Overview of proposed method. UniDAC decouples metric depth estimation into relative depth and scale estimation. Relative depth relies on local scene information, while",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "27148fcd68a53de9266df9944a3b545711f4b9c8bb827a2a9d1690ff8417c4e8",
+        "imageSha256": "6e7115456fe06bd6e1223d74a660d469c1471c3792e04903573b81792117f9d6",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "vggt_omega",
@@ -745,7 +925,37 @@
         "vggt_omega/utils/pose_enc.py::encoding_to_camera",
         "demo_gradio.py"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/vggt_omega-thumb.webp",
+        "image": "assets/papers/vggt_omega.webp",
+        "paperUrl": "https://arxiv.org/pdf/2605.15195",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "图像、相机和场景令牌的交替注意力与几何输出。",
+          "en": "Alternating attention over image, camera and scene tokens with geometry outputs."
+        },
+        "credit": {
+          "zh": "来源：Jianyuan Wang 等，原论文图 2。",
+          "en": "Source: Jianyuan Wang et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          62,
+          555,
+          289
+        ],
+        "originalCaption": "Figure 2. Architecture Overview. VGGT-Ω appends camera and scene tokens (registers) to image tokens, and then alternates between global attention (or register attention) and frame",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "ffd0456e4fe0b5c42c0c95161c7e6005eb2ce3c0071b3b37de9b72955c00879b",
+        "imageSha256": "ea883de24e48c4fc93c2c3f7e23c8f9796a5d756389e95c668458ec1eda2285c",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "dac",
@@ -850,7 +1060,37 @@
         "dac/models/ops/",
         "configs/"
       ],
-      "environment": "Official conda Python3.9 torch1.13.1+cu116; custom CUDA operators; Docker alternative"
+      "environment": "Official conda Python3.9 torch1.13.1+cu116; custom CUDA operators; Docker alternative",
+      "figure": {
+        "thumbnail": "assets/papers/dac-thumb.webp",
+        "image": "assets/papers/dac.webp",
+        "paperUrl": "https://arxiv.org/pdf/2501.02464",
+        "page": 4,
+        "figureLabel": "Figure 4",
+        "caption": {
+          "zh": "统一 ERP 空间中的相机转换、训练增强与深度推理。",
+          "en": "Camera conversion, training augmentation and depth inference in canonical ERP space."
+        },
+        "credit": {
+          "zh": "来源：Yuliang Guo 等，原论文图 4。",
+          "en": "Source: Yuliang Guo et al., Figure 4 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          70,
+          555,
+          313
+        ],
+        "originalCaption": "Figure 4. Depth Any Camera Pipeline. Our DAC framework converts data from any camera type into a canonical ERP space, enabling a model trained solely",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "5d6178faa9dd25136d166429104f3f5133b50bad32b5f4bf4e570c986eaee846",
+        "imageSha256": "6a546a93456bb69be3ba9d446e2d092378216ed52286b34494906a9b62d8a884",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "depth_anything_3",
@@ -955,7 +1195,37 @@
         "src/depth_anything_3/model/da3.py",
         "src/depth_anything_3/utils/alignment.py"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/depth_anything_3-thumb.webp",
+        "image": "assets/papers/depth_anything_3.webp",
+        "paperUrl": "https://arxiv.org/pdf/2511.10647",
+        "page": 5,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "单一 Transformer 与深度—射线预测的整体流程。",
+          "en": "Single-transformer pipeline with depth and ray predictions."
+        },
+        "credit": {
+          "zh": "来源：Haotong Lin 等，原论文图 2。",
+          "en": "Source: Haotong Lin et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          70,
+          97,
+          543,
+          253
+        ],
+        "originalCaption": "Figure 2 Pipeline of Depth Anything 3. Depth Anything 3 employs a single transformer (vanilla DINOv2 model) without any architectural modifications. To enable cross-view reasoning,",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "afa74735e20b667b91183f604224abbcd61d4f927c23a3c635015d0c9d83d083",
+        "imageSha256": "3d5fa915c265dbe69756f74a22df741df25400760ca7095cf2e8b168f6ba4c10",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "da360",
@@ -1055,7 +1325,37 @@
         "saver.py",
         "app.py"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/da360-thumb.webp",
+        "image": "assets/papers/da360.webp",
+        "paperUrl": "https://arxiv.org/pdf/2512.22819",
+        "page": 3,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "透视预训练模型适配全景的尺度不变训练框架。",
+          "en": "Scale-invariant training framework adapting a perspective pretrained model to panoramas."
+        },
+        "credit": {
+          "zh": "来源：Hualie Jiang 等，原论文图 3。",
+          "en": "Source: Hualie Jiang et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          54,
+          48,
+          559,
+          225
+        ],
+        "originalCaption": "Figure 3: Our framework is a generalizable panoramic depth estimation model, which fine-tunes a zero-shot pinhole depth model with synthetic panorama depth datasets to produce",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "5ed83b7d7fabd7024b13e17e32ccddb49ad2cf2932588b805d2ce23c7e5fac7f",
+        "imageSha256": "3c5560734f0d129288bbc07b7ea5680ab748b5c4807ad3c4fbf178528f428c0f",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "depth_pro",
@@ -1153,7 +1453,37 @@
         "src/depth_pro/depth_pro.py::DepthPro.infer",
         "src/depth_pro/cli/run.py"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/depth_pro-thumb.webp",
+        "image": "assets/papers/depth_pro.webp",
+        "paperUrl": "https://arxiv.org/pdf/2410.02073",
+        "page": 5,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "多尺度图像编码、特征融合与焦距估计网络。",
+          "en": "Multiscale image encoding, feature fusion and focal-length estimation."
+        },
+        "credit": {
+          "zh": "来源：Aleksei Bochkovskii 等，原论文图 3。",
+          "en": "Source: Aleksei Bochkovskii et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          100,
+          74,
+          514,
+          233
+        ],
+        "originalCaption": "Figure 3: Overview of the network architecture. An image is downsampled at several scales. At each scale, it is split into patches, which are processed",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "1108db233e3082286a522961a869f1c24bbf0f7b967aa85dc346809c294ac9af",
+        "imageSha256": "676023d2c3d263a57676636da1c2262067f3daba5b31a5893c1c899d30eeca37",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "dreamcube",
@@ -1258,7 +1588,37 @@
         "multi_plane_sync.ipynb",
         "notebooks/"
       ],
-      "environment": "Official setup uses Python 3.11 and requirements.txt."
+      "environment": "Official setup uses Python 3.11 and requirements.txt.",
+      "figure": {
+        "thumbnail": "assets/papers/dreamcube-thumb.webp",
+        "image": "assets/papers/dreamcube.webp",
+        "paperUrl": "https://arxiv.org/pdf/2506.17206",
+        "page": 5,
+        "figureLabel": "Figure 4",
+        "caption": {
+          "zh": "RGB-D 立方体扩散模型的训练与同步推理框架。",
+          "en": "Training and synchronized inference of an RGB-D cubemap diffusion model."
+        },
+        "credit": {
+          "zh": "来源：Yukun Huang 等，原论文图 4。",
+          "en": "Source: Yukun Huang et al., Figure 4 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          65,
+          555,
+          311
+        ],
+        "originalCaption": "Figure 4. Training and inference framework of DreamCube for RGB-D cube map generation. At training time, RGB-D cube faces are encoded by synced VAE and",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "a20072f9ff0578bd2a553af7dd48336bce89911dd8fd3f886bb9bc2921b27e77",
+        "imageSha256": "43d3bafd6acb2a7c932e638e7834f31b7c225608847b7b8035df8939feb2ad5d",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "panda",
@@ -1361,7 +1721,37 @@
         "networks/models.py",
         "train_metric_depth/"
       ],
-      "environment": "Python3.10 torch2.0.0 CUDA11.7 cuDNN8.5 official"
+      "environment": "Python3.10 torch2.0.0 CUDA11.7 cuDNN8.5 official",
+      "figure": {
+        "thumbnail": "assets/papers/panda-thumb.webp",
+        "image": "assets/papers/panda.webp",
+        "paperUrl": "https://openaccess.thecvf.com/content/CVPR2025/papers/Cao_PanDA_Towards_Panoramic_Depth_Anything_with_Unlabeled_Panoramas_and_Mobius_CVPR_2025_paper.pdf",
+        "page": 5,
+        "figureLabel": "Figure 8",
+        "caption": {
+          "zh": "联合有标签与无标签全景的半监督训练及空间增强。",
+          "en": "Semi-supervised training and spatial augmentation with labeled and unlabeled panoramas."
+        },
+        "credit": {
+          "zh": "来源：Zidong Cao 等，原论文图 8。",
+          "en": "Source: Zidong Cao et al., Figure 8 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          65,
+          297,
+          243
+        ],
+        "originalCaption": "Figure 8. (a) The SSL pipeline on joint labeled and unlabeled datasets. (b) The Mo¨bius transformation-based spatial augmenta- tion (MTSA) pipeline on unlabeled datasets. Our",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "096fb1d39445a06601b0ca9831bbf6740cff11a6ad4a4738382f931263612607",
+        "imageSha256": "9cbe88edd2a505acabcbd29d566641fc57aaa3722ba547dcdededab7317ad7ae",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "rpg360",
@@ -1460,7 +1850,37 @@
         "scripts/step2_refine.py",
         "configs/"
       ],
-      "environment": "Unknown; official requirements must be checked for the selected version."
+      "environment": "Unknown; official requirements must be checked for the selected version.",
+      "figure": {
+        "thumbnail": "assets/papers/rpg360-thumb.webp",
+        "image": "assets/papers/rpg360.webp",
+        "paperUrl": "https://arxiv.org/pdf/2509.23991",
+        "page": 5,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "透视基础模型初始化与图优化联合细化深度和法线。",
+          "en": "Perspective foundation-model initialization and graph refinement of depth and normals."
+        },
+        "credit": {
+          "zh": "来源：Dongki Jung 等，原论文图 3。",
+          "en": "Source: Dongki Jung et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          108,
+          65,
+          506,
+          210
+        ],
+        "originalCaption": "Figure 3: Overview of our depth estimation method. 1) The input equirectangular (ERP) image is projected onto a six-face cubemap, where each non-overlapping face is",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "66c712ad3cd29529e08da2e2509f265ce179657399694cb3352e47d9377548e4",
+        "imageSha256": "78b5b20bef89377b1ecefd991e01ba291570c4785fe084e5c7543649b656cb96",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "st2_360d",
@@ -1557,7 +1977,37 @@
       "publiclyVerified": true,
       "verificationLevel": "L2_partial_paper_and_official_release_metadata",
       "codeEntry": [],
-      "environment": "Unknown; official requirements must be checked for the selected version."
+      "environment": "Unknown; official requirements must be checked for the selected version.",
+      "figure": {
+        "thumbnail": "assets/papers/st2_360d-thumb.webp",
+        "image": "assets/papers/st2_360d.webp",
+        "paperUrl": "https://papers.nips.cc/paper_files/paper/2025/file/45c361d4117d598d4bb6568b407e9ac9-Paper-Conference.pdf",
+        "page": 2,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "把单幅全景转换成虚拟视频以复用视频深度一致性。",
+          "en": "Converting one panorama into a virtual video to reuse temporal depth consistency."
+        },
+        "credit": {
+          "zh": "来源：Zidong Cao 等，原论文图 1。",
+          "en": "Source: Zidong Cao et al., Figure 1 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          108,
+          65,
+          506,
+          184
+        ],
+        "originalCaption": "Figure 1: Left: Our proposed training-free pipeline. We represent a 360◦ image as video frames, mimicking viewpoint adjustments in VR. The arrow → denotes the",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "4ac0dba1ee0bd7bc28ef844b3e20820f12bf08970182de13f7a0f0013d01d464",
+        "imageSha256": "832386db2b82e48dee74521a7a385577963acc836064fcc99f8bf8510a232f7f",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "unidepth_v2",
@@ -1657,7 +2107,37 @@
         "unidepth/utils/camera.py",
         "unidepth/models/unidepthv2/README.md"
       ],
-      "environment": "Linux Python3.10+ CUDA11.8+ official"
+      "environment": "Linux Python3.10+ CUDA11.8+ official",
+      "figure": {
+        "thumbnail": "assets/papers/unidepth_v2-thumb.webp",
+        "image": "assets/papers/unidepth_v2.webp",
+        "paperUrl": "https://arxiv.org/pdf/2502.20110",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "相机分支与深度分支共同恢复三维几何的网络总览。",
+          "en": "Camera and depth branches for recovering 3D geometry."
+        },
+        "credit": {
+          "zh": "来源：Luigi Piccinelli 等，原论文图 2。",
+          "en": "Source: Luigi Piccinelli et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          48,
+          51,
+          565,
+          212
+        ],
+        "originalCaption": "Fig. 2. Model Architecture. UniDepthV2 utilizes solely the input image to generate the 3D output (O). It bootstraps a dense camera prediction (C) from the",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "1a76d9b246451eaa9dd47b9e0cc552234b3749d7d9b87b26a582b5bbd17b4b69",
+        "imageSha256": "0afa3a69d0f1669f4b06f76b0d43baf907f4870e2bd93b283027b55d19e3dc81",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "unik3d",
@@ -1762,7 +2242,37 @@
         "unik3d/models/unik3d.py::UniK3D.infer",
         "unik3d/utils/camera.py"
       ],
-      "environment": "Linux Python3.10+ CUDA11.8+; pip install -e with cu121 official"
+      "environment": "Linux Python3.10+ CUDA11.8+; pip install -e with cu121 official",
+      "figure": {
+        "thumbnail": "assets/papers/unik3d-thumb.webp",
+        "image": "assets/papers/unik3d.webp",
+        "paperUrl": "https://arxiv.org/pdf/2503.16591",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "角度相机模块与径向模块联合预测三维点的网络结构。",
+          "en": "Angular camera and radial modules for predicting 3D points."
+        },
+        "credit": {
+          "zh": "来源：Luigi Piccinelli 等，原论文图 2。",
+          "en": "Source: Luigi Piccinelli et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          63,
+          555,
+          229
+        ],
+        "originalCaption": "Figure 2. Model architecture. UniK3D utilizes solely the single input image to generate the 3D output point cloud (O) for any camera. The projective geometry",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "8b3016bdf88ee91588a55e6b2e140249e53a67f65b5e927a1c76ce61cf3ee71a",
+        "imageSha256": "f165c82ccc54b02189d947739a923068fea80333afd0e109077b0bc0c8e937f6",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "vggt",
@@ -1862,7 +2372,37 @@
         "vggt/utils/geometry.py",
         "demo_colmap.py"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/vggt-thumb.webp",
+        "image": "assets/papers/vggt.webp",
+        "paperUrl": "https://arxiv.org/pdf/2503.11651",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "交替注意力骨干及相机、深度、点图与跟踪预测头。",
+          "en": "Alternating-attention backbone and camera, depth, point-map and tracking heads."
+        },
+        "credit": {
+          "zh": "来源：Jianyuan Wang 等，原论文图 2。",
+          "en": "Source: Jianyuan Wang et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          58,
+          68,
+          562,
+          252
+        ],
+        "originalCaption": "Figure 2. Architecture Overview. Our model first patchifies the input images into tokens by DINO, and appends camera tokens for camera prediction. It then alternates",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "5d7ab44d129172f39ef5918feb0014c4d041fd0e92f995d4dbbd7327a6e91d52",
+        "imageSha256": "1e8376743ebdaf0a72ba688ebe2206c13241e01534a600f460aa49956c192025",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "video_depth_anything",
@@ -1964,7 +2504,37 @@
         "video_depth_anything/video_depth.py",
         "loss/"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/video_depth_anything-thumb.webp",
+        "image": "assets/papers/video_depth_anything.webp",
+        "paperUrl": "https://arxiv.org/pdf/2501.12375",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "基于 Depth Anything V2 编码器与时空预测头的视频流程。",
+          "en": "Video pipeline with a Depth Anything V2 encoder and spatiotemporal head."
+        },
+        "credit": {
+          "zh": "来源：Sili Chen 等，原论文图 2。",
+          "en": "Source: Sili Chen et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          50,
+          67,
+          546,
+          192
+        ],
+        "originalCaption": "Figure 2. Overall pipeline and the spatio-temporal head. Left: Our model is composed of a backbone encoder from Depth Anything V2 and a newly proposed",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "188e1aa3bc19506fa2069df3f3b30161b9aab9f67a4d020b3a8855d36642a5fb",
+        "imageSha256": "74d9d1fbd2bf3a4a0d8720a2bcc6778fb2f7b596729bf8a900024ce98c812fb1",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "depth_anything_v2",
@@ -2068,7 +2638,37 @@
         "depth_anything_v2/dpt.py::DepthAnythingV2.infer_image",
         "metric_depth/run.py"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/depth_anything_v2-thumb.webp",
+        "image": "assets/papers/depth_anything_v2.webp",
+        "paperUrl": "https://arxiv.org/pdf/2406.09414",
+        "page": 6,
+        "figureLabel": "Figure 7",
+        "caption": {
+          "zh": "合成数据教师、真实图像伪标签与学生模型的训练流程。",
+          "en": "Teacher training on synthetic images, real-image pseudo labels and student training."
+        },
+        "credit": {
+          "zh": "来源：Lihe Yang 等，原论文图 7。",
+          "en": "Source: Lihe Yang et al., Figure 7 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          108,
+          65,
+          506,
+          184
+        ],
+        "originalCaption": "Figure 7: Depth Anything V2. We first train the most capable teacher on precise synthetic images. Then, to mitigate the distribution shift and limited diversity",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "b156a023aa9a5e33bda60489962af809a67e748797d4357c790d063739fed2d7",
+        "imageSha256": "853ca3be5856ae05ea74a70ba1919b1f0dbcc81e9fc1ed1240518cd70bb859db",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "depth_anywhere",
@@ -2164,7 +2764,37 @@
         "configs/",
         "checkpoints/README.md"
       ],
-      "environment": "Official simplified environment uses Python 3.8 plus requirements.txt; teacher/student dependencies differ."
+      "environment": "Official simplified environment uses Python 3.8 plus requirements.txt; teacher/student dependencies differ.",
+      "figure": {
+        "thumbnail": "assets/papers/depth_anywhere-thumb.webp",
+        "image": "assets/papers/depth_anywhere.webp",
+        "paperUrl": "https://arxiv.org/pdf/2406.12849",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "有标签全景监督与透视模型蒸馏的联合训练流程。",
+          "en": "Joint training with labeled panoramas and perspective-model distillation."
+        },
+        "credit": {
+          "zh": "来源：Ning-Hsu Albert Wang 等，原论文图 2。",
+          "en": "Source: Ning-Hsu Albert Wang et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          108,
+          70,
+          505,
+          237
+        ],
+        "originalCaption": "Figure 2: Training Pipeline. Our proposed training pipeline involves joint training on both labeled 360 data with ground truth and unlabeled 360 data. (a) For",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "818d4e7c788bd696082e16571a3b561b5853db745e539122579fa46975ac3de5",
+        "imageSha256": "affff6aaab2d0ae46f4ac482573a91e8ba8d0c316f4356dd9498d8d61d14f95a",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "elite360d",
@@ -2256,7 +2886,37 @@
         "train_elite360d.py",
         "network/"
       ],
-      "environment": "Official setup: Python 3.10, PyTorch ≥1.12.0, CUDA ≥11.3."
+      "environment": "Official setup: Python 3.10, PyTorch ≥1.12.0, CUDA ≥11.3.",
+      "figure": {
+        "thumbnail": "assets/papers/elite360d-thumb.webp",
+        "image": "assets/papers/elite360d.webp",
+        "paperUrl": "https://arxiv.org/pdf/2403.16376",
+        "page": 3,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "ERP 与二十面体点特征的双投影融合方法。",
+          "en": "Bi-projection fusion of ERP features and icosahedral point features."
+        },
+        "credit": {
+          "zh": "来源：Hao Ai 等，原论文图 3。",
+          "en": "Source: Hao Ai et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          50,
+          65,
+          546,
+          243
+        ],
+        "originalCaption": "Figure 3. (a) An overview of our Elite360D framework, comprising image-based ERP feature extraction (Sec. 3.1), point-based ICOSAP feature extraction (Sec. 3.2), and Bi-projection Bi-attention",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "856ebeb10679120ee6bed207d3f090e62862310f57f983bb511cb171253bb3fb",
+        "imageSha256": "c7a2aae8a6c69f23af24f2865dee5436f2235d315ca8c14c2095d33e4986fd20",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "metric3d_v2",
@@ -2368,7 +3028,37 @@
         "test_vit.sh",
         "mono/utils/do_test.py"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/metric3d_v2-thumb.webp",
+        "image": "assets/papers/metric3d_v2.webp",
+        "paperUrl": "https://arxiv.org/pdf/2404.15506",
+        "page": 4,
+        "figureLabel": "Figure 4",
+        "caption": {
+          "zh": "统一米制深度与法线估计的整体方法。",
+          "en": "Overall methodology for joint metric depth and surface-normal estimation."
+        },
+        "credit": {
+          "zh": "来源：Mu Hu 等，原论文图 4。",
+          "en": "Source: Mu Hu et al., Figure 4 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          54,
+          45,
+          559,
+          310
+        ],
+        "originalCaption": "Fig. 4 – Overall methodology. Our method takes a single image to predict the metric depth and surface normal simultaneously. We apply large-scale data training",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "0c7c00d93c525db03f8f989a687b71ce6ac3a76089c50cb62615d738ce473463",
+        "imageSha256": "87a9eb7f031a64e7484e7d81a0be16b450ce5889528bcd34f35003f7a64ffcc9",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "bifuse_pp",
@@ -2462,7 +3152,37 @@
         "run_inference.py --mode supervised/selfsupervised",
         "BasePhotometric.py"
       ],
-      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown"
+      "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "figure": {
+        "thumbnail": "assets/papers/bifuse_pp-thumb.webp",
+        "image": "assets/papers/bifuse_pp.webp",
+        "paperUrl": "https://arxiv.org/pdf/2209.02952",
+        "page": 2,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "双投影深度网络与位姿网络的自监督框架。",
+          "en": "Self-supervised framework with bi-projection depth and pose networks."
+        },
+        "credit": {
+          "zh": "来源：Fu-En Wang 等，原论文图 1。",
+          "en": "Source: Fu-En Wang et al., Figure 1 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          44,
+          38,
+          591,
+          227
+        ],
+        "originalCaption": "Fig. 1. Our BiFuse++ is a self-supervised framework of monocular 360◦ depth estimation. The depth estimation network (DepthNet) is a bi-projection architecture consisting of two",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "300c5fba0ae49983f53d796e6ba0a10fcba723d9f37785a5b21577fc7a459189",
+        "imageSha256": "339184ab813c36223d6c7e55ebea50aa2b720aca7400270839938b0ea9181881",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "hrdfuse",
@@ -2557,7 +3277,37 @@
         "train_fusion.py",
         "model/"
       ],
-      "environment": "Unknown; official requirements must be checked for the selected version."
+      "environment": "Unknown; official requirements must be checked for the selected version.",
+      "figure": {
+        "thumbnail": "assets/papers/hrdfuse-thumb.webp",
+        "image": "assets/papers/hrdfuse.webp",
+        "paperUrl": "https://arxiv.org/pdf/2303.11616",
+        "page": 3,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "ERP 与切平面特征对齐和深度分布协作预测。",
+          "en": "ERP/tangent feature alignment and collaborative depth-distribution prediction."
+        },
+        "credit": {
+          "zh": "来源：Hao Ai 等，原论文图 3。",
+          "en": "Source: Hao Ai et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          50,
+          65,
+          546,
+          212
+        ],
+        "originalCaption": "Figure 3. Overview of our HRDFuse, consisting of three parts: feature extractors for both ERP and TP inputs, spatial feature alignment (SFA) module, and collaborative",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "975d4064f849ac88588f6cfe99401efd9417a3ee9e456ec4cafb50dfa492c0c1",
+        "imageSha256": "b4ad7644588a955146541188578df72a0780d4a655192ecfcc9b9488410c25e7",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "360monodepth",
@@ -2654,7 +3404,37 @@
         "code/python/src/main.py",
         "code/cpp/"
       ],
-      "environment": "Official setup: Python ≥3.8 plus C++ Ceres/Eigen/OpenCV/pybind11; Docker recommended."
+      "environment": "Official setup: Python ≥3.8 plus C++ Ceres/Eigen/OpenCV/pybind11; Docker recommended.",
+      "figure": {
+        "thumbnail": "assets/papers/360monodepth-thumb.webp",
+        "image": "assets/papers/360monodepth.webp",
+        "paperUrl": "https://arxiv.org/pdf/2111.15669",
+        "page": 1,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "切平面预测、视差对齐与融合的高分辨率全景流程。",
+          "en": "High-resolution panoramic pipeline with tangent predictions, disparity alignment and blending."
+        },
+        "credit": {
+          "zh": "来源：Manuel Rey-Area 等，原论文图 1。",
+          "en": "Source: Manuel Rey-Area et al., Figure 1 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          50,
+          202,
+          546,
+          390
+        ],
+        "originalCaption": "Figure 1. We present a flexible framework for estimating high-resolution disparity maps from a single 360° input image by decomposing it into perspective tangent images,",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "2648bee5cc6f48a2454f85d9dac5f52cdcc84db572ff195678610bddfe96a8c0",
+        "imageSha256": "b025736452bf639c7f716ebbaff337f841a7d1571f5f52db19699bb49f393e8a",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "mode",
@@ -2756,7 +3536,37 @@
         "test_fusion.py",
         "models/basic/spherical_conv/"
       ],
-      "environment": "Official PyTorch ≥1.5.0, gcc/g++ ≤7.5.0 for spherical convolution."
+      "environment": "Official PyTorch ≥1.5.0, gcc/g++ ≤7.5.0 for spherical convolution.",
+      "figure": {
+        "thumbnail": "assets/papers/mode-thumb.webp",
+        "image": "assets/papers/mode.webp",
+        "paperUrl": "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf",
+        "page": 2,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "四相机装置、多视图全景深度及点云重建概览。",
+          "en": "Four-camera rig, multiview omnidirectional depth and point-cloud reconstruction overview."
+        },
+        "credit": {
+          "zh": "来源：Ming Li 等，原论文图 1。",
+          "en": "Source: Ming Li et al., Figure 1 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          134,
+          113,
+          482,
+          260
+        ],
+        "originalCaption": "Fig. 1. Overview of the proposed multi-view omnidirectional depth estima- tion framework. (a) shows the multiple 360◦ camera rig. (b) shows the result of our",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "2251f9c91c93ed0dee6b68a15b3207ecf220727c3898b7719cd035fb2ee8d569",
+        "imageSha256": "fda6afad57287db3d844eb4b68f233b1e6b500673b22edfed9dc2d071384e612",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "omnifusion",
@@ -2853,7 +3663,37 @@
         "train_erp_depth.py",
         "train_erp_depth_iterative.py"
       ],
-      "environment": "Official tested Python 3.7.4, PyTorch 1.9.0, CUDA 11.6."
+      "environment": "Official tested Python 3.7.4, PyTorch 1.9.0, CUDA 11.6.",
+      "figure": {
+        "thumbnail": "assets/papers/omnifusion-thumb.webp",
+        "image": "assets/papers/omnifusion.webp",
+        "paperUrl": "https://arxiv.org/pdf/2203.00838",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "切平面特征、几何嵌入与全局融合的整体流程。",
+          "en": "Tangent-image features, geometric embedding and global fusion pipeline."
+        },
+        "credit": {
+          "zh": "来源：Yuyan Li 等，原论文图 2。",
+          "en": "Source: Yuyan Li et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          50,
+          65,
+          546,
+          192
+        ],
+        "originalCaption": "Figure 2. Overview of our proposed OmniFusion. Our method takes a monocular ERP RGB as input, projects it onto multiple patches at multiple viewpoints, and",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "908e0dc76a7369924d4fd44292cf49df714668d7f750bf0d942c76d23427c499",
+        "imageSha256": "abb67e43c3177f437a8c9ad982a11278bfde6e4708dd8d5e784715cab7b7ebb1",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "panoformer",
@@ -2946,7 +3786,37 @@
         "README.md",
         "networks/; exact inference function Unknown"
       ],
-      "environment": "Official PyTorch1.7.1 Python3.8 CUDA10.1 RTX3090"
+      "environment": "Official PyTorch1.7.1 Python3.8 CUDA10.1 RTX3090",
+      "figure": {
+        "thumbnail": "assets/papers/panoformer-thumb.webp",
+        "image": "assets/papers/panoformer.webp",
+        "paperUrl": "https://arxiv.org/pdf/2203.09283",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "全景 Transformer 编码—解码的深度估计结构。",
+          "en": "Panoramic Transformer encoder-decoder architecture for depth estimation."
+        },
+        "credit": {
+          "zh": "来源：Zhijie Shen 等，原论文图 2。",
+          "en": "Source: Zhijie Shen et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          134,
+          113,
+          482,
+          224
+        ],
+        "originalCaption": "Fig. 2. Our PanoFormer takes a monocular RGB panoramic image as the input and outputs the high-quality depth map",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "53ba234d5da54f199b17a093880efddb336b79e2afb7b78a31f546afbc77518c",
+        "imageSha256": "6ded885831f4b2bf9b2d5c8691d3c062758b55f8925989161df2999bb4749484",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "unifuse",
@@ -3042,7 +3912,37 @@
         "UniFuse/networks/",
         "PretrainedModels/"
       ],
-      "environment": "Official legacyPython3.6 torch>=1.0 CUDA>=9; modern compatibility not tested"
+      "environment": "Official legacyPython3.6 torch>=1.0 CUDA>=9; modern compatibility not tested",
+      "figure": {
+        "thumbnail": "assets/papers/unifuse-thumb.webp",
+        "image": "assets/papers/unifuse.webp",
+        "paperUrl": "https://arxiv.org/pdf/2102.03550",
+        "page": 2,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "立方体与 ERP 特征的单向融合深度网络。",
+          "en": "Unidirectional fusion of cubemap and ERP features for depth."
+        },
+        "credit": {
+          "zh": "来源：Hualie Jiang 等，原论文图 1。",
+          "en": "Source: Hualie Jiang et al., Figure 1 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          85,
+          55,
+          531,
+          196
+        ],
+        "originalCaption": "Fig. 1: Our Proposed Unidirectional Fusion Framework.",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-17",
+        "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
+        "pdfSha256": "0769ca56a7f4b7ca634f17da7d7a867068f26b770d0fad65415ac82bc910ad48",
+        "imageSha256": "a24b1faa52149d3c49797b17f44b966d54f3aed837d5d3c29dd949884107fa9f",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
     },
     {
       "id": "odgsslam2026",
@@ -3109,7 +4009,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CUDA omnidirectional rasterizer; graph-based keyframe removal reduces memory; no local benchmark."
+      "environment": "CUDA omnidirectional rasterizer; graph-based keyframe removal reduces memory; no local benchmark.",
+      "figure": {
+        "thumbnail": "assets/papers/odgsslam2026-thumb.webp",
+        "image": "assets/papers/odgsslam2026.webp",
+        "paperUrl": "https://openaccess.thecvf.com/content/CVPR2026/papers/Spiss_ODGS-SLAM_Omnidirectional_Gaussian_Splatting_SLAM_CVPR_2026_paper.pdf",
+        "page": 1,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "全景跟踪、关键帧管理与球面高斯地图概览。",
+          "en": "Panoramic tracking, keyframe management and spherical Gaussian mapping."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2026；1 号图截图。",
+          "en": "Source: paper authors (2026), Figure 1 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 1. (Left:) Overview of the ODGS-SLAM system.",
+        "cropBox": [
+          55,
+          208,
+          564,
+          340
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "a3a8faefdf2e09e09aa961625e55f692344da8ab185ce2f5ed05220b87e92213",
+        "imageSize": [
+          1272,
+          330
+        ]
+      }
     },
     {
       "id": "p2uslam2026",
@@ -3174,7 +4105,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CPU feature-based architecture; full source unavailable for profiling."
+      "environment": "CPU feature-based architecture; full source unavailable for profiling.",
+      "figure": {
+        "thumbnail": "assets/papers/p2uslam2026-thumb.webp",
+        "image": "assets/papers/p2uslam2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2409.10143",
+        "page": 6,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "点不确定性贯穿初始化、跟踪、局部 BA 和回环。",
+          "en": "Point uncertainty used across initialization, tracking, local BA and loop closure."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2026；3 号图截图。",
+          "en": "Source: paper authors (2026), Figure 3 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 3: The pipeline of P2U-SLAM.",
+        "cropBox": [
+          120,
+          47,
+          491,
+          219.5
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "93061c430925d768b0a5908c29e84e1300dd14b83caba4797a166b443fea8356",
+        "imageSize": [
+          927,
+          431
+        ]
+      }
     },
     {
       "id": "panoair2026",
@@ -3239,7 +4201,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Paper: C++/ONNX; Jetson Orin NX TensorRT 10Hz with stride 3; no local result."
+      "environment": "Paper: C++/ONNX; Jetson Orin NX TensorRT 10Hz with stride 3; no local result.",
+      "figure": {
+        "thumbnail": "assets/papers/panoair2026-thumb.webp",
+        "image": "assets/papers/panoair2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2604.00852",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "无人机全景与 IMU 输入的混合特征视觉惯性 SLAM。",
+          "en": "Hybrid-feature visual-inertial SLAM from UAV panoramas and IMU."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2026；2 号图截图。",
+          "en": "Source: paper authors (2026), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 2. Overview of the proposed panoramic visual-inertial SLAM framework.",
+        "cropBox": [
+          312,
+          52,
+          564,
+          280
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "7f036c6c38defbe62264938d8875bf55384243d3a7db1a56d35bfac64692f801",
+        "imageSize": [
+          630,
+          570
+        ]
+      }
     },
     {
       "id": "panogsslam2026",
@@ -3305,7 +4298,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Paper RTX 4090; runtime not locally reproduced."
+      "environment": "Paper RTX 4090; runtime not locally reproduced.",
+      "figure": {
+        "thumbnail": "assets/papers/panogsslam2026-thumb.webp",
+        "image": "assets/papers/panogsslam2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2609.17387",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "全景图像预处理、跟踪与 3D 高斯建图模块。",
+          "en": "Panoramic preprocessing, tracking and 3D Gaussian mapping modules."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2026；2 号图截图。",
+          "en": "Source: paper authors (2026), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 2. PanoGS-SLAM Pipeline.",
+        "cropBox": [
+          54,
+          48,
+          564,
+          248
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "12968b32c8b404ef3a74154510d37ccde9f6739218418f86f25b71fef688936a",
+        "imageSize": [
+          1275,
+          500
+        ]
+      }
     },
     {
       "id": "mast3rslam2025",
@@ -3370,7 +4394,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CUDA; paper RTX 4090 result is not local measurement."
+      "environment": "CUDA; paper RTX 4090 result is not local measurement.",
+      "figure": {
+        "thumbnail": "assets/papers/mast3rslam2025-thumb.webp",
+        "image": "assets/papers/mast3rslam2025.webp",
+        "paperUrl": "https://arxiv.org/pdf/2412.12392",
+        "page": 4,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "MASt3R 点图匹配、跟踪融合、回环及全局优化。",
+          "en": "MASt3R pointmap matching, tracking/fusion, loop closure and global optimization."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2025；3 号图截图。",
+          "en": "Source: paper authors (2025), Figure 3 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 3. System diagram of MASt3R-SLAM.",
+        "cropBox": [
+          58,
+          67,
+          564,
+          210
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "b3e4adb81aa713bc091a9e9d9a28d96881000f04931f0fea23f3d5c758436760",
+        "imageSize": [
+          1265,
+          357
+        ]
+      }
     },
     {
       "id": "okvis2x2025",
@@ -3436,7 +4491,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Ubuntu C++/CMake; neural stereo/MVS and dense mapping add compute."
+      "environment": "Ubuntu C++/CMake; neural stereo/MVS and dense mapping add compute.",
+      "figure": {
+        "thumbnail": "assets/papers/okvis2x2025-thumb.webp",
+        "image": "assets/papers/okvis2x2025.webp",
+        "paperUrl": "https://arxiv.org/pdf/2510.04612",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "扩展 OKVIS2 的多传感器状态估计和子地图接口。",
+          "en": "Multi-sensor state estimation and submapping extensions to OKVIS2."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2025；2 号图截图。",
+          "en": "Source: paper authors (2025), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 2. System architecture of our proposed multi-sensor state-estimator OKVIS2-X.",
+        "cropBox": [
+          49,
+          54,
+          563,
+          351
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "a44d892f35e9a71f9100d573fdf6439749ea4a6364f478dfbc0d071908dc69eb",
+        "imageSize": [
+          1285,
+          742
+        ]
+      }
     },
     {
       "id": "panoslam2025",
@@ -3502,7 +4588,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Gaussian optimization plus panoptic vision models; runtime unverified."
+      "environment": "Gaussian optimization plus panoptic vision models; runtime unverified.",
+      "figure": {
+        "thumbnail": "assets/papers/panoslam2025-thumb.webp",
+        "image": "assets/papers/panoslam2025.webp",
+        "paperUrl": "https://arxiv.org/pdf/2501.00352",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "RGB-D 全景分割（Panoptic，非 360° 全景）建图：相机跟踪、语义推断与时空提升。",
+          "en": "RGB-D panoptic mapping: camera tracking, panoptic inference and spatial-temporal lifting."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2025；2 号图截图。",
+          "en": "Source: paper authors (2025), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 2. Overview of the PanoSLAM framework for panoptic 3D scene reconstruction from unlabeled RGB-D videos.",
+        "cropBox": [
+          58,
+          68,
+          565,
+          282
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "3eb13fed49d4ffdba5e020c4de17d24a200b57fc4324efb1d7fa7c0cb8e46ca2",
+        "imageSize": [
+          1267,
+          535
+        ]
+      }
     },
     {
       "id": "360orbslam2024",
@@ -3566,7 +4683,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "ORB-SLAM2-style threads plus depth network; CARLA evaluation."
+      "environment": "ORB-SLAM2-style threads plus depth network; CARLA evaluation.",
+      "figure": {
+        "thumbnail": "assets/papers/360orbslam2024-thumb.webp",
+        "image": "assets/papers/360orbslam2024.webp",
+        "paperUrl": "https://arxiv.org/pdf/2401.10560",
+        "page": 3,
+        "figureLabel": "Figure 4",
+        "caption": {
+          "zh": "从 RGB 和稀疏深度生成稠密深度的补全网络。",
+          "en": "Depth-completion network converting RGB and sparse depth into dense depth."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2024；4 号图截图。",
+          "en": "Source: paper authors (2024), Figure 4 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 4. Deep completion network framework diagram",
+        "cropBox": [
+          48,
+          48,
+          563,
+          209
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "f930fdc7b7ce447eb106b6d7a1617a930c4f20747ef6d136d44954620a6cf9ce",
+        "imageSize": [
+          1287,
+          402
+        ]
+      }
     },
     {
       "id": "dbafusion2024",
@@ -3631,7 +4779,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CUDA/PyTorch plus optimization backend."
+      "environment": "CUDA/PyTorch plus optimization backend.",
+      "figure": {
+        "thumbnail": "assets/papers/dbafusion2024-thumb.webp",
+        "image": "assets/papers/dbafusion2024.webp",
+        "paperUrl": "https://arxiv.org/pdf/2403.13714",
+        "page": 3,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "深度束调整的分层优化、边缘化与 GPU/CPU 工作流。",
+          "en": "Hierarchical deep bundle-adjustment optimization, marginalization and GPU/CPU workflow."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2024；3 号图截图。",
+          "en": "Source: paper authors (2024), Figure 3 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 3. Workflow of DBA in the optimization framework, which employs a hierarchical elimination structure.",
+        "cropBox": [
+          311,
+          54,
+          560,
+          187
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "4e173d947088f7e331ebcc105f6a55a04af249427464dd6bd75f86d2df9c497d",
+        "imageSize": [
+          622,
+          332
+        ]
+      }
     },
     {
       "id": "dpvslam2024",
@@ -3695,7 +4874,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Single CUDA GPU; paper reports 5-7GB VRAM configurations, not local measurement."
+      "environment": "Single CUDA GPU; paper reports 5-7GB VRAM configurations, not local measurement.",
+      "figure": {
+        "thumbnail": "assets/papers/dpvslam2024-thumb.webp",
+        "image": "assets/papers/dpvslam2024.webp",
+        "paperUrl": "https://arxiv.org/pdf/2408.01654",
+        "page": 5,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "以图块图连接局部束调整、全局束调整和回环。",
+          "en": "A patch graph links local/global bundle adjustment and loop closure."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2024；1 号图截图。",
+          "en": "Source: paper authors (2024), Figure 1 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 1: Overview of DPV-SLAM.",
+        "cropBox": [
+          135,
+          119,
+          477,
+          287
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "d3e810851f1202ca67cff5dca7b4b0e90e5aa50db266735c8e31f6cacbafd8ab",
+        "imageSize": [
+          855,
+          420
+        ]
+      }
     },
     {
       "id": "monogs2024",
@@ -3763,7 +4973,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Authors use RTX 4090; speed-up branch and CUDA rasterizer."
+      "environment": "Authors use RTX 4090; speed-up branch and CUDA rasterizer.",
+      "figure": {
+        "thumbnail": "assets/papers/monogs2024-thumb.webp",
+        "image": "assets/papers/monogs2024.webp",
+        "paperUrl": "https://arxiv.org/pdf/2312.06741",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "统一 3D 高斯表示下的相机跟踪、关键帧管理与建图。",
+          "en": "Camera tracking, keyframe management and mapping with a unified 3D Gaussian representation."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2024；2 号图截图。",
+          "en": "Source: paper authors (2024), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 2. SLAM System Overview:",
+        "cropBox": [
+          50,
+          72,
+          561,
+          255
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "d7a1ef9b7f313156c61f23ea76423eecd3f8f7d2a795a74774dfbaf23f7a803e",
+        "imageSize": [
+          1277,
+          457
+        ]
+      }
     },
     {
       "id": "splatam2024",
@@ -3830,7 +5071,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "PyTorch/CUDA Gaussian rasterizer; scene-dependent optimization."
+      "environment": "PyTorch/CUDA Gaussian rasterizer; scene-dependent optimization.",
+      "figure": {
+        "thumbnail": "assets/papers/splatam2024-thumb.webp",
+        "image": "assets/papers/splatam2024.webp",
+        "paperUrl": "https://spla-tam.github.io/assets/SplaTAM.pdf",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "RGB-D 输入驱动相机跟踪、高斯增密与地图更新。",
+          "en": "RGB-D input drives camera tracking, Gaussian densification and map updates."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2024；2 号图截图。",
+          "en": "Source: paper authors (2024), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 2. Overview of SplaTAM.",
+        "cropBox": [
+          55,
+          66,
+          566,
+          282
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "ef045e06941ecb0be69aa0d8d46cd764bcfa5fdf3ad0c21c80cacdab297db1bb",
+        "imageSize": [
+          1277,
+          540
+        ]
+      }
     },
     {
       "id": "dpvo2023",
@@ -3894,7 +5166,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CUDA/PyTorch; official Ubuntu 20/22 and CUDA 11/12 setup."
+      "environment": "CUDA/PyTorch; official Ubuntu 20/22 and CUDA 11/12 setup.",
+      "figure": {
+        "thumbnail": "assets/papers/dpvo2023-thumb.webp",
+        "image": "assets/papers/dpvo2023.webp",
+        "paperUrl": "https://arxiv.org/pdf/2208.04726",
+        "page": 5,
+        "figureLabel": "Figure 4",
+        "caption": {
+          "zh": "通过相关特征、消息传递与束调整更新稀疏图块。",
+          "en": "Correlation features, message passing and bundle adjustment update sparse patches."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2023；4 号图截图。",
+          "en": "Source: paper authors (2023), Figure 4 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 4: Schematic of the update operator.",
+        "cropBox": [
+          95,
+          69,
+          500,
+          201
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "c6ac8e33f75b4504a3ba36c4e03b9dbf2fbfdeb507be1431070c501ea210d29c",
+        "imageSize": [
+          1012,
+          330
+        ]
+      }
     },
     {
       "id": "goslam2023",
@@ -3960,7 +5263,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CUDA/PyTorch plus tiny-cuda-nn; parallel tracking/backend/mapper."
+      "environment": "CUDA/PyTorch plus tiny-cuda-nn; parallel tracking/backend/mapper.",
+      "figure": {
+        "thumbnail": "assets/papers/goslam2023-thumb.webp",
+        "image": "assets/papers/goslam2023.webp",
+        "paperUrl": "https://arxiv.org/pdf/2309.02436",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "前端跟踪、全局束调整与即时神经建图三线程结构。",
+          "en": "Three threads for frontend tracking, global bundle adjustment and instant neural mapping."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2023；2 号图截图。",
+          "en": "Source: paper authors (2023), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 2: Architecture Overview.",
+        "cropBox": [
+          57,
+          68,
+          565,
+          190
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "5379925bfdda9988aca47fda13289a9781282a850dd4250005368a565c9ac641",
+        "imageSize": [
+          1270,
+          305
+        ]
+      }
     },
     {
       "id": "lfvislam2023",
@@ -4025,7 +5359,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "ROS1/C++ VINS-derived system with PAL calibration."
+      "environment": "ROS1/C++ VINS-derived system with PAL calibration.",
+      "figure": {
+        "thumbnail": "assets/papers/lfvislam2023-thumb.webp",
+        "image": "assets/papers/lfvislam2023.webp",
+        "paperUrl": "https://arxiv.org/pdf/2209.05167",
+        "page": 4,
+        "figureLabel": "Figure 4",
+        "caption": {
+          "zh": "大视场 VIO 初始化、跟踪与回环位姿图流程。",
+          "en": "Large-FoV VIO initialization, tracking and loop-closure pose-graph pipeline."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2023；4 号图截图。",
+          "en": "Source: paper authors (2023), Figure 4 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 4: Overview of our SLAM system with all blocks online.",
+        "cropBox": [
+          49,
+          62,
+          563,
+          200
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "7cb83c606510fb203ea5277ba3596adf3a9482b493a91995650b3c6d4d7f5e91",
+        "imageSize": [
+          1285,
+          345
+        ]
+      }
     },
     {
       "id": "okvis2_2022",
@@ -4091,7 +5456,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "C++/CMake; optional LibTorch segmentation and ROS2."
+      "environment": "C++/CMake; optional LibTorch segmentation and ROS2.",
+      "figure": {
+        "thumbnail": "assets/papers/okvis2_2022-thumb.webp",
+        "image": "assets/papers/okvis2_2022.webp",
+        "paperUrl": "https://arxiv.org/pdf/2202.09199",
+        "page": 3,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "前端、实时估计器与全图估计器的视觉惯性流程。",
+          "en": "Visual-inertial frontend, real-time estimator and full-graph estimator."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2022；1 号图截图。",
+          "en": "Source: paper authors (2022), Figure 1 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 1: Overview of OKVIS2",
+        "cropBox": [
+          54,
+          54,
+          297,
+          204
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "d66d18c87f1ceb65bca0435af3e6a66bfc5af9052283c776bffab9aff55a734c",
+        "imageSize": [
+          607,
+          375
+        ]
+      }
     },
     {
       "id": "codevio2021",
@@ -4154,7 +5550,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Learned decoder plus VIO; complete official release not established."
+      "environment": "Learned decoder plus VIO; complete official release not established.",
+      "figure": {
+        "thumbnail": "assets/papers/codevio2021-thumb.webp",
+        "image": "assets/papers/codevio2021.webp",
+        "paperUrl": "https://arxiv.org/pdf/2012.10133",
+        "page": 2,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "用于深度推断和编码的条件变分自编码器结构。",
+          "en": "Conditional variational autoencoder architecture for depth inference and encoding."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2021；2 号图截图。",
+          "en": "Source: paper authors (2021), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 2: The architecture of the conditional variational auto-encoder (CVAE)",
+        "cropBox": [
+          313,
+          51,
+          561,
+          194
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "57356860f687fc346d7c39b7b8c24eae08a3ab71774d53a732b85b1a3dfdf911",
+        "imageSize": [
+          620,
+          357
+        ]
+      }
     },
     {
       "id": "droidslam2021",
@@ -4219,7 +5646,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CUDA; official README documents substantial GPU memory needs."
+      "environment": "CUDA; official README documents substantial GPU memory needs.",
+      "figure": {
+        "thumbnail": "assets/papers/droidslam2021-thumb.webp",
+        "image": "assets/papers/droidslam2021.webp",
+        "paperUrl": "https://arxiv.org/pdf/2108.10869",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "循环更新算子结合稠密束调整修正位姿与深度。",
+          "en": "A recurrent update operator with dense bundle adjustment revises pose and depth."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2021；2 号图截图。",
+          "en": "Source: paper authors (2021), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 2: Illustration of the update operator.",
+        "cropBox": [
+          172,
+          65,
+          458,
+          200
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "0e15f20bff5f7ceac468c2899baafc8c114a3018c7a7b213eed7c402e5ccec90",
+        "imageSize": [
+          715,
+          337
+        ]
+      }
     },
     {
       "id": "orbslam3_2021",
@@ -4285,7 +5743,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CPU C++; IMU optional by sensor mode."
+      "environment": "CPU C++; IMU optional by sensor mode.",
+      "figure": {
+        "thumbnail": "assets/papers/orbslam3_2021-thumb.webp",
+        "image": "assets/papers/orbslam3_2021.webp",
+        "paperUrl": "https://arxiv.org/pdf/2007.11898",
+        "page": 5,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "跟踪、Atlas 多地图、回环与地图合并的系统组成。",
+          "en": "Tracking, Atlas multi-map management, loop closure and map merging."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2021；1 号图截图。",
+          "en": "Source: paper authors (2021), Figure 1 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 1: Main system components of ORB-SLAM3.",
+        "cropBox": [
+          308,
+          54,
+          561,
+          282
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "4d119517be7565c9651fbf1e36a330d605b7a534d738558858c96feca7b99156",
+        "imageSize": [
+          632,
+          570
+        ]
+      }
     },
     {
       "id": "basalt2020",
@@ -4353,7 +5842,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CPU C++; current official installation has CMake and binary routes."
+      "environment": "CPU C++; current official installation has CMake and binary routes.",
+      "figure": {
+        "thumbnail": "assets/papers/basalt2020-thumb.webp",
+        "image": "assets/papers/basalt2020.webp",
+        "paperUrl": "https://arxiv.org/pdf/1904.06504",
+        "page": 5,
+        "figureLabel": "Figure 4",
+        "caption": {
+          "zh": "视觉惯性子系统的跟踪投影、局部束调整与估计轨迹。",
+          "en": "VIO feature projections, local bundle adjustment and estimated trajectory."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2020；4 号图截图。",
+          "en": "Source: paper authors (2020), Figure 4 crop."
+        },
+        "kind": "result",
+        "verified": true,
+        "originalCaption": "Fig. 4: Visual-inertial odometry subsystem proposed in Section IV.",
+        "cropBox": [
+          49,
+          51,
+          563,
+          166
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "a9d3337eec82737e27adfa73e30dbaeb3c02b2376e615ec12aade76200e4ba73",
+        "imageSize": [
+          1285,
+          287
+        ]
+      }
     },
     {
       "id": "d3vo2020",
@@ -4417,7 +5937,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Learned inference plus direct optimizer; no local runtime benchmark."
+      "environment": "Learned inference plus direct optimizer; no local runtime benchmark.",
+      "figure": {
+        "thumbnail": "assets/papers/d3vo2020-thumb.webp",
+        "image": "assets/papers/d3vo2020.webp",
+        "paperUrl": "https://arxiv.org/pdf/2003.01060",
+        "page": 1,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "深度、位姿与不确定性预测接入直接视觉里程计。",
+          "en": "Depth, pose and uncertainty prediction integrated with direct visual odometry."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2020；1 号图截图。",
+          "en": "Source: paper authors (2020), Figure 1 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 1: We propose D3VO – a novel monocular visual odometry (VO) framework",
+        "cropBox": [
+          306,
+          213,
+          561,
+          420
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "e8835fd6acfe90f8731e04eaf1894635af2803033041d9fc43e23a88c6d5700f",
+        "imageSize": [
+          637,
+          517
+        ]
+      }
     },
     {
       "id": "omnislam2020",
@@ -4483,7 +6034,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Multiple synchronized cameras plus learned omnidirectional stereo; not locally tested."
+      "environment": "Multiple synchronized cameras plus learned omnidirectional stereo; not locally tested.",
+      "figure": {
+        "thumbnail": "assets/papers/omnislam2020-thumb.webp",
+        "image": "assets/papers/omnislam2020.webp",
+        "paperUrl": "https://arxiv.org/pdf/2003.08056",
+        "page": 2,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "多鱼眼深度估计、视觉里程计、回环与稠密融合。",
+          "en": "Multi-fisheye depth estimation, visual odometry, loop closure and dense fusion."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2020；2 号图截图。",
+          "en": "Source: paper authors (2020), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 2: Flowchart of the proposed system.",
+        "cropBox": [
+          313,
+          48,
+          561,
+          133
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "40dc580ff03855ab526820e8619075e397187060bd5490d10b98883d92ba9307",
+        "imageSize": [
+          620,
+          212
+        ]
+      }
     },
     {
       "id": "openvins2020",
@@ -4551,7 +6133,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CPU; camera/IMU synchronization and calibration required."
+      "environment": "CPU; camera/IMU synchronization and calibration required.",
+      "figure": {
+        "thumbnail": "assets/papers/openvins2020-thumb.webp",
+        "image": "assets/papers/openvins2020.webp",
+        "paperUrl": "https://pgeneva.com/downloads/papers/Geneva2020ICRA.pdf",
+        "page": 5,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "相机与 IMU 在线标定参数误差及置信界限。",
+          "en": "Camera/IMU online calibration errors and confidence bounds."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2020；2 号图截图。",
+          "en": "Source: paper authors (2020), Figure 2 crop."
+        },
+        "kind": "result",
+        "verified": true,
+        "originalCaption": "Fig. 2: Camera intrinsic projection and distortion along with extrinsic orientation and positions parameters error",
+        "cropBox": [
+          56,
+          55,
+          558,
+          205
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "194e432eda4462dfb831108c62a486ca72becc03c90dc53db81087a04e683a11",
+        "imageSize": [
+          1255,
+          375
+        ]
+      }
     },
     {
       "id": "stella_vslam",
@@ -4619,7 +6232,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "CPU C++; Docker and ROS wrappers documented."
+      "environment": "CPU C++; Docker and ROS wrappers documented.",
+      "figure": {
+        "thumbnail": "assets/papers/stella_vslam-thumb.webp",
+        "image": "assets/papers/stella_vslam.webp",
+        "paperUrl": "https://arxiv.org/pdf/1910.01122",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "其基础 OpenVSLAM 的跟踪、建图和全局优化模块。",
+          "en": "Tracking, mapping and global optimization in the underlying OpenVSLAM system."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2019；2 号图截图。 图来自基础 OpenVSLAM 论文，不代表 stella_vslam 单独发表了论文。",
+          "en": "Source: paper authors (2019), Figure 2 crop. Figure from the underlying OpenVSLAM paper; not a separate stella_vslam publication."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Figure 2: Main modules of OpenVSLAM: tracking, mapping, and global optimization modules.",
+        "cropBox": [
+          50,
+          78,
+          302,
+          217
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "3656563d5fac79c32e25994420707191c29f582cec7af8e7155b1a16d5920239",
+        "imageSize": [
+          630,
+          347
+        ]
+      }
     },
     {
       "id": "vinsfusion2019",
@@ -4685,7 +6329,38 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "Official ROS1/Ceres implementation; authors recommend hardware sync and global shutter."
+      "environment": "Official ROS1/Ceres implementation; authors recommend hardware sync and global shutter.",
+      "figure": {
+        "thumbnail": "assets/papers/vinsfusion2019-thumb.webp",
+        "image": "assets/papers/vinsfusion2019.webp",
+        "paperUrl": "https://arxiv.org/pdf/1708.03852",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "基础 VINS-Mono 的初始化、滑窗 VIO、重定位与位姿图。",
+          "en": "Initialization, sliding-window VIO, relocalization and pose graph in underlying VINS-Mono."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2018；2 号图截图。 图来自基础 VINS-Mono 论文，不是 VINS-Fusion 独立论文。",
+          "en": "Source: paper authors (2018), Figure 2 crop. Figure from the underlying VINS-Mono paper, not a dedicated VINS-Fusion publication."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 2. A block diagram illustrating the full pipeline of the proposed monocular visual-inertial state estimator.",
+        "cropBox": [
+          55,
+          53,
+          563,
+          270
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "1f44f92f057cbb05a6570f14d2fe5cae2b9736198a8eeca7c93438adbc38a087",
+        "imageSize": [
+          1270,
+          542
+        ]
+      }
     },
     {
       "id": "svo_pro",
@@ -4751,13 +6426,45 @@
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
-      "environment": "C++ ROS1; window backend, iSAM2 and DBoW2 dependencies."
+      "environment": "C++ ROS1; window backend, iSAM2 and DBoW2 dependencies.",
+      "figure": {
+        "thumbnail": "assets/papers/svo_pro-thumb.webp",
+        "image": "assets/papers/svo_pro.webp",
+        "paperUrl": "https://rpg.ifi.uzh.ch/docs/TRO17_Forster-SVO.pdf",
+        "page": 3,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "zh": "基础 SVO 的半直接运动估计与深度滤波建图流程。",
+          "en": "Semi-direct motion estimation and depth-filter mapping in the underlying SVO system."
+        },
+        "credit": {
+          "zh": "来源：论文作者，2017；1 号图截图。 图来自官方链接的 SVO 2017 基础论文，不是 SVO Pro 独立论文。",
+          "en": "Source: paper authors (2017), Figure 1 crop. Figure from the officially linked SVO 2017 foundational paper, not a separate SVO Pro paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "originalCaption": "Fig. 1: Tracking and mapping pipeline",
+        "cropBox": [
+          58,
+          52,
+          292,
+          291.5
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+        "pdfSha256": "5c6033a40cb20686a1fc16baec94c8ca19cfbd6e19f2f1860c87fd6b82b9d9ce",
+        "imageSize": [
+          585,
+          598
+        ]
+      }
     }
   ],
   "stats": {
     "depth": 30,
     "slam": 26,
     "panoramicDepth": 22,
-    "panoramicSLAM": 5
+    "panoramicSLAM": 5,
+    "paperFigures": 56
   }
 }

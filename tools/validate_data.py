@@ -9,7 +9,7 @@ import re
 
 ROOT=Path(__file__).resolve().parents[1]
 catalog=json.loads((ROOT/'site/data/catalog.json').read_text(encoding='utf-8'))
-records=catalog['records'];errors=[]
+records=catalog['records'];errors=[];figure_digests={}
 ids=[e['id'] for e in records]
 if len(ids)!=len(set(ids)):errors.append('Duplicate record IDs')
 required='id collection name title year venue authors institutions summary cameras scale scaleNote metricStatus depthType inputSummary outputSummary inputs outputDetails codeStatus paperUrl license evidence sourceChecked'.split()
@@ -24,6 +24,34 @@ for e in records:
     if set(e['cameras'])-{'panoramic','fisheye','wide','perspective','multi'}:errors.append('Unknown camera enum')
     for k in ['paperUrl','codeUrl','projectUrl','weightsUrl']:
         if e.get(k) and urlparse(e[k]).scheme not in ['http','https']:errors.append(e['id']+': unsafe '+k)
+    figure=e.get('figure')
+    if not figure:
+        errors.append(e['id']+': missing paper figure')
+        continue
+    if figure.get('verified') is not True:errors.append(e['id']+': figure not visually verified')
+    if not isinstance(figure.get('page'),int) or figure['page']<1:errors.append(e['id']+': invalid PDF page')
+    if urlparse(figure.get('paperUrl','')).scheme not in ['https','http']:errors.append(e['id']+': no figure PDF source')
+    for key in ['image','thumbnail']:
+        relative=figure.get(key,'')
+        if not re.fullmatch(r'assets/papers/[A-Za-z0-9_-]+\.(webp|png|jpg|jpeg)',relative):
+            errors.append(e['id']+': unsafe figure path '+key)
+        else:
+            asset=ROOT/'site'/relative
+            if not asset.is_file() or asset.stat().st_size<500:errors.append(e['id']+': missing/empty figure '+key)
+            elif key=='image':
+                image_digest=hashlib.sha256(asset.read_bytes()).hexdigest()
+                if image_digest in figure_digests:errors.append(e['id']+': duplicated figure from '+figure_digests[image_digest])
+                figure_digests[image_digest]=e['id']
+    for key in ['caption','credit']:
+        value=figure.get(key,{})
+        if not isinstance(value,dict) or not all(value.get(lang) for lang in ['zh','en']):errors.append(e['id']+': missing localized figure '+key)
+    digest=figure.get('pdfSha256','')
+    if not re.fullmatch(r'[0-9a-f]{64}',digest):errors.append(e['id']+': missing PDF provenance hash')
+    local=ROOT/'library/pdfs'/f"{e['id']}.pdf"
+    if local.exists() and hashlib.sha256(local.read_bytes()).hexdigest()!=digest:errors.append(e['id']+': local PDF does not match figure provenance')
+    box=figure.get('cropBox',[])
+    if not isinstance(box,list) or len(box)!=4 or box[2]<=box[0] or box[3]<=box[1]:errors.append(e['id']+': invalid PDF crop')
+    if not figure.get('originalCaption') or not figure.get('figureLabel'):errors.append(e['id']+': missing figure identity/original caption')
 byid={e['id']:e for e in records}
 for id in ['orbslam3_2021','panoslam2025','p2uslam2026','lfvislam2023','omnislam2020']:
     if 'panoramic' in byid[id]['cameras']:errors.append(id+': falsely classified as ERP')

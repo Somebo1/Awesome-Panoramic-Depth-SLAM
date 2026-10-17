@@ -14,7 +14,7 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 - 勾选最多4个方法，横向比较相同字段；用本机收藏维护阅读清单。
 - 将当前筛选导出为JSON、CSV或BibTeX草稿；引用前核对作者和正式出版信息。
 
-封面是原创代码绘制的几何示意，标注为“几何示意”；没有把它们作为论文结果。论文、数据和模型以作者原始来源与各自条款为准。
+卡片展示带出处的论文方法图或代表性结果，点击可查看大图与 PDF 页码；完整论文保存在本地。页眉可选择中文或 English，避免同屏重复展示双语。论文、数据和模型以作者原始来源与各自条款为准。
 
 ## 本版技术地图
 
@@ -72,4 +72,12 @@ tests/                   数据与真实目录的 DOM 功能测试
 
 欢迎提交有一手来源的记录纠错或新方法。请区分论文能力、实际发布接口和自己的复现结果；缺失信息写Unknown。不同相机、尺度对齐、分辨率和硬件的数字不直接排列为精度/速度榜。
 
-交互形式参考[Awesome-Ego-Robotics](https://chang-xinhai.github.io/Awesome-Ego-Robotics/)，本网站界面、插图和代码为独立实现。原论文、仓库、模型和数据的权利归各自作者；本仓库不重新分发模型权重、数据集或论文图像。
+交互形式参考[Awesome-Ego-Robotics](https://chang-xinhai.github.io/Awesome-Ego-Robotics/)，本网站界面和代码为独立实现。论文卡片使用原论文的局部配图，供文献介绍与评论，著作权归原作者；逐项出处、图号、PDF页码与原文件指纹见[配图来源索引](references/figure_sources.md)。本仓库不重新分发完整论文 PDF、模型权重或数据集。
+
+## 语言与论文配图
+
+页眉的“中文 / English”选项切换整站界面、方法摘要及详情说明，记住本机选择；`?lang=en` 可以分享英语视图。方法名称、原论文标题和代码标识保留原始写法。
+
+卡片配图优先采用论文方法总览，其次采用 teaser 或代表性结果。配图保持完整裁剪范围，点击可放大，弹窗附原论文链接与 PDF 页码；这不是网站重新运行模型得到的结果。`source_data/figures_depth.json` 和 `source_data/figures_slam.json` 记录来源、图号、裁剪框、图注、PDF SHA-256 与核验状态。`site/assets/papers/` 保存网页小图和可放大图。
+
+完整论文保存在本地 `library/pdfs/`（按方法 ID 命名），下载和选图预览位于 `library/`；该目录已被 Git 忽略，不会上传 GitHub。论文配图的下载与裁剪脚本在 `tools/acquire_depth_figures.py` 和 `tools/acquire_slam_figures.py`；修改选图后重新构建和核验网站。

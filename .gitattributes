@@ -9,3 +9,5 @@
 *.svg text eol=lf
 *.csv text eol=crlf
 *.png binary
+*.webp binary
+*.jpg binary

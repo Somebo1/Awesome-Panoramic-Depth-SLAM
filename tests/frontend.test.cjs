@@ -22,6 +22,9 @@ function boot(query='',data=catalog,storage=null){
   if(storage)w.localStorage.setItem('panoramic-depth-atlas:v1',storage);
   w.ATLAS_DATA=JSON.parse(JSON.stringify(data));
   w.addEventListener('error',e=>errors.push(e.message));
+  for(const helper of ['i18n.js','figures.js']){
+    const file=path.join(root,'site',helper);if(fs.existsSync(file))w.eval(fs.readFileSync(file,'utf8'));
+  }
   w.eval(source);
   if(errors.length)throw new Error(errors.join('\n'));
   return {dom,w,doc:w.document,api:w.PanoramicAtlas,errors};
@@ -84,7 +87,7 @@ check('details preserve false IMU/loop flags, units and source entries',()=>{
   assert(a.doc.getElementById('detail-content').textContent.includes('源码入口与环境'));
   a.doc.getElementById('detail-dialog').close();
   a.api.openRecord('dap');const content=a.doc.getElementById('detail-content').textContent;
-  assert(content.includes('100'));assert(content.includes('depth_convention'));
+  assert(content.includes('100'));assert(content.includes('depth_convention')||content.includes('深度约定')||content.includes('深度定义'));
   assert(a.doc.querySelectorAll('#detail-content .evidence-list li').length>0);
   a.doc.getElementById('detail-dialog').close();
 });
@@ -126,6 +129,46 @@ check('mobile filters and keyboard search are operable',()=>{
   button.click();assert.equal(button.getAttribute('aria-expanded'),'false');
   a.doc.body.focus();a.doc.dispatchEvent(new a.w.KeyboardEvent('keydown',{key:'/',bubbles:true}));
   assert.equal(a.doc.activeElement.id,'search');
+});
+check('all 56 cards use attributed, locally hosted paper figures',()=>{
+  for(const r of catalog.records){
+    assert.equal(r.figure.verified,true,r.id);assert(r.figure.caption.zh&&r.figure.caption.en);
+    assert(r.figure.credit.zh&&r.figure.credit.en);assert(r.figure.page>=1);
+    for(const key of ['image','thumbnail'])assert(fs.existsSync(path.join(root,'site',r.figure[key])),r.id+' '+key);
+  }
+  a.api.setFilter('collection','depth');a.api.setFilter('category','all');
+  assert.equal(a.doc.querySelectorAll('.paper-card .paper-preview img').length,30);
+  assert.equal(a.doc.querySelectorAll('.paper-card .card-art>svg').length,0);
+  const trigger=a.doc.querySelector('[data-figure-id]');trigger.click();
+  const dialog=a.doc.getElementById('paper-figure-dialog');assert.equal(dialog.open,true);
+  assert(dialog.querySelector('img').getAttribute('src').startsWith('./assets/papers/'));
+  assert(dialog.querySelector('a').getAttribute('href').includes('#page='));dialog.close();
+});
+check('language toggle updates UI and record prose while preserving filters and saved choice',()=>{
+  a.api.setFilter('q','UniDAC');
+  const before=a.api.getFilteredRecords()[0].id;
+  a.api.setLanguage('en');assert.equal(a.doc.documentElement.lang,'en');
+  assert.equal(a.api.getState().lang,'en');assert.equal(a.api.getFilteredRecords()[0].id,before);
+  assert(!/[\u3400-\u9fff]/.test(a.doc.querySelector('.card-summary').textContent));
+  assert(a.doc.getElementById('export-button').textContent.includes('Export'));
+  for(const record of catalog.records){
+    a.api.openRecord(record.id);assert(!/[\u3400-\u9fff]/.test(a.doc.getElementById('detail-content').textContent),record.id+' English detail');
+    a.doc.getElementById('detail-dialog').close();
+  }
+  const saved=a.w.localStorage.getItem('panoramic-depth-atlas:v1');const b=boot('',catalog,saved);
+  assert.equal(b.api.getState().lang,'en');assert.equal(b.doc.documentElement.lang,'en');b.dom.window.close();
+  a.api.setLanguage('zh');assert.equal(a.doc.documentElement.lang,'zh-CN');
+  assert(/[\u3400-\u9fff]/.test(a.doc.querySelector('.card-summary').textContent));
+  const c=boot('?lang=en&collection=slam&category=all');assert.equal(c.api.getState().lang,'en');c.dom.window.close();
+  a.api.setFilter('q','');
+});
+check('unsafe figure paths and source links are never rendered',()=>{
+  const bad=JSON.parse(JSON.stringify(catalog));bad.records[0].figure.image='https://untrusted.example/x.png';
+  bad.records[0].figure.paperUrl='javascript:alert(1)';
+  const b=boot('?collection=depth&category=all',bad);
+  const card=b.doc.querySelector(`[data-record-id="${bad.records[0].id}"]`);
+  assert.equal(card.querySelectorAll('.paper-preview img').length,0);
+  assert.equal(b.doc.querySelectorAll('a[href^="javascript:"]').length,0);b.dom.window.close();
 });
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};

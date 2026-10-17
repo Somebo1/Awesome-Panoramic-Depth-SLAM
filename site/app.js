@@ -5,7 +5,9 @@
   const records = Array.isArray(catalog.records) ? catalog.records : [];
   const byId = new Map(records.map(record => [String(record.id), record]));
   const STORAGE_KEY = 'panoramic-depth-atlas:v1';
-  const defaults = { collection: 'depth', category: 'panoramic', q: '', year: 'all', scale: 'all', code: 'all', view: 'cards', sort: 'newest', favorites: false };
+  const defaults = { collection: 'depth', category: 'panoramic', q: '', year: 'all', scale: 'all', code: 'all', view: 'cards', sort: 'newest', favorites: false, lang: 'zh' };
+  const translations = window.ATLAS_I18N || { ui: { zh: {}, en: {} }, summaries: {}, zhRecords: {} };
+  const t = (key, ...args) => { const value = translations.ui[state.lang][key] ?? key; return typeof value === 'function' ? value(...args) : value; };
   const categories = [
     { id: 'all', title: 'All geometries', zh: '全部相机模型', icon: '▦', depth: 'Depth estimation', slam: 'SLAM & odometry', description: '跨相机模型检索方法，比较投影假设、输入输出与复现条件。' },
     { id: 'panoramic', title: 'Panoramic', zh: '全景 · 360°', icon: '◎', depth: '全景深度', slam: '全景定位与建图', description: '以球面与等距柱状投影为核心，检索 360° 场景深度与空间感知研究。' },
@@ -15,11 +17,26 @@
     { id: 'multi', title: 'Multi-camera', zh: '多相机系统', icon: '◈', depth: '多相机深度', slam: '多相机定位与建图', description: '比较多相机输入、外参假设、融合方式及机器人系统接入条件。' }
   ];
   const categoryMap = new Map(categories.map(category => [category.id, category]));
-  const scales = { metric: 'Metric · 度量尺度', relative: 'Relative · 相对尺度', mixed: 'Mixed · 依配置而定', unknown: 'Unknown · 待核实' };
-  const shortScales = { metric: 'Metric', relative: 'Relative', mixed: 'Mixed scale', unknown: 'Scale 未核实' };
-  const codes = { released: '代码已发布', partial: '代码部分发布', unverified: '代码状态待核实', none: '未发现公开代码' };
-  const depthTypes = { range: 'Range · 径向距离', z: 'Z-depth · 光轴深度', inverse: 'Inverse depth · 逆深度', points: '3D points · 三维点', mixed: '依任务或配置而定', unknown: '深度定义待核实', none: '不直接输出深度' };
-  const cameraLabels = { panoramic: 'Panoramic', fisheye: 'Fisheye', wide: 'Wide-FOV', perspective: 'Perspective', multi: 'Multi-camera' };
+  const labelTables = {
+    zh: {
+      scales: { metric:'度量尺度', relative:'相对尺度', mixed:'依配置而定', unknown:'尺度待核实' },
+      codes: { released:'代码已发布', partial:'代码部分发布', unverified:'代码状态待核实', none:'未发现公开代码' },
+      depths: { range:'径向距离', z:'光轴深度', inverse:'逆深度', points:'三维点', mixed:'依任务或配置而定', unknown:'深度定义待核实', none:'不直接输出深度' },
+      cameras: { all:'全部相机模型', panoramic:'全景', fisheye:'鱼眼', wide:'广视场', perspective:'透视相机', multi:'多相机' }
+    },
+    en: {
+      scales: { metric:'Metric', relative:'Relative', mixed:'Mixed scale', unknown:'Scale unverified' },
+      codes: { released:'Code released', partial:'Code partially released', unverified:'Code unverified', none:'No public source found' },
+      depths: { range:'Radial range', z:'Z-depth', inverse:'Inverse depth', points:'3D points', mixed:'Task/config dependent', unknown:'Depth convention unverified', none:'No direct depth output' },
+      cameras: { all:'All geometries', panoramic:'Panoramic', fisheye:'Fisheye', wide:'Wide-FOV', perspective:'Perspective', multi:'Multi-camera' }
+    }
+  };
+  const labelMap = name => new Proxy({}, { get: (_, key) => labelTables[state.lang][name][key], ownKeys: () => Object.keys(labelTables.zh[name]), getOwnPropertyDescriptor: (_, key) => Object.hasOwn(labelTables.zh[name], key) ? { enumerable: true, configurable: true } : undefined });
+  const scales = labelMap('scales');
+  const shortScales = scales;
+  const codes = labelMap('codes');
+  const depthTypes = labelMap('depths');
+  const cameraLabels = labelMap('cameras');
   const $ = id => document.getElementById(id);
   const el = (tag, className, value) => {
     const node = document.createElement(tag);
@@ -29,14 +46,19 @@
   };
   const asList = value => Array.isArray(value) ? value : value === undefined || value === null || value === '' ? [] : [value];
   const text = value => {
-    if (value === undefined || value === null || value === '') return '待核实';
-    if (value === true) return '是';
-    if (value === false) return '否';
-    if (Array.isArray(value)) return value.map(text).join('；');
-    if (typeof value === 'object') return Object.entries(value).map(([key, val]) => `${key}: ${text(val)}`).join('\n');
+    if (value === undefined || value === null || value === '') return t('unknown');
+    if (value === true) return t('yes');
+    if (value === false) return t('no');
+    if (Array.isArray(value)) return value.map(text).join(state.lang === 'zh' ? '；' : '; ');
+    if (typeof value === 'object') return Object.entries(value).map(([key, val]) => `${fieldLabel(key)}: ${text(val)}`).join('\n');
+    if (/^(?:unknown|unverified|n\/a)$/i.test(String(value))) return t('unknown');
+    if (/^no$/i.test(String(value))) return t('no');
+    if (/^yes$/i.test(String(value))) return t('yes');
+    if (/^not applicable$/i.test(String(value))) return t('notApplicable');
     return String(value);
   };
-  const isUnknown = value => value === undefined || value === null || value === '' || value === 'unknown' || value === 'unverified';
+  const sourceText = value => value === undefined || value === null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value);
+  const isUnknown = value => value === undefined || value === null || value === '' || /^(?:unknown|unverified)$/i.test(String(value));
   const safeUrl = value => {
     if (typeof value !== 'string' || !value.trim()) return null;
     try { const parsed = new URL(value); return ['http:', 'https:'].includes(parsed.protocol) ? parsed.href : null; } catch { return null; }
@@ -52,7 +74,7 @@
   const selected = new Set();
   let state = normalizeState({ ...defaults, ...(stored.state || {}) });
   if ([...new URLSearchParams(location.search).keys()].some(key => Object.hasOwn(defaults, key))) state = stateFromUrl();
-  const searchIndex = new Map(records.map(record => [String(record.id), text({ id: record.id, name: record.name, title: record.title, aliases: record.aliases, authors: record.authors, institutions: record.institutions, year: record.year, venue: record.venue, summary: record.summary, cameras: record.cameras, tags: record.tags, family: record.family, scale: record.scale, scaleNote: record.scaleNote, license: record.license, input: record.inputs, output: record.outputDetails }).toLocaleLowerCase()]));
+  const searchIndex = new Map(records.map(record => [String(record.id), text({ id: record.id, name: record.name, title: record.title, aliases: record.aliases, authors: record.authors, institutions: record.institutions, year: record.year, venue: record.venue, summary: record.summary, englishSummary: translations.summaries[record.id], chineseInterface: translations.zhRecords[record.id], cameras: record.cameras, tags: record.tags, family: record.family, scale: record.scale, scaleNote: record.scaleNote, license: record.license, input: record.inputs, output: record.outputDetails }).toLocaleLowerCase()]));
   // Short ASCII queries are usually method abbreviations (DA, GS, VO).
   // Avoid matching every entry merely because its evidence says "dataset".
   const shortSearchIndex = new Map(records.map(record => [String(record.id), text([record.id, record.name, record.aliases]).toLocaleLowerCase()]));
@@ -72,12 +94,13 @@
     result.q = typeof result.q === 'string' ? result.q.slice(0, 500) : '';
     result.year = /^\d{4}$/.test(String(result.year)) ? String(result.year) : 'all';
     result.favorites = result.favorites === true || result.favorites === '1' || result.favorites === 'true';
+    result.lang = result.lang === 'en' ? 'en' : 'zh';
     return result;
   }
 
   function stateFromUrl() {
     const params = new URLSearchParams(location.search);
-    const next = { ...defaults };
+    const next = { ...defaults, lang: state?.lang || stored.state?.lang || 'zh' };
     Object.keys(defaults).forEach(key => { if (params.has(key)) next[key] = params.get(key); });
     return normalizeState(next);
   }
@@ -90,7 +113,7 @@
     const url = new URL(location.href);
     Object.keys(defaults).forEach(key => url.searchParams.delete(key));
     Object.entries(state).forEach(([key, value]) => {
-      if (key === 'collection' || key === 'category' || value !== defaults[key]) url.searchParams.set(key, typeof value === 'boolean' ? (value ? '1' : '0') : value);
+      if (key === 'collection' || key === 'category' || key === 'lang' || value !== defaults[key]) url.searchParams.set(key, typeof value === 'boolean' ? (value ? '1' : '0') : value);
     });
     try { history[replace ? 'replaceState' : 'pushState'](null, '', url); } catch { /* Local file browsing can restrict history. */ }
   }
@@ -101,6 +124,11 @@
     syncUrl(replace);
     persist();
     render();
+    if (key === 'lang') {
+      if (currentDetailId && $('detail-dialog').open) openRecord(currentDetailId);
+      if ($('compare-dialog').open) openCompare();
+      window.dispatchEvent(new CustomEvent('atlas:languagechange', { detail: { lang: state.lang } }));
+    }
   }
 
   function getFiltered() {
@@ -122,38 +150,127 @@
     return result;
   }
 
+  function fieldLabel(key) {
+    if (key === 'requirements') return state.lang === 'zh' ? '输入与传感器' : 'Input & sensors';
+    const labels = {
+      frames:['图像与帧','Images / frames'], projection:['投影模型','Projection'], intrinsics:['相机内参','Intrinsics'], resolution:['分辨率','Resolution'], extrinsics:['相机外参','Extrinsics'], imu:['惯性信息','IMU'], gravity:['重力信息','Gravity'], synchronization:['同步条件','Synchronization'], primary:['主要输出','Primary output'], point_map:['点图','Point map'], normal:['法线','Normals'], confidence:['置信度','Confidence'], camera_parameters:['相机参数','Camera parameters'], depth_convention:['深度定义','Depth convention'], metric_status:['尺度状态','Scale status'], pose_output:['位姿输出','Pose output'], runtime:['运行效率','Runtime'], code:['代码','Code'], weights:['权重','Weights'], input:['模型输入','Input'], output:['模型输出','Output'], notes:['研究笔记','Notes']
+    };
+    return labels[key]?.[state.lang === 'zh' ? 0 : 1] || key;
+  }
+
+  function localizedRecord(record) {
+    if (state.lang === 'en') return { ...record, summary: translations.summaries[record.id] || record.summary };
+    const reviewed = translations.zhRecords[record.id];
+    if (!reviewed) return record;
+    const result = { ...record, inputSummary:reviewed[0], outputSummary:reviewed[1], scaleNote:reviewed[2], notes:reviewed[3] };
+    const specifications = translations.specifications?.[record.id];
+    result.inputs = { ...(specifications?.input || {}) };
+    result.outputDetails = { ...(specifications?.output || {}) };
+    const common = {
+      'Not required':'不需要', 'Not required for single panorama':'单张全景不需要', 'No':'否', 'Unknown':'待核实',
+      'No measured gravity required by public interface; training orientation prior may remain':'公开接口无需测得的重力；训练方位先验仍可能存在。',
+      'No measured gravity required; gravity-alignment assumptions not audited':'无需测得的重力；尚未审计重力对齐假设。',
+      'Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics':'单帧推理无需传感器同步；接入视觉惯性系统需要时间戳和外参。',
+      'Single panorama; real multi-camera stitching synchronization remains a system concern':'模型使用单张全景；真实多相机拼接仍需处理系统同步。',
+      'Unknown; checkpoint/config dependent':'待核实，依赖所选权重或配置。',
+      'Checkpoint/config dependent':'依赖所选权重或配置。',
+      'Derived geometry only; no direct point-map head verified':'由深度派生几何，未核实直接点图预测头。',
+      'No verified direct head':'未核实直接预测头。', 'No verified head':'未核实预测头。',
+      'No online SLAM trajectory output verified':'未核实在线定位建图轨迹输出。',
+      'No released depth inference camera-pose output verified; depth map alone is not a trajectory':'未核实公开深度推理接口的相机位姿输出；深度图本身不是轨迹。',
+      'Unknown: no comparable timing or memory measurement executed locally.':'未在本机测量可比较的运行时间或显存。',
+      'Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally':'未核实可比较的公开时间与峰值显存条件；未在本机测量。'
+    };
+    for (const [key, value] of Object.entries(record.inputs || {})) if (!Object.hasOwn(result.inputs, key) && Object.hasOwn(common, value)) result.inputs[key] = common[value];
+    for (const [key, value] of Object.entries(record.outputDetails || {})) if (!Object.hasOwn(result.outputDetails, key) && Object.hasOwn(common, value)) result.outputDetails[key] = common[value];
+    // Preserve exact technical tensor and resolution tokens without exposing
+    // a second-language paragraph beside the reviewed Chinese interface.
+    const tokens = fields => [...new Set(Object.values(fields || {}).flatMap(value => typeof value === 'string' ? value.match(/(?:[BNTSC]\s*[×x]\s*)?(?:[BNTSC13HW]\s*[×x]\s*)+[BNTSC13HW]|\b\d{2,4}\s*[×x]\s*\d{2,4}\b/g) || [] : []))];
+    const inputTokens = tokens(record.inputs), outputTokens = tokens(record.outputDetails);
+    if (inputTokens.length) result.inputs['原始张量与分辨率标记'] = inputTokens.join('；');
+    if (outputTokens.length) result.outputDetails['原始张量与分辨率标记'] = outputTokens.join('；');
+    result.family = translations.families?.[record.family] || (record.collection === 'slam' ? '定位、建图与里程计' : '深度与几何估计');
+    result.license = translations.licenses?.[record.id] || record.license;
+    result.environment = translations.environments?.[record.id] || t('unknown');
+    result.verificationLevel = /partial/i.test(record.verificationLevel || '') ? t('partialReview') : t('sourceReview');
+    result.metricStatus = result.scaleNote;
+    if (record.imu === 'Optional: required for mono, optional for stereo') result.imu = '单目模式必须使用；双目模式可选';
+    if (record.imu === 'Optional: required for VI modes') result.imu = '可选；视觉惯性模式必须使用';
+    if (typeof record.loopClosure === 'string' && /Implicit nonlocal/.test(record.loopClosure)) result.loopClosure = '非局部图优化或全局 BA；没有独立地点识别声明';
+    result.tags = [];
+    result.yearConvention = t('yearConvention');
+    return result;
+  }
+
+  function applyLanguage() {
+    document.documentElement.lang = state.lang === 'en' ? 'en' : 'zh-CN';
+    document.title = state.lang === 'en' ? 'Panoramic Depth Atlas · Depth & SLAM Literature' : '全景深度与定位建图文献图谱';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', t('subtitle'));
+    document.querySelectorAll('[data-i18n]').forEach(node => { node.textContent = t(node.dataset.i18n); });
+    document.querySelectorAll('[data-language]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === state.lang)));
+    document.querySelector('.language-switch')?.setAttribute('aria-label', t('language'));
+    document.querySelector('.brand')?.setAttribute('aria-label', t('home'));
+    document.querySelector('.collection-strip')?.setAttribute('aria-label', t('allRecords'));
+    document.querySelector('.collection-tabs')?.setAttribute('aria-label', t('filters'));
+    $('sidebar').setAttribute('aria-label', t('filters'));
+    $('category-nav').setAttribute('aria-label', t('camera'));
+    $('search').placeholder = t('placeholder');
+    document.querySelector('.view-switch')?.setAttribute('aria-label', t('view'));
+    document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-label', t(button.dataset.view)));
+    $('active-filters').setAttribute('aria-label', t('activeFilters'));
+    document.querySelector('[data-close="compare-dialog"]')?.setAttribute('aria-label', t('closeCompare'));
+    const options = (id, labels) => [...$(id).options].forEach(option => { option.textContent = labels[option.value] ?? option.textContent; });
+    options('scale-filter', { all:t('allScales'), ...labelTables[state.lang].scales });
+    options('code-filter', { all:t('allCodes'), released:t('released'), partial:t('partial'), unverified:t('unverified'), none:t('none') });
+    options('sort-select', { newest:t('newest'), oldest:t('oldest'), name:t('byName') });
+    const heroLabels = document.querySelectorAll('.hero-visual text');
+    if (heroLabels[0]) heroLabels[0].textContent = t('fov');
+    if (heroLabels[1]) heroLabels[1].textContent = state.lang === 'en' ? 'SPHERICAL' : '球面';
+    if (heroLabels[2]) heroLabels[2].textContent = state.lang === 'en' ? 'GEOMETRY' : '几何';
+    if (heroLabels[3]) heroLabels[3].textContent = t('illustration');
+  }
+
+  function categoryDescription(category) {
+    if (state.collection === 'slam' && category.id === 'panoramic') return state.lang === 'zh' ? '关注全景视觉的位姿、轨迹与地图，核查尺度来源、IMU 和回环能力。' : 'Explore panoramic poses, trajectories and maps; check scale sources, inertial requirements and loop closure.';
+    if (state.lang === 'zh') return category.description;
+    return ({all:'Browse methods across camera models and compare projection assumptions, interfaces and reproduction requirements.',panoramic:'Explore 360° depth and spatial perception based on spherical geometry and equirectangular projection.',fisheye:'Check fisheye imaging, distortion models, native support and reproducible model interfaces.',wide:'Explore wide-FOV and cross-camera methods; distinguish field-of-view coverage from native projection support.',perspective:'Perspective baselines and foundation models provide useful controls for panoramic experiments.',multi:'Compare physical multi-camera inputs, extrinsic calibration, fusion and robot integration requirements.'})[category.id];
+  }
+
   function render() {
+    applyLanguage();
     filtered = getFiltered();
     const category = categoryMap.get(state.category);
     const collectionRecords = records.filter(record => record.collection === state.collection);
     $('depth-count').textContent = String(records.filter(record => record.collection === 'depth').length);
     $('slam-count').textContent = String(records.filter(record => record.collection === 'slam').length);
     $('source-count').textContent = String(records.length);
-    $('updated-date').textContent = catalog.updated || '待更新';
+    $('updated-date').textContent = catalog.updated || t('updatePending');
     document.querySelectorAll('[data-collection]').forEach(button => {
       const active = button.dataset.collection === state.collection;
       button.classList.toggle('active', active);
       button.setAttribute('aria-selected', String(active));
       button.tabIndex = active ? 0 : -1;
     });
-    $('collection-kicker').textContent = state.collection === 'depth' ? 'DEPTH COLLECTION' : 'SLAM & ODOMETRY COLLECTION';
-    $('category-title').replaceChildren(document.createTextNode(category.id === 'all' ? category[state.collection] : category.title), el('span', '', category.id === 'all' ? '全部文献' : category[state.collection]));
-    $('category-description').textContent = state.collection === 'slam' && category.id === 'panoramic' ? '关注全景视觉的位姿、轨迹与地图，核查尺度来源、IMU 和回环能力。' : category.description;
+    $('collection-kicker').textContent = t(state.collection === 'depth' ? 'collectionDepth' : 'collectionSlam');
+    $('category-title').textContent = category.id === 'all' ? t(state.collection) : cameraLabels[category.id];
+    $('category-description').textContent = categoryDescription(category);
     $('category-nav').replaceChildren(...categories.map(item => {
       const count = collectionRecords.filter(record => item.id === 'all' || cameras(record).includes(item.id)).length;
       const button = el('button', `category-button${item.id === state.category ? ' active' : ''}`);
       button.type = 'button';
       button.dataset.category = item.id;
       button.setAttribute('aria-current', item.id === state.category ? 'true' : 'false');
-      const label = el('span', 'category-label', item.title);
-      label.append(el('small', '', item.zh));
+      const label = el('span', 'category-label', cameraLabels[item.id]);
+      if (item.id === 'panoramic') label.append(el('small', '', '360°'));
+      if (item.id === 'perspective') label.append(el('small', '', state.lang === 'zh' ? '对照基线' : 'Reference baselines'));
+      label.dataset.focus = t('focus');
       button.append(el('span', 'category-icon', item.icon), label, el('span', 'category-count', count));
       button.addEventListener('click', () => setFilter('category', item.id));
       return button;
     }));
     const years = [...new Set(collectionRecords.map(record => String(record.year)).filter(year => /^\d{4}$/.test(year)))].sort().reverse();
     if (state.year !== 'all' && !years.includes(state.year)) years.push(state.year);
-    $('year-filter').replaceChildren(new Option('全部年份', 'all'), ...years.map(year => new Option(year, year)));
+    $('year-filter').replaceChildren(new Option(t('allYears'), 'all'), ...years.map(year => new Option(year, year)));
     $('year-filter').value = state.year;
     $('scale-filter').value = state.scale;
     $('code-filter').value = state.code;
@@ -162,10 +279,10 @@
     $('favorites-filter').setAttribute('aria-pressed', String(state.favorites));
     $('favorites-count').textContent = String(favorites.size);
     $('result-count').textContent = String(filtered.length);
-    $('result-description').textContent = `集合共 ${collectionRecords.length} 篇`;
+    $('result-description').textContent = t('resultTotal', collectionRecords.length);
     document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === state.view)));
     const activeCount = Number(state.category !== 'all') + Number(Boolean(state.q)) + Number(state.year !== 'all') + Number(state.scale !== 'all') + Number(state.code !== 'all') + Number(state.favorites);
-    $('mobile-filter-count').textContent = `${activeCount} 项已选`;
+    $('mobile-filter-count').textContent = t('selected', activeCount);
     renderFilterChips();
     const container = $('results');
     container.className = state.view === 'cards' ? 'results-grid' : 'results-table-wrap';
@@ -174,8 +291,8 @@
     container.setAttribute('aria-busy', 'false');
     $('empty-state').hidden = Boolean(filtered.length);
     if (!records.length) {
-      $('empty-state').querySelector('h3').textContent = '文献数据尚未载入';
-      $('empty-state').querySelector('p').textContent = '请检查 data/catalog.js 是否存在并正确加载，然后刷新页面。';
+      $('empty-state').querySelector('h3').textContent = t('missingData');
+      $('empty-state').querySelector('p').textContent = t('missingDataTip');
     }
     renderCompareBar();
     persist();
@@ -186,16 +303,16 @@
     const chip = (key, label, empty) => {
       const button = el('button', 'filter-chip');
       button.type = 'button';
-      button.setAttribute('aria-label', `移除筛选：${label}`);
+      button.setAttribute('aria-label', t('removeFilter', label));
       button.append(el('span', '', label), el('span', '', '×'));
       button.addEventListener('click', () => setFilter(key, empty));
       chips.push(button);
     };
-    if (state.q) chip('q', `关键词：${state.q}`, '');
+    if (state.q) chip('q', t('keyword', state.q), '');
     if (state.year !== 'all') chip('year', state.year, 'all');
     if (state.scale !== 'all') chip('scale', scales[state.scale], 'all');
     if (state.code !== 'all') chip('code', codes[state.code], 'all');
-    if (state.favorites) chip('favorites', '我的阅读收藏', false);
+    if (state.favorites) chip('favorites', t('favorites'), false);
     $('active-filters').replaceChildren(...chips);
   }
 
@@ -205,7 +322,7 @@
     const validUrl = safeUrl(url);
     const node = el(validUrl ? 'a' : 'span', `${className}${validUrl ? '' : ' unavailable'}`, label);
     if (validUrl) { node.href = validUrl; node.target = '_blank'; node.rel = 'noopener noreferrer'; }
-    else { node.setAttribute('aria-disabled', 'true'); node.title = '尚未核实公开链接'; }
+    else { node.setAttribute('aria-disabled', 'true'); node.title = t('missingLink'); }
     return node;
   }
 
@@ -214,8 +331,8 @@
     button.type = 'button';
     button.dataset.favoriteId = String(record.id);
     button.setAttribute('aria-pressed', String(favorites.has(String(record.id))));
-    button.setAttribute('aria-label', `${favorites.has(String(record.id)) ? '取消收藏' : '收藏'} ${methodName(record)}`);
-    button.title = '本机阅读收藏';
+    button.setAttribute('aria-label', `${t(favorites.has(String(record.id)) ? 'removeFavorite' : 'addFavorite')} ${methodName(record)}`);
+    button.title = t('localFavorites');
     button.addEventListener('click', () => toggleFavorite(record));
     return button;
   }
@@ -232,7 +349,7 @@
         const active = favorites.has(id);
         button.textContent = active ? '★' : '☆';
         button.setAttribute('aria-pressed', String(active));
-        button.setAttribute('aria-label', `${active ? '取消收藏' : '收藏'} ${methodName(record)}`);
+        button.setAttribute('aria-label', `${t(active ? 'removeFavorite' : 'addFavorite')} ${methodName(record)}`);
       });
     }
     if (currentDetailId === id && $('detail-dialog').open) updateDetailActions(record);
@@ -244,44 +361,43 @@
     input.type = 'checkbox';
     input.checked = selected.has(String(record.id));
     input.dataset.compareId = String(record.id);
-    input.setAttribute('aria-label', `比较 ${methodName(record)}`);
+    input.setAttribute('aria-label', t('compareMethod', methodName(record)));
     input.addEventListener('change', () => toggleCompare(record));
-    label.append(input, document.createTextNode('对比'));
+    label.append(input, document.createTextNode(t('compare')));
     return label;
   }
 
   function renderCard(record) {
+    const display = localizedRecord(record);
     const article = el('article', `paper-card${selected.has(String(record.id)) ? ' selected' : ''}`);
     article.dataset.recordId = String(record.id);
     const art = el('div', 'card-art');
-    art.append(makeArt(record), makeFavorite(record, 'favorite-button'));
-    const caption = el('div', 'art-caption');
-    caption.append(el('span', '', record.collection === 'slam' ? 'POSE · TRAJECTORY · MAPPING' : cameras(record).includes('panoramic') ? 'SPHERICAL DEPTH GEOMETRY' : cameras(record).includes('fisheye') ? 'FISHEYE DEPTH GEOMETRY' : 'CAMERA DEPTH GEOMETRY'), el('span', '', '几何示意'));
-    art.append(caption);
+    if (window.AtlasFigures) art.append(window.AtlasFigures.card(record, state.lang));
+    art.append(makeFavorite(record, 'favorite-button'));
     const body = el('div', 'card-body');
     const meta = el('div', 'card-meta');
-    meta.append(el('span', 'year-badge', record.year || '—'), el('span', 'venue-label', record.venue || 'Venue 待核实'));
+    meta.append(el('span', 'year-badge', record.year || '—'), el('span', 'venue-label', record.venue || t('venuePending')));
     const title = el('button', 'paper-title-button', methodName(record));
     title.type = 'button';
     title.addEventListener('click', () => openRecord(record.id));
     const titleHeading = el('h3', 'card-heading');
     titleHeading.append(title);
-    body.append(meta, titleHeading, el('p', 'paper-full-title', record.title || record.name), el('p', 'card-summary', record.summary || '查看论文详情、输入输出与证据链接。'));
+    body.append(meta, titleHeading, el('p', 'paper-full-title', record.title || record.name), el('p', 'card-summary', display.summary || t('summaryFallback')));
     const badges = el('div', 'badge-row');
     const cameraTags = cameras(record).slice(0, 2).map(camera => badge(cameraLabels[camera] || camera));
     badges.append(...cameraTags, badge(shortScales[scaleValue(record)], `scale-${scaleValue(record)}`));
-    if (record.depthType && !['none', 'unknown'].includes(record.depthType)) badges.append(badge(({ range: 'Range', z: 'Z-depth', inverse: 'Inverse', points: '3D points', mixed: 'Mixed depth' })[record.depthType] || record.depthType, 'depth-badge'));
+    if (record.depthType && !['none', 'unknown'].includes(record.depthType)) badges.append(badge(depthTypes[record.depthType] || record.depthType, 'depth-badge'));
     body.append(badges);
     const footer = el('div', 'card-footer');
     const links = el('div', 'card-links');
-    const codeLabel = codeStatus(record) === 'none' ? 'Repo ↗' : codeStatus(record) === 'unverified' ? 'Source ↗' : 'Code ↗';
-    links.append(sourceLink('Paper ↗', record.paperUrl), sourceLink(codeLabel, record.codeUrl));
+    const codeLabel = t(codeStatus(record) === 'none' ? 'repo' : codeStatus(record) === 'unverified' ? 'source' : 'codeLink') + ' ↗';
+    links.append(sourceLink(t('paper') + ' ↗', record.paperUrl), sourceLink(codeLabel, record.codeUrl));
     footer.append(links, compareCheckbox(record));
     body.append(footer);
     const status = el('div', 'code-status');
     const statusText = el('span');
     statusText.append(el('i', `status-dot ${codeStatus(record)}`), document.createTextNode(codes[codeStatus(record)]));
-    const details = el('button', 'card-detail-trigger', '方法详情 ↗');
+    const details = el('button', 'card-detail-trigger', t('details'));
     details.type = 'button';
     details.addEventListener('click', () => openRecord(record.id));
     status.append(statusText, details);
@@ -289,69 +405,11 @@
     return article;
   }
 
-  function makeArt(record) {
-    const ns = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(ns, 'svg');
-    svg.setAttribute('viewBox', '0 0 300 130');
-    svg.setAttribute('aria-hidden', 'true');
-    const seed = [...String(record.id)].reduce((value, char) => value + char.charCodeAt(0), 0);
-    const variant = seed % 4;
-    const stroke = ['#4e8c87', '#668c9a', '#7c9875', '#6e8d9f'][variant];
-    const bg = ['#e8eee5', '#e7efed', '#e9eee1', '#e8edef'][variant];
-    const add = (tag, attrs, parent = svg) => {
-      const node = document.createElementNS(ns, tag);
-      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
-      parent.append(node); return node;
-    };
-    add('rect', { width: 300, height: 130, fill: bg });
-    for (let i = 0; i < 8; i += 1) add('path', { d: `M${-50 + i * 52} 130 150 20 ${350 - i * 24} 130`, fill: 'none', stroke, 'stroke-width': .5, opacity: .11 });
-    add('ellipse', { cx: 150, cy: 111, rx: 84, ry: 9, fill: stroke, opacity: .07 });
-    if (record.collection === 'slam') {
-      const points = [[66, 87], [99, 71], [125, 75], [158, 55], [190, 65], [222, 35]];
-      add('path', { d: 'M42 101 73 39 146 24 244 40 265 95Z', fill: 'none', stroke, 'stroke-width': .7, 'stroke-dasharray': '2 4', opacity: .35 });
-      add('path', { d: points.map((point, index) => `${index ? 'L' : 'M'}${point.join(' ')}`).join(' '), fill: 'none', stroke, 'stroke-width': 2, 'stroke-linejoin': 'round' });
-      add('path', { d: 'M66 87Q155 122 222 35', fill: 'none', stroke: '#bc9a58', 'stroke-width': .9, 'stroke-dasharray': '3 4' });
-      points.forEach(([x, y], index) => {
-        add('path', { d: `m${x - 8} ${y - 12} 16 0 -8 14Z`, fill: '#f8fbf4', stroke, 'stroke-width': .8 });
-        add('circle', { cx: x, cy: y, r: index === points.length - 1 ? 3.5 : 2.2, fill: index === points.length - 1 ? '#b88a45' : stroke });
-      });
-      [[81, 40], [112, 29], [162, 33], [202, 21], [251, 65], [141, 106], [231, 104]].forEach(([x, y]) => add('circle', { cx: x, cy: y, r: 1.5, fill: stroke, opacity: .45 }));
-    } else if (cameras(record).includes('panoramic')) {
-      add('path', { d: 'm57 47 69-12 67 2 48 16-8 41-57 13-65-4-60-16Z', fill: stroke, opacity: .045 });
-      add('ellipse', { cx: 150, cy: 65, rx: 83, ry: 40, fill: '#f6f9f0', stroke, 'stroke-width': 1 });
-      for (const ry of [13, 28]) add('ellipse', { cx: 150, cy: 65, rx: 83, ry, fill: 'none', stroke, 'stroke-width': .6, opacity: .6 });
-      for (const rx of [30, 59]) add('ellipse', { cx: 150, cy: 65, rx, ry: 40, fill: 'none', stroke, 'stroke-width': .65, opacity: .7 });
-      add('path', { d: 'M67 65h166M150 25v80', fill: 'none', stroke, 'stroke-width': .7, opacity: .8 });
-      add('path', { d: 'm72 77 24-10 22 13 23-24 26 19 21-13 36 19', fill: 'none', stroke, 'stroke-width': 1.8, opacity: .65 });
-      add('path', { d: 'M54 64c0-34 192-34 192 0', fill: 'none', stroke: '#ba9656', 'stroke-width': .8, 'stroke-dasharray': '3 3' });
-      add('path', { d: 'm242 60 4 4 3-4', fill: 'none', stroke: '#ba9656', 'stroke-width': .9 });
-      add('circle', { cx: 150, cy: 65, r: 3, fill: '#b58b4d', stroke: '#fffef5', 'stroke-width': 1.5 });
-    } else if (cameras(record).includes('fisheye')) {
-      add('circle', { cx: 150, cy: 64, r: 45, fill: '#f5f9f1', stroke, 'stroke-width': 1 });
-      for (const rx of [15, 31]) add('ellipse', { cx: 150, cy: 64, rx, ry: 45, fill: 'none', stroke, 'stroke-width': .6, opacity: .65 });
-      for (const ry of [15, 31]) add('ellipse', { cx: 150, cy: 64, rx: 45, ry, fill: 'none', stroke, 'stroke-width': .6, opacity: .65 });
-      add('path', { d: 'm111 84 20-14 15 8 19-27 18 21', fill: 'none', stroke, 'stroke-width': 1.7 });
-      add('path', { d: 'M84 65a66 48 0 0 1 132 0', fill: 'none', stroke: '#b99860', 'stroke-width': .8, 'stroke-dasharray': '3 3' });
-      add('circle', { cx: 150, cy: 64, r: 3, fill: '#b68d4d', stroke: '#fffef5', 'stroke-width': 1.5 });
-      add('path', { d: 'm67 83 38-19M233 83l-38-19', stroke, 'stroke-width': .7, opacity: .5 });
-    } else {
-      add('path', { d: 'm110 69 77-43 50 21v49l-50 14Z', fill: '#f6f9f1', stroke, 'stroke-width': .8 });
-      for (let i = 1; i < 5; i += 1) add('path', { d: `M${187 + i * 10} ${26 + i * 4.2}v64M${187} ${26 + i * 16}l50 ${21 - i * 1.4}`, stroke, fill: 'none', opacity: .4, 'stroke-width': .6 });
-      add('path', { d: 'm112 69 75 41V26Z', fill: stroke, opacity: .05 });
-      add('rect', { x: 74, y: 56, width: 31, height: 25, rx: 4, fill: stroke, opacity: .85 });
-      add('path', { d: 'm105 62 12-6v25l-12-6', fill: stroke, opacity: .85 });
-      add('circle', { cx: 85, cy: 68, r: 7, fill: '#f4f8ed' });
-      add('circle', { cx: 85, cy: 68, r: 3.5, fill: stroke });
-    }
-    add('path', { d: 'M16 15h11M16 15v10M284 105h-11M284 105V95', fill: 'none', stroke, 'stroke-width': .7, opacity: .4 });
-    return svg;
-  }
-
   function renderTable(items) {
     const table = el('table', 'results-table');
     const thead = el('thead');
     const headRow = el('tr');
-    ['方法 / Method', '年份', '相机', '尺度 / 深度', '代码', '阅读 / 对比'].forEach(label => { const th = el('th', '', label); th.scope = 'col'; headRow.append(th); });
+    ['method', 'year', 'camera', 'scaleDepth', 'code', 'readingCompare'].map(key => t(key)).forEach(label => { const th = el('th', '', label); th.scope = 'col'; headRow.append(th); });
     thead.append(headRow);
     const tbody = el('tbody');
     items.forEach(record => {
@@ -361,7 +419,7 @@
       const button = el('button', 'table-title', methodName(record));
       button.type = 'button'; button.addEventListener('click', () => openRecord(record.id));
       nameCell.append(button, el('span', 'table-subtitle', record.title));
-      const scaleCell = el('td'); scaleCell.append(badge(shortScales[scaleValue(record)], `scale-${scaleValue(record)}`), el('span', 'table-subtitle', depthTypes[record.depthType] || '待核实'));
+      const scaleCell = el('td'); scaleCell.append(badge(shortScales[scaleValue(record)], `scale-${scaleValue(record)}`), el('span', 'table-subtitle', depthTypes[record.depthType] || t('unknown')));
       const codeCell = el('td'); codeCell.append(sourceLink(codes[codeStatus(record)] + (safeUrl(record.codeUrl) ? ' ↗' : ''), record.codeUrl));
       const actionsCell = el('td'); const actions = el('div', 'table-actions'); actions.append(makeFavorite(record, 'table-favorite'), compareCheckbox(record)); actionsCell.append(actions);
       row.append(nameCell, el('td', 'table-year', record.year || '—'), el('td', '', cameras(record).map(camera => cameraLabels[camera] || camera).join(' · ')), scaleCell, codeCell, actionsCell);
@@ -375,7 +433,7 @@
     const id = String(record.id);
     if (selected.has(id)) selected.delete(id);
     else if (selected.size < 4) selected.add(id);
-    else toast('最多同时比较 4 个方法，请先取消一个已选方法。');
+    else toast(t('limitCompare'));
     document.querySelectorAll('[data-compare-id]').forEach(input => { input.checked = selected.has(input.dataset.compareId); });
     document.querySelectorAll('[data-record-id]').forEach(node => node.classList.toggle('selected', selected.has(node.dataset.recordId)));
     renderCompareBar();
@@ -406,89 +464,92 @@
 
   function closeDialog(id) { $(id).close(); }
 
-  function detailSection(title, label, value, fallback = '待核实') {
+  function detailSection(title, label, value, fallback = t('unknown')) {
     const section = el('section', 'detail-section');
-    const heading = el('h3', '', title); heading.append(el('span', '', label)); section.append(heading);
+    const heading = el('h3', '', title); section.append(heading);
     if (value && typeof value === 'object' && !Array.isArray(value) && Object.keys(value).length) {
       const dl = el('dl');
-      Object.entries(value).forEach(([key, item]) => dl.append(el('dt', '', key), el('dd', isUnknown(item) ? 'unknown-value' : '', text(item))));
+      Object.entries(value).forEach(([key, item]) => dl.append(el('dt', '', fieldLabel(key)), el('dd', isUnknown(item) ? 'unknown-value' : '', text(item))));
       section.append(dl);
     } else section.append(el('p', isUnknown(value) ? 'unknown-value' : '', isUnknown(value) ? fallback : text(value)));
     return section;
   }
 
   function openRecord(id) {
-    const record = byId.get(String(id));
-    if (!record) return;
+    const original = byId.get(String(id));
+    if (!original) return;
+    const record = localizedRecord(original);
     currentDetailId = String(id);
     const header = el('div', 'dialog-header');
     const heading = el('div');
-    heading.append(el('div', 'eyebrow', `${record.collection === 'slam' ? 'SLAM & ODOMETRY' : 'DEPTH ESTIMATION'} / ${record.year || 'YEAR UNKNOWN'}`));
+    heading.append(el('div', 'eyebrow', `${t(record.collection === 'slam' ? 'slam' : 'depth')} / ${record.year || t('unknown')}`));
     const title = el('h2', '', methodName(record)); title.id = 'detail-title';
     heading.append(title, el('p', '', record.title || record.name));
-    const close = el('button', 'dialog-close', '×'); close.type = 'button'; close.setAttribute('aria-label', '关闭文献详情'); close.addEventListener('click', () => closeDialog('detail-dialog'));
+    const close = el('button', 'dialog-close', '×'); close.type = 'button'; close.setAttribute('aria-label', t('closeDetail')); close.addEventListener('click', () => closeDialog('detail-dialog'));
     header.append(heading, close);
     const body = el('div', 'dialog-body');
     const meta = el('div', 'detail-meta');
-    meta.append(...cameras(record).map(camera => badge(cameraLabels[camera] || camera)), badge(scales[scaleValue(record)], `scale-${scaleValue(record)}`), badge(depthTypes[record.depthType] || '深度定义待核实', 'depth-badge'), badge(record.venue || 'Venue 待核实'));
-    body.append(meta, el('p', 'detail-summary', record.summary || '暂无研究摘要。'));
+    meta.append(...cameras(record).map(camera => badge(cameraLabels[camera] || camera)), badge(scales[scaleValue(record)], `scale-${scaleValue(record)}`), badge(depthTypes[record.depthType] || t('unknown'), 'depth-badge'), badge(record.venue || t('venuePending')));
+    body.append(meta, el('p', 'detail-summary', record.summary || t('summaryPending')));
+    if (window.AtlasFigures) body.append(window.AtlasFigures.detail(original, state.lang));
     const sources = el('div', 'detail-sources');
-    const releaseLabel = ['none', 'unverified'].includes(codeStatus(record)) ? '发布入口 / Repository' : '源码 / Code';
-    [['论文 / Paper', record.paperUrl], [releaseLabel, record.codeUrl], ['项目 / Project', record.projectUrl], ['权重 / Weights', record.weightsUrl]].forEach(([label, url]) => sources.append(sourceLink(label + (safeUrl(url) ? ' ↗' : ''), url, 'source-link')));
+    const releaseLabel = t(['none', 'unverified'].includes(codeStatus(record)) ? 'source' : 'codeLink');
+    [[t('paper'), record.paperUrl], [releaseLabel, record.codeUrl], [t('project'), record.projectUrl], [t('weights'), record.weightsUrl]].forEach(([label, url]) => sources.append(sourceLink(label + (safeUrl(url) ? ' ↗' : ''), url, 'source-link')));
     body.append(sources);
     const io = el('div', 'detail-two-column');
-    const input = detailSection('模型输入', 'INPUT', record.inputSummary, '输入摘要待核实');
+    const input = detailSection(t('input'), '', record.inputSummary, t('inputPending'));
     if (record.inputs && typeof record.inputs === 'object' && Object.keys(record.inputs).length) appendFields(input, record.inputs);
-    const output = detailSection('模型输出', 'OUTPUT', record.outputSummary, '输出摘要待核实');
+    const output = detailSection(t('output'), '', record.outputSummary, t('outputPending'));
     if (record.outputDetails && typeof record.outputDetails === 'object' && Object.keys(record.outputDetails).length) appendFields(output, record.outputDetails);
-    else if (asList(record.outputs).length) output.append(el('p', '', `输出项：${text(record.outputs)}`));
+    else if (state.lang === 'en' && asList(record.outputs).length) output.append(el('p', '', `${t('outputItems')}: ${text(record.outputs)}`));
     io.append(input, output); body.append(io);
     const system = {
-      '尺度来源 / 条件': record.scaleNote || record.metricStatus || '待核实',
-      '深度定义': depthTypes[record.depthType] || record.depthType || '待核实',
-      '位姿输出': record.pose === true ? '是' : record.pose === false ? '否' : '待核实',
-      '原生全景支持': record.nativePanoramic === true ? '是' : record.nativePanoramic === false ? '否；参见输入假设' : '待核实',
-      '方法族': record.family || '待核实',
-      '代码状态': codes[codeStatus(record)],
-      '许可': record.license || '待核实',
-      '验证范围': record.verificationLevel || '来源证据整理；未在本机运行模型',
-      '来源核查日期': record.sourceChecked || catalog.updated || '待核实'
+      [t('scaleCondition')]: record.scaleNote || record.metricStatus || t('unknown'),
+      [t('depthDefinition')]: depthTypes[record.depthType] || record.depthType || t('unknown'),
+      [t('pose')]: record.pose === true ? t('yes') : record.pose === false ? t('no') : t('unknown'),
+      [t('native')]: record.nativePanoramic === true ? t('yes') : record.nativePanoramic === false ? t('noNative') : t('unknown'),
+      [t('family')]: record.family || t('unknown'),
+      [t('code')]: codes[codeStatus(record)],
+      [t('license')]: record.license || t('unknown'),
+      [t('verification')]: record.verificationLevel || t('sourceReview'),
+      [t('verifiedDate')]: record.sourceChecked || catalog.updated || t('unknown')
     };
-    if (record.metricStatus && record.scaleNote && record.metricStatus !== record.scaleNote) system['尺度详细状态'] = record.metricStatus;
-    if (record.collection === 'slam' || record.imu !== undefined) system['IMU / 惯性信息'] = record.imu ?? '待核实';
-    if (record.collection === 'slam' || record.loopClosure !== undefined) system['回环检测'] = record.loopClosure ?? '待核实';
-    body.append(detailSection('几何、尺度与复现条件', 'RESEARCH CHECKS', system));
-    body.append(detailSection('源码入口与环境', 'REPRODUCTION', { '源码入口': record.codeEntry ?? '待核实', '运行环境': record.environment ?? '待核实' }));
-    if (asList(record.authors).length || asList(record.institutions).length) body.append(detailSection('论文信息', 'PUBLICATION', { '作者': text(record.authors), '机构': text(record.institutions), '发表信息': record.venue || '待核实', '展示年份': record.year, '原始记录年份': record.firstYear ?? record.year, '年份口径': record.yearConvention || '见发表与版本说明' }));
+    if (record.metricStatus && record.scaleNote && record.metricStatus !== record.scaleNote) system[t('metricDetail')] = record.metricStatus;
+    if (record.collection === 'slam' || record.imu !== undefined) system[t('imu')] = record.imu ?? t('unknown');
+    if (record.collection === 'slam' || record.loopClosure !== undefined) system[t('loops')] = record.loopClosure ?? t('unknown');
+    body.append(detailSection(t('system'), '', system));
+    body.append(detailSection(t('reproduction'), '', { [t('entry')]: record.codeEntry ?? t('unknown'), [t('environment')]: record.environment ?? t('unknown') }));
+    if (asList(record.authors).length || asList(record.institutions).length) body.append(detailSection(t('publication'), '', { [t('authors')]: text(record.authors), [t('institutions')]: text(record.institutions), [t('venue')]: record.venue || t('unknown'), [t('displayYear')]: record.year, [t('originalYear')]: record.firstYear ?? record.year, [t('yearRule')]: t('yearConvention') }));
     if (asList(record.notes).length) {
-      const notes = detailSection('研究笔记与未知项', 'NOTES', null);
+      const notes = detailSection(t('notes'), '', null);
       notes.querySelector('p').remove();
       const list = el('ul'); asList(record.notes).forEach(note => list.append(el('li', '', text(note)))); notes.append(list); body.append(notes);
     }
-    if (asList(record.tags).length) body.append(detailSection('检索关键词', 'TAGS', asList(record.tags).join(' · ')));
-    const evidence = detailSection('证据与来源', 'EVIDENCE', null);
+    if (asList(record.tags).length) body.append(detailSection(t('tags'), '', asList(record.tags).join(' · ')));
+    const evidence = detailSection(t('evidence'), '', null);
     evidence.querySelector('p').remove();
     const list = el('ol', 'evidence-list');
-    asList(record.evidence).forEach(item => {
+    asList(record.evidence).forEach((item, index) => {
       const li = el('li');
       if (typeof item === 'string') {
-        if (safeUrl(item)) li.append(sourceLink(item, item, 'evidence-link'));
-        else li.textContent = item;
+        if (safeUrl(item)) li.append(sourceLink(state.lang === 'zh' ? t('sourceNumber', index + 1) + ' ↗' : item, item, 'evidence-link'));
+        else if (state.lang === 'en') li.textContent = item;
+        else return;
       } else if (item && typeof item === 'object') {
         const url = item.url || item.sourceUrl || item.link || (safeUrl(item.source) ? item.source : null);
-        const claim = item.claim || item.title || item.label || item.field || item.description || item.note || '原始来源';
+        const claim = state.lang === 'zh' ? t('sourceNumber', index + 1) : item.claim || item.title || item.label || item.field || item.description || item.note || t('originalSource');
         li.append(sourceLink(text(claim) + (safeUrl(url) ? ' ↗' : ''), url, 'evidence-link'));
         const description = item.quote || item.note || item.detail || item.excerpt || (item.description !== claim ? item.description : null);
-        if (description) li.append(el('span', 'evidence-description', text(description)));
-        if (item.checked || item.accessed || item.verifiedAt) li.append(el('span', 'evidence-description', `核查日期：${text(item.checked || item.accessed || item.verifiedAt)}`));
+        if (description && state.lang === 'en') li.append(el('span', 'evidence-description', text(description)));
+        if (item.checked || item.accessed || item.verifiedAt) li.append(el('span', 'evidence-description', `${t('checked')}: ${text(item.checked || item.accessed || item.verifiedAt)}`));
       }
       list.append(li);
     });
     if (list.children.length) evidence.append(list);
-    else evidence.append(el('p', 'unknown-value', '逐项证据待补充。请先查看上方论文与官方源码链接。'));
+    else evidence.append(el('p', 'unknown-value', t('evidencePending')));
     body.append(evidence);
     const bottom = el('div', 'detail-bottom');
-    bottom.append(el('span', '', '输入形状、单位及支持范围以对应版本的原文与官方实现为准。'), el('div'));
+    bottom.append(el('span', '', t('detailNote')), el('div'));
     bottom.lastElementChild.id = 'detail-actions';
     body.append(bottom);
     $('detail-content').replaceChildren(header, body);
@@ -498,54 +559,54 @@
 
   function appendFields(section, fields) {
     const dl = el('dl');
-    Object.entries(fields).forEach(([key, item]) => dl.append(el('dt', '', key), el('dd', isUnknown(item) ? 'unknown-value' : '', text(item))));
+    Object.entries(fields).forEach(([key, item]) => dl.append(el('dt', '', fieldLabel(key)), el('dd', isUnknown(item) ? 'unknown-value' : '', text(item))));
     section.append(dl);
   }
 
   function updateDetailActions(record) {
     const actions = $('detail-actions');
     if (!actions || !record) return;
-    const favorite = el('button', 'button button-secondary', favorites.has(String(record.id)) ? '★ 已收藏' : '☆ 加入阅读收藏');
+    const favorite = el('button', 'button button-secondary', t(favorites.has(String(record.id)) ? 'saved' : 'saveReading'));
     favorite.type = 'button'; favorite.setAttribute('aria-pressed', String(favorites.has(String(record.id)))); favorite.addEventListener('click', () => toggleFavorite(record));
-    const compare = el('button', 'button button-primary', selected.has(String(record.id)) ? '✓ 已加入对比' : '+ 加入对比');
+    const compare = el('button', 'button button-primary', t(selected.has(String(record.id)) ? 'compared' : 'addCompare'));
     compare.type = 'button'; compare.setAttribute('aria-pressed', String(selected.has(String(record.id)))); compare.addEventListener('click', () => toggleCompare(record));
     actions.replaceChildren(favorite, compare);
   }
 
   function openCompare() {
     if (!selected.size) return;
-    const items = [...selected].map(id => byId.get(id));
+    const items = [...selected].map(id => localizedRecord(byId.get(id)));
     const table = el('table', 'compare-table');
-    const thead = el('thead'); const top = el('tr'); top.append(el('th', '', 'METHOD'));
+    const thead = el('thead'); const top = el('tr'); top.append(el('th', '', t('method')));
     items.forEach(record => top.append(el('th', '', methodName(record)))); thead.append(top);
     const tbody = el('tbody');
     const rows = [
-      ['年份 / 发表', record => `${record.year || '待核实'} · ${record.venue || '待核实'}`],
-      ['相机模型', record => cameras(record).map(camera => cameraLabels[camera] || camera).join(' · ')],
-      ['模型输入', record => record.inputSummary || '待核实'],
-      ['输入规格', record => text(record.inputs)],
-      ['模型输出', record => record.outputSummary || text(record.outputs)],
-      ['输出规格', record => text(record.outputDetails)],
-      ['尺度', record => `${scales[scaleValue(record)]}\n${text(record.scaleNote || record.metricStatus || '尺度条件待核实')}`],
-      ['深度定义', record => depthTypes[record.depthType] || '待核实'],
-      ['原生全景', record => record.nativePanoramic === true ? '是' : record.nativePanoramic === false ? '否' : '待核实'],
-      ['位姿输出', record => record.pose === true ? '是' : record.pose === false ? '否' : '待核实'],
-      ['方法族', record => record.family || '待核实'],
-      ['IMU', record => text(record.imu)],
-      ['回环', record => text(record.loopClosure)],
-      ['代码 / 许可', record => `${codes[codeStatus(record)]}\n${text(record.license || '许可待核实')}`],
-      ['验证范围', record => record.verificationLevel || '来源证据整理；未在本机运行模型'],
-      ['研究笔记', record => text(record.notes)]
+      [t('yearVenue'), record => `${record.year || t('unknown')} · ${record.venue || t('unknown')}`],
+      [t('camera'), record => cameras(record).map(camera => cameraLabels[camera] || camera).join(' · ')],
+      [t('input'), record => record.inputSummary || t('unknown')],
+      [t('inputSpecs'), record => Object.keys(record.inputs || {}).length ? text(record.inputs) : record.inputSummary || t('unknown')],
+      [t('output'), record => record.outputSummary || text(record.outputs)],
+      [t('outputSpecs'), record => Object.keys(record.outputDetails || {}).length ? text(record.outputDetails) : record.outputSummary || t('unknown')],
+      [t('scale'), record => `${scales[scaleValue(record)]}\n${text(record.scaleNote || record.metricStatus || t('unknown'))}`],
+      [t('depthDefinition'), record => depthTypes[record.depthType] || t('unknown')],
+      [t('native'), record => record.nativePanoramic === true ? t('yes') : record.nativePanoramic === false ? t('no') : t('unknown')],
+      [t('pose'), record => record.pose === true ? t('yes') : record.pose === false ? t('no') : t('unknown')],
+      [t('family'), record => record.family || t('unknown')],
+      [t('imu'), record => text(record.imu)],
+      [t('loops'), record => text(record.loopClosure)],
+      [t('code') + ' / ' + t('license'), record => `${codes[codeStatus(record)]}\n${text(record.license || t('unknown'))}`],
+      [t('verification'), record => record.verificationLevel || t('sourceReview')],
+      [t('notes'), record => text(record.notes)]
     ];
     rows.forEach(([label, getter]) => { const row = el('tr'); const heading = el('th', '', label); heading.scope = 'row'; row.append(heading); items.forEach(record => row.append(el('td', '', text(getter(record))))); tbody.append(row); });
-    const links = el('tr'); links.append(el('th', '', '官方来源'));
-    items.forEach(record => { const cell = el('td'); cell.append(sourceLink('Paper ↗', record.paperUrl, 'compare-link'), sourceLink('Code ↗', record.codeUrl, 'compare-link'), sourceLink('Project ↗', record.projectUrl, 'compare-link')); links.append(cell); });
+    const links = el('tr'); links.append(el('th', '', t('official')));
+    items.forEach(record => { const cell = el('td'); cell.append(sourceLink(t('paper') + ' ↗', record.paperUrl, 'compare-link'), sourceLink(t('codeLink') + ' ↗', record.codeUrl, 'compare-link'), sourceLink(t('project') + ' ↗', record.projectUrl, 'compare-link')); links.append(cell); });
     tbody.append(links); table.append(thead, tbody); $('compare-content').replaceChildren(table);
     showDialog('compare-dialog');
   }
 
   function resetFilters() {
-    state = { ...defaults, collection: state.collection, category: 'all', view: state.view };
+    state = { ...defaults, collection: state.collection, category: 'all', view: state.view, lang: state.lang };
     syncUrl(); persist(); render();
   }
 
@@ -558,18 +619,18 @@
 
   function exportRecords(format) {
     const items = getFiltered();
-    if (!items.length) { toast('当前筛选没有可导出的文献。'); return; }
+    if (!items.length) { toast(t('noExport')); return; }
     let content, type, extension;
     if (format === 'json') {
       content = JSON.stringify({ title: 'Panoramic Depth Atlas', updated: catalog.updated, exported: new Date().toISOString(), filters: state, records: items }, null, 2);
       type = 'application/json;charset=utf-8'; extension = 'json';
     } else if (format === 'csv') {
       const fields = ['id', 'collection', 'name', 'title', 'year', 'venue', 'authors', 'institutions', 'cameras', 'scale', 'scaleNote', 'metricStatus', 'depthType', 'inputSummary', 'outputSummary', 'inputs', 'outputDetails', 'pose', 'nativePanoramic', 'family', 'imu', 'loopClosure', 'codeStatus', 'license', 'paperUrl', 'codeUrl', 'projectUrl', 'weightsUrl', 'verificationLevel', 'sourceChecked', 'evidence', 'notes'];
-      const cell = value => { let string = value === undefined || value === null ? '' : text(value); if (/^[=+\-@\t\r]/.test(string)) string = `'${string}`; return `"${string.replace(/"/g, '""')}"`; };
+      const cell = value => { let string = sourceText(value); if (/^[=+\-@\t\r]/.test(string)) string = `'${string}`; return `"${string.replace(/"/g, '""')}"`; };
       content = '\uFEFF' + [fields.join(','), ...items.map(record => fields.map(field => cell(record[field])).join(','))].join('\r\n');
       type = 'text/csv;charset=utf-8'; extension = 'csv';
     } else if (format === 'bib' || format === 'bibtex') {
-      const escape = value => text(value).replace(/\\/g, '\\textbackslash{}').replace(/[{}]/g, match => `\\${match}`).replace(/[%&#_$]/g, match => `\\${match}`).replace(/\n/g, ' ');
+      const escape = value => sourceText(value).replace(/\\/g, '\\textbackslash{}').replace(/[{}]/g, match => `\\${match}`).replace(/[%&#_$]/g, match => `\\${match}`).replace(/\n/g, ' ');
       content = '% Atlas-generated reading-list draft. Verify authors and publication details before citing.\n\n' + items.map(record => {
         const key = String(record.id).replace(/[^a-zA-Z0-9:_-]/g, '') || 'atlasEntry';
         const authorNames = asList(record.authors).flatMap(author => {
@@ -587,7 +648,7 @@
     link.href = url; link.download = `panoramic-atlas-${state.collection}-${state.category}-${catalog.updated || 'collection'}.${extension}`;
     document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     $('export-menu').hidden = true; $('export-button').setAttribute('aria-expanded', 'false');
-    toast(`已导出 ${items.length} 篇文献 · ${extension.toUpperCase()}`);
+    toast(t('exported', items.length, extension.toUpperCase()));
     return content;
   }
 
@@ -599,6 +660,7 @@
       setFilter('collection', next); $(`tab-${next}`).focus();
     });
   });
+  document.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => setFilter('lang', button.dataset.language)));
   $('search').addEventListener('input', event => setFilter('q', event.target.value, true));
   [['year-filter', 'year'], ['scale-filter', 'scale'], ['code-filter', 'code'], ['sort-select', 'sort']].forEach(([id, key]) => $(id).addEventListener('change', event => setFilter(key, event.target.value)));
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => setFilter('view', button.dataset.view)));
@@ -625,10 +687,10 @@
     if (event.key === '/' && !editing && !document.querySelector('dialog[open]') && !event.ctrlKey && !event.metaKey && !event.altKey) { event.preventDefault(); $('search').focus(); }
     if (event.key === 'Escape' && !$('export-menu').hidden) { $('export-menu').hidden = true; $('export-button').setAttribute('aria-expanded', 'false'); $('export-button').focus(); }
   });
-  window.addEventListener('popstate', () => { state = stateFromUrl(); render(); });
+  window.addEventListener('popstate', () => { state = stateFromUrl(); render(); if (currentDetailId && $('detail-dialog').open) openRecord(currentDetailId); if ($('compare-dialog').open) openCompare(); });
   const repoUrl = safeUrl(catalog.repoUrl);
   if (repoUrl) ['repo-link', 'footer-repo'].forEach(id => { $(id).href = repoUrl; $(id).hidden = false; });
-  window.PanoramicAtlas = Object.freeze({ getState: () => ({ ...state }), getFilteredRecords: () => [...getFiltered()], exportRecords, openRecord, setFilter, getSelectedIds: () => [...selected] });
+  window.PanoramicAtlas = Object.freeze({ getState: () => ({ ...state }), getFilteredRecords: () => [...getFiltered()], exportRecords, openRecord, setFilter, setLanguage: lang => setFilter('lang', lang), getSelectedIds: () => [...selected] });
   render();
   syncUrl(true);
 })();

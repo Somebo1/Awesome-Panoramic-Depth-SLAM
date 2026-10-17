@@ -6,3 +6,4 @@ __pycache__/
 *.token
 .publish-state.json
 tools/import_research.py
+library/

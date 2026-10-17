@@ -1,0 +1,808 @@
+{
+  "openvins2020": {
+    "thumbnail": "assets/papers/openvins2020-thumb.webp",
+    "image": "assets/papers/openvins2020.webp",
+    "paperUrl": "https://pgeneva.com/downloads/papers/Geneva2020ICRA.pdf",
+    "page": 5,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "相机与 IMU 在线标定参数误差及置信界限。",
+      "en": "Camera/IMU online calibration errors and confidence bounds."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2020；2 号图截图。",
+      "en": "Source: paper authors (2020), Figure 2 crop."
+    },
+    "kind": "result",
+    "verified": true,
+    "originalCaption": "Fig. 2: Camera intrinsic projection and distortion along with extrinsic orientation and positions parameters error",
+    "cropBox": [
+      56,
+      55,
+      558,
+      205
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "194e432eda4462dfb831108c62a486ca72becc03c90dc53db81087a04e683a11",
+    "imageSize": [
+      1255,
+      375
+    ]
+  },
+  "orbslam3_2021": {
+    "thumbnail": "assets/papers/orbslam3_2021-thumb.webp",
+    "image": "assets/papers/orbslam3_2021.webp",
+    "paperUrl": "https://arxiv.org/pdf/2007.11898",
+    "page": 5,
+    "figureLabel": "Figure 1",
+    "caption": {
+      "zh": "跟踪、Atlas 多地图、回环与地图合并的系统组成。",
+      "en": "Tracking, Atlas multi-map management, loop closure and map merging."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2021；1 号图截图。",
+      "en": "Source: paper authors (2021), Figure 1 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 1: Main system components of ORB-SLAM3.",
+    "cropBox": [
+      308,
+      54,
+      561,
+      282
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "4d119517be7565c9651fbf1e36a330d605b7a534d738558858c96feca7b99156",
+    "imageSize": [
+      632,
+      570
+    ]
+  },
+  "d3vo2020": {
+    "thumbnail": "assets/papers/d3vo2020-thumb.webp",
+    "image": "assets/papers/d3vo2020.webp",
+    "paperUrl": "https://arxiv.org/pdf/2003.01060",
+    "page": 1,
+    "figureLabel": "Figure 1",
+    "caption": {
+      "zh": "深度、位姿与不确定性预测接入直接视觉里程计。",
+      "en": "Depth, pose and uncertainty prediction integrated with direct visual odometry."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2020；1 号图截图。",
+      "en": "Source: paper authors (2020), Figure 1 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 1: We propose D3VO – a novel monocular visual odometry (VO) framework",
+    "cropBox": [
+      306,
+      213,
+      561,
+      420
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "e8835fd6acfe90f8731e04eaf1894635af2803033041d9fc43e23a88c6d5700f",
+    "imageSize": [
+      637,
+      517
+    ]
+  },
+  "dbafusion2024": {
+    "thumbnail": "assets/papers/dbafusion2024-thumb.webp",
+    "image": "assets/papers/dbafusion2024.webp",
+    "paperUrl": "https://arxiv.org/pdf/2403.13714",
+    "page": 3,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "zh": "深度束调整的分层优化、边缘化与 GPU/CPU 工作流。",
+      "en": "Hierarchical deep bundle-adjustment optimization, marginalization and GPU/CPU workflow."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2024；3 号图截图。",
+      "en": "Source: paper authors (2024), Figure 3 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 3. Workflow of DBA in the optimization framework, which employs a hierarchical elimination structure.",
+    "cropBox": [
+      311,
+      54,
+      560,
+      187
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "4e173d947088f7e331ebcc105f6a55a04af249427464dd6bd75f86d2df9c497d",
+    "imageSize": [
+      622,
+      332
+    ]
+  },
+  "mast3rslam2025": {
+    "thumbnail": "assets/papers/mast3rslam2025-thumb.webp",
+    "image": "assets/papers/mast3rslam2025.webp",
+    "paperUrl": "https://arxiv.org/pdf/2412.12392",
+    "page": 4,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "zh": "MASt3R 点图匹配、跟踪融合、回环及全局优化。",
+      "en": "MASt3R pointmap matching, tracking/fusion, loop closure and global optimization."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2025；3 号图截图。",
+      "en": "Source: paper authors (2025), Figure 3 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 3. System diagram of MASt3R-SLAM.",
+    "cropBox": [
+      58,
+      67,
+      564,
+      210
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "b3e4adb81aa713bc091a9e9d9a28d96881000f04931f0fea23f3d5c758436760",
+    "imageSize": [
+      1265,
+      357
+    ]
+  },
+  "droidslam2021": {
+    "thumbnail": "assets/papers/droidslam2021-thumb.webp",
+    "image": "assets/papers/droidslam2021.webp",
+    "paperUrl": "https://arxiv.org/pdf/2108.10869",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "循环更新算子结合稠密束调整修正位姿与深度。",
+      "en": "A recurrent update operator with dense bundle adjustment revises pose and depth."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2021；2 号图截图。",
+      "en": "Source: paper authors (2021), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 2: Illustration of the update operator.",
+    "cropBox": [
+      172,
+      65,
+      458,
+      200
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "0e15f20bff5f7ceac468c2899baafc8c114a3018c7a7b213eed7c402e5ccec90",
+    "imageSize": [
+      715,
+      337
+    ]
+  },
+  "codevio2021": {
+    "thumbnail": "assets/papers/codevio2021-thumb.webp",
+    "image": "assets/papers/codevio2021.webp",
+    "paperUrl": "https://arxiv.org/pdf/2012.10133",
+    "page": 2,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "用于深度推断和编码的条件变分自编码器结构。",
+      "en": "Conditional variational autoencoder architecture for depth inference and encoding."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2021；2 号图截图。",
+      "en": "Source: paper authors (2021), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 2: The architecture of the conditional variational auto-encoder (CVAE)",
+    "cropBox": [
+      313,
+      51,
+      561,
+      194
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "57356860f687fc346d7c39b7b8c24eae08a3ab71774d53a732b85b1a3dfdf911",
+    "imageSize": [
+      620,
+      357
+    ]
+  },
+  "splatam2024": {
+    "thumbnail": "assets/papers/splatam2024-thumb.webp",
+    "image": "assets/papers/splatam2024.webp",
+    "paperUrl": "https://spla-tam.github.io/assets/SplaTAM.pdf",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "RGB-D 输入驱动相机跟踪、高斯增密与地图更新。",
+      "en": "RGB-D input drives camera tracking, Gaussian densification and map updates."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2024；2 号图截图。",
+      "en": "Source: paper authors (2024), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 2. Overview of SplaTAM.",
+    "cropBox": [
+      55,
+      66,
+      566,
+      282
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "ef045e06941ecb0be69aa0d8d46cd764bcfa5fdf3ad0c21c80cacdab297db1bb",
+    "imageSize": [
+      1277,
+      540
+    ]
+  },
+  "stella_vslam": {
+    "thumbnail": "assets/papers/stella_vslam-thumb.webp",
+    "image": "assets/papers/stella_vslam.webp",
+    "paperUrl": "https://arxiv.org/pdf/1910.01122",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "其基础 OpenVSLAM 的跟踪、建图和全局优化模块。",
+      "en": "Tracking, mapping and global optimization in the underlying OpenVSLAM system."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2019；2 号图截图。 图来自基础 OpenVSLAM 论文，不代表 stella_vslam 单独发表了论文。",
+      "en": "Source: paper authors (2019), Figure 2 crop. Figure from the underlying OpenVSLAM paper; not a separate stella_vslam publication."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 2: Main modules of OpenVSLAM: tracking, mapping, and global optimization modules.",
+    "cropBox": [
+      50,
+      78,
+      302,
+      217
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "3656563d5fac79c32e25994420707191c29f582cec7af8e7155b1a16d5920239",
+    "imageSize": [
+      630,
+      347
+    ]
+  },
+  "basalt2020": {
+    "thumbnail": "assets/papers/basalt2020-thumb.webp",
+    "image": "assets/papers/basalt2020.webp",
+    "paperUrl": "https://arxiv.org/pdf/1904.06504",
+    "page": 5,
+    "figureLabel": "Figure 4",
+    "caption": {
+      "zh": "视觉惯性子系统的跟踪投影、局部束调整与估计轨迹。",
+      "en": "VIO feature projections, local bundle adjustment and estimated trajectory."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2020；4 号图截图。",
+      "en": "Source: paper authors (2020), Figure 4 crop."
+    },
+    "kind": "result",
+    "verified": true,
+    "originalCaption": "Fig. 4: Visual-inertial odometry subsystem proposed in Section IV.",
+    "cropBox": [
+      49,
+      51,
+      563,
+      166
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "a9d3337eec82737e27adfa73e30dbaeb3c02b2376e615ec12aade76200e4ba73",
+    "imageSize": [
+      1285,
+      287
+    ]
+  },
+  "vinsfusion2019": {
+    "thumbnail": "assets/papers/vinsfusion2019-thumb.webp",
+    "image": "assets/papers/vinsfusion2019.webp",
+    "paperUrl": "https://arxiv.org/pdf/1708.03852",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "基础 VINS-Mono 的初始化、滑窗 VIO、重定位与位姿图。",
+      "en": "Initialization, sliding-window VIO, relocalization and pose graph in underlying VINS-Mono."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2018；2 号图截图。 图来自基础 VINS-Mono 论文，不是 VINS-Fusion 独立论文。",
+      "en": "Source: paper authors (2018), Figure 2 crop. Figure from the underlying VINS-Mono paper, not a dedicated VINS-Fusion publication."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 2. A block diagram illustrating the full pipeline of the proposed monocular visual-inertial state estimator.",
+    "cropBox": [
+      55,
+      53,
+      563,
+      270
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "1f44f92f057cbb05a6570f14d2fe5cae2b9736198a8eeca7c93438adbc38a087",
+    "imageSize": [
+      1270,
+      542
+    ]
+  },
+  "okvis2_2022": {
+    "thumbnail": "assets/papers/okvis2_2022-thumb.webp",
+    "image": "assets/papers/okvis2_2022.webp",
+    "paperUrl": "https://arxiv.org/pdf/2202.09199",
+    "page": 3,
+    "figureLabel": "Figure 1",
+    "caption": {
+      "zh": "前端、实时估计器与全图估计器的视觉惯性流程。",
+      "en": "Visual-inertial frontend, real-time estimator and full-graph estimator."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2022；1 号图截图。",
+      "en": "Source: paper authors (2022), Figure 1 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 1: Overview of OKVIS2",
+    "cropBox": [
+      54,
+      54,
+      297,
+      204
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "d66d18c87f1ceb65bca0435af3e6a66bfc5af9052283c776bffab9aff55a734c",
+    "imageSize": [
+      607,
+      375
+    ]
+  },
+  "okvis2x2025": {
+    "thumbnail": "assets/papers/okvis2x2025-thumb.webp",
+    "image": "assets/papers/okvis2x2025.webp",
+    "paperUrl": "https://arxiv.org/pdf/2510.04612",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "扩展 OKVIS2 的多传感器状态估计和子地图接口。",
+      "en": "Multi-sensor state estimation and submapping extensions to OKVIS2."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2025；2 号图截图。",
+      "en": "Source: paper authors (2025), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 2. System architecture of our proposed multi-sensor state-estimator OKVIS2-X.",
+    "cropBox": [
+      49,
+      54,
+      563,
+      351
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "a44d892f35e9a71f9100d573fdf6439749ea4a6364f478dfbc0d071908dc69eb",
+    "imageSize": [
+      1285,
+      742
+    ]
+  },
+  "svo_pro": {
+    "thumbnail": "assets/papers/svo_pro-thumb.webp",
+    "image": "assets/papers/svo_pro.webp",
+    "paperUrl": "https://rpg.ifi.uzh.ch/docs/TRO17_Forster-SVO.pdf",
+    "page": 3,
+    "figureLabel": "Figure 1",
+    "caption": {
+      "zh": "基础 SVO 的半直接运动估计与深度滤波建图流程。",
+      "en": "Semi-direct motion estimation and depth-filter mapping in the underlying SVO system."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2017；1 号图截图。 图来自官方链接的 SVO 2017 基础论文，不是 SVO Pro 独立论文。",
+      "en": "Source: paper authors (2017), Figure 1 crop. Figure from the officially linked SVO 2017 foundational paper, not a separate SVO Pro paper."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 1: Tracking and mapping pipeline",
+    "cropBox": [
+      58,
+      52,
+      292,
+      291.5
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "5c6033a40cb20686a1fc16baec94c8ca19cfbd6e19f2f1860c87fd6b82b9d9ce",
+    "imageSize": [
+      585,
+      598
+    ]
+  },
+  "dpvo2023": {
+    "thumbnail": "assets/papers/dpvo2023-thumb.webp",
+    "image": "assets/papers/dpvo2023.webp",
+    "paperUrl": "https://arxiv.org/pdf/2208.04726",
+    "page": 5,
+    "figureLabel": "Figure 4",
+    "caption": {
+      "zh": "通过相关特征、消息传递与束调整更新稀疏图块。",
+      "en": "Correlation features, message passing and bundle adjustment update sparse patches."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2023；4 号图截图。",
+      "en": "Source: paper authors (2023), Figure 4 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 4: Schematic of the update operator.",
+    "cropBox": [
+      95,
+      69,
+      500,
+      201
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "c6ac8e33f75b4504a3ba36c4e03b9dbf2fbfdeb507be1431070c501ea210d29c",
+    "imageSize": [
+      1012,
+      330
+    ]
+  },
+  "dpvslam2024": {
+    "thumbnail": "assets/papers/dpvslam2024-thumb.webp",
+    "image": "assets/papers/dpvslam2024.webp",
+    "paperUrl": "https://arxiv.org/pdf/2408.01654",
+    "page": 5,
+    "figureLabel": "Figure 1",
+    "caption": {
+      "zh": "以图块图连接局部束调整、全局束调整和回环。",
+      "en": "A patch graph links local/global bundle adjustment and loop closure."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2024；1 号图截图。",
+      "en": "Source: paper authors (2024), Figure 1 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 1: Overview of DPV-SLAM.",
+    "cropBox": [
+      135,
+      119,
+      477,
+      287
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "d3e810851f1202ca67cff5dca7b4b0e90e5aa50db266735c8e31f6cacbafd8ab",
+    "imageSize": [
+      855,
+      420
+    ]
+  },
+  "omnislam2020": {
+    "thumbnail": "assets/papers/omnislam2020-thumb.webp",
+    "image": "assets/papers/omnislam2020.webp",
+    "paperUrl": "https://arxiv.org/pdf/2003.08056",
+    "page": 2,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "多鱼眼深度估计、视觉里程计、回环与稠密融合。",
+      "en": "Multi-fisheye depth estimation, visual odometry, loop closure and dense fusion."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2020；2 号图截图。",
+      "en": "Source: paper authors (2020), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 2: Flowchart of the proposed system.",
+    "cropBox": [
+      313,
+      48,
+      561,
+      133
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "40dc580ff03855ab526820e8619075e397187060bd5490d10b98883d92ba9307",
+    "imageSize": [
+      620,
+      212
+    ]
+  },
+  "360orbslam2024": {
+    "thumbnail": "assets/papers/360orbslam2024-thumb.webp",
+    "image": "assets/papers/360orbslam2024.webp",
+    "paperUrl": "https://arxiv.org/pdf/2401.10560",
+    "page": 3,
+    "figureLabel": "Figure 4",
+    "caption": {
+      "zh": "从 RGB 和稀疏深度生成稠密深度的补全网络。",
+      "en": "Depth-completion network converting RGB and sparse depth into dense depth."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2024；4 号图截图。",
+      "en": "Source: paper authors (2024), Figure 4 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 4. Deep completion network framework diagram",
+    "cropBox": [
+      48,
+      48,
+      563,
+      209
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "f930fdc7b7ce447eb106b6d7a1617a930c4f20747ef6d136d44954620a6cf9ce",
+    "imageSize": [
+      1287,
+      402
+    ]
+  },
+  "lfvislam2023": {
+    "thumbnail": "assets/papers/lfvislam2023-thumb.webp",
+    "image": "assets/papers/lfvislam2023.webp",
+    "paperUrl": "https://arxiv.org/pdf/2209.05167",
+    "page": 4,
+    "figureLabel": "Figure 4",
+    "caption": {
+      "zh": "大视场 VIO 初始化、跟踪与回环位姿图流程。",
+      "en": "Large-FoV VIO initialization, tracking and loop-closure pose-graph pipeline."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2023；4 号图截图。",
+      "en": "Source: paper authors (2023), Figure 4 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 4: Overview of our SLAM system with all blocks online.",
+    "cropBox": [
+      49,
+      62,
+      563,
+      200
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "7cb83c606510fb203ea5277ba3596adf3a9482b493a91995650b3c6d4d7f5e91",
+    "imageSize": [
+      1285,
+      345
+    ]
+  },
+  "p2uslam2026": {
+    "thumbnail": "assets/papers/p2uslam2026-thumb.webp",
+    "image": "assets/papers/p2uslam2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2409.10143",
+    "page": 6,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "zh": "点不确定性贯穿初始化、跟踪、局部 BA 和回环。",
+      "en": "Point uncertainty used across initialization, tracking, local BA and loop closure."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2026；3 号图截图。",
+      "en": "Source: paper authors (2026), Figure 3 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 3: The pipeline of P2U-SLAM.",
+    "cropBox": [
+      120,
+      47,
+      491,
+      219.5
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "93061c430925d768b0a5908c29e84e1300dd14b83caba4797a166b443fea8356",
+    "imageSize": [
+      927,
+      431
+    ]
+  },
+  "odgsslam2026": {
+    "thumbnail": "assets/papers/odgsslam2026-thumb.webp",
+    "image": "assets/papers/odgsslam2026.webp",
+    "paperUrl": "https://openaccess.thecvf.com/content/CVPR2026/papers/Spiss_ODGS-SLAM_Omnidirectional_Gaussian_Splatting_SLAM_CVPR_2026_paper.pdf",
+    "page": 1,
+    "figureLabel": "Figure 1",
+    "caption": {
+      "zh": "全景跟踪、关键帧管理与球面高斯地图概览。",
+      "en": "Panoramic tracking, keyframe management and spherical Gaussian mapping."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2026；1 号图截图。",
+      "en": "Source: paper authors (2026), Figure 1 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 1. (Left:) Overview of the ODGS-SLAM system.",
+    "cropBox": [
+      55,
+      208,
+      564,
+      340
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "a3a8faefdf2e09e09aa961625e55f692344da8ab185ce2f5ed05220b87e92213",
+    "imageSize": [
+      1272,
+      330
+    ]
+  },
+  "panogsslam2026": {
+    "thumbnail": "assets/papers/panogsslam2026-thumb.webp",
+    "image": "assets/papers/panogsslam2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2609.17387",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "全景图像预处理、跟踪与 3D 高斯建图模块。",
+      "en": "Panoramic preprocessing, tracking and 3D Gaussian mapping modules."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2026；2 号图截图。",
+      "en": "Source: paper authors (2026), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 2. PanoGS-SLAM Pipeline.",
+    "cropBox": [
+      54,
+      48,
+      564,
+      248
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "12968b32c8b404ef3a74154510d37ccde9f6739218418f86f25b71fef688936a",
+    "imageSize": [
+      1275,
+      500
+    ]
+  },
+  "panoair2026": {
+    "thumbnail": "assets/papers/panoair2026-thumb.webp",
+    "image": "assets/papers/panoair2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2604.00852",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "无人机全景与 IMU 输入的混合特征视觉惯性 SLAM。",
+      "en": "Hybrid-feature visual-inertial SLAM from UAV panoramas and IMU."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2026；2 号图截图。",
+      "en": "Source: paper authors (2026), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 2. Overview of the proposed panoramic visual-inertial SLAM framework.",
+    "cropBox": [
+      312,
+      52,
+      564,
+      280
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "7f036c6c38defbe62264938d8875bf55384243d3a7db1a56d35bfac64692f801",
+    "imageSize": [
+      630,
+      570
+    ]
+  },
+  "panoslam2025": {
+    "thumbnail": "assets/papers/panoslam2025-thumb.webp",
+    "image": "assets/papers/panoslam2025.webp",
+    "paperUrl": "https://arxiv.org/pdf/2501.00352",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "RGB-D 全景分割（Panoptic，非 360° 全景）建图：相机跟踪、语义推断与时空提升。",
+      "en": "RGB-D panoptic mapping: camera tracking, panoptic inference and spatial-temporal lifting."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2025；2 号图截图。",
+      "en": "Source: paper authors (2025), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 2. Overview of the PanoSLAM framework for panoptic 3D scene reconstruction from unlabeled RGB-D videos.",
+    "cropBox": [
+      58,
+      68,
+      565,
+      282
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "3eb13fed49d4ffdba5e020c4de17d24a200b57fc4324efb1d7fa7c0cb8e46ca2",
+    "imageSize": [
+      1267,
+      535
+    ]
+  },
+  "goslam2023": {
+    "thumbnail": "assets/papers/goslam2023-thumb.webp",
+    "image": "assets/papers/goslam2023.webp",
+    "paperUrl": "https://arxiv.org/pdf/2309.02436",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "前端跟踪、全局束调整与即时神经建图三线程结构。",
+      "en": "Three threads for frontend tracking, global bundle adjustment and instant neural mapping."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2023；2 号图截图。",
+      "en": "Source: paper authors (2023), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 2: Architecture Overview.",
+    "cropBox": [
+      57,
+      68,
+      565,
+      190
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "5379925bfdda9988aca47fda13289a9781282a850dd4250005368a565c9ac641",
+    "imageSize": [
+      1270,
+      305
+    ]
+  },
+  "monogs2024": {
+    "thumbnail": "assets/papers/monogs2024-thumb.webp",
+    "image": "assets/papers/monogs2024.webp",
+    "paperUrl": "https://arxiv.org/pdf/2312.06741",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "统一 3D 高斯表示下的相机跟踪、关键帧管理与建图。",
+      "en": "Camera tracking, keyframe management and mapping with a unified 3D Gaussian representation."
+    },
+    "credit": {
+      "zh": "来源：论文作者，2024；2 号图截图。",
+      "en": "Source: paper authors (2024), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Figure 2. SLAM System Overview:",
+    "cropBox": [
+      50,
+      72,
+      561,
+      255
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected full source page and final labeled contact-sheet crop; corrected diagram borders and labels. Actual paper figure, not a generated illustration.",
+    "pdfSha256": "d7a1ef9b7f313156c61f23ea76423eecd3f8f7d2a795a74774dfbaf23f7a803e",
+    "imageSize": [
+      1277,
+      457
+    ]
+  }
+}

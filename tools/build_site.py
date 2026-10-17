@@ -192,15 +192,27 @@ def build():
     added=json.loads((ROOT/'source_data/panoramic_additions.json').read_text(encoding='utf-8'))
     slam=json.loads((ROOT/'source_data/slam_survey.json').read_text(encoding='utf-8'))
     records=[normalize(e,'depth') for e in depth+added]+[normalize(e,'slam') for e in slam]
+    figures={}
+    for filename in ['figures_depth.json','figures_slam.json']:
+        path=ROOT/'source_data'/filename
+        if path.exists():
+            entries=json.loads(path.read_text(encoding='utf-8'))
+            if isinstance(entries,list):entries={e['id']:e.get('figure',e) for e in entries}
+            for eid,figure in entries.items():
+                if eid in figures:raise ValueError('Duplicate figure ID: '+eid)
+                figures[eid]=figure
+    for record in records:
+        if record['id'] in figures:record['figure']=figures[record['id']]
     ids=[e['id'] for e in records]
     if len(ids)!=len(set(ids)):raise ValueError('Duplicate catalog ID')
     records.sort(key=lambda e:(e['collection']!='depth',-int(str(e.get('year',0))[:4]) if str(e.get('year',0))[:4].isdigit() else 0,e['name']))
     catalog=dict(updated=UPDATED,repoUrl=REPO_URL,title='Panoramic Depth Atlas',
         description='Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.',
-        schemaVersion='1.0',records=records,
+        schemaVersion='1.1',records=records,
         stats={'depth':len(depth)+len(added),'slam':len(slam),
                'panoramicDepth':sum(e['collection']=='depth' and 'panoramic' in e['cameras'] for e in records),
-               'panoramicSLAM':sum(e['collection']=='slam' and 'panoramic' in e['cameras'] for e in records)})
+               'panoramicSLAM':sum(e['collection']=='slam' and 'panoramic' in e['cameras'] for e in records),
+               'paperFigures':sum(bool(e.get('figure',{}).get('verified')) for e in records)})
     data=ROOT/'site/data';data.mkdir(parents=True,exist_ok=True)
     serialized=json.dumps(catalog,ensure_ascii=False,indent=2)
     # Classic script loading supports both file:// previews and static hosting.
@@ -221,6 +233,20 @@ def build():
     for e in records:
         sources.append(f"## {e['name']} ({e['year']})\n\n{e['title']}\n\n"+'\n'.join('- '+v for v in e['evidence'])+'\n')
     (ROOT/'references/sources.md').write_text('# Official-source index\n\nChecked '+UPDATED+'. Bibliographic and interface evidence; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
+    figure_sources=['# Paper figure excerpts\n\nFigure excerpts support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed by this website. Page numbers refer to the downloaded PDF, counting from 1.\n']
+    for e in records:
+        f=e.get('figure')
+        if not f:continue
+        caption=f.get('caption',{})
+        if isinstance(caption,dict):caption=caption.get('en','')
+        figure_sources.append(f"## {e['name']}\n\n{f.get('figureLabel','Figure')}, PDF page {f.get('page','?')}. {caption}\n\n- PDF: {f.get('paperUrl','')}\n- Screenshot: [{f.get('image','')}](../site/{f.get('image','')})\n- Local PDF SHA-256: `{f.get('pdfSha256',f.get('sha256','unknown'))}`\n")
+    (ROOT/'references/figure_sources.md').write_text('\n'.join(figure_sources),encoding='utf-8',newline='\n')
+    if (ROOT/'library/pdfs').is_dir():
+        local_index=['# Local paper library\n\nFull PDFs are kept on this computer only. This directory is excluded from Git and GitHub Pages. Published screenshots and attribution are indexed in ../references/figure_sources.md.\n\n| Method | Local PDF | Source PDF | Selected figure |\n|---|---|---|---|']
+        for e in records:
+            f=e.get('figure',{})
+            local_index.append(f"| {e['name']} | [{e['id']}.pdf](pdfs/{e['id']}.pdf) | [Primary source]({f.get('paperUrl',e['paperUrl'])}) | {f.get('figureLabel','pending')}, p. {f.get('page','?')} |")
+        (ROOT/'library/README.md').write_text('\n'.join(local_index)+'\n',encoding='utf-8',newline='\n')
     print(json.dumps({'records':len(records),**catalog['stats'],'output':'docs/'}))
     return catalog
 
