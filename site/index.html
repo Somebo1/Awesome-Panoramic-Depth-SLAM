@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#122c36">
+  <meta name="description" content="A curated research atlas of panoramic, fisheye and wide-field depth estimation and visual SLAM. 全景、鱼眼与广视场深度估计及 SLAM 文献图谱。">
+  <title>Panoramic Depth Atlas · 全景深度与 SLAM 文献图谱</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./data/catalog.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到文献</a>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Panoramic Depth Atlas 首页">
+      <svg class="brand-symbol" width="39" height="39" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="20" cy="20" rx="7" ry="16" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="20" cy="20" rx="16" ry="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5 14h30M5 26h30" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/><circle cx="31.4" cy="9.2" r="3.8" fill="#e4a95e" stroke="#f7f7f1" stroke-width="2"/></svg>
+      <span>Panoramic<span class="brand-line">Depth Atlas<span class="brand-dot">.</span></span></span>
+    </a>
+    <div class="header-label">An open research collection <span>全景视觉研究图谱</span></div>
+    <a id="repo-link" class="header-repo" href="#" hidden target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.26-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg> GitHub <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <div class="eyebrow"><span></span> FROM PIXELS TO SPATIAL INTELLIGENCE</div>
+      <h1 id="hero-title">See the full picture<span class="title-dot">.</span></h1>
+      <p class="hero-subtitle">全景、鱼眼与广视场的 <strong>Depth &amp; SLAM</strong> 研究图谱</p>
+      <p class="hero-description">从投影模型到深度尺度，从输入输出到代码证据。为机器人感知研究，找到值得读、能够复现的方法。</p>
+      <div class="hero-bottom"><span class="update"><i></i>持续整理 · <span id="updated-date">—</span></span><span class="hero-separator">/</span><span>Primary sources. Explicit unknowns.</span></div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 500 270" role="img"><defs><linearGradient id="hero-water" x1="0" x2="1"><stop stop-color="#1d777a"/><stop offset="1" stop-color="#2b626f"/></linearGradient><radialGradient id="hero-glow"><stop stop-color="#c9ded7" stop-opacity=".52"/><stop offset="1" stop-color="#c9ded7" stop-opacity="0"/></radialGradient><clipPath id="sphere-clip"><circle cx="291" cy="132" r="104"/></clipPath></defs><ellipse cx="282" cy="141" rx="203" ry="125" fill="url(#hero-glow)"/><g fill="none" stroke="#aac5bd" stroke-width="1"><ellipse cx="291" cy="132" rx="181" ry="43" transform="rotate(-20 291 132)" stroke-dasharray="3 6"/><path d="M75 219H453M115 234H418" opacity=".45"/></g><circle cx="291" cy="132" r="104" fill="#f1f3eb" stroke="#1a606a" stroke-width="1.5"/><g clip-path="url(#sphere-clip)"><path d="M187 175 220 143 250 164 275 111 308 158 331 136 355 171 395 155V237H187Z" fill="#d3dfd3"/><path d="m187 201 51-21 28 9 47-22 26 19 56-9v60H187Z" fill="#a9c7ba"/><path d="m187 213 51-16 45 10 40-14 72 15v29H187Z" fill="url(#hero-water)"/><g fill="none" stroke="#246b72" stroke-width=".75" opacity=".52"><ellipse cx="291" cy="132" rx="104" ry="29"/><ellipse cx="291" cy="132" rx="104" ry="71"/><ellipse cx="291" cy="132" rx="34" ry="104"/><ellipse cx="291" cy="132" rx="75" ry="104"/><path d="M187 132h208M291 28v208"/></g></g><path d="m134 176 157-44-157-16Z" fill="#e3a764" fill-opacity=".12" stroke="#bb8648" stroke-dasharray="3 4"/><g transform="translate(106 130)"><rect width="37" height="31" rx="5" fill="#163b44"/><path d="m37 10 13-7v25l-13-7" fill="#163b44"/><circle cx="14" cy="15.5" r="8" fill="#f3e9d1"/><circle cx="14" cy="15.5" r="4.5" fill="#437b7e"/></g><circle cx="291" cy="132" r="4" fill="#cb8d43" stroke="#fff" stroke-width="2"/><circle cx="367" cy="62" r="4" fill="#175d6a"/><path d="m367 62 40-22h43M395 165l33 23h34" fill="none" stroke="#608d89" stroke-width="1"/><text x="410" y="33" font-size="10" font-family="monospace" fill="#446c6d">360° FIELD OF VIEW</text><text x="431" y="204" font-size="10" font-family="monospace" fill="#446c6d">SPHERICAL</text><text x="431" y="218" font-size="10" font-family="monospace" fill="#446c6d">GEOMETRY</text><path d="M89 79h47M112.5 55.5v47" stroke="#8ba9a0"/><circle cx="112.5" cy="79" r="12" fill="none" stroke="#8ba9a0"/><text x="86" y="252" font-size="9" font-family="monospace" fill="#6e8983" letter-spacing="1.2">ORIGINAL GEOMETRY ILLUSTRATION · NOT MODEL OUTPUT</text></svg>
+    </div>
+  </section>
+
+  <section class="collection-strip" aria-label="文献集合">
+    <div class="collection-tabs" role="tablist" aria-label="选择研究领域"><button id="tab-depth" type="button" class="collection-tab active" role="tab" aria-selected="true" data-collection="depth"><span class="tab-icon">◉</span><span>Depth estimation<small>深度估计</small></span><span class="tab-count" id="depth-count">0</span></button><button id="tab-slam" type="button" class="collection-tab" role="tab" aria-selected="false" data-collection="slam"><span class="tab-icon">⌘</span><span>SLAM &amp; odometry<small>定位与建图</small></span><span class="tab-count" id="slam-count">0</span></button></div>
+    <div class="strip-note"><span class="tiny-dot"></span><span id="source-count">0</span> entries · evidence linked</div>
+  </section>
+
+  <div class="workspace">
+    <button id="mobile-filters" class="mobile-filter-button" aria-expanded="false" aria-controls="sidebar" type="button">☰ 研究分类与筛选 <span id="mobile-filter-count"></span></button>
+    <aside id="sidebar" class="sidebar" aria-label="文献筛选">
+      <div class="sidebar-heading">CAMERA GEOMETRY <span>相机模型</span></div>
+      <nav id="category-nav" class="category-nav" aria-label="相机类型"></nav>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-heading">REFINE COLLECTION <span>进一步筛选</span></div>
+      <label class="filter-label" for="year-filter">发表年份<span>YEAR</span></label><select id="year-filter"><option value="all">全部年份</option></select>
+      <label class="filter-label" for="scale-filter">尺度类型<span>SCALE</span></label><select id="scale-filter"><option value="all">全部尺度</option><option value="metric">Metric · 度量尺度</option><option value="relative">Relative · 相对尺度</option><option value="mixed">Mixed · 依配置而定</option><option value="unknown">Unknown · 待核实</option></select>
+      <label class="filter-label" for="code-filter">代码状态<span>CODE</span></label><select id="code-filter"><option value="all">全部代码状态</option><option value="released">已发布</option><option value="partial">部分发布</option><option value="unverified">待核实</option><option value="none">未发现公开代码</option></select>
+      <button id="favorites-filter" class="favorites-filter" type="button" aria-pressed="false"><span>☆ 我的阅读收藏</span><span id="favorites-count">0</span></button>
+      <button id="reset-filters" class="reset-button" type="button">↺ 重置筛选</button>
+      <div class="sidebar-note"><span class="note-symbol">i</span><p>分类可重叠。支持广视场不等于原生全景；度量尺度与深度定义分别记录。详情中保留待核实项。</p></div>
+      <div class="sidebar-footer">CURATED FOR ROBOTICS RESEARCH<br><span>Read. Compare. Reproduce.</span></div>
+    </aside>
+
+    <main id="main" class="main-content" tabindex="-1">
+      <div class="content-heading"><div><div class="eyebrow content-eyebrow" id="collection-kicker">DEPTH COLLECTION</div><h2 id="category-title">Panoramic <span>全景深度</span></h2><p id="category-description">以球面与等距柱状投影为核心，检索 360° 场景深度研究。</p></div><button id="export-button" type="button" class="button button-secondary" aria-expanded="false" aria-controls="export-menu"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M3 12v5h14v-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg> 导出文献 <span aria-hidden="true">⌄</span></button><div id="export-menu" class="export-menu" hidden><p>导出当前筛选结果</p><button data-export="json" type="button">JSON<span>完整结构化数据</span></button><button data-export="csv" type="button">CSV<span>表格与分析</span></button><button data-export="bib" type="button">BibTeX<span>阅读清单草稿</span></button></div></div>
+      <div class="search-toolbar"><div class="search-box"><svg width="19" height="19" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5"/></svg><label class="sr-only" for="search">搜索文献</label><input id="search" type="search" placeholder="搜索方法、论文、输入输出、关键词…" autocomplete="off"><kbd>/</kbd></div><label class="sr-only" for="sort-select">排序方式</label><select id="sort-select" class="sort-select"><option value="newest">年份：由新到旧</option><option value="oldest">年份：由旧到新</option><option value="name">名称：A → Z</option></select><div class="view-switch" role="group" aria-label="结果视图"><button type="button" data-view="cards" aria-label="卡片视图" aria-pressed="true"><svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="11" y="2" width="5" height="5" rx="1"/><rect x="2" y="11" width="5" height="5" rx="1"/><rect x="11" y="11" width="5" height="5" rx="1"/></svg></button><button type="button" data-view="table" aria-label="表格视图" aria-pressed="false"><svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true"><path d="M2 3h14M2 9h14M2 15h14" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button></div></div>
+      <div class="results-bar"><div><strong id="result-count">0</strong> <span>篇文献</span><span id="result-description"></span></div><span class="compare-hint">勾选方法，比较输入、输出与尺度 <span aria-hidden="true">↘</span></span></div>
+      <div id="active-filters" class="active-filters" aria-label="当前筛选条件"></div>
+      <div id="results" class="results-grid" aria-live="polite" aria-busy="true"></div>
+      <div id="empty-state" class="empty-state" hidden><div class="empty-orbit" aria-hidden="true">◎</div><h3>没有符合条件的文献</h3><p>试试更短的关键词，或放宽相机、年份和代码筛选。</p><button id="empty-reset" type="button" class="button button-primary">清除筛选条件</button></div>
+      <div class="collection-footnote"><span>↳</span><p>封面为原创几何示意，非论文结果。收录表示研究相关性；性能、许可与复现条件请以原文和官方仓库为准。BibTeX 为结构化阅读清单，投稿前请核对出版信息。</p></div>
+    </main>
+  </div>
+
+  <footer class="site-footer"><span class="footer-brand">Panoramic Depth Atlas<span>.</span></span><span>以证据连接研究 · Built for the full field of view</span><a href="#" id="footer-repo" hidden target="_blank" rel="noopener noreferrer">Data &amp; contributions ↗</a></footer>
+  <div id="compare-bar" class="compare-bar" hidden><div><span class="compare-bar-label">COMPARE</span><strong id="compare-selection-count">0 / 4</strong><span id="compare-selection-names"></span></div><div><button id="clear-compare" type="button" class="compare-clear">清空</button><button id="open-compare" type="button" class="button button-primary">横向比较 <span aria-hidden="true">↗</span></button></div></div>
+  <dialog id="detail-dialog" class="detail-dialog" aria-labelledby="detail-title"><div id="detail-content"></div></dialog>
+  <dialog id="compare-dialog" class="compare-dialog" aria-labelledby="compare-title"><div class="dialog-header"><div><div class="eyebrow">SIDE BY SIDE</div><h2 id="compare-title">方法对比</h2><p>按相同口径阅读输入输出；未知项保留原始状态。</p></div><button type="button" class="dialog-close" aria-label="关闭对比" data-close="compare-dialog">×</button></div><div id="compare-content" class="compare-table-wrap"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <noscript><p class="noscript">此文献图谱需要 JavaScript 才能筛选和阅读。请启用 JavaScript，或在 GitHub 仓库中阅读数据文件。</p></noscript>
+</body>
+</html>

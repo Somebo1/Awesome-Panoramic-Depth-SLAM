@@ -1,0 +1,1385 @@
+[
+  {
+    "id": "depth_anything_v2",
+    "title": "Depth Anything V2",
+    "authors": [
+      "Lihe Yang",
+      "Bingyi Kang",
+      "Zilong Huang",
+      "Zhen Zhao",
+      "Xiaogang Xu",
+      "Jiashi Feng",
+      "Hengshuang Zhao"
+    ],
+    "institutions": [
+      "The University of Hong Kong",
+      "TikTok",
+      "Other author affiliations: Unknown"
+    ],
+    "year": 2024,
+    "venue": "NeurIPS 2024",
+    "paper_url": "https://arxiv.org/abs/2406.09414",
+    "project_url": "https://depth-anything-v2.github.io/",
+    "code_url": "https://github.com/DepthAnything/Depth-Anything-V2",
+    "weights_url": "https://github.com/DepthAnything/Depth-Anything-V2#pre-trained-models",
+    "license": {
+      "code": "Apache-2.0 repository",
+      "weights": "Small Apache-2.0; Base/Large/Giant CC-BY-NC-4.0; metric variants require individual card check"
+    },
+    "category": [
+      "monocular",
+      "relative",
+      "perspective"
+    ],
+    "input": {
+      "frames": "single RGB",
+      "projection": "Perspective/pinhole; native fisheye/ERP unsupported claim",
+      "intrinsics": "Not needed for relative inference",
+      "resolution": "infer_image default input_size=518; aspect preserved, multiple of 14",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "H×W relative depth / inverse-depth-like scalar; not meters",
+      "point_map": "No direct point map; relative output not Euclidean geometry without resolving representation/scale/shift",
+      "normal": "No",
+      "confidence": "No public default head",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Relative model should be treated as affine-ambiguous inverse-depth-like prediction; do not multiply by K^-1 before representation alignment. Separate metric_depth branch predicts metric depth with its own training domain.",
+    "scale": "Relative main checkpoints; separately fine-tuned Hypersim indoor / Virtual KITTI outdoor metric checkpoints",
+    "code_entry": [
+      "run.py",
+      "run_video.py",
+      "depth_anything_v2/dpt.py::DepthAnythingV2.infer_image",
+      "metric_depth/run.py"
+    ],
+    "innovation": "Synthetic-only teacher, larger teacher, pseudo-labeled real images bridge synthetic-to-real domain gap.",
+    "evidence": [
+      "Paper Method/training practice and repository license inspected",
+      "https://github.com/DepthAnything/Depth-Anything-V2/blob/main/depth_anything_v2/dpt.py"
+    ],
+    "engineering_notes": [
+      "Fast perspective control baseline; do not feed full ERP and assume calibration",
+      "run_video.py is framewise inference, not temporal fusion",
+      "No wrist-pose accuracy evidence",
+      "Current official README lists Giant checkpoint as Coming soon; do not infer a released Giant weight from the paper/model config alone"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "depth_anything_3",
+    "title": "Depth Anything 3: Recovering the Visual Space from Any Views",
+    "authors": [
+      "Haotong Lin",
+      "Sili Chen",
+      "Jun Hao Liew",
+      "Donny Y. Chen",
+      "Zhenyu Li",
+      "Guang Shi",
+      "Jiashi Feng",
+      "Bingyi Kang"
+    ],
+    "institutions": [
+      "ByteDance Seed"
+    ],
+    "year": 2025,
+    "venue": "arXiv 2511.10647; formal venue Unknown",
+    "paper_url": "https://arxiv.org/abs/2511.10647",
+    "project_url": "https://depth-anything-3.github.io/",
+    "code_url": "https://github.com/ByteDance-Seed/Depth-Anything-3",
+    "weights_url": "https://github.com/ByteDance-Seed/Depth-Anything-3#readme",
+    "license": {
+      "code": "Apache-2.0",
+      "weights": "DA3 Small/Base, Mono-Large, Metric-Large Apache-2.0; Any-view Large/Giant and Nested CC-BY-NC-4.0; prefer refreshed -1.1 where available"
+    },
+    "category": [
+      "any-view",
+      "depth-and-pose",
+      "relative",
+      "metric-variant"
+    ],
+    "input": {
+      "frames": "N RGB, B×N×3×H×W; single or multiple views",
+      "projection": "Pinhole in public depth-ray formulation; any-view does not imply any camera projection",
+      "intrinsics": "Optional K N×3×3",
+      "extrinsics": "Optional known camera poses; pose-conditioned mode",
+      "resolution": "process_res/API preprocessing; model-specific; exact max Unknown",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "Prediction.depth N×H×W",
+      "point_map": "Derived from depth+K+extrinsics; optional world-space 3DGS export",
+      "normal": "Unknown default output",
+      "confidence": "conf N×H×W; calibration to physical uncertainty Unknown",
+      "camera_parameters": "intrinsics N×3×3, extrinsics N×4×4, sky N×H×W, is_metric, scale_factor"
+    },
+    "depth_convention": "Z-depth: paper P=R(D K^-1 p)+t, ray directions deliberately not normalized. Raw depth-ray latent N×H×W×6 includes origin and unnormalized direction.",
+    "scale": "Any-view normally common arbitrary scale; Metric-Large output requires focal_pixels*net_output/300; Nested already meters; known metric pose alignment can supply scale.",
+    "pose_output": "Yes for Any-view/Nested, relative cameras in common frame; not an online inertial trajectory or global metric guarantee",
+    "code_entry": [
+      "src/depth_anything_3/api.py::DepthAnything3.inference",
+      "src/depth_anything_3/specs.py::Prediction",
+      "src/depth_anything_3/model/da3.py",
+      "src/depth_anything_3/utils/alignment.py"
+    ],
+    "innovation": "Single transformer and depth-ray minimal targets, teacher-student learning; ray-pose or faster camera head.",
+    "evidence": [
+      "Paper §3 formulation, architecture and scale normalization inspected",
+      "API/README and Prediction schema audited",
+      "https://raw.githubusercontent.com/ByteDance-Seed/Depth-Anything-3/main/src/depth_anything_3/specs.py",
+      "https://raw.githubusercontent.com/ByteDance-Seed/Depth-Anything-3/main/src/depth_anything_3/utils/alignment.py"
+    ],
+    "engineering_notes": [
+      "Do not confuse camera-space Z with unit-ray range",
+      "Must resize K consistently; direct metric monocular branch needs focal conversion",
+      "Full ERP use not validated; rectify/tangent views and track extrinsics if used",
+      "Published geometry benchmark superiority is not a wrist VIO result"
+    ],
+    "accessed": "2026-10-17",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "dac",
+    "title": "Depth Any Camera: Zero-Shot Metric Depth Estimation from Any Camera",
+    "authors": [
+      "Yuliang Guo",
+      "Sparsh Garg",
+      "S. Mahdi H. Miangoleh",
+      "Xinyu Huang",
+      "Liu Ren"
+    ],
+    "institutions": [
+      "Bosch Research North America",
+      "Carnegie Mellon University",
+      "Simon Fraser University"
+    ],
+    "year": 2025,
+    "venue": "CVPR 2025",
+    "paper_url": "https://arxiv.org/abs/2501.02464",
+    "project_url": "https://yuliangguo.github.io/depth-any-camera/",
+    "code_url": "https://github.com/yuliangguo/depth_any_camera",
+    "weights_url": "https://github.com/yuliangguo/depth_any_camera#pre-trained-models",
+    "license": {
+      "code": "MIT",
+      "weights": "Official downloads exist; separate weight-specific terms Unknown"
+    },
+    "category": [
+      "monocular",
+      "metric",
+      "fisheye",
+      "ERP",
+      "camera-aware"
+    ],
+    "input": {
+      "frames": "single RGB plus camera parameters / ray lookup and valid mask",
+      "projection": "Perspective, OpenCV fisheye, MEI, ERP via canonical ERP conversion",
+      "intrinsics": "Required geometry for non-ERP; camera self-calibration offered as separate model, not no-calibration ground truth",
+      "resolution": "Demo ERP 512×1024; fisheye ERP crop sizes/config vary",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "B×1×H×W metric Euclidean range in canonical ERP; remapping to original camera needed",
+      "point_map": "Backproject range times calibrated unit rays",
+      "normal": "Unknown direct head",
+      "confidence": "Attention/valid masks are not calibrated depth uncertainty",
+      "camera_parameters": "Not estimated by DAC itself"
+    },
+    "depth_convention": "Euclidean distance/range explicitly in paper implementation details, not Z-buffer; original Z GT divided by unit ray z.",
+    "scale": "Metric meters learned prior, domain dependent; indoor and outdoor checkpoints separate",
+    "code_entry": [
+      "demo/demo_dac_single.py",
+      "dac/utils/erp_geometry.py",
+      "dac/models/ops/",
+      "configs/"
+    ],
+    "environment": "Official conda Python3.9 torch1.13.1+cu116; custom CUDA operators; Docker alternative",
+    "innovation": "Perspective-only training transfers to wide-FoV via ERP canonical representation, FoV alignment, pitch-aware and multi-resolution augmentation.",
+    "evidence": [
+      "Paper §3/§4 and Euclidean implementation/appendix inspected",
+      "https://raw.githubusercontent.com/yuliangguo/depth_any_camera/main/demo/demo_dac_single.py"
+    ],
+    "engineering_notes": [
+      "Useful raw-fisheye metric baseline after correct calibration",
+      "Cross-camera does not mean noncentral stitched camera is physically central",
+      "Custom ops and old torch make native Windows reproduction harder"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "unidac",
+    "title": "UniDAC: Universal Metric Depth Estimation for Any Camera",
+    "authors": [
+      "Girish Chandar Ganesan",
+      "Yuliang Guo",
+      "Liu Ren",
+      "Xiaoming Liu"
+    ],
+    "institutions": [
+      "Michigan State University",
+      "Bosch Research North America / BCAI",
+      "University of North Carolina at Chapel Hill"
+    ],
+    "year": 2026,
+    "venue": "CVPR 2026, pp.26953–26963",
+    "paper_url": "https://arxiv.org/abs/2603.27105",
+    "project_url": "https://girish1511.github.io/UniDAC/",
+    "code_url": "https://github.com/girish1511/UniDAC",
+    "weights_url": "https://huggingface.co/girish1511/UniDAC",
+    "license": {
+      "code": "MIT",
+      "weights": "HF card has no explicit weight license metadata observed; DINOv3 upstream terms separate"
+    },
+    "category": [
+      "monocular",
+      "metric",
+      "fisheye",
+      "ERP",
+      "camera-aware"
+    ],
+    "input": {
+      "frames": "single RGB canonical ERP patch plus lat/long ranges, lat grid, valid/attention mask",
+      "projection": "Perspective / OpenCV-Fisheye / MEI / ERP through explicit calibrated transforms",
+      "intrinsics": "Required for non-ERP geometry; optional separate AnyCalib predicted parameters are a fallible estimate",
+      "resolution": "Official demo MP3D512×1024; ScanNet++512×704; KITTI360704×704",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "B×1×H×W metric Euclidean range in canonical ERP",
+      "point_map": "Derived R×unit ray and optional inverse remapping",
+      "normal": "No verified direct head",
+      "confidence": "No verified calibrated uncertainty head; valid/attention mask only",
+      "camera_parameters": "No direct learned camera output; wild demo delegates to AnyCalib"
+    },
+    "depth_convention": "Euclidean range: demo converts ScanNet++ Z-buffer / ray-z before ERP; follow range when converting geometry.",
+    "scale": "Learned metric meters; paper Rm=S⊙Rrel+t, public master forward code observed Rm=S⊙median-normalized-Rrel without explicit +t. Checkpoint/config correspondence remains unverified.",
+    "code_entry": [
+      "demo/demo_unidac.py",
+      "demo/demo_unidac_wild.py",
+      "unidac/models/unidac.py::UniDAC.forward",
+      "configs/test/"
+    ],
+    "environment": "Python3.10.18, torch2.7.0/torchvision0.22.0, cu118 official; DINOv3 ViT-L16",
+    "innovation": "Separate local relative geometry and global spatial scale; depth-guided nonparametric scale upsampling; latitude-aware RoPE-φ; one indoor/outdoor model.",
+    "evidence": [
+      "Paper Method §3–4, Experiments §5 and scale/encoder/shift ablations read",
+      "https://raw.githubusercontent.com/girish1511/UniDAC/master/unidac/models/unidac.py",
+      "https://raw.githubusercontent.com/girish1511/UniDAC/master/demo/demo_unidac.py",
+      "README main branch URL404; master verified"
+    ],
+    "engineering_notes": [
+      "Best depth-side close-reading candidate for camera geometry and local scale error",
+      "Paper/code explicit shift mismatch documented; do not silently treat as identical",
+      "Local learned scale map is not a VIO observable metric-scale measurement",
+      "Unmeasured on current GPU"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "da2_panorama",
+    "title": "DA²: Depth Anything in Any Direction",
+    "authors": [
+      "Haodong Li",
+      "Wangguangdong Zheng",
+      "Jing He",
+      "Yuhao Liu",
+      "Xin Lin",
+      "Xin Yang",
+      "Ying-Cong Chen",
+      "Chunchao Guo"
+    ],
+    "institutions": [
+      "Tencent Hunyuan",
+      "UC San Diego",
+      "HKUST(GZ)",
+      "HKUST"
+    ],
+    "year": 2025,
+    "venue": "ICLR 2026; arXiv2025",
+    "paper_url": "https://arxiv.org/abs/2509.26618",
+    "project_url": "https://depth-any-in-any-dir.github.io/",
+    "code_url": "https://github.com/EnVision-Research/DA-2",
+    "weights_url": "https://huggingface.co/haodongli/DA-2",
+    "license": {
+      "code": "Apache-2.0",
+      "weights": "Official model release; separate card terms should be rechecked before redistribution"
+    },
+    "category": [
+      "monocular",
+      "ERP",
+      "scale-invariant-distance"
+    ],
+    "input": {
+      "frames": "single 360×180 ERP RGB, optional sky/valid mask",
+      "projection": "Full spherical ERP; raw fisheye requires calibrated mapping",
+      "intrinsics": "No pinhole K for standard full ERP; ERP orientation and 2:1 definition matter",
+      "resolution": "Training512×1024; inference per config",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "Dense H×W distance up to one unknown global scale",
+      "point_map": "distance2pointcloud exports PLY",
+      "normal": "Normals computed from predicted distance, not evidence of independent normal head",
+      "confidence": "Optional input mask; no verified uncertainty head",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Euclidean radial distance; explicitly scale-invariant, not affine inverse depth",
+    "scale": "Unknown global positive scalar per prediction; metric GT alignment in evaluation does not give runtime meters",
+    "code_entry": [
+      "infer.py",
+      "infer.sh",
+      "src/da2/",
+      "configs/eval.json"
+    ],
+    "environment": "Official tested Ubuntu20.04 Python3.12 CUDA12.2 RTX3090; xformers0.0.28.post2",
+    "innovation": "Perspective-to-ERP plus panoramic outpainting curates ∼607k total pairs; SphereViT spherical embeddings; auxiliary normal loss.",
+    "evidence": [
+      "Paper Method and Table3 ablations inspected; outpainting/spherical embedding/normal each tested",
+      "Official infer.py reviewed",
+      "https://raw.githubusercontent.com/EnVision-Research/DA-2/main/infer.py",
+      "https://openreview.net/pdf?id=323ximYcsk"
+    ],
+    "engineering_notes": [
+      "Good shape-quality control against DAP metric outputs",
+      "Paper explicitly documents seams and lost fine details at512×1024",
+      "Python3.12 needed for nested-quote f-string in inference; do not claim ordinary3.10 works unchanged"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "dap",
+    "title": "Depth Any Panoramas: A Foundation Model for Panoramic Depth Estimation",
+    "authors": [
+      "Xin Lin",
+      "Meixi Song",
+      "Dizhe Zhang",
+      "Wenxuan Lu",
+      "Haodong Li",
+      "Bo Du",
+      "Ming-Hsuan Yang",
+      "Truong Nguyen",
+      "Lu Qi"
+    ],
+    "institutions": [
+      "Insta360 Research",
+      "UC San Diego",
+      "Wuhan University",
+      "UC Merced"
+    ],
+    "year": 2025,
+    "venue": "CVPR 2026; arXiv2025",
+    "paper_url": "https://arxiv.org/abs/2512.16913",
+    "project_url": "https://insta360-research-team.github.io/DAP_website/",
+    "code_url": "https://github.com/Insta360-Research-Team/DAP",
+    "weights_url": "https://github.com/Insta360-Research-Team/DAP#readme",
+    "license": {
+      "code": "CC-BY-NC-4.0 (official LICENSE observed 2026-10-17), not MIT",
+      "weights": "Official checkpoint linked; separate model-card terms Unknown; DINOv3 terms separate"
+    },
+    "category": [
+      "monocular",
+      "metric",
+      "ERP"
+    ],
+    "input": {
+      "frames": "single RGB full ERP; no motion/pose/IMU required",
+      "projection": "ERP360×180; raw fisheye needs external conversion",
+      "intrinsics": "ERP standard angular grid; no pinhole K",
+      "resolution": "Config-specific; inspect inference YAML/backbone and record actual padded/resized H,W",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "Raw NPY H×W float32 normalized metric range: R_m=100*raw for current released checkpoint per author issue4",
+      "point_map": "R_m times unit ERP rays; do not use visualized PNG as metric depth",
+      "normal": "Derived geometric supervision/utilities; no verified independent inference normal output",
+      "confidence": "pred_mask range-mask head, not calibrated uncertainty; current infer replaces masked-out pixels with1 raw (100m)",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Euclidean radial distance: depth2point.py uses unit spherical directions multiplied by scalar. Its z-axis is polar-up, unlike OpenCV camera z-forward.",
+    "scale": "Metric learned prior; raw storage scale100m; PNG100m/10m only visualization. Invalid sentinel100m must be excluded, not treated as surface.",
+    "code_entry": [
+      "test/infer.py::infer_raw",
+      "test/infer.py::pred_to_vis",
+      "config/infer.yaml",
+      "networks/models.py",
+      "depth2point.py"
+    ],
+    "environment": "Official Python3.12, tested torch2.7.1 torchvision0.22.1; torch>2; DINOv3-L backbone",
+    "innovation": "∼2M panoramic data, three-stage pseudo-label curation, distortion map/range mask, geometry and sharpness losses.",
+    "evidence": [
+      "Paper Method and Tables4–6 read; DAP-Test is explicitly in-domain",
+      "Remote source audited, no model inference performed",
+      "https://raw.githubusercontent.com/Insta360-Research-Team/DAP/main/test/infer.py",
+      "https://github.com/Insta360-Research-Team/DAP/issues/4",
+      "https://raw.githubusercontent.com/Insta360-Research-Team/DAP/main/depth2point.py",
+      "https://raw.githubusercontent.com/Insta360-Research-Team/DAP/main/LICENSE"
+    ],
+    "engineering_notes": [
+      "Preferred first ERP depth reproduction after output adapter audit",
+      "depth2point.py casts float before uint dtype test so normalization branches unreachable; PNG-to-point conversion not metric-safe",
+      "100m rule tied to released config/checkpoint, not all future models",
+      "Weights link availability observed in official README; model download not completed",
+      "HF Insta360-Research/DAP-weights is explicitly linked by official README, but direct page retrieval failed in this audit; weights_url points to verified official README instead"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "panda",
+    "title": "PanDA: Towards Panoramic Depth Anything with Unlabeled Panoramas and Mobius Spatial Augmentation",
+    "authors": [
+      "Zidong Cao",
+      "Jinjing Zhu",
+      "Weiming Zhang",
+      "Hao Ai",
+      "Haotian Bai",
+      "Hengshuang Zhao",
+      "Lin Wang"
+    ],
+    "institutions": [
+      "HKUST(GZ)",
+      "University of Birmingham",
+      "The University of Hong Kong",
+      "Nanyang Technological University"
+    ],
+    "year": 2025,
+    "venue": "CVPR 2025",
+    "paper_url": "https://openaccess.thecvf.com/content/CVPR2025/papers/Cao_PanDA_Towards_Panoramic_Depth_Anything_with_Unlabeled_Panoramas_and_Mobius_CVPR_2025_paper.pdf",
+    "project_url": "https://caozidong.github.io/PanDA_Depth/",
+    "code_url": "https://github.com/caozidong/PanDA",
+    "weights_url": "https://github.com/caozidong/PanDA#pre-trained-models",
+    "license": {
+      "code": "Apache-2.0",
+      "weights": "Small/Base/Large checkpoints linked; independent weight terms Unknown; inherited backbones need checking"
+    },
+    "category": [
+      "monocular",
+      "ERP",
+      "relative"
+    ],
+    "input": {
+      "frames": "single ERP RGB; video runner applies depth per frame",
+      "projection": "ERP2:1",
+      "intrinsics": "No K",
+      "resolution": "Default height504,width1008; multiples14",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "B×1×H×W normalized relative depth, official range0–1",
+      "point_map": "saver pointcloud uses relative radial values; not metric reconstruction",
+      "normal": "No verified direct head",
+      "confidence": "No verified public head",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Relative depth trained with normalized depth; radial interpretation in provided point-cloud path does not prove metric/scale-only geometric correctness",
+    "scale": "Relative pretrained; separate metric fine-tuning directory is different capability",
+    "code_entry": [
+      "run_image.py",
+      "run_video.py",
+      "networks/models.py",
+      "train_metric_depth/"
+    ],
+    "environment": "Python3.10 torch2.0.0 CUDA11.7 cuDNN8.5 official",
+    "runtime": "Official warning:1008×2016 inference >40GB GPU; default504×1008 actual time/memory Unknown",
+    "innovation": "Synthetic panoramic teacher, unlabeled panoramic student, Möbius spatial augmentation and equator-aware patch normalization.",
+    "evidence": [
+      "Paper Method EPNL and SSL read; README and run_image output/pointcloud path inspected",
+      "https://raw.githubusercontent.com/caozidong/PanDA/main/run_image.py"
+    ],
+    "engineering_notes": [
+      "Keep as relative panoramic reference and augmentation source",
+      "run_image normalizes prediction to8-bit PNG; intercept raw tensor for evaluation",
+      "Video interface does not imply temporal geometric consistency"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "da360",
+    "title": "Depth Anything in 360°: Towards Scale Invariance in the Wild",
+    "authors": [
+      "Hualie Jiang",
+      "Ziyang Song",
+      "Zhiqiang Lou",
+      "Rui Xu",
+      "Minglang Tan"
+    ],
+    "institutions": [
+      "Antigravity Tech",
+      "Insta360 Research"
+    ],
+    "year": 2025,
+    "venue": "arXiv2512.22819; formal venue Unknown",
+    "paper_url": "https://arxiv.org/abs/2512.22819",
+    "project_url": "https://antigravity-tech.github.io/DA360/",
+    "code_url": "https://github.com/antigravity-tech/DA360",
+    "weights_url": "https://huggingface.co/hljiang/DA360",
+    "license": {
+      "code": "MIT repository; Depth Anything V2 dependency terms separate",
+      "weights": "Official HF hljiang/DA360 card explicitly labels Apache-2.0; upstream Depth Anything V2 and checkpoint-specific compatibility still requires review"
+    },
+    "category": [
+      "monocular",
+      "ERP",
+      "scale-invariant"
+    ],
+    "input": {
+      "frames": "single full ERP RGB2:1",
+      "projection": "ERP",
+      "intrinsics": "No pinhole K",
+      "resolution": "Checkpoint stored; test default518×1036",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "pred_disp scale-invariant disparity; test.py reciprocal to radial depth then divide by per-image min",
+      "point_map": "EXR raw exported normalized radial depth and PLY",
+      "normal": "Unknown",
+      "confidence": "No verified head",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Inverse radial distance/disparity with estimated shift; reciprocal gives radial distance up to scale",
+    "scale": "Scale-invariant, not metric; test normalization is an extra per-image scale",
+    "code_entry": [
+      "test.py",
+      "networks/",
+      "saver.py",
+      "app.py"
+    ],
+    "innovation": "Learned shift removes affine ambiguity of inverse depth; circular padding reduces ERP seams.",
+    "evidence": [
+      "Paper Method/shift formulation read; test.py L84–87 verified",
+      "https://raw.githubusercontent.com/antigravity-tech/DA360/main/test.py"
+    ],
+    "engineering_notes": [
+      "Sep/Oct2026 demos/data released, so older code-unavailable assessments stale",
+      "Original Insta360-Research-Team repo redirects to antigravity-tech",
+      "Good low-cost ablation of seam-aware decoding and shift, no pose",
+      "project_url explicitly declared in official repository, but direct project-page retrieval failed on final URL check; use code_url as verified access route"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "unik3d",
+    "title": "UniK3D: Universal Camera Monocular 3D Estimation",
+    "authors": [
+      "Luigi Piccinelli",
+      "Christos Sakaridis",
+      "Mattia Segu",
+      "Yung-Hsu Yang",
+      "Siyuan Li",
+      "Wim Abbeloos",
+      "Luc Van Gool"
+    ],
+    "institutions": [
+      "ETH Zürich",
+      "Toyota Motor Europe",
+      "INSAIT / Sofia University"
+    ],
+    "year": 2025,
+    "venue": "CVPR 2025",
+    "paper_url": "https://arxiv.org/abs/2503.16591",
+    "project_url": "https://lpiccinelli-eth.github.io/pub/unik3d/",
+    "code_url": "https://github.com/lpiccinelli-eth/UniK3D",
+    "weights_url": "https://huggingface.co/lpiccinelli/unik3d-vitl",
+    "license": {
+      "code": "CC-BY-NC-SA-4.0 LICENSE/source; README abbreviates BY-NC4.0 inconsistently",
+      "weights": "Official HF model card no explicit separate license observed"
+    },
+    "category": [
+      "monocular",
+      "metric",
+      "any-camera",
+      "point-map"
+    ],
+    "input": {
+      "frames": "single RGB C×H×W or B×3×H×W",
+      "projection": "Pinhole, OPENCV, Fisheye624, MEI, Spherical; predicted ray pencil if unknown",
+      "intrinsics": "Optional camera object / rays; set eval() to use supplied rays",
+      "resolution": "Resolution_level0–9 adaptive aspect/pixels; resize intrinsics/rays consistently",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "points B×3×H×W in camera frame meters; distance B×1×H×W=norm(points)",
+      "point_map": "Direct metric point map",
+      "normal": "Not a verified output head",
+      "confidence": "B×1×H×W learned confidence; physical variance calibration Unknown",
+      "camera_parameters": "rays B×3×H×W; latent ray prediction, not necessarily parametric K"
+    },
+    "depth_convention": "IMPORTANT: output depth=points[:,-1:] is signed camera Z; output distance=norm(points) is range; use distance for ERP/back hemisphere.",
+    "scale": "Learned metric meters",
+    "code_entry": [
+      "scripts/infer.py",
+      "unik3d/models/unik3d.py::UniK3D.infer",
+      "unik3d/utils/camera.py"
+    ],
+    "environment": "Linux Python3.10+ CUDA11.8+; pip install -e with cu121 official",
+    "innovation": "Universal spherical metric3D with spherical-harmonic rays, angular loss and conditioning avoiding wide-FoV contraction.",
+    "evidence": [
+      "Paper §3 representation and distribution-contraction analysis read",
+      "Model infer L362–365 explicitly audited",
+      "https://raw.githubusercontent.com/lpiccinelli-eth/UniK3D/main/unik3d/models/unik3d.py",
+      "https://raw.githubusercontent.com/lpiccinelli-eth/UniK3D/main/LICENSE"
+    ],
+    "engineering_notes": [
+      "Excellent alternative to compare known calibration vs predicted camera rays",
+      "Single-camera point map has no device motion output",
+      "Avoid taking README depth label literally for full sphere"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "vggt",
+    "title": "VGGT: Visual Geometry Grounded Transformer",
+    "authors": [
+      "Jianyuan Wang",
+      "Minghao Chen",
+      "Nikita Karaev",
+      "Andrea Vedaldi",
+      "Christian Rupprecht",
+      "David Novotny"
+    ],
+    "institutions": [
+      "University of Oxford",
+      "Meta AI"
+    ],
+    "year": 2025,
+    "venue": "CVPR 2025 Best Paper",
+    "paper_url": "https://arxiv.org/abs/2503.11651",
+    "project_url": "https://vgg-t.github.io/",
+    "code_url": "https://github.com/facebookresearch/vggt",
+    "weights_url": "https://huggingface.co/facebook/VGGT-1B",
+    "license": {
+      "code": "VGGT custom commercial-use-friendly license since2025-07-29; exclusions apply",
+      "weights": "Original VGGT-1B noncommercial; VGGT-1B-Commercial separate gated checkpoint/license"
+    },
+    "category": [
+      "multi-view",
+      "depth-and-pose",
+      "point-map"
+    ],
+    "input": {
+      "frames": "N overlapping RGB; B×S×3×H×W; one frame allowed",
+      "projection": "Pinhole public camera head; ERP/fisheye support not established",
+      "intrinsics": "Not required; predicts K",
+      "resolution": "Preprocessed long side518, multiple14, common tensor shape",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "depth B×S×H×W×1; depth_conf B×S×H×W",
+      "point_map": "world_points B×S×H×W×3 in reference/first-camera frame, world_points_conf",
+      "normal": "No verified head",
+      "confidence": "Learned per-pixel confidence; not calibrated covariance",
+      "camera_parameters": "pose_enc B×S×9→OpenCV world-to-camera extrinsics B×S×3×4 and K; optional tracking points and visibility"
+    },
+    "depth_convention": "Depth map camera Z; direct world points alternative; coordinate axes OpenCV x right y down z forward",
+    "scale": "Common arbitrary global scale; paper training normalizes mean point distance, not physical meters",
+    "pose_output": "Yes relative cameras in common first-camera frame; requires sequence association/backend for SLAM",
+    "code_entry": [
+      "vggt/models/vggt.py::VGGT.forward",
+      "vggt/utils/pose_enc.py",
+      "vggt/utils/geometry.py",
+      "demo_colmap.py"
+    ],
+    "innovation": "Alternating frame/global attention jointly predicts cameras, depth, points, tracks; optional COLMAP BA export.",
+    "evidence": [
+      "Paper §3 representations/GT normalization and BA discussion read",
+      "Official model forward and README camera convention inspected",
+      "https://raw.githubusercontent.com/facebookresearch/vggt/main/vggt/models/vggt.py",
+      "https://raw.githubusercontent.com/facebookresearch/vggt/main/LICENSE.txt"
+    ],
+    "engineering_notes": [
+      "No IMU and no metric-scale guarantee; camera output not equivalent to continuous wrist trajectory",
+      "May2026 repo memory bugfix means old memory numbers may be stale",
+      "VGGT-Ω separate entry is current2026 update"
+    ],
+    "accessed": "2026-10-17",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "vggt_omega",
+    "title": "VGGT-Ω",
+    "authors": [
+      "Jianyuan Wang",
+      "Minghao Chen",
+      "Shangzhan Zhang",
+      "Nikita Karaev",
+      "Johannes Schönberger",
+      "Patrick Labatut",
+      "Piotr Bojanowski",
+      "David Novotny",
+      "Andrea Vedaldi",
+      "Christian Rupprecht"
+    ],
+    "institutions": [
+      "University of Oxford",
+      "Meta AI"
+    ],
+    "year": 2026,
+    "venue": "CVPR 2026 Oral / Best Paper Finalist per official project",
+    "paper_url": "https://arxiv.org/abs/2605.15195",
+    "project_url": "https://vggt-omega.github.io/",
+    "code_url": "https://github.com/facebookresearch/vggt-omega",
+    "weights_url": "https://huggingface.co/facebook/VGGT-Omega",
+    "license": {
+      "code": "Custom VGGT Omega license; inspect LICENSE, not Apache/MIT",
+      "weights": "fair-noncommercial-research-license on verified official HF card; gated agreement/contact information required; application not completed"
+    },
+    "category": [
+      "multi-view",
+      "depth-and-pose",
+      "dynamic-reconstruction"
+    ],
+    "input": {
+      "frames": "N RGB images/video frames",
+      "projection": "Public camera decoding uses pinhole K; raw fisheye/ERP validation Unknown",
+      "intrinsics": "Not required; predicts camera",
+      "resolution": "512in-wild,416reproduction,256text-aligned checkpoints; balanced512 often624×416",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "depth and depth_conf plus pose_enc",
+      "point_map": "Depth unprojection in demo; do not assume old VGGT direct point head persists",
+      "normal": "Unknown",
+      "confidence": "Depth confidence, calibration Unknown",
+      "camera_parameters": "Extrinsics+intrinsics; camera/register tokens; optional text alignment embeddings"
+    },
+    "depth_convention": "Camera depth intended for K unprojection; detailed axis/sign source audit incomplete—Unknown until utils geometry verified",
+    "scale": "No verified metric-scale claim; treat as arbitrary common reconstruction scale",
+    "pose_output": "Yes camera estimates; no verified online inertial trajectory guarantee",
+    "code_entry": [
+      "vggt_omega/models/vggt_omega.py",
+      "vggt_omega/utils/pose_enc.py::encoding_to_camera",
+      "demo_gradio.py"
+    ],
+    "runtime": "Unknown: no public comparable measurement verified.",
+    "innovation": "Register attention restricts cross-frame exchange; single dense head; scalable supervision and unlabeled videos.",
+    "evidence": [
+      "Official project method description, current README and model forward inspected; paper experimental sections not fully read",
+      "https://raw.githubusercontent.com/facebookresearch/vggt-omega/main/README.md"
+    ],
+    "engineering_notes": [
+      "Use Sep2026 416-Reproduction checkpoint for benchmarking;512in-wild explicitly no benchmarking",
+      "Project newsSep18 vs repoSep8 release-date discrepancy; cutoff existence verified",
+      "Unknown: no public comparable measurement verified."
+    ],
+    "accessed": "2026-10-17",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_partial",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "unidepth_v2",
+    "title": "UniDepthV2: Universal Monocular Metric Depth Estimation Made Simpler",
+    "authors": [
+      "Luigi Piccinelli",
+      "Christos Sakaridis",
+      "Yung-Hsu Yang",
+      "Mattia Segu",
+      "Siyuan Li",
+      "Wim Abbeloos",
+      "Luc Van Gool"
+    ],
+    "institutions": [
+      "ETH Zürich",
+      "Toyota Motor Europe",
+      "INSAIT; full per-author affiliations Unknown"
+    ],
+    "year": 2025,
+    "venue": "TPAMI DOI10.1109/TPAMI.2025.3628473; arXiv2025",
+    "paper_url": "https://arxiv.org/abs/2502.20110",
+    "project_url": "https://github.com/lpiccinelli-eth/UniDepth#unidepthv2",
+    "code_url": "https://github.com/lpiccinelli-eth/UniDepth",
+    "weights_url": "https://huggingface.co/lpiccinelli/unidepth-v2-vitl14",
+    "license": {
+      "code": "CC-BY-NC-4.0 source header",
+      "weights": "Individual HF card terms require recheck"
+    },
+    "category": [
+      "monocular",
+      "metric",
+      "point-map",
+      "perspective-baseline"
+    ],
+    "input": {
+      "frames": "single RGB",
+      "projection": "Pseudo-spherical representation but original framework predominantly pinhole; library camera classes are not proof of universal ERP accuracy",
+      "intrinsics": "Optional calibrated camera/K; predicts if unavailable",
+      "resolution": "Adaptive resolution_level and ratio constraints",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "Metric Z Bx1xHxW, radius=norm(points) Bx1xHxW, points Bx3xHxW",
+      "point_map": "Direct camera-frame metric points",
+      "normal": "Unknown",
+      "confidence": "Confidence / uncertainty output; calibration to noise model Unknown",
+      "camera_parameters": "Predicted intrinsics/camera representation"
+    },
+    "depth_convention": "Public infer depth=point-map z coordinate; use point norm for Euclidean range. Do not infer whole-sphere validity from pseudo-spherical terminology.",
+    "scale": "Learned metric meters",
+    "code_entry": [
+      "unidepth/models/unidepthv2/unidepthv2.py",
+      "unidepth/utils/camera.py",
+      "unidepth/models/unidepthv2/README.md"
+    ],
+    "environment": "Linux Python3.10+ CUDA11.8+ official",
+    "innovation": "Self-prompted camera representation, edge-guided local SSI loss, simpler architecture and uncertainty.",
+    "evidence": [
+      "Paper summary and public API/model source inspected; full ablations not read",
+      "https://raw.githubusercontent.com/lpiccinelli-eth/UniDepth/main/unidepth/models/unidepthv2/unidepthv2.py"
+    ],
+    "engineering_notes": [
+      "Use as perspective metric/confidence control",
+      "Use UniK3D for explicit camera-generalization experiment",
+      "No pose output"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_partial",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "metric3d_v2",
+    "title": "Metric3Dv2: A Versatile Monocular Geometric Foundation Model for Zero-shot Metric Depth and Surface Normal Estimation",
+    "authors": [
+      "Mu Hu",
+      "Wei Yin",
+      "Chi Zhang",
+      "Zhipeng Cai",
+      "Xiaoxiao Long",
+      "Kaixuan Wang",
+      "Hao Chen",
+      "Gang Yu",
+      "Chunhua Shen",
+      "Shaojie Shen"
+    ],
+    "institutions": [
+      "HKUST",
+      "University of Adelaide",
+      "Tencent",
+      "Intel",
+      "The University of Hong Kong",
+      "Zhejiang University"
+    ],
+    "year": 2024,
+    "venue": "IEEE TPAMI2024 accepted per official repository",
+    "paper_url": "https://arxiv.org/abs/2404.15506",
+    "project_url": "https://jugghm.github.io/Metric3Dv2/",
+    "code_url": "https://github.com/YvanYin/Metric3D",
+    "weights_url": "https://github.com/YvanYin/Metric3D#readme",
+    "license": {
+      "code": "BSD-2-Clause",
+      "weights": "Separate terms Unknown; official README requests commercial inquiries"
+    },
+    "category": [
+      "monocular",
+      "metric",
+      "normal",
+      "perspective"
+    ],
+    "input": {
+      "frames": "single RGB plus calibrated focal/intrinsics for metric conversion",
+      "projection": "Pinhole canonical camera; do not equate thousands of camera intrinsics with fisheye/ERP native support",
+      "intrinsics": "Required for reliable metric focal correction",
+      "resolution": "Model-specific resize/pad; update K to processed image",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "Metric Z depth; normal 3channels plus confidence channel in predicted normal tensor where model supports it",
+      "point_map": "Derived via K",
+      "normal": "Yes joint depth-normal model",
+      "confidence": "Normal confidence where exposed; depth uncertainty Unknown",
+      "camera_parameters": "Does not recover camera pose"
+    },
+    "depth_convention": "Pinhole camera optical Z after canonical focal undoing; Euclidean range=Z*norm(K^-1p)",
+    "scale": "Metric after canonical focal rescale; raw canonical output not directly meters without conversion",
+    "code_entry": [
+      "hubconf.py",
+      "mono/model/monodepth_model.py",
+      "test_vit.sh",
+      "mono/utils/do_test.py"
+    ],
+    "innovation": "Canonical camera transformation resolves focal/depth ambiguity; iterative joint depth-normal refinement.",
+    "evidence": [
+      "Official repository inference usage/license and paper method synopsis; detailed benchmark/ablation not audited",
+      "https://raw.githubusercontent.com/YvanYin/Metric3D/main/LICENSE",
+      "https://arxiv.org/html/2404.15506v1 (Method III and Applications IV-B inspected)"
+    ],
+    "engineering_notes": [
+      "Good metric+normal perspective control",
+      "Using on tangent views needs correct virtual focal and conversion",
+      "No pose; a normal map can supply plane constraints only after correspondence/modeling",
+      "Paper IV-B/TableVII-VIII tests DROID plus predicted metric depth: translation drift improves but KITTI seq00 rotational drift worsens 0.29 to 0.37 deg/100m; not a wrist-accuracy guarantee"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "depth_pro",
+    "title": "Depth Pro: Sharp Monocular Metric Depth in Less Than a Second",
+    "authors": [
+      "Aleksei Bochkovskii",
+      "Amaël Delaunoy",
+      "Hugo Germain",
+      "Marcel Santos",
+      "Yichao Zhou",
+      "Stephan R. Richter",
+      "Vladlen Koltun"
+    ],
+    "institutions": [
+      "Apple"
+    ],
+    "year": 2024,
+    "venue": "ICLR 2025; arXiv2024",
+    "paper_url": "https://arxiv.org/abs/2410.02073",
+    "project_url": "https://github.com/apple-aiml-research/ml-depth-pro",
+    "code_url": "https://github.com/apple-aiml-research/ml-depth-pro",
+    "weights_url": "https://huggingface.co/apple/DepthPro",
+    "license": {
+      "code": "Apple custom software license plus component ACKNOWLEDGEMENTS",
+      "weights": "apple-amlr; not same as code; inspect model card"
+    },
+    "category": [
+      "monocular",
+      "metric",
+      "perspective"
+    ],
+    "input": {
+      "frames": "single RGB; focal_pixels optional",
+      "projection": "Pinhole RGB; full ERP/fisheye native support not established",
+      "intrinsics": "Can estimate focal if absent; use calibrated f if available",
+      "resolution": "1536×1536 internal multiscale inference, output original image shape",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "Metric depth H×W meters; estimated focal length pixels",
+      "point_map": "Derived via K with assumed principal point or calibration",
+      "normal": "No verified direct head",
+      "confidence": "No verified default head",
+      "camera_parameters": "Focal length estimate; not complete distortion calibration/pose"
+    },
+    "depth_convention": "Pinhole metric optical Z after focal correction; confirm adapter with official depth_pro.py before deployment",
+    "scale": "Learned metric, focal-dependent",
+    "code_entry": [
+      "src/depth_pro/depth_pro.py::DepthPro.infer",
+      "src/depth_pro/cli/run.py"
+    ],
+    "runtime": "Paper says2.25MP in0.3s on GPU; GPU/precision conditions not established in this audit, so not a deployment FPS claim",
+    "innovation": "Multiscale ViT and boundary-focused evaluation/training, estimated focal length.",
+    "evidence": [
+      "ICLR paper source and official code/model license inspected; not full Method/Ablation",
+      "https://openreview.net/pdf?id=aueXfY0Clv",
+      "https://github.com/apple-aiml-research/ml-depth-pro/blob/main/LICENSE",
+      "https://raw.githubusercontent.com/apple-aiml-research/ml-depth-pro/main/src/depth_pro/depth_pro.py (infer1536 square, canonical inverse-depth times W/f then reciprocal)"
+    ],
+    "engineering_notes": [
+      "Useful high-detail metric perspective reference",
+      "No temporal consistency or motion estimation",
+      "Do not infer exact metric accuracy from title",
+      "Official apple/DepthPro HF card says released checkpoint is a retrained reference implementation and does not exactly match paper performance"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_partial",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "video_depth_anything",
+    "title": "Video Depth Anything: Consistent Depth Estimation for Super-Long Videos",
+    "authors": [
+      "Sili Chen",
+      "Hengkai Guo",
+      "Shengnan Zhu",
+      "Feihu Zhang",
+      "Zilong Huang",
+      "Jiashi Feng",
+      "Bingyi Kang"
+    ],
+    "institutions": [
+      "ByteDance"
+    ],
+    "year": 2025,
+    "venue": "CVPR 2025 Highlight",
+    "paper_url": "https://arxiv.org/abs/2501.12375",
+    "project_url": "https://videodepthanything.github.io/",
+    "code_url": "https://github.com/DepthAnything/Video-Depth-Anything",
+    "weights_url": "https://github.com/DepthAnything/Video-Depth-Anything#pre-trained-models",
+    "license": {
+      "code": "Apache-2.0 repository",
+      "weights": "Small Apache-2.0; Base/Large CC-BY-NC-4.0 per README, check metric cards too"
+    },
+    "category": [
+      "video",
+      "relative",
+      "metric-variant",
+      "perspective"
+    ],
+    "input": {
+      "frames": "RGB video windows, offline32-frame example; experimental streaming cache",
+      "projection": "Perspective; no established native ERP/fisheye support",
+      "intrinsics": "Not required by default inference API",
+      "synchronization": "Ordered temporal RGB/fps; no external IMU/sensor sync",
+      "resolution": "Default input_size518 max_res1280; speed benchmark1×32×518×518",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain"
+    },
+    "output": {
+      "primary": "T×H×W depth sequence; relative checkpoints or distinct metric checkpoints",
+      "point_map": "No direct shared-world point map",
+      "normal": "No verified head",
+      "confidence": "No verified calibrated uncertainty head",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Relative representation or metric perspective depth according to checkpoint; exact Z/range adapter convention remains Unknown in this audit",
+    "scale": "Relative main models; metric models trained VirtualKITTI+IRS available2025; not all variants metric",
+    "code_entry": [
+      "run.py",
+      "run_streaming.py",
+      "video_depth_anything/video_depth.py",
+      "loss/"
+    ],
+    "runtime": "Official A1001×32×518²:SmallFP16 latency7.5ms,VRAM6.8GB;LargeFP16 14ms,23.6GB. Read implementation before interpreting latency as frame/window; not current-GPU result.",
+    "innovation": "DAv2 spatial-temporal head, temporal-gradient loss, keyframe long-video inference.",
+    "evidence": [
+      "Official release notes, README benchmark and streaming limitation read",
+      "https://raw.githubusercontent.com/DepthAnything/Video-Depth-Anything/main/README.md"
+    ],
+    "engineering_notes": [
+      "Temporal depth smoothing not equivalent to rigid multiview consistency or better pose",
+      "Experimental streaming causes reported ScanNetδ1 0.926→0.836; do not quote offline accuracy for streaming",
+      "Official project 3D visualization obtains camera and affine scale/shift from MoGe first frame; do not attribute that geometry capability to VDA alone"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "unifuse",
+    "title": "UniFuse: Unidirectional Fusion for 360° Panorama Depth Estimation",
+    "authors": [
+      "Hualie Jiang",
+      "Zhe Sheng",
+      "Siyu Zhu",
+      "Zilong Dong",
+      "Rui Huang"
+    ],
+    "institutions": [
+      "Shenzhen Institute of Artificial Intelligence and Robotics for Society",
+      "The Chinese University of Hong Kong, Shenzhen",
+      "Alibaba Cloud A.I. Lab"
+    ],
+    "year": 2021,
+    "venue": "IEEE RA-L + ICRA2021",
+    "paper_url": "https://arxiv.org/abs/2102.03550",
+    "project_url": "https://github.com/alibaba/UniFuse-Unidirectional-Fusion",
+    "code_url": "https://github.com/alibaba/UniFuse-Unidirectional-Fusion",
+    "weights_url": "https://github.com/alibaba/UniFuse-Unidirectional-Fusion#pre-trained-models",
+    "license": {
+      "code": "MIT (official LICENSE inspected)",
+      "weights": "Unknown"
+    },
+    "category": [
+      "monocular",
+      "ERP-and-cubemap",
+      "in-domain-baseline"
+    ],
+    "input": {
+      "frames": "single ERP RGB plus cubemap deterministically derived from same image",
+      "projection": "ERP+six virtual perspective cubemap faces; not six independent sensors",
+      "intrinsics": "Implicit cubemap/ERP geometry, no physical K",
+      "resolution": "512×1024 standard",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "ERP-aligned depth B×1×H×W; supervised checkpoint tied to dataset metric/range",
+      "point_map": "Not verified direct output",
+      "normal": "No verified head",
+      "confidence": "No verified head",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Radial vs Z not verified from original decoder/dataloader in this audit: Unknown; must inspect before comparing geometry",
+    "scale": "Supervised depth in dataset conventions; no justified open-world metric guarantee",
+    "code_entry": [
+      "UniFuse/evaluate.py",
+      "UniFuse/networks/",
+      "PretrainedModels/"
+    ],
+    "environment": "Official legacyPython3.6 torch>=1.0 CUDA>=9; modern compatibility not tested",
+    "innovation": "Cubemap-to-ERP feature fusion at decoder only; useful simple bi-projection baseline.",
+    "evidence": [
+      "Original paper abstract and official repository training/evaluation instructions; full source convention not audited",
+      "https://arxiv.org/pdf/2102.03550",
+      "https://raw.githubusercontent.com/alibaba/UniFuse-Unidirectional-Fusion/main/LICENSE"
+    ],
+    "engineering_notes": [
+      "Domain baseline, lower priority than foundation models for open-world",
+      "One scene image in two projections is no stereo baseline"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_partial",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "panoformer",
+    "title": "PanoFormer: Panorama Transformer for Indoor 360° Depth Estimation",
+    "authors": [
+      "Zhijie Shen",
+      "Chunyu Lin",
+      "Kang Liao",
+      "Lang Nie",
+      "Zishuo Zheng",
+      "Yao Zhao"
+    ],
+    "institutions": [
+      "Beijing Jiaotong University",
+      "Max Planck Institute for Informatics"
+    ],
+    "year": 2022,
+    "venue": "ECCV2022",
+    "paper_url": "https://arxiv.org/abs/2203.09283",
+    "project_url": "https://github.com/zhijieshen-bjtu/PanoFormer",
+    "code_url": "https://github.com/zhijieshen-bjtu/PanoFormer",
+    "weights_url": "https://github.com/zhijieshen-bjtu/PanoFormer#to-start",
+    "license": {
+      "code": "License SPDX Unknown in this audit",
+      "weights": "Official pretrained links existence to inspect; separate terms Unknown"
+    },
+    "category": [
+      "monocular",
+      "ERP",
+      "indoor-baseline"
+    ],
+    "input": {
+      "frames": "single ERP RGB",
+      "projection": "ERP with tangent-domain patch sampling",
+      "intrinsics": "Standard ERP geometry; no pinhole K",
+      "resolution": "Model/data specific, commonly512×1024; exact inference config to verify",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "ERP depth map H×W",
+      "point_map": "No direct verified output",
+      "normal": "Unknown",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Radial vs Z not source-verified in this audit: Unknown",
+    "scale": "Supervised indoor depth dataset scale; zero-shot metric generalization not established",
+    "code_entry": [
+      "README.md",
+      "networks/; exact inference function Unknown"
+    ],
+    "innovation": "Spherical tangent patches, learnable token flows and panorama-specific metrics.",
+    "evidence": [
+      "ECCV official paper first page/Method introduction and official repository inspected; ablations and code path incomplete"
+    ],
+    "engineering_notes": [
+      "Useful geometry-aware transformer historical baseline",
+      "Do not cite uninspected predicted units as meters"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "environment": "Official PyTorch1.7.1 Python3.8 CUDA10.1 RTX3090",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "bifuse_pp",
+    "title": "BiFuse++: Self-Supervised and Efficient Bi-Projection Fusion for 360° Depth Estimation",
+    "authors": [
+      "Fu-En Wang",
+      "Yu-Hsuan Yeh",
+      "Yi-Hsuan Tsai",
+      "Wei-Chen Chiu",
+      "Min Sun"
+    ],
+    "institutions": [
+      "National Tsing Hua University",
+      "National Yang Ming Chiao Tung University",
+      "Phiar Technologies"
+    ],
+    "year": 2022,
+    "venue": "TPAMI2023 vol45(5)5448–5460; DOI10.1109/TPAMI.2022.3203516",
+    "paper_url": "https://arxiv.org/abs/2209.02952",
+    "project_url": "https://github.com/fuenwang/BiFusev2",
+    "code_url": "https://github.com/fuenwang/BiFusev2",
+    "weights_url": "https://github.com/fuenwang/BiFusev2#inference",
+    "license": {
+      "code": "MIT",
+      "weights": "README says code/models MIT; download terms not separately inspected"
+    },
+    "category": [
+      "monocular",
+      "ERP-and-cubemap",
+      "self-supervised-video-training"
+    ],
+    "input": {
+      "frames": "Single ERP at depth inference; neighboring video frames and pose/reprojection in self-supervised training",
+      "projection": "ERP+virtual cubemap",
+      "intrinsics": "Implicit spherical geometry; no pinhole K for standardERP",
+      "resolution": "Checkpoint/config-specific Unknown",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity required by public interface; training orientation prior may remain",
+      "synchronization": "Single-frame no sensor synchronization requirement; integration with VIO requires timestamps and extrinsics"
+    },
+    "output": {
+      "primary": "Single ERP depth map; different supervised/self-supervised modes",
+      "point_map": "Not verified direct output",
+      "normal": "Unknown",
+      "confidence": "Unknown",
+      "camera_parameters": "Training pose network not verified as released continuous pose inference"
+    },
+    "depth_convention": "Radial vs Z decoder/warper convention not audited: Unknown",
+    "scale": "Supervised checkpoint dataset scale; self-supervised monocular scale ambiguous absent known motion",
+    "code_entry": [
+      "run_inference.py --mode supervised/selfsupervised",
+      "BasePhotometric.py"
+    ],
+    "innovation": "Efficient bi-projection fusion and contrast-aware photometric loss; supervised and self-supervised setups.",
+    "evidence": [
+      "Original arXiv metadata and official README/license/pretrained inference reviewed; detailed Method source not audited",
+      "https://arxiv.org/pdf/2209.02952 (paper Fig1 confirms 3-frame PoseNet during training)"
+    ],
+    "engineering_notes": [
+      "Compare supervised vs self-supervised modes explicitly",
+      "Training ego-motion is not evidence of deployable SLAM trajectory"
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No released depth inference camera-pose output verified; depth map alone is not a trajectory",
+    "runtime": "Unknown: no comparable public timing/peak-VRAM conditions verified; not measured locally",
+    "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+    "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
+    "evidence_level": "L2_paper_or_L3_code_as_specified",
+    "schema_version": "1.0",
+    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  }
+]

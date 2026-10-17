@@ -1,0 +1,228 @@
+"""Normalize verified records and emit a buildless, GitHub-Pages-safe site."""
+from pathlib import Path
+import csv
+import json
+import re
+import shutil
+from urllib.parse import urlparse
+
+ROOT=Path(__file__).resolve().parents[1]
+UPDATED='2026-10-17'
+REPO_URL='https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM'
+
+# Explicit reviewed labels: substring search is not a test of camera support.
+# Each tuple: name, cameras, scale status, primary geometry convention, summary.
+DEPTH={
+ 'depth_anything_v2':('Depth Anything V2',['perspective'],'mixed','inverse','透视相对深度的重要基线；独立 metric 分支需区分权重，不能把原始鱼眼或 ERP 直接视为受支持投影。'),
+ 'depth_anything_3':('Depth Anything 3',['perspective'],'mixed','z','从单帧或多视图恢复深度、相机与几何；Any-view 描述视角关系，不代表原生支持全景投影。'),
+ 'dac':('Depth Any Camera',['panoramic','fisheye','wide','perspective'],'metric','range','将已知相机投影映射到统一 ERP 表示，研究跨视场的零样本公制距离；仍需正确标定与投影转换。'),
+ 'unidac':('UniDAC',['panoramic','fisheye','wide','perspective'],'metric','range','分解相对形状与空间变化的尺度，统一多种相机的公制距离；论文 shift 与当前代码的差异保留在证据中。'),
+ 'da2_panorama':('DA²',['panoramic'],'relative','range','SphereViT 显式使用球面坐标，端到端预测全景尺度不变距离；几何形状不等于公制尺度。'),
+ 'dap':('Depth Any Panoramas',['panoramic'],'metric','range','面向不同距离范围的全景公制深度基础模型；当前 raw 输出与有效掩码必须按作者说明转换。'),
+ 'panda':('PanDA',['panoramic'],'mixed','unknown','通过有标注与无标注全景和球面增强适配 Depth Anything；公开主权重为相对深度，metric 微调另列。'),
+ 'da360':('Depth Anything in 360°',['panoramic'],'relative','range','针对真实全景的尺度不变深度路线，提供不同大小模型；EXR 或 PLY 文件本身不证明结果以米计。'),
+ 'unik3d':('UniK3D',['panoramic','fisheye','wide','perspective'],'metric','points','以通用射线和球面表示处理不同相机，输出公制点图；distance 是径向距离，depth 则是相机 Z。'),
+ 'vggt':('VGGT',['perspective'],'relative','mixed','多视图联合预测相机、深度和三维几何；共享坐标中的重建仍存在尺度规范，需与连续 SLAM 区分。'),
+ 'vggt_omega':('VGGT-Ω',['perspective'],'unknown','z','通过更高效的跨帧信息交换扩展多视图几何恢复；复现版与 in-wild checkpoint 应分别记录。'),
+ 'unidepth_v2':('UniDepthV2',['perspective'],'metric','points','联合估计透视公制几何、相机表示与不确定性；不能由 universal 名称推断完整 ERP 支持。'),
+ 'metric3d_v2':('Metric3Dv2',['perspective'],'metric','z','利用相机规范化恢复透视公制深度和法向；焦距缩放和数据域影响实际公制几何。'),
+ 'depth_pro':('Depth Pro',['perspective'],'metric','z','面向细节边界的单目公制深度与焦距预测；不直接输出连续相机轨迹。'),
+ 'video_depth_anything':('Video Depth Anything',['perspective'],'mixed','unknown','强调长视频深度一致性；相对与 metric 权重分别核对，视频深度并不自动提供 SLAM 位姿。'),
+ 'unifuse':('UniFuse',['panoramic'],'mixed','unknown','用同一张全景的 ERP 与 cubemap 特征单向融合；这是双投影，不是增加一个真实立体相机。'),
+ 'panoformer':('PanoFormer',['panoramic'],'mixed','unknown','在球面切平面上构造 token 的室内全景 Transformer；数据集监督精度不代表开放域公制保证。'),
+ 'bifuse_pp':('BiFuse++',['panoramic'],'mixed','unknown','融合 ERP 与 cubemap 表征，包含监督与自监督方案；不同训练配置的尺度来源应分别记录。')
+}
+CAMERAS={'panoramic_erp':'panoramic','erp':'panoramic','panoramic':'panoramic',
+ 'fisheye':'fisheye','wide_fov':'wide','wide-angle':'wide','wide-fov':'wide',
+ 'perspective':'perspective','pinhole':'perspective','multi-camera':'multi','multi_camera':'multi'}
+SCALE_OVERRIDES={'p2uslam2026':'relative','odgsslam2026':'mixed','goslam2023':'mixed',
+                 'monogs2024':'mixed','svo_pro':'mixed','360orbslam2024':'unknown'}
+CODE_OVERRIDES={'p2uslam2026':'none','panogsslam2026':'none','panoslam2025':'none',
+                'panoair2026':'unverified','lfvislam2023':'partial','dreamcube':'partial'}
+SLAM_DEPTH={'dbafusion2024':'inverse','droidslam2021':'inverse','goslam2023':'inverse',
+            'mast3rslam2025':'points','splatam2024':'z','monogs2024':'z'}
+NO_DENSE_DEPTH={'openvins2020','orbslam3_2021','stella_vslam','basalt2020','vinsfusion2019',
+                'okvis2_2022','okvis2x2025','svo_pro','omnislam2020','360orbslam2024',
+                'lfvislam2023','p2uslam2026','panoair2026'}
+DEPTH_METRIC_STATUS={k:('metric_learned' if v[2]=='metric' else 'scale_invariant' if v[2]=='relative' else
+                      'mixed_checkpoints' if v[2]=='mixed' else 'unknown') for k,v in DEPTH.items()}
+DEPTH_METRIC_STATUS.update(unifuse='dataset_scale_only',panoformer='dataset_scale_only')
+ALIASES={'depth_anything_v2':['DAv2','DA2 perspective'],'depth_anything_3':['DA3'],
+         'dac':['DAC'],'unidac':['UniDAC'],'da2_panorama':['DA2','DA²'],
+         'dap':['DAP'],'da360':['DA360'],'panda':['PanDA'],'depth_anywhere':['DepthAnywhere','DA'],
+         'metric3d_v2':['Metric3D','Metric3Dv2'],'vggt_omega':['VGGT-Omega'],
+         'video_depth_anything':['VideoDA','VDA']}
+
+
+def txt(v):
+    if v is None:return 'Unknown'
+    if isinstance(v,dict):return '; '.join(f'{k}: {txt(x)}' for k,x in v.items())
+    if isinstance(v,list):return '; '.join(txt(x) for x in v)
+    return str(v)
+
+
+def url(v):
+    if not isinstance(v,str):return ''
+    p=urlparse(v)
+    return v if p.scheme in ['http','https'] and p.netloc else ''
+
+
+def bool_value(v):
+    if isinstance(v,bool):return v
+    s=txt(v).strip().lower()
+    if s.startswith(('yes','true')):return True
+    if s.startswith(('no ','no:','no verified','no direct','no released')) or s=='no':return False
+    return 'unknown'
+
+
+def camera_list(e):
+    found=[]
+    for c in e.get('camera_support',[]):
+        mapped=CAMERAS.get(c.lower())
+        if mapped and mapped not in found:found.append(mapped)
+    # Multiple source cameras are different from virtual cubemap faces.
+    if 'stereo' in [x.lower() for x in e.get('camera_support',[])]:
+        if 'multi' not in found:found.append('multi')
+    return found
+
+
+def geometry_type(e):
+    values=[x.lower() for x in e.get('geometry_output',[])]
+    if any('inverse' in x for x in values):return 'inverse'
+    if 'radial_range' in values or 'range' in values:return 'range'
+    if 'z_depth' in values:return 'z'
+    if 'point_map' in values:return 'points'
+    return 'unknown'
+
+
+def publication_year(e):
+    # Do not make a preprint year look like a formal conference year.
+    if e['id']=='bifuse_pp':return 2023
+    if e['id']=='stella_vslam':return e.get('year',0)  # underlying paper, not a new 2021 paper
+    venue=txt(e.get('venue',''))
+    match=re.search(r'(?:CVPR|ICLR|ICCV|ECCV|NeurIPS|ICRA|IROS|RSS|TPAMI)\s*(20\d{2})',venue,re.I)
+    return int(match.group(1)) if match else e.get('year',0)
+
+
+def depth_scale(e):
+    status=e.get('metric_status','unknown')
+    if status in ['metric_learned','metric_stereo_baseline']:return 'metric'
+    if status in ['scale_invariant','scale_shift_invariant']:return 'relative'
+    if status in ['mixed_checkpoints','dataset_scale_only']:return 'mixed'
+    return 'unknown'
+
+
+def slam_scale(e):
+    if e['id'] in SCALE_OVERRIDES:return SCALE_OVERRIDES[e['id']]
+    s=txt(e.get('metric_status',e.get('scale'))).lower()
+    if e['id'] in ['mast3rslam2025','dpvo2023','dpvslam2024','d3vo2020','360orbslam2024','panogsslam2026']:
+        # Stereo-trained priors or scale-aligned evaluations do not fix deployment gauge.
+        return 'relative' if e['id']!='d3vo2020' else 'mixed'
+    if ('monocular' in s or 'mono' in s) and ('stereo' in s or 'rgb-d' in s):return 'mixed'
+    if any(x in s for x in ['up-to-scale','scale-ambiguous','arbitrary scale','not guaranteed','scale aligned','scale-aligned']):return 'relative'
+    if 'metric' in s:return 'metric'
+    return 'unknown'
+
+
+def code_status(e):
+    if e['id'] in CODE_OVERRIDES:return CODE_OVERRIDES[e['id']]
+    status=txt(e.get('official_release_status','')).lower()
+    if any(x in status for x in ['readme only','readme-only','only readme','announced','promised','not released','not yet released','no official code','unreleased']):return 'none'
+    if any(x in status for x in ['partial','conflict','sanity','testing','coming soon','incomplete']):return 'partial'
+    if url(e.get('code_url')):return 'released'
+    return 'unverified'
+
+
+def normalize(e,collection):
+    eid=e['id'];inputs=e.get('input','Unknown');outputs=e.get('output','Unknown')
+    reviewed=DEPTH.get(eid) if collection=='depth' else None
+    name=reviewed[0] if reviewed else e.get('short_name',e['title'].split(':')[0])
+    cameras=list(reviewed[1]) if reviewed else camera_list(e)
+    if eid in ['mode','mcpdepth'] and 'multi' not in cameras:cameras.append('multi')
+    scale=reviewed[2] if reviewed else depth_scale(e) if collection=='depth' else slam_scale(e)
+    depth_type=reviewed[3] if reviewed else geometry_type(e) if collection=='depth' else SLAM_DEPTH.get(eid,'none' if eid in NO_DENSE_DEPTH else 'unknown')
+    summary=reviewed[4] if reviewed else e.get('summary_zh',txt(e.get('innovation',e.get('limitations',''))))
+    output_summary=outputs.get('primary',txt(outputs)) if isinstance(outputs,dict) else txt(outputs)
+    input_summary=inputs.get('frames',txt(inputs)) if isinstance(inputs,dict) else txt(inputs)
+    evidence=e.get('evidence',[])
+    if not isinstance(evidence,list):evidence=[evidence]
+    evidence += e.get('source_urls',[])
+    evidence += [url(e.get(k)) for k in ['paper_url','project_url','code_url']]
+    evidence=list(dict.fromkeys(txt(x) for x in evidence if x))
+    notes=e.get('engineering_notes',[])
+    if not isinstance(notes,list):notes=[notes]
+    notes += [e.get('limitations')] if e.get('limitations') else []
+    notes += [e['official_release_status']] if e.get('official_release_status') else []
+    # Preserve full geometry definition instead of guessing meaning from variable names.
+    details=outputs.copy() if isinstance(outputs,dict) else {'primary':outputs}
+    details['depth_convention']=e.get('depth_convention','Unknown')
+    metric_status=e.get('metric_status',DEPTH_METRIC_STATUS.get(eid,e.get('scale','Unknown')))
+    details['metric_status']=metric_status
+    details['pose_output']=e.get('pose_output','Unknown')
+    details['runtime']=e.get('runtime','Unknown: no comparable local measurement')
+    tags=e.get('category',[])
+    if not isinstance(tags,list):tags=[tags]
+    tags += e.get('geometry_output',[])
+    aliases=ALIASES.get(eid,[])
+    if 'gaussian' in txt(e.get('slam_family','')).lower():aliases=aliases+['3DGS']
+    native=e.get('native_erp',e.get('native_panoramic', 'panoramic' in cameras))
+    if eid=='vggt_omega':native='unknown'
+    return dict(id=eid,collection=collection,name=name,title=e['title'],year=publication_year(e),firstYear=e.get('year',0),
+        yearConvention='Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.',
+        venue=e.get('venue','Unknown'),authors=e.get('authors','Unknown'),institutions=e.get('institutions','Unknown'),
+        summary=summary,cameras=cameras,scale=scale,scaleNote=txt(e.get('scale',e.get('metric_status','Unknown'))),
+        aliases=aliases,
+        metricStatus=metric_status,depthType=depth_type,
+        outputs=e.get('geometry_output',[]) or ([depth_type,'pose'] if collection=='slam' else [depth_type]),
+        pose=bool_value(e.get('pose_output','Unknown')),inputSummary=input_summary,outputSummary=output_summary,
+        inputs=inputs if isinstance(inputs,dict) else {'requirements':inputs,'imu':e.get('imu_required','Unknown')},
+        outputDetails=details,codeStatus=code_status(e),codeUrl=url(e.get('code_url')),
+        paperUrl=url(e.get('paper_url')),projectUrl=url(e.get('project_url')),weightsUrl=url(e.get('weights_url')),
+        license=e.get('license','Unknown'),evidence=evidence,notes=[txt(x) for x in notes if x],tags=list(dict.fromkeys(tags)),
+        family=e.get('slam_family',e.get('task_family','depth_and_geometry')),
+        imu=e.get('imu_required',inputs.get('imu','No') if isinstance(inputs,dict) else 'Unknown'),
+        loopClosure=e.get('loop_closure','Not applicable'),nativePanoramic=native,
+        sourceChecked=e.get('accessed',UPDATED),publiclyVerified=True,
+        verificationLevel=e.get('evidence_level','Official paper / repository review; not locally reproduced'),
+        codeEntry=e.get('code_entry','Unknown'),environment=e.get('environment',e.get('hardware_notes','Unknown')))
+
+
+def build():
+    depth=json.loads((ROOT/'source_data/depth_models.json').read_text(encoding='utf-8'))
+    added=json.loads((ROOT/'source_data/panoramic_additions.json').read_text(encoding='utf-8'))
+    slam=json.loads((ROOT/'source_data/slam_survey.json').read_text(encoding='utf-8'))
+    records=[normalize(e,'depth') for e in depth+added]+[normalize(e,'slam') for e in slam]
+    ids=[e['id'] for e in records]
+    if len(ids)!=len(set(ids)):raise ValueError('Duplicate catalog ID')
+    records.sort(key=lambda e:(e['collection']!='depth',-int(str(e.get('year',0))[:4]) if str(e.get('year',0))[:4].isdigit() else 0,e['name']))
+    catalog=dict(updated=UPDATED,repoUrl=REPO_URL,title='Panoramic Depth Atlas',
+        description='Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.',
+        schemaVersion='1.0',records=records,
+        stats={'depth':len(depth)+len(added),'slam':len(slam),
+               'panoramicDepth':sum(e['collection']=='depth' and 'panoramic' in e['cameras'] for e in records),
+               'panoramicSLAM':sum(e['collection']=='slam' and 'panoramic' in e['cameras'] for e in records)})
+    data=ROOT/'site/data';data.mkdir(parents=True,exist_ok=True)
+    serialized=json.dumps(catalog,ensure_ascii=False,indent=2)
+    # Classic script loading supports both file:// previews and static hosting.
+    (data/'catalog.js').write_text('window.ATLAS_DATA = '+serialized.replace('</','<\\/')+';\n',encoding='utf-8',newline='\n')
+    (data/'catalog.json').write_text(serialized+'\n',encoding='utf-8',newline='\n')
+    cols=['id','collection','name','title','year','venue','cameras','scale','metricStatus','scaleNote','depthType','pose',
+          'nativePanoramic','codeStatus','paperUrl','projectUrl','codeUrl','weightsUrl','inputSummary','outputSummary','license','evidence','notes','sourceChecked']
+    with (data/'catalog.csv').open('w',encoding='utf-8-sig',newline='') as f:
+        writer=csv.DictWriter(f,fieldnames=cols);writer.writeheader()
+        for e in records:writer.writerow({k:txt(e.get(k,'')) for k in cols})
+    (ROOT/'site/.nojekyll').touch()
+    # Copy-only build: no recursive deletion, no external paths or dependencies.
+    for path in (ROOT/'site').rglob('*'):
+        if path.is_file():
+            destination=ROOT/'docs'/path.relative_to(ROOT/'site')
+            destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(path,destination)
+    sources=[]
+    for e in records:
+        sources.append(f"## {e['name']} ({e['year']})\n\n{e['title']}\n\n"+'\n'.join('- '+v for v in e['evidence'])+'\n')
+    (ROOT/'references/sources.md').write_text('# Official-source index\n\nChecked '+UPDATED+'. Bibliographic and interface evidence; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
+    print(json.dumps({'records':len(records),**catalog['stats'],'output':'docs/'}))
+    return catalog
+
+
+if __name__=='__main__':build()

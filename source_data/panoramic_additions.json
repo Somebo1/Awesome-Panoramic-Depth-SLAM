@@ -1,0 +1,1044 @@
+[
+  {
+    "authors": [
+      "Manuel Rey-Area",
+      "Mingze Yuan",
+      "Christian Richardt"
+    ],
+    "institutions": [
+      "University of Bath"
+    ],
+    "project_url": "https://manurare.github.io/360monodepth/",
+    "code_url": "https://github.com/manurare/360monodepth",
+    "weights_url": null,
+    "license": {
+      "code": "MIT",
+      "weights": "Uses separately licensed upstream MiDaS / BoostingMonocularDepth weights; no native trained checkpoint required"
+    },
+    "input": {
+      "frames": "single ERP RGB",
+      "projection": "ERP → overlapping icosahedron tangent perspective images",
+      "intrinsics": "Standard ERP geometry; raw fisheye must be calibrated and reprojected",
+      "resolution": "Paper evaluates 1024×2048 ERP; supports high-resolution decomposition",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "ERP spherical disparity (inverse radial range) and relative depth derived from it",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Paper §3.2 explicitly defines spherical disparity as inverse radial Euclidean distance; predictions retain affine ambiguity in disparity.",
+    "scale": "Original MiDaS pipeline is affine-ambiguous inverse depth. Cross-patch alignment removes patch disagreement without recovering metric scale.",
+    "code_entry": [
+      "code/python/src/main.py",
+      "code/cpp/"
+    ],
+    "innovation": "Aligns perspective tangent disparities using deformable multi-scale fields, then merges them with gradient-domain blending.",
+    "evidence": [
+      "https://arxiv.org/html/2111.15669",
+      "https://github.com/manurare/360monodepth",
+      "https://raw.githubusercontent.com/manurare/360monodepth/main/code/python/src/main.py"
+    ],
+    "engineering_notes": [
+      "Useful 2K/4K projection-and-stitching reference; several perspective predictions and optimization stages per panorama.",
+      "C++ Ceres/Eigen bindings increase installation work. Replacing the backbone changes the experiment and does not by itself remove disparity ambiguity."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Official setup: Python ≥3.8 plus C++ Ceres/Eigen/OpenCV/pybind11; Docker recommended.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "inverse_radial_range",
+      "relative_depth"
+    ],
+    "metric_status": "scale_shift_invariant",
+    "official_release_status": "code_released_uses_upstream_weights",
+    "id": "360monodepth",
+    "short_name": "360MonoDepth",
+    "title": "360MonoDepth: High-Resolution 360° Monocular Depth Estimation",
+    "year": 2022,
+    "venue": "CVPR 2022",
+    "paper_url": "https://arxiv.org/abs/2111.15669",
+    "category": [
+      "monocular",
+      "ERP",
+      "tangent-views",
+      "training-free",
+      "relative"
+    ],
+    "summary_zh": "高分辨率全景经典基线：切成切平面，预测并全局对齐视差，再用Poisson融合；原始MiDaS版本没有米制尺度。"
+  },
+  {
+    "authors": [
+      "Yuyan Li",
+      "Yuliang Guo",
+      "Zhixin Yan",
+      "Xinyu Huang",
+      "Ye Duan",
+      "Liu Ren"
+    ],
+    "institutions": [
+      "Unknown"
+    ],
+    "project_url": "https://github.com/yuliangguo/OmniFusion",
+    "code_url": "https://github.com/yuliangguo/OmniFusion",
+    "weights_url": "https://github.com/yuliangguo/OmniFusion#pre-trained-models",
+    "license": {
+      "code": "MIT",
+      "weights": "Official README links pretrained evaluation models; separate weight terms Unknown"
+    },
+    "input": {
+      "frames": "single ERP RGB with derived tangent images",
+      "projection": "ERP → multiple perspective tangent patches",
+      "intrinsics": "Standard ERP geometry; raw fisheye must be calibrated and reprojected",
+      "resolution": "Paper: 512×1024 on Matterport3D/Stanford2D3D; 256×512 on 360D",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "Fused ERP depth; official evaluation can save point clouds",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Unknown: radial range versus optical-axis Z not verified from original decoder/dataloader.",
+    "scale": "Supervised dataset depth scale; broad zero-shot metric transfer is not established by the official release.",
+    "code_entry": [
+      "test.py",
+      "network_test.py",
+      "train_erp_depth.py",
+      "train_erp_depth_iterative.py"
+    ],
+    "innovation": "Fuses local appearance with spherical geometry and transformer context, with an optional iterative refinement stage.",
+    "evidence": [
+      "https://arxiv.org/abs/2203.00838",
+      "https://openaccess.thecvf.com/content/CVPR2022/papers/Li_OmniFusion_360_Monocular_Depth_Estimation_via_Geometry-Aware_Fusion_CVPR_2022_paper.pdf",
+      "https://github.com/yuliangguo/OmniFusion"
+    ],
+    "engineering_notes": [
+      "Pretrained availability is model/dataset specific; the official repository provides a pretrained section.",
+      "Tangent patches share one camera center and are not a stereo baseline."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Official tested Python 3.7.4, PyTorch 1.9.0, CUDA 11.6.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "depth_unknown_convention"
+    ],
+    "metric_status": "dataset_scale_only",
+    "official_release_status": "code_and_checkpoint_links",
+    "id": "omnifusion",
+    "short_name": "OmniFusion",
+    "title": "OmniFusion: 360 Monocular Depth Estimation via Geometry-Aware Fusion",
+    "year": 2022,
+    "venue": "CVPR 2022 Oral",
+    "paper_url": "https://arxiv.org/abs/2203.00838",
+    "category": [
+      "monocular",
+      "ERP",
+      "tangent-views",
+      "geometry-aware-fusion"
+    ],
+    "summary_zh": "以切平面减轻ERP畸变，并融合球面几何和全局上下文；适合研究局部视图融合与全景接缝。"
+  },
+  {
+    "authors": [
+      "Hao Ai",
+      "Zidong Cao",
+      "Yan-Pei Cao",
+      "Ying Shan",
+      "Lin Wang"
+    ],
+    "institutions": [
+      "Unknown"
+    ],
+    "project_url": "https://github.com/haoai-1997/HRDFuse",
+    "code_url": "https://github.com/haoai-1997/HRDFuse",
+    "weights_url": null,
+    "license": {
+      "code": "MIT",
+      "weights": "Unknown; public README is minimal and no task-specific pretrained download was verified"
+    },
+    "input": {
+      "frames": "single ERP RGB plus derived tangent patches",
+      "projection": "ERP + tangent projection",
+      "intrinsics": "Standard ERP geometry; raw fisheye must be calibrated and reprojected",
+      "resolution": "Paper tests tangent patch sizes 128×128 and 256×256",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "ERP depth map",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Unknown: radial range versus optical-axis Z not verified from original decoder/dataloader.",
+    "scale": "Supervised indoor dataset scale; units/convention require source audit before geometry integration.",
+    "code_entry": [
+      "train_fusion.py",
+      "model/"
+    ],
+    "innovation": "Combines holistic ERP context with regional tangent-view depth distributions.",
+    "evidence": [
+      "https://arxiv.org/abs/2303.11616",
+      "https://openaccess.thecvf.com/content/CVPR2023/papers/Ai_HRDFuse_Monocular_360deg_Depth_Estimation_by_Collaboratively_Learning_Holistic-With-Regional_Depth_CVPR_2023_paper.pdf",
+      "https://github.com/haoai-1997/HRDFuse",
+      "https://haoai-1997.github.io/"
+    ],
+    "engineering_notes": [
+      "Repository is linked by the first author's homepage; current README provides almost no reproduction guidance.",
+      "Published comparisons use dataset-specific training; do not read them as universal metric transfer."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Unknown; official requirements must be checked for the selected version.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "depth_unknown_convention"
+    ],
+    "metric_status": "dataset_scale_only",
+    "official_release_status": "code_released_weights_unverified",
+    "id": "hrdfuse",
+    "short_name": "HRDFuse",
+    "title": "HRDFuse: Monocular 360° Depth Estimation by Collaboratively Learning Holistic-with-Regional Depth Distributions",
+    "year": 2023,
+    "venue": "CVPR 2023",
+    "paper_url": "https://arxiv.org/abs/2303.11616",
+    "category": [
+      "monocular",
+      "ERP",
+      "tangent-views",
+      "depth-distribution"
+    ],
+    "summary_zh": "同时学习ERP全局和切平面局部的深度分布，代表全景双投影融合路线；官方代码已公开，任务权重仍待核实。"
+  },
+  {
+    "authors": [
+      "Hao Ai",
+      "Lin Wang"
+    ],
+    "institutions": [
+      "Unknown"
+    ],
+    "project_url": "https://github.com/haoai-1997/Elite360D",
+    "code_url": "https://github.com/haoai-1997/Elite360D",
+    "weights_url": null,
+    "license": {
+      "code": "Unknown; no repository license verified",
+      "weights": "Only generic ResNet initialization files verified, not trained Elite360D depth models"
+    },
+    "input": {
+      "frames": "single ERP RGB plus derived icosahedron point set",
+      "projection": "ERP + icosahedron projection (ICOSAP)",
+      "intrinsics": "Standard ERP geometry; raw fisheye must be calibrated and reprojected",
+      "resolution": "Unknown; selected model configuration dependent",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "ERP depth map",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Unknown: radial range versus optical-axis Z not verified from original decoder/dataloader.",
+    "scale": "Supervised indoor dataset scale; not a verified open-world metric foundation model.",
+    "code_entry": [
+      "eval_elite360d.py",
+      "train_elite360d.py",
+      "network/"
+    ],
+    "innovation": "Uses an ICOSAP point encoder and semantic/distance-aware bi-attention to connect local ERP features with global sphere context.",
+    "evidence": [
+      "https://arxiv.org/abs/2403.16376",
+      "https://github.com/haoai-1997/Elite360D",
+      "https://github.com/haoai-1997/Elite360D/tree/main/checkpoints"
+    ],
+    "engineering_notes": [
+      "The checkpoints directory contains resnet18-5c106cde.pth and resnet34-333f7ec4.pth; these do not establish release of trained depth weights.",
+      "Efficiency claims need matched backbone, resolution, precision and hardware before comparison."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Official setup: Python 3.10, PyTorch ≥1.12.0, CUDA ≥11.3.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "depth_unknown_convention"
+    ],
+    "metric_status": "dataset_scale_only",
+    "official_release_status": "code_released_weights_unverified",
+    "id": "elite360d",
+    "short_name": "Elite360D",
+    "title": "Elite360D: Towards Efficient 360 Depth Estimation via Semantic- and Distance-Aware Bi-Projection Fusion",
+    "year": 2024,
+    "venue": "CVPR 2024",
+    "paper_url": "https://arxiv.org/abs/2403.16376",
+    "category": [
+      "monocular",
+      "ERP",
+      "icosahedron",
+      "efficient-fusion"
+    ],
+    "summary_zh": "将ERP图像与二十面体点集结合，用轻量双投影注意力补充全局球面信息；任务深度权重未核实。"
+  },
+  {
+    "authors": [
+      "Ning-Hsu Albert Wang",
+      "Yu-Lun Liu"
+    ],
+    "institutions": [
+      "National Yang Ming Chiao Tung University"
+    ],
+    "project_url": "https://albert100121.github.io/Depth-Anywhere/",
+    "code_url": "https://github.com/albert100121/Depth-Anywhere",
+    "weights_url": "https://github.com/albert100121/Depth-Anywhere#pretrained-weights",
+    "license": {
+      "code": "Apache-2.0",
+      "weights": "Official Google Drive checkpoint link exists; separate weight terms Unknown"
+    },
+    "input": {
+      "frames": "single ERP RGB at inference; labeled/unlabeled panoramas with derived cubemap teacher views at training",
+      "projection": "Panoramic student, six virtual perspective cube faces for distillation",
+      "intrinsics": "Standard ERP geometry; raw fisheye must be calibrated and reprojected",
+      "resolution": "Student/config dependent",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "Panoramic student's ERP depth map; student-specific output semantics",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Unknown: radial range versus optical-axis Z not verified from original decoder/dataloader.",
+    "scale": "Student and checkpoint dependent: supervised dataset-depth signal plus affine-invariant perspective distillation; do not assume every configuration is metric.",
+    "code_entry": [
+      "inference.py",
+      "train.py",
+      "configs/",
+      "checkpoints/README.md"
+    ],
+    "innovation": "Distills perspective foundation depth into panoramic students using invalid-region masks and random rotations to reduce cube-boundary bias.",
+    "evidence": [
+      "https://arxiv.org/abs/2406.12849",
+      "https://albert100121.github.io/Depth-Anywhere/",
+      "https://github.com/albert100121/Depth-Anywhere"
+    ],
+    "engineering_notes": [
+      "Training framework supporting multiple panoramic students, not a single universal architecture.",
+      "Released pretrained links confirmed in README; no checkpoint inference executed."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Official simplified environment uses Python 3.8 plus requirements.txt; teacher/student dependencies differ.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "depth_unknown_convention"
+    ],
+    "metric_status": "mixed_checkpoints",
+    "official_release_status": "code_and_checkpoint_links",
+    "id": "depth_anywhere",
+    "short_name": "Depth Anywhere",
+    "title": "Depth Anywhere: Enhancing 360 Monocular Depth Estimation via Perspective Distillation and Unlabeled Data Augmentation",
+    "year": 2024,
+    "venue": "NeurIPS 2024",
+    "paper_url": "https://arxiv.org/abs/2406.12849",
+    "category": [
+      "monocular",
+      "ERP",
+      "perspective-distillation",
+      "semi-supervised"
+    ],
+    "summary_zh": "把透视深度基础模型蒸馏给UniFuse、BiFuse++等全景学生，利用未标注全景和随机旋转扩大数据；尺度语义随学生与checkpoint确定。"
+  },
+  {
+    "authors": [
+      "Ming Li",
+      "Xueqian Jin",
+      "Xuejiao Hu",
+      "Jingzhao Dai",
+      "Sidan Du",
+      "Yang Li"
+    ],
+    "institutions": [
+      "Unknown"
+    ],
+    "project_url": "https://github.com/nju-ee/MODE-2022",
+    "code_url": "https://github.com/nju-ee/MODE-2022",
+    "weights_url": "https://github.com/nju-ee/MODE-2022#pretrained-models",
+    "license": {
+      "code": "BSD-3-Clause",
+      "weights": "README links ModeDisparity / ModeFusion / ModeFusion_soiled; separate terms Unknown"
+    },
+    "input": {
+      "frames": "Multiple synchronized 360° cameras; paper uses four cameras on a square rig and six stereo pairs",
+      "projection": "Rectified Cassini/spherical panoramas for stereo matching",
+      "intrinsics": "Known omnidirectional projection and calibrated stereo geometry",
+      "resolution": "Unknown; checkpoint/config dependent",
+      "extrinsics": "Required known camera baseline/relative poses",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Required across physical cameras for dynamic scenes"
+    },
+    "output": {
+      "primary": "Stereo disparity/confidence maps and fused omnidirectional depth",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "No verified direct head",
+      "confidence": "Stereo-stage confidence maps; not calibrated physical uncertainty",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Paper §3.1 defines rho as Euclidean camera-center-to-point range, with stereo conversion proportional to known baseline B.",
+    "scale": "Metric geometry follows calibrated physical baseline units; learned matching errors and calibration errors remain.",
+    "code_entry": [
+      "test_disparity.py",
+      "save_output_disparity_stage.py",
+      "test_fusion.py",
+      "models/basic/spherical_conv/"
+    ],
+    "innovation": "Separates omnidirectional stereo matching from multi-view depth fusion, including robustness to mud, droplets and glare.",
+    "evidence": [
+      "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf",
+      "https://github.com/nju-ee/MODE-2022",
+      "https://raw.githubusercontent.com/nju-ee/MODE-2022/main/README.md"
+    ],
+    "engineering_notes": [
+      "Physical multi-camera acquisition and calibration required; not drop-in monocular inference.",
+      "Legacy spherical convolution requires custom compilation."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Official PyTorch ≥1.5.0, gcc/g++ ≤7.5.0 for spherical convolution.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp",
+      "cassini"
+    ],
+    "task_family": "multi_view_stereo",
+    "native_panoramic": true,
+    "geometry_output": [
+      "radial_range",
+      "disparity",
+      "confidence"
+    ],
+    "metric_status": "metric_stereo_baseline",
+    "official_release_status": "code_and_checkpoint_links",
+    "id": "mode",
+    "short_name": "MODE",
+    "title": "MODE: Multi-view Omnidirectional Depth Estimation with 360° Cameras",
+    "year": 2022,
+    "venue": "ECCV 2022",
+    "paper_url": "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf",
+    "category": [
+      "multi-view",
+      "panoramic-stereo",
+      "Cassini",
+      "depth-fusion"
+    ],
+    "summary_zh": "四台360相机、多组真实立体基线：Cassini域匹配后融合深度；尺度来自已知基线，区别于单全景的多投影视图。"
+  },
+  {
+    "authors": [
+      "Feng Qiao",
+      "Zhexiao Xiong",
+      "Xinge Zhu",
+      "Yuexin Ma",
+      "Qiumeng He",
+      "Nathan Jacobs"
+    ],
+    "institutions": [
+      "Unknown"
+    ],
+    "project_url": "https://github.com/Qjizhi/MCPDepth",
+    "code_url": "https://github.com/Qjizhi/MCPDepth",
+    "weights_url": "https://github.com/Qjizhi/MCPDepth/tree/main/pretrained_model",
+    "license": {
+      "code": "BSD-3-Clause",
+      "weights": "Deep360 matching/fusion tar files present; separate weight terms Unknown"
+    },
+    "input": {
+      "frames": "Multiple calibrated panoramas with physical stereo baselines",
+      "projection": "Multiple cylindrical panoramas; spherical/ERP conversions",
+      "intrinsics": "Known camera/projection mapping",
+      "resolution": "Unknown; checkpoint/config dependent",
+      "extrinsics": "Required calibrated stereo geometry",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Required across physical cameras"
+    },
+    "output": {
+      "primary": "Stereo disparity maps and fused omnidirectional depth",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Panoramic stereo depth derived from calibrated multi-camera geometry; precise exported array convention should be checked in predict.py before reuse.",
+    "scale": "Metric scale supplied by known stereo baseline; not a single-image metric prior.",
+    "code_entry": [
+      "predict.py",
+      "test_disparity.py",
+      "test_fusion.py",
+      "pretrained_model/"
+    ],
+    "innovation": "Replaces spherical matching with multi-cylindrical matching and circular attention, followed by cross-view depth fusion using standard network operators.",
+    "evidence": [
+      "https://arxiv.org/abs/2408.01653",
+      "https://github.com/Qjizhi/MCPDepth",
+      "https://github.com/Qjizhi/MCPDepth/tree/main/pretrained_model"
+    ],
+    "engineering_notes": [
+      "Final workshop citation adds 'Practical' to the title; preprint and repository refer to the same work.",
+      "Verified trained files MCPDepth_disparity_Deep360.tar and MCPDepth_fusion_Deep360.tar."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Unknown; official requirements must be checked for the selected version.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp",
+      "cylindrical"
+    ],
+    "task_family": "multi_view_stereo",
+    "native_panoramic": true,
+    "geometry_output": [
+      "depth_unknown_convention",
+      "disparity"
+    ],
+    "metric_status": "metric_stereo_baseline",
+    "official_release_status": "code_and_weights",
+    "id": "mcpdepth",
+    "short_name": "MCPDepth",
+    "title": "MCPDepth: Omnidirectional Depth Estimation via Stereo Matching from Multi-Cylindrical Panoramas",
+    "year": 2026,
+    "venue": "CVPR 2026 OmniCV Workshop; preprint 2024",
+    "paper_url": "https://arxiv.org/abs/2408.01653",
+    "category": [
+      "multi-view",
+      "panoramic-stereo",
+      "cylindrical",
+      "depth-fusion"
+    ],
+    "summary_zh": "以多柱面投影改善全向立体匹配，结合环形注意力和深度融合；真实多相机基线方案，非单目全景基础模型。"
+  },
+  {
+    "authors": [
+      "Dongki Jung",
+      "Jaehoon Choi",
+      "Yonghan Lee",
+      "Dinesh Manocha"
+    ],
+    "institutions": [
+      "Unknown"
+    ],
+    "project_url": "https://jdk9405.github.io/RPG360/",
+    "code_url": "https://github.com/jdk9405/RPG360",
+    "weights_url": null,
+    "license": {
+      "code": "Unknown",
+      "weights": "Unknown"
+    },
+    "input": {
+      "frames": "single ERP RGB",
+      "projection": "ERP → six perspective cubemap faces → ERP",
+      "intrinsics": "Standard ERP geometry; raw fisheye must be calibrated and reprojected",
+      "resolution": "Paper evaluates 512×1024 and 1024×2048",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "Optimized ERP depth and normals; point geometry derived from range",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "Surface normals predicted upstream and jointly refined",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Paper §3.1 explicitly converts perspective Z to ERP Euclidean range with norm(K^-1 p); point P = ERP range × unit spherical ray.",
+    "scale": "Depends on the chosen upstream foundation model. Relative backbones remain scale-ambiguous; Metric3D-based variants retain a fallible learned metric prior. Graph consistency does not supply measured metric scale.",
+    "code_entry": [
+      "scripts/step1_initial.py",
+      "scripts/step2_refine.py",
+      "configs/"
+    ],
+    "innovation": "Joint graph refinement of depth/normals plus per-face scales reduces cubemap seams while preserving 3D structure.",
+    "evidence": [
+      "https://arxiv.org/html/2509.23991",
+      "https://github.com/jdk9405/RPG360",
+      "https://papers.nips.cc/paper_files/paper/2025/file/fb1ea28c42fcd32bd49e68769b26028f-Paper-Conference.pdf"
+    ],
+    "engineering_notes": [
+      "Strong connection to panoramic SfM/feature-matching experiments, but not a complete online SLAM system.",
+      "No task-specific trained checkpoint is necessary; upstream depth/normal model licenses and weights apply."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Unknown; official requirements must be checked for the selected version.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "radial_range",
+      "normals"
+    ],
+    "metric_status": "mixed_checkpoints",
+    "official_release_status": "code_released_uses_upstream_weights",
+    "id": "rpg360",
+    "short_name": "RPG360",
+    "title": "RPG360: Robust 360 Depth Estimation with Perspective Foundation Models and Graph Optimization",
+    "year": 2025,
+    "venue": "NeurIPS 2025",
+    "paper_url": "https://arxiv.org/abs/2509.23991",
+    "category": [
+      "monocular",
+      "ERP",
+      "cubemap",
+      "training-free",
+      "graph-optimization"
+    ],
+    "summary_zh": "先用透视基础模型估计六面深度与法线，再图优化统一面间尺度和结构；Metric3D等不同backbone必须分开解释尺度。"
+  },
+  {
+    "authors": [
+      "Zidong Cao",
+      "Jinjing Zhu",
+      "Hao Ai",
+      "Lutao Jiang",
+      "Yuanhuiyi Lyu",
+      "Hui Xiong"
+    ],
+    "institutions": [
+      "HKUST (Guangzhou)",
+      "University of Birmingham",
+      "HKUST"
+    ],
+    "project_url": "https://caozidong.github.io/ST2360D_Depth/",
+    "code_url": null,
+    "weights_url": null,
+    "license": {
+      "code": "Unknown",
+      "weights": "Unknown"
+    },
+    "input": {
+      "frames": "single ERP converted to a synthetic sequence of perspective views; not a captured temporal video",
+      "projection": "ERP → spherical-uniform tangent-view sequence",
+      "intrinsics": "Standard ERP geometry; raw fisheye must be calibrated and reprojected",
+      "resolution": "Author project states support up to 4K",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "Merged ERP depth map",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Unknown: radial range versus optical-axis Z not verified from original decoder/dataloader.",
+    "scale": "Inherited from the selected video depth backbone; virtual view sequencing and spatial consistency do not supply metric scale.",
+    "code_entry": [],
+    "innovation": "Spherical-uniform sampling and latitude-guided scanning turn spatial views into a sequence processed by a video depth model.",
+    "evidence": [
+      "https://caozidong.github.io/ST2360D_Depth/",
+      "https://openreview.net/pdf?id=d0bm4upnQ8",
+      "https://haoai-1997.github.io/"
+    ],
+    "engineering_notes": [
+      "Project/paper metadata verified; no official code or weight URL confirmed during this audit.",
+      "Treat training-free panorama adaptation separately from zero-training foundation backbone."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Unknown; official requirements must be checked for the selected version.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "relative_depth",
+      "depth_unknown_convention"
+    ],
+    "metric_status": "unknown",
+    "official_release_status": "paper_and_project_code_unverified",
+    "id": "st2_360d",
+    "short_name": "ST²360D",
+    "title": "ST²360D: Spatial-to-Temporal Consistency for Training-free 360 Monocular Depth Estimation",
+    "year": 2025,
+    "venue": "NeurIPS 2025",
+    "paper_url": "https://openreview.net/pdf?id=d0bm4upnQ8",
+    "category": [
+      "monocular",
+      "ERP",
+      "training-free",
+      "video-depth-prior",
+      "high-resolution"
+    ],
+    "summary_zh": "把单幅全景变成虚拟透视视频，用视频模型的一致性消除patch尺度漂移；输入仍是单帧，非真实时间序列SLAM。"
+  },
+  {
+    "authors": [
+      "Vukasin Bozic",
+      "Isidora Slavkovic",
+      "Dominik Narnhofer",
+      "Nando Metzger",
+      "Denis Rozumny",
+      "Konrad Schindler",
+      "Nikolai Kalischek"
+    ],
+    "institutions": [
+      "ETH Zurich",
+      "Google",
+      "Meta",
+      "Athlence Sports"
+    ],
+    "project_url": "https://pager360.github.io/",
+    "code_url": "https://github.com/prs-eth/PaGeR",
+    "weights_url": "https://huggingface.co/prs-eth/PaGeR",
+    "license": {
+      "code": "Apache-2.0",
+      "weights": "CC-BY-NC-4.0; separate dataset licenses apply"
+    },
+    "input": {
+      "frames": "single ERP RGB; paper also co-trains perspective images",
+      "projection": "ERP → fixed six-face cubemap",
+      "intrinsics": "Fixed virtual cubemap calibration; raw fisheye requires reprojection",
+      "resolution": "Six 504×504 cube faces independent of ERP input resolution",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "ERP scale-invariant depth, metric depth and sky mask (unified checkpoint)",
+      "point_map": "Derived geometry only; no direct point-map head verified",
+      "normal": "Surface normals; dedicated normals-only checkpoint also released",
+      "confidence": "Aleatoric depth confidence heads in paper; physically calibrated uncertainty not established",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Backbone heads predict per-face log planar Z. Final ERP linear depth is Euclidean range; paper Appendix C explicitly uses Euclidean ERP depths.",
+    "scale": "Unified checkpoint has separate SI and learned metric-scale branches; metric-depth-only checkpoint uses a direct metric head. Automatic indoor/outdoor CLIP routing was added after paper submission.",
+    "code_entry": [
+      "inference.py",
+      "app.py",
+      "generate_point_cloud.py",
+      "evaluation/depth_evaluation.py"
+    ],
+    "innovation": "Adapts a multi-view geometry transformer to six cubemap faces, with cross-face continuity and joint depth/normal/sky/metric heads.",
+    "evidence": [
+      "https://arxiv.org/html/2605.26368",
+      "https://pager360.github.io/",
+      "https://github.com/prs-eth/PaGeR",
+      "https://huggingface.co/prs-eth/PaGeR",
+      "https://huggingface.co/prs-eth/PaGeR-metric-depth"
+    ],
+    "engineering_notes": [
+      "Reported paper metric results force indoor/outdoor scale head per dataset; default automatic router is a later release behavior.",
+      "High-resolution ERP output does not increase the fixed six-face network input detail."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Official tested Linux, Python 3.10, PyTorch ≥2.0, CUDA ≥12.1.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp",
+      "perspective",
+      "cubemap"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "radial_range",
+      "scale_invariant_depth",
+      "normals",
+      "sky_mask"
+    ],
+    "metric_status": "mixed_checkpoints",
+    "official_release_status": "code_and_weights",
+    "id": "pager",
+    "short_name": "PaGeR",
+    "title": "Unified Panoramic Geometry Estimation via Multi-View Foundation Models",
+    "year": 2026,
+    "venue": "NeurIPS 2026 (author project); arXiv 2605.26368",
+    "paper_url": "https://arxiv.org/abs/2605.26368",
+    "category": [
+      "monocular",
+      "ERP",
+      "cubemap",
+      "foundation-model",
+      "metric-variant",
+      "depth-and-normal"
+    ],
+    "summary_zh": "2026全景几何统一模型：将DA3视为六面多视图骨干，同时输出SI深度、米制深度、法线与天空；需区分三类权重和尺度头。"
+  },
+  {
+    "authors": [
+      "Cheng Guan",
+      "Chunyu Lin",
+      "Zhijie Shen",
+      "Junsong Zhang",
+      "Jiyuan Wang"
+    ],
+    "institutions": [
+      "Unknown"
+    ],
+    "project_url": "https://github.com/munimo/RePer360",
+    "code_url": "https://github.com/munimo/RePer360",
+    "weights_url": "https://huggingface.co/ZSBD/RePer-360",
+    "license": {
+      "code": "Apache-2.0 repository; upstream Depth Anything V2 component terms apply",
+      "weights": "Separate weight terms Unknown; upstream backbone terms also apply"
+    },
+    "input": {
+      "frames": "single ERP RGB with derived cubemap guidance",
+      "projection": "ERP + cubemap",
+      "intrinsics": "Standard ERP geometry; raw fisheye must be calibrated and reprojected",
+      "resolution": "Checkpoint/config dependent",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "ERP metric depth for metric checkpoints; normalized [0,1] SSI depth for zero-shot checkpoint",
+      "point_map": "Official run.py offers PLY only for metric mode",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Metric inference has ERP point-cloud export; exact radial/Z implementation convention not fully audited. SSI output must not be interpreted as calibrated range.",
+    "scale": "Matterport3D and Stanford2D3D metric models are separate from synthetic zero-shot SSI. Official validation uses scale-and-shift alignment for SSI.",
+    "code_entry": [
+      "run.py",
+      "validate.py",
+      "network/gag.py",
+      "network/reper360.py",
+      "util/ecc_loss.py"
+    ],
+    "innovation": "Preserves pretrained perspective priors through geometry-aligned guidance, self-conditioned AdaLN-Zero and equi-cube consistency.",
+    "evidence": [
+      "https://arxiv.org/abs/2603.05999",
+      "https://github.com/munimo/RePer360",
+      "https://huggingface.co/ZSBD/RePer-360"
+    ],
+    "engineering_notes": [
+      "Use --depth-type metric only with metric checkpoints; official code skips point cloud export for SSI.",
+      "Project acceptance/release state updated beyond the original arXiv abstract."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Official setup uses Python 3.9 and requirements.txt.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "monocular_depth",
+    "native_panoramic": true,
+    "geometry_output": [
+      "depth_unknown_convention",
+      "relative_depth"
+    ],
+    "metric_status": "mixed_checkpoints",
+    "official_release_status": "code_and_checkpoint_links",
+    "id": "reper360",
+    "short_name": "RePer-360",
+    "title": "RePer-360: Releasing Perspective Priors for 360° Depth Estimation via Self-Modulation",
+    "year": 2026,
+    "venue": "ECCV 2026 (official repository)",
+    "paper_url": "https://arxiv.org/abs/2603.05999",
+    "category": [
+      "monocular",
+      "ERP",
+      "cubemap-guidance",
+      "domain-adaptation",
+      "metric-variant"
+    ],
+    "summary_zh": "通过几何引导和自调制把透视先验适配到全景；已发布域内metric和零样本SSI权重，二者不可混为同一尺度能力。"
+  },
+  {
+    "authors": [
+      "Yukun Huang",
+      "Yanning Zhou",
+      "Jianan Wang",
+      "Kaiyi Huang",
+      "Xihui Liu"
+    ],
+    "institutions": [
+      "The University of Hong Kong",
+      "Tencent",
+      "Astribot"
+    ],
+    "project_url": "https://yukun-huang.github.io/DreamCube/",
+    "code_url": "https://github.com/Yukun-Huang/DreamCube",
+    "weights_url": "https://huggingface.co/KevinHuang/DreamCube",
+    "license": {
+      "code": "Unknown; no top-level source license verified",
+      "weights": "HF model card apache-2.0; upstream diffusion terms may also apply"
+    },
+    "input": {
+      "frames": "Generation: single-view conditioning and text; depth adaptation: RGB panorama via synchronized perspective model",
+      "projection": "Synchronized cubemap planes with ERP export",
+      "intrinsics": "Virtual cube geometry; generation and perception pipelines differ",
+      "resolution": "Task/pipeline dependent",
+      "extrinsics": "Not required for single panorama",
+      "imu": "No",
+      "gravity": "No measured gravity required; gravity-alignment assumptions not audited",
+      "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
+    },
+    "output": {
+      "primary": "RGB-D cubemap/ERP generation; synchronized depth-estimation variants",
+      "point_map": "Generated mesh / Gaussian scene export offered; generated content is not an observed measurement",
+      "normal": "No verified direct head",
+      "confidence": "Unknown",
+      "camera_parameters": "No"
+    },
+    "depth_convention": "Project viewer labels panorama depth as Euclidean distance. Perception adapters may inherit affine ambiguity from their base model.",
+    "scale": "Do not treat diffusion-generated geometry as measured metric depth. Marigold-style adaptation inherits relative/affine ambiguity unless separately calibrated.",
+    "code_entry": [
+      "app.py",
+      "multi_plane_sync.ipynb",
+      "notebooks/"
+    ],
+    "innovation": "Synchronizes diffusion-model attention, convolutions and normalization across cube faces to improve panoramic continuity.",
+    "evidence": [
+      "https://arxiv.org/abs/2506.17206",
+      "https://yukun-huang.github.io/DreamCube/",
+      "https://github.com/Yukun-Huang/DreamCube",
+      "https://huggingface.co/KevinHuang/DreamCube"
+    ],
+    "engineering_notes": [
+      "Release conflict: website/repository announce model release, but official HF card says current weights are for sanity testing and final official weights will come later.",
+      "Classify as generative/adaptation research rather than a drop-in metric sensing model."
+    ],
+    "accessed": "2026-10-17",
+    "pose_output": "No online SLAM trajectory output verified",
+    "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
+    "environment": "Official setup uses Python 3.11 and requirements.txt.",
+    "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
+    "evidence_level": "L2_partial_paper_and_official_release_metadata",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "camera_support": [
+      "panoramic_erp",
+      "cubemap",
+      "perspective"
+    ],
+    "task_family": "generative_rgbd_and_depth_adaptation",
+    "native_panoramic": true,
+    "geometry_output": [
+      "generated_depth",
+      "relative_depth",
+      "mesh",
+      "gaussian_scene"
+    ],
+    "metric_status": "unknown",
+    "official_release_status": "code_and_sanity_weights_release_conflict",
+    "id": "dreamcube",
+    "short_name": "DreamCube",
+    "title": "DreamCube: 3D Panorama Generation via Multi-plane Synchronization",
+    "year": 2025,
+    "venue": "ICCV 2025; proceedings title: DreamCube: RGB-D Panorama Generation via Multi-plane Synchronization",
+    "paper_url": "https://arxiv.org/abs/2506.17206",
+    "category": [
+      "panoramic-generation",
+      "diffusion",
+      "cubemap",
+      "depth-adaptation"
+    ],
+    "summary_zh": "生成式相关方向：把二维扩散操作同步到立方体六面，支持RGB-D全景生成和深度模型适配；生成几何不能直接当米制测量。"
+  }
+]

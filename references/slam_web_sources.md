@@ -1,0 +1,65 @@
+# SLAM / VO / VIO primary-source evidence index
+
+Accessed: **2026-10-17**, Asia/Shanghai. Dataset: `papers/slam_survey.json`.
+
+The JSON contains **26 records: 8 inherited Mission records with added filtering fields and 18 new records**. Existing paper IDs are retained so a consumer can deduplicate against `localization_papers.json`. No SLAM method was compiled, run, or benchmarked for this catalogue. A linked repository is evidence of an author-associated location; it is not by itself evidence of a complete usable release.
+
+## Schema and interpretation
+
+- `native_panoramic` and `native_erp` are deliberately strict synonyms in this dataset: **true only for native full equirectangular/spherical panoramic image input**, rather than running a perspective method on crops. They do not mean that every camera mode or RGB-D configuration is supported.
+- PAL (panoramic annular lens), fisheye and a calibrated multi-camera rig can observe 360 degrees horizontally without accepting a standalone full ERP image. Those representations are recorded in `camera_support` and `panoramic_representation`; their ERP flags remain false.
+- `imu_required` can be Boolean or a mode-dependent explanatory string. Optional IMU does not mean monocular vision becomes metric without it.
+- `loop_closure` can be Boolean or an explanatory/Unknown string. A true value can describe the published method while `official_release_status` states that its full implementation is unavailable. Nonlocal BA, a keyframe window, and an explicit place-recognition/loop-closing module are distinct.
+- `metric_status` and `scale` state where scale comes from. A learned metric checkpoint, improved scale drift or scale-aligned ATE alone does not establish absolute metric trajectory accuracy.
+- `year` follows the cited publication where verified; software continuations state their underlying paper separately. P2U-SLAM uses the 2026 accepted-version metadata while retaining its 2024 preprint date in `venue`.
+- `Unknown` means that the reviewed primary sources do not establish the fact. It is not an assertion that the capability/release does not exist anywhere.
+- `locally_reproduced` is false throughout. `evidence`, `source_urls`, and the linked sources below explain the catalogue's verification level.
+
+## Native ERP methods and important 2026 additions
+
+| ID | Primary sources | What was established / caveat |
+|---|---|---|
+| `stella_vslam` | [Official repository](https://github.com/stella-cv/stella_vslam), [documentation](https://stella-cv.readthedocs.io/en/latest/), [underlying OpenVSLAM paper](https://arxiv.org/abs/1910.01122) | README explicitly lists perspective, fisheye and equirectangular models, map reuse and ERP camera examples. Current BSD-2-Clause release is distinguished from deprecated versions before 0.3; IMU integration remains listed as future work. |
+| `360orbslam2024` | [Author preprint](https://arxiv.org/abs/2401.10560), [full text](https://arxiv.org/html/2401.10560v1) | Spherical ERP projection, triangulation and learned completion are coupled to ORB-SLAM2-style threads. Equation (3) backprojects **range** along a unit ray. The synthetic CARLA evidence and scale-prior claims are not generalized into real-hardware metric guarantees. No complete official source/checkpoint confirmed. Author-name spelling differs between abstract metadata and paper HTML; JSON records that discrepancy. |
+| `odgsslam2026` | [CVPR 2026 paper record](https://openaccess.thecvf.com/content/CVPR2026/html/Spiss_ODGS-SLAM_Omnidirectional_Gaussian_Splatting_SLAM_CVPR_2026_paper.html), [project](https://odgs-slam.github.io/), [official source](https://github.com/odgs-slam/odgs-slam) | True ERP RGB/RGB-D tracking and mapping using Gaussians; code and benchmark links exist. Repository states that inherited Imperial MonoGS license permits **non-commercial academic research only**. Explicit global loop closure and robust wrist-motion behavior were not established in this audit. |
+| `panogsslam2026` | [Author preprint, 15 Sep 2026](https://arxiv.org/abs/2609.17387), [full text](https://arxiv.org/html/2609.17387v1) | Native spherical rendering, latitude-area loss and depth-guided initialization; initial depth cites BiFuse. Experimental section explicitly aligns trajectories to account for scale ambiguity. Code is promised; no released official implementation confirmed. Do not repeat its millimeter-scale example as an absolute metric claim. |
+| `panoair2026` | [Author preprint, 1 Apr 2026](https://arxiv.org/abs/2604.00852), [full text](https://arxiv.org/html/2604.00852v1), [author-linked source/data archive](https://drive.google.com/file/d/1lG1Upn6yi-N6tYpEHAt6dfR1uhzNtWbT/view) | Native full ERP + IMU, hybrid features and panoramic loop closure. Embedded evaluation uses Jetson Orin NX, stride 3 and 10 Hz. The authors advertise a public source/data archive, but it was not downloaded, unpacked, licensed or executed here. |
+
+## Wide-angle / fisheye / multi-camera methods
+
+| ID | Primary sources | What was established / caveat |
+|---|---|---|
+| `openvins2020` | [Official source](https://github.com/rpng/open_vins), [CamEqui documentation](https://docs.openvins.com/classov__core_1_1CamEqui.html), [calibration documentation](https://docs.openvins.com/gs-calibration.html) | Filter-based VIO; equidistant fisheye model is explicitly documented. It is not full ERP, and the core estimator lacks global loop closure. |
+| `orbslam3_2021` | [Official source](https://github.com/UZ-SLAMLab/ORB_SLAM3), [paper](https://arxiv.org/abs/2007.11898) | Visual/VI and map-reuse baseline; fisheye and pinhole model support does not imply full ERP. Scale depends on mono/stereo/RGB-D/VI configuration. |
+| `basalt2020` | [Official lab project](https://cvg.cit.tum.de/research/vslam/basalt), [paper](https://arxiv.org/abs/1904.06504), [official GitLab](https://gitlab.com/VladyslavUsenko/basalt), [GitHub mirror](https://github.com/VladyslavUsenko/basalt), [camera/calibration library docs](https://vladyslavusenko.gitlab.io/basalt-headers/) | Publication is RA-L/ICRA **2020** (preprint 2019). Local VIO and global mapping via recovered factors should be distinguished. ERP is not established. |
+| `vinsfusion2019` | [Official source and documentation](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion), [related VINS-Mono paper](https://arxiv.org/abs/1708.03852) | Mono+IMU/stereo+IMU/stereo-only; pinhole/Mei/equidistant models, optional loop and global GPS fusion. README explicitly cautions that its related paper is not exactly the released code. |
+| `okvis2_2022` | [Author paper](https://arxiv.org/abs/2202.09199), [official source](https://github.com/ethz-mrl/okvis2), [maintainer calibration explanation](https://github.com/ethz-mrl/okvis2/issues/24) | VI-SLAM with repeated long-loop corrections and reversible marginalization. Correct distortion model, extrinsics and IMU uncertainty remain material. No ERP model verified. |
+| `okvis2x2025` | [Paper](https://arxiv.org/abs/2510.04612), [official source](https://github.com/ethz-mrl/OKVIS2-X) | Official T-RO 2025 citation: vol. 41, pp. 6064–6083, DOI 10.1109/TRO.2025.3619051. Configurable dense depth/LiDAR/GNSS; distinguishes causal, loop-closed and final-BA trajectories. Depth reader assumes metric input with explicit scaling. |
+| `svo_pro` | [Official RPG project](https://rpg.ifi.uzh.ch/svo_pro.html), [official source](https://github.com/uzh-rpg/rpg_svo_pro_open) | Perspective/fisheye/catadioptric mono/stereo front end plus optional VI and global-loop extensions. Foundation citation is SVO T-RO 2017; no fabricated single SVO Pro publication asserted. |
+| `omnislam2020` | [ICRA 2020 author paper](https://arxiv.org/abs/2003.08056), [author publication page](https://sites.google.com/view/chwon) | Learned omnidirectional stereo, depth-guided matching, loop closure and TSDF fusion use a calibrated wide-baseline **multi-fisheye rig**. This is different from monocular stitched ERP. Complete official source/checkpoints not confirmed. |
+| `lfvislam2023` | [Author paper](https://arxiv.org/abs/2209.05167), [official source](https://github.com/flysoaryun/LF-VISLAM) | Unit-bearing formulation supports negative imaging plane/PAL observations with IMU. Official README still says loop closure will be updated later; published capability is not equivalent to audited release completeness. PAL is not full ERP. |
+| `p2uslam2026` | [Accepted-version metadata](https://arxiv.org/abs/2409.10143), [full text v2](https://arxiv.org/html/2409.10143v2), [official repository](https://github.com/BambValley/P2U-SLAM) | T-ITS acceptance stated in Jan 2026 v2; Taylor and Kannala-Brandt models, point/pose uncertainty and loop/map reuse. Repository tree inspected contains README/figures only, so it is not marked as complete source released. |
+
+## Learned VO / dense mapping comparisons
+
+| ID | Primary sources | What was established / caveat |
+|---|---|---|
+| `d3vo2020` | [Official project](https://cvg.cit.tum.de/research/vslam/d3vo), [paper](https://arxiv.org/abs/2003.01060) | Learned depth/pose/uncertainty with direct mono VO. Original complete official implementation/checkpoints are Unknown; third-party course implementations are not relabeled official. |
+| `dbafusion2024` | [Official source](https://github.com/GREAT-WHU/DBA-Fusion), [paper](https://arxiv.org/abs/2403.13714) | Learned dense BA plus inertial/multi-sensor fusion. Native ERP not established. |
+| `mast3rslam2025` | [Official source](https://github.com/rmurai0610/MASt3R-SLAM), [paper](https://arxiv.org/abs/2412.12392), [project](https://edexheim.github.io/mast3r-slam/) | Pair pointmaps, optional calibration and loop closure. Generic-central-camera formulation is not a confirmed ready-to-run ERP pipeline; Sim(3)/learned metric prior does not remove the need to evaluate scale. |
+| `droidslam2021` | [Official source](https://github.com/princeton-vl/DROID-SLAM), [paper](https://arxiv.org/abs/2108.10869) | Dense correspondence and BA for mono/stereo/RGB-D. Nonlocal graph constraints are recorded separately from explicit place recognition. Pinhole projection is not native ERP. |
+| `codevio2021` | [Author paper](https://arxiv.org/abs/2012.10133) | Optimizable depth code and VIO; complete usable official source/checkpoint release not confirmed. |
+| `dpvo2023` | [Paper](https://arxiv.org/abs/2208.04726), [official shared repository](https://github.com/princeton-vl/DPVO) | NeurIPS 2023, preprint 2022. Original DPVO is monocular VO. |
+| `dpvslam2024` | [Paper](https://arxiv.org/abs/2408.01654), [ECCV paper](https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/00272.pdf), [official shared source](https://github.com/princeton-vl/DPVO) | ECCV 2024 adds two loop mechanisms to DPVO. Shared repository does not make the original DPVO paper a full loop-closing SLAM method. |
+| `goslam2023` | [Official source](https://github.com/youmi-zym/GO-SLAM), [paper](https://arxiv.org/abs/2309.02436), [project](https://youmi-zym.github.io/projects/GO-SLAM/) | Global optimization + implicit surface reconstruction with mono/stereo/RGB-D. Do not confuse with the differently capitalized Go-SLAM object-grounding paper. |
+| `splatam2024` | [Official source](https://github.com/spla-tam/SplaTAM), [project/paper](https://spla-tam.github.io/) | Original dense Gaussian tracker/mapper takes RGB-D. It is not evidence that arbitrary single-image predicted depth yields equal tracking robustness. |
+| `monogs2024` | [Official source](https://github.com/muskie82/MonoGS), [paper](https://arxiv.org/abs/2312.06741), [project](https://rmurai.co.uk/projects/GaussianSplattingSLAM/) | CVPR 2024 Gaussian Splatting SLAM, mono/RGB-D and experimental stereo. README warns about aggressive motion before initial BA. Map/novel-view quality and tracking success must be evaluated separately. |
+| `panoslam2025` | [Author paper](https://arxiv.org/abs/2501.00352), [linked official repository](https://github.com/runnanchen/PanoSLAM) | **Pano = panoptic**, not panoramic. RGB-D semantic/instance Gaussian reconstruction; official linked repository has README only. Included as a disambiguated Gaussian-mapping comparison, not an ERP solution. |
+
+## Selection implications for this mission
+
+1. A native-ERP sparse baseline is available in stella_vslam. A native-ERP Gaussian baseline with publicly visible implementation is ODGS-SLAM (2026); their mapping representations and robustness assumptions differ.
+2. PanoAir (2026) is a particularly relevant ERP+IMU lead, but archive completeness and license still need verification before promising a reproduction route.
+3. Fisheye/PAL/multi-fisheye systems are relevant alternatives when raw calibrated cameras are available. They should not appear under a strict full-ERP-only filter.
+4. PanoGS-SLAM, P2U-SLAM and PanoSLAM have paper evidence but incomplete/unverified implementation availability at this snapshot. The catalogue exposes those limitations beside links.
+5. These sources support a literature map. They do not establish a universal best method or a measured handheld robotics wrist-position accuracy ranking.

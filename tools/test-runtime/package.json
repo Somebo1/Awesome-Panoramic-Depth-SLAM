@@ -1,0 +1,8 @@
+{
+  "name": "atlas-dom-tests",
+  "private": true,
+  "description": "Optional DOM testing dependency; not shipped with the buildless website.",
+  "dependencies": {
+    "jsdom": "30.1.3"
+  }
+}
