@@ -3945,6 +3945,209 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "dvo360_2026",
+      "collection": "slam",
+      "name": "360DVO",
+      "title": "360DVO: Deep Visual Odometry for Monocular 360-Degree Camera",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "IEEE Robotics and Automation Letters 11(3):3079-3086 (2026); DOI 10.1109/LRA.2026.3655280",
+      "authors": "Xiaopeng Guo; Yinzhe Xu; Huajian Huang; Sai-Kit Yeung",
+      "institutions": "The Hong Kong University of Science and Technology",
+      "summary": "用畸变感知球面特征与全向可微 BA 联合估计 ERP 位姿和图块逆距离；是学习式 VO，评测采用 Sim(3) 尺度对齐。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "relative",
+      "scaleNote": "Monocular visual up-to-scale reconstruction; paper evaluates trajectories after Sim(3)-Umeyama alignment; learned training does not establish absolute deployment scale",
+      "aliases": [],
+      "metricStatus": "up-to-scale monocular visual odometry; Sim(3)-aligned evaluation",
+      "depthType": "inverse",
+      "outputs": [
+        "inverse",
+        "pose"
+      ],
+      "pose": true,
+      "inputSummary": "Monocular full-sphere ERP RGB video or image sequence; spherical intrinsics computed from image H and W; no IMU or physical stereo baseline",
+      "outputSummary": "6DoF camera trajectory; jointly optimized sparse feature-patch inverse distances and 3D points; official demo saves TUM-format trajectory and PLY point cloud",
+      "inputs": {
+        "requirements": "Monocular full-sphere ERP RGB video or image sequence; spherical intrinsics computed from image H and W; no IMU or physical stereo baseline",
+        "imu": false
+      },
+      "outputDetails": {
+        "primary": "6DoF camera trajectory; jointly optimized sparse feature-patch inverse distances and 3D points; official demo saves TUM-format trajectory and PLY point cloud",
+        "depth_convention": "Equation (2): d=1/sqrt(x^2+y^2+z^2), inverse radial distance along the unit spherical ray; sparse patch geometry rather than a dense monocular depth map",
+        "metric_status": "up-to-scale monocular visual odometry; Sim(3)-aligned evaluation",
+        "pose_output": "Yes: visual odometry trajectory, not a loop-corrected global SLAM trajectory",
+        "runtime": "Unknown: no comparable local measurement"
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/chris1004336379/360DVO",
+      "paperUrl": "https://arxiv.org/pdf/2601.02309",
+      "projectUrl": "https://chris1004336379.github.io/360DVO-homepage/",
+      "weightsUrl": "https://drive.google.com/file/d/17x0V5DnXye5f1qlWLK80yRG6luInPmid/view",
+      "license": "MIT main inference code; separately distributed checkpoint terms not confirmed",
+      "evidence": [
+        "Paper III: spherical model and patch ODBA; V-B: Sim(3)-Umeyama trajectory alignment; V-D: embedded speed. Official demo computes spherical intrinsics and exports trajectory/points. Official LICENSE is MIT; no local model execution.",
+        "https://chris1004336379.github.io/360DVO-homepage/",
+        "https://arxiv.org/html/2601.02309v1",
+        "https://arxiv.org/pdf/2601.02309",
+        "https://doi.org/10.1109/LRA.2026.3655280",
+        "https://github.com/chris1004336379/360DVO",
+        "https://raw.githubusercontent.com/chris1004336379/360DVO/master/demo.py",
+        "https://raw.githubusercontent.com/chris1004336379/360DVO/master/LICENSE",
+        "https://raw.githubusercontent.com/chris1004336379/360DVO/master/environment.yml"
+      ],
+      "notes": [
+        "VO without an explicit loop-closure back-end. Training pipeline is not provided in the current README. The real-world benchmark uses SfM pseudo ground truth, not motion-capture truth; scale-aligned benchmark errors do not certify wrist precision.",
+        "Official inference code and checkpoint link available; training pipeline not provided"
+      ],
+      "tags": [],
+      "family": "learned panoramic sparse-patch VO",
+      "imu": false,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-10-17",
+      "publiclyVerified": true,
+      "verificationLevel": "Official paper, author project, inference source and license read; no local reproduction",
+      "codeEntry": "demo.py; environment.yml; README.md",
+      "environment": "Official environment: Python 3.12, PyTorch 2.3.1, CUDA 12.2, custom CUDA/Eigen components. Paper Jetson Orin: default 2 FPS, fast 5 FPS; not local measurements.",
+      "figure": {
+        "paperUrl": "https://arxiv.org/pdf/2601.02309",
+        "page": 1,
+        "figureLabel": "Figure 1",
+        "cropBox": [
+          311,
+          150,
+          565,
+          364
+        ],
+        "caption": {
+          "zh": "畸变感知球面特征与全向可微 BA 联合估计位姿和局部图像块深度。",
+          "en": "Distortion-aware spherical features and omnidirectional differentiable BA jointly estimate poses and patch depths."
+        },
+        "originalCaption": "Fig. 1: Framework overview of 360DVO.",
+        "image": "assets/papers/dvo360_2026.webp",
+        "thumbnail": "assets/papers/dvo360_2026-thumb.webp",
+        "credit": {
+          "zh": "来源：论文作者，2026；Figure 1 原文截图。",
+          "en": "Source: paper authors (2026), Figure 1 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+        "imageSize": [
+          846,
+          713
+        ],
+        "pdfSha256": "6fecb6905dad129ecf0d989b6ea6bed777d34d45451e89ab0566f15dae53afc0"
+      }
+    },
+    {
+      "id": "cubesplat2026",
+      "collection": "slam",
+      "name": "Cube-Splat",
+      "title": "Cube-Splat: High-Fidelity 360° Gaussian Splatting SLAM via Cubemap Factorization and Adjoint-Consistent Optimization",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "ECCV 2026, LNCS 17053, pp.213-231; first online 15 September 2026; DOI 10.1007/978-3-032-37255-0_12",
+      "authors": "Xiangfei Guo; Hao Shi; Yufan Zhang; Zhonghua Yi; Yongqi Mao; Xiaoting Yin; Kaiwei Wang",
+      "institutions": "Zhejiang University; Ant Group",
+      "summary": "将 ERP/PAL 转为四个共心虚拟视图，用伴随一致的梯度优化共享位姿和高斯地图；学习深度用于初始化，公制尺度与全局回环仍需单独核查。",
+      "cameras": [
+        "panoramic",
+        "wide"
+      ],
+      "scale": "relative",
+      "scaleNote": "Monocular photometric geometry with learned initialization; four co-centered virtual faces add no metric baseline. Paper calls initialization depth metric, but cross-domain absolute scale and evaluation alignment/normalization are not established here",
+      "aliases": [
+        "3DGS"
+      ],
+      "metricStatus": "absolute metric scale not guaranteed; monocular learned-depth initialization",
+      "depthType": "unknown",
+      "outputs": [
+        "unknown",
+        "pose"
+      ],
+      "pose": true,
+      "inputSummary": "Monocular ERP or calibrated PAL sequence; four fixed-orientation virtual pinhole views share one optical center and one primary camera pose. Depth Anywhere/UniFuse depth priors initialize Gaussians; these views are not physical stereo cameras",
+      "outputSummary": "Camera trajectory; dense anisotropic 3D Gaussian map; rendered views and Gaussian PLY outputs; multi-face photometric tracking with adjoint-consistent pose updates",
+      "inputs": {
+        "requirements": "Monocular ERP or calibrated PAL sequence; four fixed-orientation virtual pinhole views share one optical center and one primary camera pose. Depth Anywhere/UniFuse depth priors initialize Gaussians; these views are not physical stereo cameras",
+        "imu": false
+      },
+      "outputDetails": {
+        "primary": "Camera trajectory; dense anisotropic 3D Gaussian map; rendered views and Gaussian PLY outputs; multi-face photometric tracking with adjoint-consistent pose updates",
+        "depth_convention": "Panoramic learned depth is resampled for virtual pinhole Gaussian initialization; exact ERP radial-distance to face Z-depth conversion, normalization and exported units remain unverified in source",
+        "metric_status": "absolute metric scale not guaranteed; monocular learned-depth initialization",
+        "pose_output": "Yes: estimated panoramic camera trajectory and dense Gaussian mapping; explicit global loop closure not established",
+        "runtime": "Unknown: no comparable local measurement"
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/guoxf304/CubeSplat",
+      "paperUrl": "https://arxiv.org/pdf/2609.21347",
+      "projectUrl": "https://github.com/guoxf304/CubeSplat",
+      "weightsUrl": "https://github.com/albert100121/Depth-Anywhere",
+      "license": "Official README flags third-party research/non-commercial restrictions; a distinct top-level source license and complete dependency terms were not confirmed",
+      "evidence": [
+        "Springer confirms ECCV 2026 publication. Paper 3.1-3.3 explains four co-centered views and depth-prior initialization, 4 gives evaluation and speed, supplementary limitations distinguish absent sensor fusion. Official README lists ERP SynPano/OmniBlender configs and UniFuse_SpatialAudioGen checkpoint. Individual raw source fetches did not resolve; conversion/alignment details remain unknown.",
+        "https://link.springer.com/chapter/10.1007/978-3-032-37255-0_12",
+        "https://arxiv.org/abs/2609.21347",
+        "https://arxiv.org/html/2609.21347v1",
+        "https://arxiv.org/pdf/2609.21347",
+        "https://github.com/guoxf304/CubeSplat",
+        "https://wangkaiwei.org/publications/"
+      ],
+      "notes": [
+        "ERP is accepted at the interface but optimization/rendering operate on four virtual perspective views. Depth priors initialize geometry rather than persistently constrain tracking. Sensitive to stitching/calibration, dynamics and weak texture; no IMU/depth-sensor fusion. Complete license and scale-conversion source audit pending.",
+        "Official repository exposes source, setup and ERP/PAL configurations; local execution and complete source/license audit not performed"
+      ],
+      "tags": [],
+      "family": "cubemap panoramic Gaussian SLAM",
+      "imu": false,
+      "loopClosure": "Unknown: no explicit loop-detection/global loop-correction module verified",
+      "nativePanoramic": true,
+      "sourceChecked": "2026-10-17",
+      "publiclyVerified": true,
+      "verificationLevel": "Official paper, publisher and repository README read; selected implementation details unverified; no local reproduction",
+      "codeEntry": "slam.py --config configs/ERP/SynPano/example_scene.yaml; configs/ERP/OmniBlender/example_scene.yaml; scripts/build_extensions.sh",
+      "environment": "Official README tested Ubuntu 22.04, Python 3.9, PyTorch 2.0.1, CUDA 11.8, RTX 3090. Paper uses RTX 4070 Ti SUPER and reports about 1.53 FPS; not local measurements.",
+      "figure": {
+        "paperUrl": "https://arxiv.org/pdf/2609.21347",
+        "page": 6,
+        "figureLabel": "Figure 2",
+        "cropBox": [
+          134,
+          118,
+          482,
+          378
+        ],
+        "caption": {
+          "zh": "ERP 或 PAL 全景转换为 cubemap，进行共享位姿跟踪和高斯地图优化。",
+          "en": "ERP or PAL panoramas are factorized into cubemap views for shared-pose tracking and Gaussian-map optimization."
+        },
+        "originalCaption": "Fig. 2: Pipeline of Cube-Splat.",
+        "image": "assets/papers/cubesplat2026.webp",
+        "thumbnail": "assets/papers/cubesplat2026-thumb.webp",
+        "credit": {
+          "zh": "来源：论文作者，2026；Figure 2 原文截图。",
+          "en": "Source: paper authors (2026), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+        "imageSize": [
+          1160,
+          866
+        ],
+        "pdfSha256": "03cf13240d68f267d2c79f3eabe7c4c3784d9e914337811e384580e0984acf8c"
+      }
+    },
+    {
       "id": "ds_holo360d",
       "name": "Holo360D",
       "title": "Holo360D: A Large-Scale Real-World Dataset with Continuous Trajectories for Advancing Panoramic 3D Reconstruction and Beyond",
@@ -4606,6 +4809,104 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "panoloop2026",
+      "collection": "slam",
+      "name": "PanoLoop",
+      "title": "PanoLoop: Yaw-Invariant Loop Closure for Feed-Forward Panoramic SLAM",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "Computer Graphics Forum 45(7), e70607; Pacific Graphics 2026; DOI 10.1111/cgf.70607",
+      "authors": "Shiming Song; Yuanze Wang; Yongjun Zhang; Yuetian Wang; Haikuo Peng; Mengzhu Wang; Chunping Qiu; Dianxi Shi",
+      "institutions": "Intelligent Game and Decision Lab; Shanghai Jiao Tong University; National Innovation Institute of Defense Technology; National University of Defense Technology; Hebei University of Technology",
+      "summary": "用偏航不变检索、候选抑制与几何验证修正前馈全景重建的回环；采用 Sim(3)，完整序列离线运行，论文报告 RTX 4090 中位数 0.60 FPS。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "relative",
+      "scaleNote": "Non-metric feed-forward geometry; Sim(3) chunk registration and pose graph. Paper explicitly evaluates trajectory after Sim(3)-Umeyama and dense reconstruction after Sim(3)+ICP alignment",
+      "aliases": [],
+      "metricStatus": "scale-ambiguous non-metric feed-forward geometry; Sim(3)-aligned evaluation",
+      "depthType": "points",
+      "outputs": [
+        "points",
+        "pose"
+      ],
+      "pose": true,
+      "inputSummary": "Monocular full ERP video, processed offline using the complete sequence; frozen PanoVGGT at 518x1036, 60-frame chunks with 30-frame overlap; no IMU or calibrated physical baseline",
+      "outputSummary": "Globally loop-corrected camera trajectory and dense point-cloud reconstruction; per-chunk pointmaps and confidence proxy internally; YIP retrieval, spatial candidate suppression (SCS), multi-signal verification (MSV), and global Sim(3) pose graph",
+      "inputs": {
+        "requirements": "Monocular full ERP video, processed offline using the complete sequence; frozen PanoVGGT at 518x1036, 60-frame chunks with 30-frame overlap; no IMU or calibrated physical baseline",
+        "imu": false
+      },
+      "outputDetails": {
+        "primary": "Globally loop-corrected camera trajectory and dense point-cloud reconstruction; per-chunk pointmaps and confidence proxy internally; YIP retrieval, spatial candidate suppression (SCS), multi-signal verification (MSV), and global Sim(3) pose graph",
+        "depth_convention": "Frozen panoramic backbone predicts two per-pixel 3D point estimates in chunk coordinates; their disagreement supplies confidence. This is not an independently calibrated dense metric-depth predictor",
+        "metric_status": "scale-ambiguous non-metric feed-forward geometry; Sim(3)-aligned evaluation",
+        "pose_output": "Yes: offline loop-corrected trajectory; not online streaming visual odometry",
+        "runtime": "Unknown: no comparable local measurement"
+      },
+      "codeStatus": "unverified",
+      "codeUrl": "",
+      "paperUrl": "https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download",
+      "projectUrl": "https://diglib7.eg.org/items/288b7b5d-7f87-4f03-b700-fc683d0c60e2",
+      "weightsUrl": "",
+      "license": "Implementation/weight license unknown; paper copyright retained by authors/Eurographics/Wiley, not an open-source code license",
+      "evidence": [
+        "Official PDF front page confirms eight authors and CGF 45(7). Sections 3.1-3.3 define chunk inference and loop closure; 4.3 explicitly says non-metric depth and Sim(3) evaluation; 4.4 and 4.9-4.10 specify resolution, offline sequence retrieval, 0.60 FPS and limitations. No official source URL found in paper links or publisher metadata; not reproduced locally.",
+        "https://doi.org/10.1111/cgf.70607",
+        "https://diglib7.eg.org/items/288b7b5d-7f87-4f03-b700-fc683d0c60e2",
+        "https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download",
+        "https://diglib7.eg.org/bitstreams/8f7f04ff-aeaf-4c8e-bbaf-0068bee7a665/download",
+        "https://pacificgraphics2026.github.io/full-program.html?format=video"
+      ],
+      "notes": [
+        "Offline complete-sequence loop retrieval; median 0.60 FPS. YIP is exactly invariant to integer token-column shifts, only approximately invariant to physical yaw, with no pitch/roll invariance guarantee. Evaluated only on 360Loc; multi-session, large outdoor and highly dynamic regimes untested. Code/checkpoint release unconfirmed.",
+        "Official paper and supplementary PDF available; implementation release unverified"
+      ],
+      "tags": [],
+      "family": "offline feed-forward panoramic loop-closure SLAM",
+      "imu": false,
+      "loopClosure": true,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-10-17",
+      "publiclyVerified": true,
+      "verificationLevel": "Official publisher metadata and full paper read; implementation and checkpoints unverified; no local reproduction",
+      "codeEntry": "Unknown",
+      "environment": "Paper reports median 0.60 FPS on one RTX 4090, offline whole-sequence loop retrieval; not real time or a local measurement.",
+      "figure": {
+        "paperUrl": "https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "cropBox": [
+          46,
+          90,
+          545,
+          250
+        ],
+        "caption": {
+          "zh": "分块全景重建与对齐，结合偏航稳健检索、候选抑制、几何验证和 Sim(3) 位姿图。",
+          "en": "Chunked panoramic reconstruction with yaw-robust retrieval, candidate suppression, geometric verification and a Sim(3) pose graph."
+        },
+        "originalCaption": "Figure 2: PanoLoop pipeline.",
+        "image": "assets/papers/panoloop2026.webp",
+        "thumbnail": "assets/papers/panoloop2026-thumb.webp",
+        "credit": {
+          "zh": "来源：论文作者，2026；Figure 2 原文截图。",
+          "en": "Source: paper authors (2026), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+        "imageSize": [
+          1663,
+          533
+        ],
+        "pdfSha256": "afe4c6ca289ce4f28d31a5ef1e7635698f8d0e6ea51080a70edd1a2acfb353db"
+      }
+    },
+    {
       "id": "mast3rslam2025",
       "collection": "slam",
       "name": "MASt3R-SLAM",
@@ -5174,6 +5475,98 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": []
+    },
+    {
+      "id": "vio360_2024",
+      "collection": "slam",
+      "name": "360-VIO",
+      "title": "360-VIO: A Robust Visual–Inertial Odometry Using a 360° Camera",
+      "year": 2024,
+      "firstYear": 2024,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "IEEE Transactions on Industrial Electronics 71(9):11136-11145, September 2024; online 25 December 2023",
+      "authors": "Qi Wu; Xiangyu Xu; Xieyuanli Chen; Ling Pei; Chao Long; Junyuan Deng; Guoqing Liu; Sheng Yang; Shilei Wen; Wenxian Yu",
+      "institutions": "Shanghai Jiao Tong University; ByteDance; National University of Defense Technology; Cainiao, Alibaba Group",
+      "summary": "在 HybVIO 的 EKF 中融合 ERP 与 IMU，以球面切平面重投影误差及特征不确定性抑制投影畸变；适合作为全景惯性定位基线，源码发布状态待核实。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "metric",
+      "scaleNote": "Metric through calibrated inertial fusion when scale is observable; no useful stereo baseline is recovered from the stitched 360-degree camera alone",
+      "aliases": [],
+      "metricStatus": "metric with calibrated IMU and observable motion",
+      "depthType": "none",
+      "outputs": [
+        "none",
+        "pose"
+      ],
+      "pose": true,
+      "inputSummary": "Equirectangular 360-degree image sequence and synchronized IMU; camera-to-IMU extrinsic and sensor calibration",
+      "outputSummary": "Visual-inertial body poses, velocity and IMU bias estimates; covariance and triangulated feature constraints in an EKF estimator",
+      "inputs": {
+        "requirements": "Equirectangular 360-degree image sequence and synchronized IMU; camera-to-IMU extrinsic and sensor calibration",
+        "imu": true
+      },
+      "outputDetails": {
+        "primary": "Visual-inertial body poses, velocity and IMU bias estimates; covariance and triangulated feature constraints in an EKF estimator",
+        "depth_convention": "Triangulated sparse landmarks on spherical bearing rays; no per-pixel dense depth prediction",
+        "metric_status": "metric with calibrated IMU and observable motion",
+        "pose_output": "Yes: visual-inertial state and trajectory; not a global loop-corrected map",
+        "runtime": "Unknown: no comparable local measurement"
+      },
+      "codeStatus": "none",
+      "codeUrl": "",
+      "paperUrl": "https://ieeexplore.ieee.org/document/10373205/",
+      "projectUrl": "https://shengyang93.github.io/publication/2023-360-vio/",
+      "weightsUrl": "",
+      "license": "Unknown: complete official implementation and its license not verified",
+      "evidence": [
+        "Author-uploaded manuscript, coauthor publication pages and IEEE metadata reviewed; no local reproduction",
+        "https://ieeexplore.ieee.org/document/10373205/",
+        "https://shengyang93.github.io/publication/2023-360-vio/",
+        "https://chen-xieyuanli.github.io/_pages/includes/pub/",
+        "https://www.researchgate.net/profile/Qi-Wu-42/publication/376825456_360-VIO_A_Robust_Visual-Inertial_Odometry_Using_a_360_Camera/links/6594b0b56f6e450f19c49549/360-VIO-A-Robust-Visual-Inertial-Odometry-Using-a-360-Camera.pdf"
+      ],
+      "notes": [
+        "VIO without a described global loop-closure module; stitched-camera optical center and camera-IMU calibration matter; promised code is not a verified runnable release",
+        "Announced code and calibration tool; linked repository unavailable during verification"
+      ],
+      "tags": [],
+      "family": "filter panoramic VIO",
+      "imu": true,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-10-17",
+      "publiclyVerified": true,
+      "verificationLevel": "Author paper and primary publication metadata reviewed; official code unavailable; no local reproduction",
+      "codeEntry": "Unknown",
+      "environment": "HybVIO-based EKF; paper extends Kalibr for the panoramic optical center; no local runtime test",
+      "figure": {
+        "thumbnail": "assets/papers/vio360_2024-thumb.webp",
+        "image": "assets/papers/vio360_2024.webp",
+        "paperUrl": "https://ieeexplore.ieee.org/document/10373205/",
+        "sourceType": "author-project-image",
+        "sourceUrl": "https://shengyang93.github.io/publication/2023-360-vio/featured_hu17281690602998133915.webp",
+        "sourcePageUrl": "https://shengyang93.github.io/publication/2023-360-vio/",
+        "sourceSha256": "8e96e50d850d85c8ca22e393300836ac48addc56ce2f77b7106dc5fca7105d31",
+        "figureLabel": "Author method overview",
+        "caption": {
+          "zh": "球面特征切平面重投影误差与惯性传播／测量更新示意；作者官方项目页方法图，非 PDF 截图。",
+          "en": "Spherical-feature tangent-plane reprojection and inertial propagation/measurement updates; an official author-page method image, not a PDF crop."
+        },
+        "credit": {
+          "zh": "来源：作者官方项目页（Sheng Yang）；原始方法图，非 PDF 截图。",
+          "en": "Source: official author project page (Sheng Yang); original method image, not a PDF screenshot."
+        },
+        "kind": "method",
+        "verified": true,
+        "imageSize": [
+          720,
+          314
+        ],
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected the original image linked by the official author project page. No PDF page, crop box or PDF hash is claimed. This diagram illustrates spherical tangent-plane measurement updates; it is not the Figure 2 EKF flowchart."
+      }
     },
     {
       "id": "ds_360loc",
@@ -6233,6 +6626,102 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "vo360_2022",
+      "collection": "slam",
+      "name": "360VO",
+      "title": "360VO: Visual Odometry Using A Single 360 Camera",
+      "year": 2022,
+      "firstYear": 2022,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "ICRA 2022, pp. 5594-5600",
+      "authors": "Huajian Huang; Sai-Kit Yeung",
+      "institutions": "The Hong Kong University of Science and Technology",
+      "summary": "将 DSO 扩展到原生 ERP：沿球面极线搜索，并在局部滑窗联合优化位姿、逆径向距离、内参与亮度；纯视觉尺度不确定，无全局回环。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "relative",
+      "scaleNote": "Monocular arbitrary scale; an external metric reference is needed for physical units",
+      "aliases": [],
+      "metricStatus": "arbitrary scale; monocular visual-only",
+      "depthType": "inverse",
+      "outputs": [
+        "inverse",
+        "pose"
+      ],
+      "pose": true,
+      "inputSummary": "Monocular equirectangular video from one 360-degree camera; photometric image measurements; no IMU",
+      "outputSummary": "6DoF camera trajectory and local semi-dense point geometry; optimized spherical intrinsics, inverse distances and affine brightness parameters",
+      "inputs": {
+        "requirements": "Monocular equirectangular video from one 360-degree camera; photometric image measurements; no IMU",
+        "imu": false
+      },
+      "outputDetails": {
+        "primary": "6DoF camera trajectory and local semi-dense point geometry; optimized spherical intrinsics, inverse distances and affine brightness parameters",
+        "depth_convention": "Inverse Euclidean distance to the spherical camera center, not pinhole Z; selected photometric points rather than a dense single-image predictor",
+        "metric_status": "arbitrary scale; monocular visual-only",
+        "pose_output": "Yes: local-window visual odometry; camera-to-wrist/TCP extrinsics remain external",
+        "runtime": "Unknown: no comparable local measurement"
+      },
+      "codeStatus": "none",
+      "codeUrl": "",
+      "paperUrl": "https://huajianup.github.io/research/360VO/360VO_ICRA2022.pdf",
+      "projectUrl": "https://huajianup.github.io/research/360VO/",
+      "weightsUrl": "",
+      "license": "Unknown: official implementation license not verified",
+      "evidence": [
+        "Author PDF sections III-IV and author project page reviewed; no local reproduction",
+        "https://huajianup.github.io/research/360VO/360VO_ICRA2022.pdf",
+        "https://huajianup.github.io/research/360VO/",
+        "https://researchportal.hkust.edu.hk/en/publications/360vo-visual-odometry-using-a-single-360-camera/"
+      ],
+      "notes": [
+        "Local VO without a described global loop-closure module; stitching and photometric changes require care; public implementation availability unverified",
+        "No official code linked on author project; implementation availability unverified"
+      ],
+      "tags": [],
+      "family": "direct panoramic VO",
+      "imu": false,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-10-17",
+      "publiclyVerified": true,
+      "verificationLevel": "Official paper and author project reviewed; no local reproduction",
+      "codeEntry": "Unknown",
+      "environment": "Photometric local-window optimization; no verified installable official code or local benchmark",
+      "figure": {
+        "paperUrl": "https://huajianup.github.io/research/360VO/360VO_ICRA2022.pdf",
+        "page": 2,
+        "figureLabel": "Figure 2",
+        "cropBox": [
+          312,
+          54,
+          559,
+          185
+        ],
+        "caption": {
+          "zh": "ERP 全景输入、初始化和滑动窗口直接法优化的系统流程。",
+          "en": "ERP input, initialization and sliding-window direct optimization pipeline."
+        },
+        "originalCaption": "Fig. 2. System overview.",
+        "image": "assets/papers/vo360_2022.webp",
+        "thumbnail": "assets/papers/vo360_2022-thumb.webp",
+        "credit": {
+          "zh": "来源：论文作者，2022；Figure 2 原文截图。",
+          "en": "Source: paper authors (2022), Figure 2 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+        "imageSize": [
+          823,
+          436
+        ],
+        "pdfSha256": "040d4573158e8f8571c71e47b5905d8a451337ae09cf0711dc35ae8618a8922d"
+      }
+    },
+    {
       "id": "ds_deep360",
       "name": "Deep360",
       "title": "MODE: Multi-view Omnidirectional Depth Estimation with 360° Cameras",
@@ -6734,6 +7223,104 @@ window.ATLAS_DATA = {
           607,
           375
         ]
+      }
+    },
+    {
+      "id": "patchmatch_panorama2022",
+      "collection": "slam",
+      "name": "PatchMatch-Stereo-Panorama",
+      "title": "PatchMatch-Stereo-Panorama, a fast dense reconstruction from 360° video images",
+      "year": 2022,
+      "firstYear": 2022,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "IEEE SSRR 2022, pp. 366-372",
+      "authors": "Hartmut Surmann; Marc Thurow; Dominik Slomma",
+      "institutions": "Westphalian University of Applied Sciences, Gelsenkirchen; German Rescue Robotics Center, Dortmund",
+      "summary": "把 ERP PatchMatch 稠密化接入 OpenVSLAM：利用相邻关键帧、多视一致性与平面传播生成稠密点云。适合研究传统几何建图；单目尺度仍不确定，原仓库已归档。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "relative",
+      "scaleNote": "Monocular arbitrary scale inherited from OpenVSLAM; densification does not supply a metric baseline",
+      "aliases": [],
+      "metricStatus": "arbitrary scale; monocular geometric reconstruction",
+      "depthType": "unknown",
+      "outputs": [
+        "unknown",
+        "pose"
+      ],
+      "pose": true,
+      "inputSummary": "Monocular ERP video, camera configuration and optional mask; OpenVSLAM keyframe poses and neighboring images feed the densifier",
+      "outputSummary": "Camera trajectory, per-keyframe dense depth maps and filtered fused dense point cloud; map database and PLY export",
+      "inputs": {
+        "requirements": "Monocular ERP video, camera configuration and optional mask; OpenVSLAM keyframe poses and neighboring images feed the densifier",
+        "imu": false
+      },
+      "outputDetails": {
+        "primary": "Camera trajectory, per-keyframe dense depth maps and filtered fused dense point cloud; map database and PLY export",
+        "depth_convention": "ERP multi-view stereo geometry; exact exported scalar radial-distance convention not independently audited",
+        "metric_status": "arbitrary scale; monocular geometric reconstruction",
+        "pose_output": "Yes, provided by the underlying OpenVSLAM tracker and mapper",
+        "runtime": "Unknown: no comparable local measurement"
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/RoblabWh/PatchMatch",
+      "paperUrl": "https://arxiv.org/abs/2211.16266",
+      "projectUrl": "https://github.com/RoblabWh/PatchMatch",
+      "weightsUrl": "",
+      "license": "BSD-2-Clause top-level license; bundled dependencies have separate notices",
+      "evidence": [
+        "Author manuscript, official repository README, LICENSE and release notice reviewed; loop closure inherited from OpenVSLAM; no local reproduction",
+        "https://arxiv.org/abs/2211.16266",
+        "https://github.com/RoblabWh/PatchMatch",
+        "https://github.com/RoblabWh/PatchMatch/blob/main/LICENSE",
+        "https://github.com/RoblabWh/stella_vslam_dense",
+        "https://doi.org/10.1109/SSRR56537.2022.10018698"
+      ],
+      "notes": [
+        "A dense-mapping extension to OpenVSLAM, not a new standalone odometry frontend or learned single-image depth model; dense-map behavior after loop correction not independently audited; original repository archived",
+        "Official code available; original repository archived March 2024 and points to stella_vslam_dense successor"
+      ],
+      "tags": [],
+      "family": "panoramic SLAM / geometric dense mapping",
+      "imu": false,
+      "loopClosure": true,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-10-17",
+      "publiclyVerified": true,
+      "verificationLevel": "Official paper, repository and license reviewed; no local reproduction",
+      "codeEntry": "Unknown",
+      "environment": "C++/CUDA with NVIDIA Container Toolkit and Docker examples; official demo configuration and video available",
+      "figure": {
+        "paperUrl": "https://arxiv.org/pdf/2211.16266",
+        "page": 4,
+        "figureLabel": "Figure 3",
+        "cropBox": [
+          68,
+          52,
+          546,
+          317
+        ],
+        "caption": {
+          "zh": "OpenVSLAM 上增加全景 PatchMatch 深度计算与稠密点云线程。",
+          "en": "Panoramic PatchMatch depth and dense-point-cloud threads added to OpenVSLAM."
+        },
+        "originalCaption": "Fig. 3. Overview of the proposed approach.",
+        "image": "assets/papers/patchmatch_panorama2022.webp",
+        "thumbnail": "assets/papers/patchmatch_panorama2022-thumb.webp",
+        "credit": {
+          "zh": "来源：论文作者，2022；Figure 3 原文截图。",
+          "en": "Source: paper authors (2022), Figure 3 crop."
+        },
+        "kind": "method",
+        "verified": true,
+        "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+        "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+        "imageSize": [
+          1593,
+          883
+        ],
+        "pdfSha256": "53c91d436ebee8403588ed2774dc82394f955ccd2631e4994e45d918d925491e"
       }
     },
     {
@@ -10763,10 +11350,10 @@ window.ATLAS_DATA = {
   ],
   "stats": {
     "depth": 30,
-    "slam": 26,
+    "slam": 32,
     "datasets": 32,
     "panoramicDepth": 22,
-    "panoramicSLAM": 5,
-    "paperFigures": 56
+    "panoramicSLAM": 11,
+    "paperFigures": 62
   }
 };

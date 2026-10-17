@@ -4,7 +4,7 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 
 **[Explore the website →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/)** · [Panoramic SLAM](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic) · [Full JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-检索与来源核查截点：**2026-10-17**。当前 **88** 条：Depth/Geometry **30** 项（22项包含全景流程），SLAM/VO/VIO **26** 项（5项有明确原生ERP输入证据），数据集 **32** 项（13项涉及全景数据或明确的渲染/重采样协议）。分类可重叠；这是一份任务导向的人工核验资料索引，不是性能排行榜或穷尽性综述。
+检索与来源核查截点：**2026-10-17**。当前 **94** 条：Depth/Geometry **30** 项（22项包含全景流程），SLAM/VO/VIO **32** 项（11项有明确ERP输入证据），数据集 **32** 项（13项涉及全景数据或明确的渲染/重采样协议）。分类可重叠；这是一份任务导向的人工核验资料索引，不是性能排行榜或穷尽性综述。
 
 ## 使用方式
 
@@ -15,7 +15,7 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 - 将当前筛选导出为JSON、CSV或BibTeX草稿；引用前核对作者和正式出版信息。
 - 数据集另有任务、室内外、真实/合成来源和获取方式筛选，可比较传感器、真值来源、标定/时间、评测划分及许可。
 
-卡片展示带出处的论文方法图或代表性结果，点击可查看大图与 PDF 页码；完整论文保存在本地。页眉可选择中文或 English，避免同屏重复展示双语。论文、数据和模型以作者原始来源与各自条款为准。
+卡片展示带出处的论文方法图或代表性结果，点击可查看大图；PDF 截图注明页码，作者官网方法图单独标明来源。已取得的完整论文保存在本地。页眉可选择中文或 English，避免同屏重复展示双语。论文、数据和模型以作者原始来源与各自条款为准。
 
 ## 本版技术地图
 
@@ -27,12 +27,14 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 | 真实多相机立体 | MODE、MCPDepth |
 | 视频/多视图几何对照 | Video Depth Anything、Depth Anything 3、VGGT、VGGT-Ω |
 | 透视深度基线 | Depth Anything V2、UniDepthV2、Metric3Dv2、Depth Pro |
-| 原生ERP定位/建图 | stella_vslam、360ORB-SLAM、ODGS-SLAM、PanoGS-SLAM、PanoAir |
+| ERP输入定位/建图 | stella_vslam、360VO、360-VIO、360DVO、PatchMatch-Stereo-Panorama、Cube-Splat、PanoLoop、360ORB-SLAM、ODGS-SLAM、PanoGS-SLAM、PanoAir |
 | 鱼眼/广视场惯性 | OpenVINS、ORB-SLAM3、Basalt、VINS-Fusion、OKVIS2/2-X、SVO Pro、OmniSLAM、LF-VISLAM、P2U-SLAM |
 | 学习式VO/SLAM | DROID-SLAM、DPVO、DPV-SLAM、MASt3R-SLAM、DBA-Fusion、D3VO、CodeVIO |
 | RGB-D/神经隐式/高斯地图 | SplaTAM、GO-SLAM、MonoGS、PanoSLAM |
 
 完整标题、作者、机构、会议/期刊和原始来源见[可筛选网站](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/)及[证据索引](references/sources.md)。
+
+本轮从指定候选中新增六项非 MDPI 工作，覆盖直接法 VO、滤波 VIO、学习式 VO、传统稠密建图、全景高斯地图与前馈重建回环。360VO、360-VIO 和 360DVO 是里程计，不能据此宣称具备全局回环；PatchMatch-Stereo-Panorama 是 OpenVSLAM 的稠密化扩展；Cube-Splat 的四个虚拟视图共享光心与位姿，不产生物理立体基线；PanoLoop 采用整段序列的离线检索和 Sim(3) 校正，不能标为实时在线公制 SLAM。作者原文与实现核验分别见[经典方法](references/slam_candidates_classics_sources.md)和[近期方法](references/slam_candidates_recent_sources.md)。本轮按选题要求不加入两篇 Sensors（MDPI）候选。
 
 ## 数据集
 
@@ -49,6 +51,7 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 相机支持、深度定义、尺度来源、位姿输出和发布状态是独立维度。
 
 - **Panoramic**：作者流程明确接受完整ERP/球面输入。鱼眼、全向rig、PAL镜头、Any-view或Panoptic名称不能自动得到该标签。PAL/rig按实际相机输入分类。
+- **完整全景输入支持**：指已核实的输入接口或论文流程接受完整全景，不代表所有内部计算都直接在球面上完成；ERP 转 cubemap 或切平面的步骤在输入与方法说明中单独记录。
 - **Multi-camera**：真实多相机/立体系统。单张ERP切成cubemap或多个tangent view不会凭空增加真实基线。
 - **Range**：沿单位射线的欧氏距离，`X = range × unit_ray`；**Z-depth**是光轴分量。完整ERP后半球可有负Z，不可拿正值Z当全球面距离。
 - **Metric**：原方法有公制来源，例如学习先验、已知基线或IMU/深度传感器；其来源写在scaleNote/metricStatus。标签不表示独立验证过绝对精度。
@@ -89,6 +92,8 @@ tests/                   数据与真实目录的 DOM 功能测试
 
 页眉的“中文 / English”选项切换整站界面、方法摘要及详情说明，记住本机选择；`?lang=en` 可以分享英语视图。方法名称、原论文标题和代码标识保留原始写法。
 
-卡片配图优先采用论文方法总览，其次采用 teaser 或代表性结果。配图保持完整裁剪范围，点击可放大，弹窗附原论文链接与 PDF 页码；这不是网站重新运行模型得到的结果。`source_data/figures_depth.json` 和 `source_data/figures_slam.json` 记录来源、图号、裁剪框、图注、PDF SHA-256 与核验状态。`site/assets/papers/` 保存网页小图和可放大图。
+卡片配图优先采用论文方法总览，其次采用 teaser 或代表性结果。配图保持完整裁剪范围，点击可放大；这不是网站重新运行模型得到的结果。`source_data/figures_depth.json` 和 `source_data/figures_slam.json` 记录来源与核验状态：PDF 截图有页码、图号、裁剪框、图注和 PDF SHA-256；`sourceType: author-project-image` 单独保存作者页面、原图 URL、原图 SHA-256 与署名，不编造 PDF 页码或指纹。`site/assets/papers/` 保存网页小图和可放大图。
 
 完整论文保存在本地 `library/pdfs/`（按方法 ID 命名），下载和选图预览位于 `library/`；该目录已被 Git 忽略，不会上传 GitHub。论文配图的下载与裁剪脚本在 `tools/acquire_depth_figures.py` 和 `tools/acquire_slam_figures.py`；修改选图后重新构建和核验网站。
+
+本轮五篇新增方法已保存原论文并截图；360-VIO 的原论文下载受限，采用作者官网公开的真实方法图，原图存于忽略的 `library/source_images/`。网站不会将该图标为 PDF 截图，完整论文获取缺口仍保留。

@@ -804,5 +804,186 @@
       1277,
       457
     ]
+  },
+  "vo360_2022": {
+    "paperUrl": "https://huajianup.github.io/research/360VO/360VO_ICRA2022.pdf",
+    "page": 2,
+    "figureLabel": "Figure 2",
+    "cropBox": [
+      312,
+      54,
+      559,
+      185
+    ],
+    "caption": {
+      "zh": "ERP 全景输入、初始化和滑动窗口直接法优化的系统流程。",
+      "en": "ERP input, initialization and sliding-window direct optimization pipeline."
+    },
+    "originalCaption": "Fig. 2. System overview.",
+    "image": "assets/papers/vo360_2022.webp",
+    "thumbnail": "assets/papers/vo360_2022-thumb.webp",
+    "credit": {
+      "zh": "来源：论文作者，2022；Figure 2 原文截图。",
+      "en": "Source: paper authors (2022), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+    "imageSize": [
+      823,
+      436
+    ],
+    "pdfSha256": "040d4573158e8f8571c71e47b5905d8a451337ae09cf0711dc35ae8618a8922d"
+  },
+  "patchmatch_panorama2022": {
+    "paperUrl": "https://arxiv.org/pdf/2211.16266",
+    "page": 4,
+    "figureLabel": "Figure 3",
+    "cropBox": [
+      68,
+      52,
+      546,
+      317
+    ],
+    "caption": {
+      "zh": "OpenVSLAM 上增加全景 PatchMatch 深度计算与稠密点云线程。",
+      "en": "Panoramic PatchMatch depth and dense-point-cloud threads added to OpenVSLAM."
+    },
+    "originalCaption": "Fig. 3. Overview of the proposed approach.",
+    "image": "assets/papers/patchmatch_panorama2022.webp",
+    "thumbnail": "assets/papers/patchmatch_panorama2022-thumb.webp",
+    "credit": {
+      "zh": "来源：论文作者，2022；Figure 3 原文截图。",
+      "en": "Source: paper authors (2022), Figure 3 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+    "imageSize": [
+      1593,
+      883
+    ],
+    "pdfSha256": "53c91d436ebee8403588ed2774dc82394f955ccd2631e4994e45d918d925491e"
+  },
+  "dvo360_2026": {
+    "paperUrl": "https://arxiv.org/pdf/2601.02309",
+    "page": 1,
+    "figureLabel": "Figure 1",
+    "cropBox": [
+      311,
+      150,
+      565,
+      364
+    ],
+    "caption": {
+      "zh": "畸变感知球面特征与全向可微 BA 联合估计位姿和局部图像块深度。",
+      "en": "Distortion-aware spherical features and omnidirectional differentiable BA jointly estimate poses and patch depths."
+    },
+    "originalCaption": "Fig. 1: Framework overview of 360DVO.",
+    "image": "assets/papers/dvo360_2026.webp",
+    "thumbnail": "assets/papers/dvo360_2026-thumb.webp",
+    "credit": {
+      "zh": "来源：论文作者，2026；Figure 1 原文截图。",
+      "en": "Source: paper authors (2026), Figure 1 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+    "imageSize": [
+      846,
+      713
+    ],
+    "pdfSha256": "6fecb6905dad129ecf0d989b6ea6bed777d34d45451e89ab0566f15dae53afc0"
+  },
+  "cubesplat2026": {
+    "paperUrl": "https://arxiv.org/pdf/2609.21347",
+    "page": 6,
+    "figureLabel": "Figure 2",
+    "cropBox": [
+      134,
+      118,
+      482,
+      378
+    ],
+    "caption": {
+      "zh": "ERP 或 PAL 全景转换为 cubemap，进行共享位姿跟踪和高斯地图优化。",
+      "en": "ERP or PAL panoramas are factorized into cubemap views for shared-pose tracking and Gaussian-map optimization."
+    },
+    "originalCaption": "Fig. 2: Pipeline of Cube-Splat.",
+    "image": "assets/papers/cubesplat2026.webp",
+    "thumbnail": "assets/papers/cubesplat2026-thumb.webp",
+    "credit": {
+      "zh": "来源：论文作者，2026；Figure 2 原文截图。",
+      "en": "Source: paper authors (2026), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+    "imageSize": [
+      1160,
+      866
+    ],
+    "pdfSha256": "03cf13240d68f267d2c79f3eabe7c4c3784d9e914337811e384580e0984acf8c"
+  },
+  "panoloop2026": {
+    "paperUrl": "https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "cropBox": [
+      46,
+      90,
+      545,
+      250
+    ],
+    "caption": {
+      "zh": "分块全景重建与对齐，结合偏航稳健检索、候选抑制、几何验证和 Sim(3) 位姿图。",
+      "en": "Chunked panoramic reconstruction with yaw-robust retrieval, candidate suppression, geometric verification and a Sim(3) pose graph."
+    },
+    "originalCaption": "Figure 2: PanoLoop pipeline.",
+    "image": "assets/papers/panoloop2026.webp",
+    "thumbnail": "assets/papers/panoloop2026-thumb.webp",
+    "credit": {
+      "zh": "来源：论文作者，2026；Figure 2 原文截图。",
+      "en": "Source: paper authors (2026), Figure 2 crop."
+    },
+    "kind": "method",
+    "verified": true,
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected the full source PDF page and final crop. Actual paper method overview, not a generated illustration.",
+    "imageSize": [
+      1663,
+      533
+    ],
+    "pdfSha256": "afe4c6ca289ce4f28d31a5ef1e7635698f8d0e6ea51080a70edd1a2acfb353db"
+  },
+  "vio360_2024": {
+    "thumbnail": "assets/papers/vio360_2024-thumb.webp",
+    "image": "assets/papers/vio360_2024.webp",
+    "paperUrl": "https://ieeexplore.ieee.org/document/10373205/",
+    "sourceType": "author-project-image",
+    "sourceUrl": "https://shengyang93.github.io/publication/2023-360-vio/featured_hu17281690602998133915.webp",
+    "sourcePageUrl": "https://shengyang93.github.io/publication/2023-360-vio/",
+    "sourceSha256": "8e96e50d850d85c8ca22e393300836ac48addc56ce2f77b7106dc5fca7105d31",
+    "figureLabel": "Author method overview",
+    "caption": {
+      "zh": "球面特征切平面重投影误差与惯性传播／测量更新示意；作者官方项目页方法图，非 PDF 截图。",
+      "en": "Spherical-feature tangent-plane reprojection and inertial propagation/measurement updates; an official author-page method image, not a PDF crop."
+    },
+    "credit": {
+      "zh": "来源：作者官方项目页（Sheng Yang）；原始方法图，非 PDF 截图。",
+      "en": "Source: official author project page (Sheng Yang); original method image, not a PDF screenshot."
+    },
+    "kind": "method",
+    "verified": true,
+    "imageSize": [
+      720,
+      314
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
+    "verificationNote": "Visually inspected the original image linked by the official author project page. No PDF page, crop box or PDF hash is claimed. This diagram illustrates spherical tangent-plane measurement updates; it is not the Figure 2 EKF flowchart."
   }
 }

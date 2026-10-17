@@ -7,6 +7,10 @@ const root=path.resolve(__dirname,'..');
 const source=fs.readFileSync(path.join(root,'site/app.js'),'utf8');
 const html=fs.readFileSync(path.join(root,'site/index.html'),'utf8');
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'site/data/catalog.json'),'utf8'));
+const depthRecords=catalog.records.filter(r=>r.collection==='depth');
+const slamRecords=catalog.records.filter(r=>r.collection==='slam');
+const panoramicDepth=depthRecords.filter(r=>r.cameras.includes('panoramic'));
+const panoramicSlam=slamRecords.filter(r=>r.cameras.includes('panoramic'));
 const passed=[];
 function boot(query='',data=catalog,storage=null){
   const errors=[];const virtualConsole=new VirtualConsole();
@@ -33,9 +37,9 @@ function check(name,fn){fn();passed.push(name);console.log('PASS '+name)}
 let a=boot();
 check('default panoramic depth catalog renders real entries',()=>{
   assert.equal(a.api.getState().collection,'depth');assert.equal(a.api.getState().category,'panoramic');
-  assert.equal(a.api.getFilteredRecords().length,22);assert.equal(a.doc.querySelectorAll('.paper-card').length,22);
-  assert.equal(a.doc.getElementById('depth-count').textContent,'30');
-  assert.equal(a.doc.getElementById('slam-count').textContent,'26');
+  assert.equal(a.api.getFilteredRecords().length,panoramicDepth.length);assert.equal(a.doc.querySelectorAll('.paper-card').length,panoramicDepth.length);
+  assert.equal(a.doc.getElementById('depth-count').textContent,String(depthRecords.length));
+  assert.equal(a.doc.getElementById('slam-count').textContent,String(slamRecords.length));
 });
 check('search from actual input updates URL, results and no-match state',()=>{
   const search=a.doc.getElementById('search');search.value='UniDAC';search.dispatchEvent(new a.w.Event('input',{bubbles:true}));
@@ -43,20 +47,39 @@ check('search from actual input updates URL, results and no-match state',()=>{
   assert.equal(new URL(a.w.location.href).searchParams.get('q'),'UniDAC');
   search.value='no-such-paper-987654';search.dispatchEvent(new a.w.Event('input',{bubbles:true}));
   assert.equal(a.api.getFilteredRecords().length,0);assert.equal(a.doc.getElementById('empty-state').hidden,false);
-  a.doc.getElementById('empty-reset').click();assert.equal(a.api.getFilteredRecords().length,30);
+  a.doc.getElementById('empty-reset').click();assert.equal(a.api.getFilteredRecords().length,depthRecords.length);
 });
 check('short DA query searches method names and aliases rather than dataset boilerplate',()=>{
   a.api.setFilter('category','panoramic');a.api.setFilter('q','DA');
   const ids=Array.from(a.api.getFilteredRecords(),r=>r.id);
   assert(ids.includes('dap'));assert(ids.includes('da2_panorama'));assert(ids.includes('unidac'));
-  assert(!ids.includes('mode'));assert(!ids.includes('mcpdepth'));assert(ids.length<22);
+  assert(!ids.includes('mode'));assert(!ids.includes('mcpdepth'));assert(ids.length<panoramicDepth.length);
   a.api.setFilter('q','');a.api.setFilter('category','all');
 });
-check('native ERP SLAM filter excludes Panoptic PanoSLAM and PAL systems',()=>{
+check('ERP-input SLAM filter excludes Panoptic PanoSLAM and PAL systems',()=>{
   a.doc.getElementById('tab-slam').click();a.api.setFilter('category','panoramic');
   const ids=Array.from(a.api.getFilteredRecords(),r=>r.id);
-  assert.equal(ids.length,5);assert(ids.includes('odgsslam2026'));assert(!ids.includes('panoslam2025'));
+  assert.equal(ids.length,panoramicSlam.length);assert(ids.includes('odgsslam2026'));assert(!ids.includes('panoslam2025'));
   assert(!ids.includes('p2uslam2026'));assert(!ids.includes('orbslam3_2021'));
+});
+check('reviewed panoramic additions preserve sensor, scale and loop distinctions',()=>{
+  const byId=new Map(slamRecords.map(r=>[r.id,r]));
+  for(const id of ['vo360_2022','vio360_2024','dvo360_2026','patchmatch_panorama2022','cubesplat2026','panoloop2026']){
+    const r=byId.get(id);assert(r,id);assert(r.cameras.includes('panoramic'),id);
+    assert(!r.cameras.includes('multi'),id+' virtual views are not physical cameras');
+    assert.equal(r.pose,true,id);assert.equal(r.nativePanoramic,true,id+' ERP input');
+  }
+  for(const id of ['vo360_2022','dvo360_2026','patchmatch_panorama2022','panoloop2026'])assert.equal(byId.get(id).scale,'relative',id);
+  assert.equal(byId.get('vio360_2024').scale,'metric');assert.equal(byId.get('vio360_2024').imu,true);
+  assert.notEqual(byId.get('cubesplat2026').scale,'metric','shared optical center does not provide a stereo baseline');
+  for(const id of ['vo360_2022','vio360_2024','dvo360_2026'])assert.equal(byId.get(id).loopClosure,false,id+' is odometry');
+  assert.equal(byId.get('panoloop2026').loopClosure,true);
+  assert.match(byId.get('panoloop2026').notes.join(' '),/offline/i);
+  assert.notEqual(byId.get('vio360_2024').codeStatus,'released');
+  assert.equal(byId.get('cubesplat2026').codeStatus,'released');
+  a.api.openRecord('cubesplat2026');
+  const loop=Array.from(a.doc.querySelectorAll('#detail-content dt')).find(d=>d.textContent.includes('回环'));
+  assert.equal(loop.nextElementSibling.textContent,'待核实');a.doc.getElementById('detail-dialog').close();
 });
 check('combined year, code status and metric filters use explicit metadata',()=>{
   a.api.setFilter('collection','depth');a.api.setFilter('category','all');
@@ -67,7 +90,7 @@ check('combined year, code status and metric filters use explicit metadata',()=>
 });
 check('table view contains all filtered entries',()=>{
   a.doc.querySelector('[data-view="table"]').click();
-  assert.equal(a.doc.querySelectorAll('.results-table tbody tr').length,30);
+  assert.equal(a.doc.querySelectorAll('.results-table tbody tr').length,depthRecords.length);
   a.doc.querySelector('[data-view="cards"]').click();
 });
 check('four-way comparison enforces limit and displays nested licenses',()=>{
@@ -130,19 +153,34 @@ check('mobile filters and keyboard search are operable',()=>{
   a.doc.body.focus();a.doc.dispatchEvent(new a.w.KeyboardEvent('keydown',{key:'/',bubbles:true}));
   assert.equal(a.doc.activeElement.id,'search');
 });
-check('all 56 cards use attributed, locally hosted paper figures',()=>{
+check('all method cards use attributed, locally hosted paper figures',()=>{
   for(const r of catalog.records.filter(r=>r.collection!=='datasets')){
     assert.equal(r.figure.verified,true,r.id);assert(r.figure.caption.zh&&r.figure.caption.en);
-    assert(r.figure.credit.zh&&r.figure.credit.en);assert(r.figure.page>=1);
+    assert(r.figure.credit.zh&&r.figure.credit.en);
+    if(r.figure.sourceType==='author-project-image'){
+      assert.match(r.figure.sourceSha256,/^[a-f0-9]{64}$/);assert(r.figure.sourcePageUrl.startsWith('https://'));
+      assert.equal(r.figure.page,undefined);assert.equal(r.figure.pdfSha256,undefined);
+    }else assert(r.figure.page>=1);
     for(const key of ['image','thumbnail'])assert(fs.existsSync(path.join(root,'site',r.figure[key])),r.id+' '+key);
   }
   a.api.setFilter('collection','depth');a.api.setFilter('category','all');
-  assert.equal(a.doc.querySelectorAll('.paper-card .paper-preview img').length,30);
+  assert.equal(a.doc.querySelectorAll('.paper-card .paper-preview img').length,depthRecords.length);
   assert.equal(a.doc.querySelectorAll('.paper-card .card-art>svg').length,0);
   const trigger=a.doc.querySelector('[data-figure-id]');trigger.click();
   const dialog=a.doc.getElementById('paper-figure-dialog');assert.equal(dialog.open,true);
   assert(dialog.querySelector('img').getAttribute('src').startsWith('./assets/papers/'));
   assert(dialog.querySelector('a').getAttribute('href').includes('#page='));dialog.close();
+});
+check('author project figures have an honest source link without an invented PDF page',()=>{
+  const b=boot('?collection=slam&category=all&lang=zh');
+  b.doc.querySelector('[data-figure-id="vio360_2024"]').click();
+  const dialog=b.doc.getElementById('paper-figure-dialog');assert(dialog.open);
+  assert(dialog.textContent.includes('作者官方方法图'));assert(!dialog.textContent.includes('第 1 页'));
+  const link=dialog.querySelector('a');assert(link.href.includes('shengyang93.github.io/publication/2023-360-vio/'));
+  assert(!link.href.includes('#page='));dialog.close();
+  const unsafe=JSON.parse(JSON.stringify(catalog));unsafe.records.find(r=>r.id==='vio360_2024').figure.sourcePageUrl='javascript:alert(1)';
+  const c=boot('?collection=slam&category=all&lang=en',unsafe);c.doc.querySelector('[data-figure-id="vio360_2024"]').click();
+  assert.equal(c.doc.querySelectorAll('a[href^="javascript:"]').length,0);b.dom.window.close();c.dom.window.close();
 });
 check('language toggle updates UI and record prose while preserving filters and saved choice',()=>{
   a.api.setFilter('q','UniDAC');

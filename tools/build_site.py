@@ -40,10 +40,11 @@ SCALE_OVERRIDES={'p2uslam2026':'relative','odgsslam2026':'mixed','goslam2023':'m
 CODE_OVERRIDES={'p2uslam2026':'none','panogsslam2026':'none','panoslam2025':'none',
                 'panoair2026':'unverified','lfvislam2023':'partial','dreamcube':'partial'}
 SLAM_DEPTH={'dbafusion2024':'inverse','droidslam2021':'inverse','goslam2023':'inverse',
-            'mast3rslam2025':'points','splatam2024':'z','monogs2024':'z'}
+            'mast3rslam2025':'points','splatam2024':'z','monogs2024':'z',
+            'vo360_2022':'inverse','dvo360_2026':'inverse','panoloop2026':'points'}
 NO_DENSE_DEPTH={'openvins2020','orbslam3_2021','stella_vslam','basalt2020','vinsfusion2019',
                 'okvis2_2022','okvis2x2025','svo_pro','omnislam2020','360orbslam2024',
-                'lfvislam2023','p2uslam2026','panoair2026'}
+                'lfvislam2023','p2uslam2026','panoair2026','vio360_2024'}
 DEPTH_METRIC_STATUS={k:('metric_learned' if v[2]=='metric' else 'scale_invariant' if v[2]=='relative' else
                       'mixed_checkpoints' if v[2]=='mixed' else 'unknown') for k,v in DEPTH.items()}
 DEPTH_METRIC_STATUS.update(unifuse='dataset_scale_only',panoformer='dataset_scale_only')
@@ -255,20 +256,26 @@ def build():
         evidence=[v if isinstance(v,str) else v.get('url','') for v in e['evidence']]
         sources.append(f"## {e['name']} ({e['year']})\n\n{e['title']}\n\n"+'\n'.join('- '+v for v in evidence if v)+'\n')
     (ROOT/'references/sources.md').write_text('# Official-source index\n\nChecked '+UPDATED+'. Bibliographic and interface evidence; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
-    figure_sources=['# Paper figure excerpts\n\nFigure excerpts support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed by this website. Page numbers refer to the downloaded PDF, counting from 1.\n']
+    figure_sources=['# Paper and author project figures\n\nFigures support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed. Original author image files are kept locally; attributed web-sized copies are published. PDF page numbers count from 1; author webpage images do not claim PDF pages or PDF hashes.\n']
     for e in records:
         f=e.get('figure')
         if not f:continue
         caption=f.get('caption',{})
         if isinstance(caption,dict):caption=caption.get('en','')
-        figure_sources.append(f"## {e['name']}\n\n{f.get('figureLabel','Figure')}, PDF page {f.get('page','?')}. {caption}\n\n- PDF: {f.get('paperUrl','')}\n- Screenshot: [{f.get('image','')}](../site/{f.get('image','')})\n- Local PDF SHA-256: `{f.get('pdfSha256',f.get('sha256','unknown'))}`\n")
+        if f.get('sourceType')=='author-project-image':
+            figure_sources.append(f"## {e['name']}\n\nAuthor project image, not a PDF screenshot. {caption}\n\n- Author page: {f.get('sourcePageUrl','')}\n- Original image: {f.get('sourceUrl','')}\n- Paper: {f.get('paperUrl','')}\n- Website image: [{f.get('image','')}](../site/{f.get('image','')})\n- Original image SHA-256: `{f.get('sourceSha256','unknown')}`\n")
+        else:
+            figure_sources.append(f"## {e['name']}\n\n{f.get('figureLabel','Figure')}, PDF page {f.get('page','?')}. {caption}\n\n- PDF: {f.get('paperUrl','')}\n- Screenshot: [{f.get('image','')}](../site/{f.get('image','')})\n- Local PDF SHA-256: `{f.get('pdfSha256',f.get('sha256','unknown'))}`\n")
     (ROOT/'references/figure_sources.md').write_text('\n'.join(figure_sources),encoding='utf-8',newline='\n')
     if (ROOT/'library/pdfs').is_dir():
-        local_index=['# Local paper library\n\nFull PDFs are kept on this computer only. This directory is excluded from Git and GitHub Pages. Published screenshots and attribution are indexed in ../references/figure_sources.md.\n\n| Method | Local PDF | Source PDF | Selected figure |\n|---|---|---|---|']
+        local_index=['# Local paper library\n\nFull PDFs and original author webpage images are kept on this computer only. This directory is excluded from Git and GitHub Pages. Published images and attribution are indexed in ../references/figure_sources.md.\n\n| Method | Local source | Original source | Selected figure |\n|---|---|---|---|']
         for e in records:
             if e['collection']=='datasets':continue
             f=e.get('figure',{})
-            local_index.append(f"| {e['name']} | [{e['id']}.pdf](pdfs/{e['id']}.pdf) | [Primary source]({f.get('paperUrl',e['paperUrl'])}) | {f.get('figureLabel','pending')}, p. {f.get('page','?')} |")
+            if f.get('sourceType')=='author-project-image':
+                local_index.append(f"| {e['name']} | [{e['id']}.webp](source_images/{e['id']}.webp) | [Author image]({f.get('sourceUrl','')}) | Author project figure; no local PDF |")
+            else:
+                local_index.append(f"| {e['name']} | [{e['id']}.pdf](pdfs/{e['id']}.pdf) | [Primary source]({f.get('paperUrl',e['paperUrl'])}) | {f.get('figureLabel','pending')}, p. {f.get('page','?')} |")
         (ROOT/'library/README.md').write_text('\n'.join(local_index)+'\n',encoding='utf-8',newline='\n')
     print(json.dumps({'records':len(records),**catalog['stats'],'output':'docs/'}))
     return catalog

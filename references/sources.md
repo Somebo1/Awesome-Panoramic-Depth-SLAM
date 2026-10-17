@@ -300,6 +300,32 @@ UniFuse: Unidirectional Fusion for 360° Panorama Depth Estimation
 - https://arxiv.org/abs/2102.03550
 - https://github.com/alibaba/UniFuse-Unidirectional-Fusion
 
+## 360DVO (2026)
+
+360DVO: Deep Visual Odometry for Monocular 360-Degree Camera
+
+- Paper III: spherical model and patch ODBA; V-B: Sim(3)-Umeyama trajectory alignment; V-D: embedded speed. Official demo computes spherical intrinsics and exports trajectory/points. Official LICENSE is MIT; no local model execution.
+- https://chris1004336379.github.io/360DVO-homepage/
+- https://arxiv.org/html/2601.02309v1
+- https://arxiv.org/pdf/2601.02309
+- https://doi.org/10.1109/LRA.2026.3655280
+- https://github.com/chris1004336379/360DVO
+- https://raw.githubusercontent.com/chris1004336379/360DVO/master/demo.py
+- https://raw.githubusercontent.com/chris1004336379/360DVO/master/LICENSE
+- https://raw.githubusercontent.com/chris1004336379/360DVO/master/environment.yml
+
+## Cube-Splat (2026)
+
+Cube-Splat: High-Fidelity 360° Gaussian Splatting SLAM via Cubemap Factorization and Adjoint-Consistent Optimization
+
+- Springer confirms ECCV 2026 publication. Paper 3.1-3.3 explains four co-centered views and depth-prior initialization, 4 gives evaluation and speed, supplementary limitations distinguish absent sensor fusion. Official README lists ERP SynPano/OmniBlender configs and UniFuse_SpatialAudioGen checkpoint. Individual raw source fetches did not resolve; conversion/alignment details remain unknown.
+- https://link.springer.com/chapter/10.1007/978-3-032-37255-0_12
+- https://arxiv.org/abs/2609.21347
+- https://arxiv.org/html/2609.21347v1
+- https://arxiv.org/pdf/2609.21347
+- https://github.com/guoxf304/CubeSplat
+- https://wangkaiwei.org/publications/
+
 ## Holo360D (2026)
 
 Holo360D: A Large-Scale Real-World Dataset with Continuous Trajectories for Advancing Panoramic 3D Reconstruction and Beyond
@@ -350,6 +376,17 @@ PanoGS-SLAM: Panoramic 3D Gaussian Splatting SLAM
 - https://arxiv.org/abs/2609.17387
 - https://arxiv.org/html/2609.17387v1
 
+## PanoLoop (2026)
+
+PanoLoop: Yaw-Invariant Loop Closure for Feed-Forward Panoramic SLAM
+
+- Official PDF front page confirms eight authors and CGF 45(7). Sections 3.1-3.3 define chunk inference and loop closure; 4.3 explicitly says non-metric depth and Sim(3) evaluation; 4.4 and 4.9-4.10 specify resolution, offline sequence retrieval, 0.60 FPS and limitations. No official source URL found in paper links or publisher metadata; not reproduced locally.
+- https://doi.org/10.1111/cgf.70607
+- https://diglib7.eg.org/items/288b7b5d-7f87-4f03-b700-fc683d0c60e2
+- https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download
+- https://diglib7.eg.org/bitstreams/8f7f04ff-aeaf-4c8e-bbaf-0068bee7a665/download
+- https://pacificgraphics2026.github.io/full-program.html?format=video
+
 ## MASt3R-SLAM (2025)
 
 MASt3R-SLAM: Real-Time Dense SLAM with 3D Reconstruction Priors
@@ -390,6 +427,16 @@ ToF-360: A Panoramic Time-of-flight RGB-D Dataset for Single Capture Indoor Sema
 - https://huggingface.co/datasets/COLE-Ricoh/ToF-360
 - https://openaccess.thecvf.com/content/CVPR2025W/PBVS/papers/Kanayama_ToF-360_-_A_Panoramic_Time-of-flight_RGB-D_Dataset_for_Single_Capture_CVPRW_2025_paper.pdf
 - https://www.dfki.de/en/web/research/projects-and-publications/publication/15783
+
+## 360-VIO (2024)
+
+360-VIO: A Robust Visual–Inertial Odometry Using a 360° Camera
+
+- Author-uploaded manuscript, coauthor publication pages and IEEE metadata reviewed; no local reproduction
+- https://ieeexplore.ieee.org/document/10373205/
+- https://shengyang93.github.io/publication/2023-360-vio/
+- https://chen-xieyuanli.github.io/_pages/includes/pub/
+- https://www.researchgate.net/profile/Qi-Wu-42/publication/376825456_360-VIO_A_Robust_Visual-Inertial_Odometry_Using_a_360_Camera/links/6594b0b56f6e450f19c49549/360-VIO-A-Robust-Visual-Inertial-Odometry-Using-a-360-Camera.pdf
 
 ## 360Loc (2024)
 
@@ -475,6 +522,15 @@ LF-VISLAM: A SLAM Framework for Large Field-of-View Cameras With Negative Imagin
 - https://arxiv.org/abs/2209.05167
 - https://github.com/flysoaryun/LF-VISLAM
 
+## 360VO (2022)
+
+360VO: Visual Odometry Using A Single 360 Camera
+
+- Author PDF sections III-IV and author project page reviewed; no local reproduction
+- https://huajianup.github.io/research/360VO/360VO_ICRA2022.pdf
+- https://huajianup.github.io/research/360VO/
+- https://researchportal.hkust.edu.hk/en/publications/360vo-visual-odometry-using-a-single-360-camera/
+
 ## Deep360 (2022)
 
 MODE: Multi-view Omnidirectional Depth Estimation with 360° Cameras
@@ -504,6 +560,17 @@ OKVIS2: Realtime Scalable Visual-Inertial SLAM with Loop Closure
 - Official paper describes bounded factor graph and reversible marginalization; README confirms author implementation/BSD.
 - https://arxiv.org/abs/2202.09199
 - https://github.com/ethz-mrl/okvis2
+
+## PatchMatch-Stereo-Panorama (2022)
+
+PatchMatch-Stereo-Panorama, a fast dense reconstruction from 360° video images
+
+- Author manuscript, official repository README, LICENSE and release notice reviewed; loop closure inherited from OpenVSLAM; no local reproduction
+- https://arxiv.org/abs/2211.16266
+- https://github.com/RoblabWh/PatchMatch
+- https://github.com/RoblabWh/PatchMatch/blob/main/LICENSE
+- https://github.com/RoblabWh/stella_vslam_dense
+- https://doi.org/10.1109/SSRR56537.2022.10018698
 
 ## CodeVIO (2021)
 

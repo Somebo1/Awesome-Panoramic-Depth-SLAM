@@ -281,6 +281,8 @@
     };
   }
   Object.assign(ui.zh,{
+    native:'完整全景输入支持',
+    footnote:'封面选取原论文截图或作者官网的真实方法图，并注明来源；PDF 截图附页码和图号，作者网页图单独标明，点击可放大。收录表示研究相关性，性能、许可与复现条件以原文和官方仓库为准。BibTeX 为阅读清单草稿，投稿前请核对出版信息。',
     header:'机器人视觉方法与数据集',eyebrow:'开放的机器人空间视觉资料库',hero:'全景深度、定位与建图',
     subtitle:'汇集全景、鱼眼与广视场的研究方法和数据集。',description:'检索论文与基准，比较模型输入输出、数据真值和复现条件。',entries:'条目 · 附原始来源',
     datasets:'数据集',collectionDatasets:'深度估计与定位建图数据集',datasetRecord:'数据集',datasetUnit:'个数据集',datasetSearch:'搜索数据集',datasetPlaceholder:'搜索数据集、传感器、真值、关键词…',datasetYear:'年份（论文或发布）',resultTotal:n=>`集合共 ${n} 项`,
@@ -293,6 +295,8 @@
     datasetCompareHint:'勾选数据集，比较传感器、真值与评测协议',datasetCompareTitle:'数据集对比',datasetCompareIntro:'比较同一口径的数据来源与真值，核查任务适用性和访问条件。',exportDatasets:'导出数据集'
   });
   Object.assign(ui.en,{
+    native:'Full-panorama input support',
+    footnote:'Covers show paper excerpts or real figures from author project pages, with attribution. PDF excerpts include page and figure numbers; author webpage images are labeled separately. Click to enlarge. Check primary sources for performance, licensing and reproduction requirements. Verify BibTeX metadata before citing.',
     header:'Robotics methods & datasets',eyebrow:'AN OPEN SPATIAL VISION COLLECTION',hero:'Panoramic Depth & SLAM',
     subtitle:'Methods and datasets for panoramic, fisheye and wide-field perception.',description:'Explore papers and benchmarks. Compare model interfaces, ground-truth provenance and reproduction requirements.',entries:'entries · primary sources linked',
     datasets:'Datasets',collectionDatasets:'DEPTH & SLAM DATASETS',datasetRecord:'Dataset',datasetUnit:'datasets',datasetSearch:'Search datasets',datasetPlaceholder:'Search datasets, sensors, ground truth, keywords…',datasetYear:'Year (paper / release)',
@@ -304,5 +308,196 @@
     datasetFootnote:'Distinguish native captures, rendered depth and estimated trajectories. Derivative datasets may share scenes. Check the cited version for calibration, valid masks, splits and access terms.',
     datasetCompareHint:'Select datasets to compare sensors, ground truth & evaluation',datasetCompareTitle:'Dataset comparison',datasetCompareIntro:'Compare data provenance, ground truth, task suitability and access using consistent definitions.',exportDatasets:'Export datasets'
   });
+  // Reviewed panoramic VO, mapping and loop-closure additions (2026-10-17).
+  Object.assign(summaries, {
+  "vo360_2022": "Direct ERP visual odometry with spherical epipolar search and local photometric bundle adjustment. It jointly estimates poses, inverse radial distances, intrinsics and brightness, with monocular scale ambiguity and no global loop closure.",
+  "vio360_2024": "An ERP-and-IMU EKF built on HybVIO, with spherical tangent-plane residuals and feature uncertainty. A useful panoramic VIO baseline; the promised implementation is not a verified runnable release.",
+  "patchmatch_panorama2022": "Adds native ERP PatchMatch densification to OpenVSLAM, fusing neighboring keyframes into dense point clouds. A geometric mapping reference with monocular scale ambiguity; the original official repository is archived.",
+  "dvo360_2026": "Learns distortion-aware spherical features and jointly optimizes ERP poses with sparse patch inverse ranges. This is monocular VO with Sim(3)-aligned evaluation, not loop-corrected metric SLAM.",
+  "cubesplat2026": "Factorizes ERP/PAL frames into four co-centered virtual views and optimizes one shared pose with adjoint-consistent gradients and a Gaussian map. Learned depth initializes mapping; absolute scale and global loop closure remain unverified.",
+  "panoloop2026": "Adds yaw-invariant retrieval, candidate suppression and geometric verification to feed-forward panoramic reconstruction. It uses Sim(3) and offline whole-sequence loop retrieval; the paper reports a median 0.60 FPS on an RTX 4090."
+});
+  Object.assign(zhRecords, {
+  "vo360_2022": [
+    "单台 360° 相机产生的单目 ERP 视频，直接使用光度观测；无需 IMU。",
+    "六自由度相机轨迹、局部半稠密点几何，并联合优化球面内参、逆径向距离及仿射亮度。",
+    "纯单目视觉存在任意全局尺度；需要外部公制参照才能解释为米。",
+    [
+      "以球面极线曲线替代针孔直线搜索，直接在 ERP 上优化。",
+      "局部滑窗 VO 没有论文明确描述的全局回环模块。",
+      "作者项目提供论文、补充材料与数据集入口；未核实完整官方代码或许可。",
+      "论文结果不能直接解释为腕部或机器人工具中心点定位精度。"
+    ]
+  ],
+  "vio360_2024": [
+    "ERP 全景图像序列与同步 IMU；需要相机和 IMU 的外参、时间及传感器标定。",
+    "视觉惯性机体位姿、速度、IMU 偏置及协方差；通过稀疏三角化特征构造滤波约束。",
+    "经过标定且运动充分可观测时，IMU 融合提供公制尺度；拼接式 360° 相机本身不提供可用的立体尺度。",
+    [
+      "基于 HybVIO 的 EKF；残差定义在球面切平面，并考虑 ERP 特征不确定性。",
+      "论文扩展 Kalibr 来标定全景等效光心与 IMU；直接采用前侧鱼眼光心外参可能错误。",
+      "属 VIO，未描述全局回环校正地图。",
+      "按正式卷期记为 TIE 2024；在线日期为 2023 年 12 月 25 日。",
+      "论文承诺的 Gatsby23/360-VIO 仓库当前未能访问，不能据此标为源码已发布。"
+    ]
+  ],
+  "patchmatch_panorama2022": [
+    "单目 ERP 视频、相机配置与可选掩码；稠密化线程读取 OpenVSLAM 关键帧、位姿及相邻帧。",
+    "底层系统给出轨迹；新增线程计算关键帧稠密深度，经一致性过滤融合为稠密点云，可导出地图与 PLY。",
+    "尺度继承单目 OpenVSLAM，仍存在任意全局尺度；稠密化不增加公制基线。",
+    [
+      "是已有 SLAM 的几何稠密建图扩展，不是独立新 VO 前端，也不是单张图像深度预测网络。",
+      "直接处理 ERP，避免把立方体各面作为独立照片造成传播中断。",
+      "回环来自底层 OpenVSLAM；回环之后稠密点的全局一致性维护尚未单独审计。",
+      "原官方仓库已于 2024 年 3 月归档，并指向 stella_vslam_dense 后继实现。",
+      "论文正式作者为 Surmann、Thurow、Slomma 三人；不以仓库 README 的贡献者列表替代论文作者。"
+    ]
+  ],
+  "dvo360_2026": [
+    "单目完整 ERP RGB 视频或图像序列；球面内参由 H、W 计算；无需 IMU 或真实立体基线。",
+    "六自由度 VO 轨迹、联合优化的稀疏图块逆距离和三维点；官方 demo 可保存 TUM 轨迹与 PLY 点云。",
+    "单目视觉仅确定到未知尺度；论文轨迹经过 Sim(3)-Umeyama 对齐，训练监督不保证实际部署的绝对尺度。",
+    [
+      "属于视觉里程计，未包含明确的全局回环后端。",
+      "官方推理代码与权重入口可用，训练流程尚未提供；代码 MIT，独立权重许可待核实。",
+      "真实视频基准使用 SfM 估计的伪真值，不是动捕真值；论文尺度对齐误差不能视为腕部精度保证。",
+      "论文 Jetson Orin 默认约 2 FPS、快速配置约 5 FPS，均非本机测量。"
+    ]
+  ],
+  "cubesplat2026": [
+    "单目 ERP 或已标定 PAL 序列；每帧转为四个固定朝向的共心虚拟针孔视图，统一优化一个主相机位姿；Depth Anywhere/UniFuse 为高斯初始化提供深度。",
+    "全景相机轨迹、稠密各向异性三维高斯地图、渲染视图和 PLY；通过伴随映射汇总多个虚拟面的位姿梯度。",
+    "四个虚拟面没有物理基线。论文称初始化深度为公制，但未核实跨域绝对尺度、轨迹对齐及深度归一化细节，不能据此认定公制定位。",
+    [
+      "接口明确接受完整 ERP；内部使用四个虚拟透视面，而非直接 ERP 高斯光栅化；不属于真实多相机系统。",
+      "学习深度用于地图初始化和插点，不是持续的位姿跟踪深度约束；没有 IMU 或深度传感器融合。",
+      "未确认明确的全局回环模块；拼接和标定误差、弱纹理及动态场景会影响稳定性。",
+      "源码与 ERP/PAL 配置已提供；完整许可及尺度转换实现仍待审计。论文 RTX 4070 Ti SUPER 约 1.53 FPS，非本机测量。"
+    ]
+  ],
+  "panoloop2026": [
+    "单目完整 ERP 视频；冻结 PanoVGGT 在 518×1036 分辨率下按 60 帧分块、相邻重叠 30 帧；回环检索使用完整序列，无需 IMU。",
+    "经过全局回环修正的相机轨迹和稠密点云；内部包含分块点图、置信度代理、YIP 检索、SCS 候选抑制、MSV 验证和 Sim(3) 位姿图。",
+    "前馈几何不是公制；分块和位姿图采用 Sim(3)。论文轨迹经过 Sim(3)-Umeyama 对齐，稠密重建采用 Sim(3)+ICP，不能将报告的米制误差视为直接公制输出。",
+    [
+      "完整序列离线回环，不是在线流式系统；论文 RTX 4090 中位数仅 0.60 FPS，前馈不等于实时。",
+      "YIP 对整数 token 列循环位移严格不变，对真实偏航仅近似不变；没有俯仰或横滚不变性保证。",
+      "仅在 360Loc 评估，跨数据集、多会话、大范围户外及高度动态场景尚未验证。",
+      "已核对正式论文和补充材料；未确认官方完整代码、专用权重或实现许可，不能标为源码已发布。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "vo360_2022": {
+    "input": {
+      "requirements": "单目 ERP 视频及光度观测，无需 IMU。",
+      "projection": "原生完整全景 ERP 与球面中心投影。",
+      "intrinsics": "由 ERP 尺寸给出初值，并在线优化球面内参。",
+      "imu": false
+    },
+    "output": {
+      "primary": "局部滑窗相机轨迹与半稠密点几何。",
+      "depth_convention": "逆欧氏径向距离，不是相机 Z。",
+      "metric_status": "纯单目任意尺度。",
+      "pose_output": "是，局部 VO；转换到腕部或 TCP 需外参。",
+      "runtime": "无本机运行效率测试；完整官方实现待核实。"
+    }
+  },
+  "vio360_2024": {
+    "input": {
+      "requirements": "ERP 序列、同步 IMU 和传感器标定。",
+      "projection": "ERP 特征映射至球面单位方位射线。",
+      "extrinsics": "全景等效光心与 IMU 的外参，不应直接替换为某侧鱼眼外参。",
+      "imu": true
+    },
+    "output": {
+      "primary": "视觉惯性位姿、速度、偏置和协方差。",
+      "depth_convention": "稀疏三角化球面路标，没有逐像素稠密深度预测。",
+      "metric_status": "在标定、同步及运动可观测条件下由 IMU 提供公制尺度。",
+      "pose_output": "是，EKF 视觉惯性状态；没有已核实的全局回环地图。",
+      "runtime": "未在本机复现；完整官方源码和环境尚未核实。"
+    }
+  },
+  "patchmatch_panorama2022": {
+    "input": {
+      "requirements": "单目 ERP 视频、相机配置和可选掩码。",
+      "projection": "原生 ERP 跟踪及全景 PatchMatch。",
+      "imu": false
+    },
+    "output": {
+      "primary": "轨迹、关键帧稠密深度、一致性过滤后的融合点云与 PLY。",
+      "depth_convention": "全景多视立体几何；导出深度标量的精确径向约定尚未独立审计。",
+      "metric_status": "继承单目视觉的任意尺度。",
+      "pose_output": "是，由底层 OpenVSLAM 提供；回环也继承自该系统。",
+      "runtime": "官方 C++/CUDA，提供 NVIDIA Container Toolkit / Docker 示例；没有本机运行效率测量。"
+    }
+  },
+  "dvo360_2026": {
+    "input": {
+      "requirements": "连续单目完整 ERP RGB；球面内参仅依赖分辨率，仍需正确拼接和角度定义。",
+      "projection": "完整 ERP，经球面特征提取与球面重投影；不需要先拆 cubemap。",
+      "imu": false
+    },
+    "output": {
+      "primary": "六自由度轨迹、稀疏图块几何和点云。",
+      "depth_convention": "公式 (2)：d=1/√(x²+y²+z²)，是单位球面射线上的逆径向距离，不是光轴 Z；不输出完整稠密单图深度。",
+      "metric_status": "单目尺度存在歧义；论文使用 Sim(3)-Umeyama 对齐。",
+      "pose_output": "是，输出 VO 轨迹；无明确全局回环；腕部或工具中心点需要额外外参。",
+      "runtime": "论文 Jetson Orin 默认 2 FPS、快速配置 5 FPS；与硬件、分辨率和图块数绑定，非本机结果。"
+    }
+  },
+  "cubesplat2026": {
+    "input": {
+      "requirements": "单目 ERP/PAL 序列、相机几何与固定虚拟面旋转；学习全景深度提供高斯初始化。",
+      "projection": "完整 ERP 接口，内部四个固定朝向的共心虚拟针孔面；不是四台物理相机。",
+      "imu": false
+    },
+    "output": {
+      "primary": "统一相机轨迹、稠密高斯地图与可渲染视图。",
+      "depth_convention": "ERP 学习深度与虚拟针孔面的 Z 深度必须转换一致；径向距离、归一化和导出单位尚未逐行核实。",
+      "metric_status": "学习深度初始化不能保证跨域公制尺度；共心虚拟面不提供立体基线；评测对齐细节待核实。",
+      "pose_output": "是；未核实明确的全局回环模块。",
+      "runtime": "论文 RTX 4070 Ti SUPER 约 1.53 FPS；README 的环境测试使用 RTX 3090，二者不能混作同一测速配置。"
+    }
+  },
+  "panoloop2026": {
+    "input": {
+      "requirements": "完整 ERP RGB 序列；冻结 PanoVGGT；回环检索必须看到完整序列。",
+      "projection": "完整 ERP；论文 518×1036、60 帧分块、重叠 30 帧。",
+      "imu": false
+    },
+    "output": {
+      "primary": "离线回环校正轨迹和稠密点云，包含 YIP→SCS→MSV 与全局 Sim(3) 优化。",
+      "depth_convention": "骨干对每个像素预测分块坐标下的两个三维点，分歧用作置信度代理；不是独立公制深度预测器。",
+      "metric_status": "非公制前馈几何；轨迹评测采用 Sim(3)-Umeyama，点云采用 Sim(3)+ICP。",
+      "pose_output": "是，离线全局校正轨迹；不支持已验证的在线流式部署。",
+      "runtime": "论文单张 RTX 4090 中位数 0.60 FPS，明确不是实时；没有本机效率测量。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "vo360_2022": "待核实：未核实完整官方实现及其许可。",
+  "vio360_2024": "待核实：未核实完整官方实现及其许可。",
+  "patchmatch_panorama2022": "仓库顶层为 BSD-2-Clause；捆绑依赖遵循各自许可。",
+  "dvo360_2026": "主推理代码为 MIT；独立分发的权重条款待核实。",
+  "cubesplat2026": "README 明示第三方研究与非商业限制；独立顶层源码许可和完整依赖条款尚未确认。",
+  "panoloop2026": "实现与权重许可待核实；论文版权声明不等于开源软件许可。"
+});
+  Object.assign(environments, {
+  "vo360_2022": "光度滑窗优化；未确认可安装的完整官方源码环境，未在本机测试。",
+  "vio360_2024": "HybVIO 式 EKF 与全景 Kalibr 扩展；官方源码环境和运行效率未核实。",
+  "patchmatch_panorama2022": "C++/CUDA；官方提供 NVIDIA Container Toolkit 与 Docker 构建及视频示例。",
+  "dvo360_2026": "官方 environment.yml：Python 3.12、PyTorch 2.3.1、CUDA 12.2；需 Eigen 和自定义 CUDA 组件。",
+  "cubesplat2026": "README 测试 Ubuntu 22.04、Python 3.9、PyTorch 2.0.1、CUDA 11.8、RTX 3090；有自定义高斯光栅化扩展。论文测速硬件另为 RTX 4070 Ti SUPER。",
+  "panoloop2026": "论文使用冻结 PanoVGGT、单张 RTX 4090；完整序列离线检索与 Sim(3) 位姿图，尚未确认可运行的官方环境发布。"
+});
+  Object.assign(families, {
+  "direct panoramic VO": "直接法全景视觉里程计",
+  "filter panoramic VIO": "滤波式全景视觉惯性里程计",
+  "panoramic SLAM / geometric dense mapping": "全景 SLAM／几何稠密建图",
+  "learned panoramic sparse-patch VO": "学习式全景稀疏图块视觉里程计",
+  "cubemap panoramic Gaussian SLAM": "立方体投影全景高斯定位建图",
+  "offline feed-forward panoramic loop-closure SLAM": "离线前馈全景回环定位建图"
+});
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

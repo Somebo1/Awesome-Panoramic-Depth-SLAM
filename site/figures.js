@@ -1,9 +1,9 @@
-/* Attributed excerpts of paper figures. PDFs remain in the local research library. */
+/* Attributed paper excerpts and author project figures; original sources stay local. */
 (() => {
   'use strict';
   const strings = {
-    zh: { expand: '点击查看论文原图', close: '关闭论文配图', source: '查看来源论文', missing: '论文配图待补充', page: n => `第 ${n} 页`, note: '配图摘自原论文，用于文献介绍；著作权归原作者。', failed: '图片加载失败，请查看来源论文。' },
-    en: { expand: 'View paper figure', close: 'Close paper figure', source: 'Source paper', missing: 'Paper figure unavailable', page: n => `p. ${n}`, note: 'Figure excerpt for literature review. Copyright belongs to the original authors.', failed: 'Image could not load. Please open the source paper.' }
+    zh: { expand: '点击查看论文原图', close: '关闭论文配图', source: '查看来源论文', author: '作者官方方法图', authorSource: '查看作者来源', missing: '论文配图待补充', page: n => `第 ${n} 页`, note: '配图用于文献介绍；著作权归原作者。', failed: '图片加载失败，请查看原始来源。' },
+    en: { expand: 'View paper figure', close: 'Close paper figure', source: 'Source paper', author: 'Author project figure', authorSource: 'Author source', missing: 'Paper figure unavailable', page: n => `p. ${n}`, note: 'Figure for literature review. Copyright belongs to the original authors.', failed: 'Image could not load. Please open the original source.' }
   };
   const node = (tag, className, value) => {
     const item = document.createElement(tag);
@@ -17,14 +17,16 @@
   const localized = (value, lang) => typeof value === 'object' && value ? value[lang] || value.en || value.zh || '' : String(value || '');
   const validFigure = record => Boolean(record.figure && record.figure.verified === true && localImage(record.figure.image) && localImage(record.figure.thumbnail));
   const label = (figure, lang) => {
+    if (figure.sourceType === 'author-project-image') return strings[lang].author;
     const figureLabel = String(figure.figureLabel || '');
     const number = figureLabel.match(/(?:figure|fig\.?)\s*([\dA-Za-z.]+)/i);
     return [lang === 'zh' && number ? `图 ${number[1]}` : figureLabel, figure.page ? strings[lang].page(figure.page) : ''].filter(Boolean).join(' · ');
   };
   const source = (figure, lang) => {
-    const link = node('a', 'paper-figure-source', strings[lang].source + ' ↗');
-    const href = publicUrl(figure.paperUrl);
-    if (href) { link.href = href + (href.includes('#') ? '' : `#page=${Number(figure.page) || 1}`); link.target = '_blank'; link.rel = 'noopener noreferrer'; }
+    const authorImage = figure.sourceType === 'author-project-image';
+    const link = node('a', 'paper-figure-source', strings[lang][authorImage ? 'authorSource' : 'source'] + ' ↗');
+    const href = publicUrl(authorImage ? figure.sourcePageUrl : figure.paperUrl);
+    if (href) { link.href = href + (authorImage || href.includes('#') ? '' : `#page=${Number(figure.page) || 1}`); link.target = '_blank'; link.rel = 'noopener noreferrer'; }
     return link;
   };
   function image(record, lang, thumbnail) {

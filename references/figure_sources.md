@@ -1,6 +1,6 @@
-# Paper figure excerpts
+# Paper and author project figures
 
-Figure excerpts support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed by this website. Page numbers refer to the downloaded PDF, counting from 1.
+Figures support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed. Original author image files are kept locally; attributed web-sized copies are published. PDF page numbers count from 1; author webpage images do not claim PDF pages or PDF hashes.
 
 ## DA²
 
@@ -242,6 +242,22 @@ Figure 1, PDF page 2. Unidirectional fusion of cubemap and ERP features for dept
 - Screenshot: [assets/papers/unifuse.webp](../site/assets/papers/unifuse.webp)
 - Local PDF SHA-256: `0769ca56a7f4b7ca634f17da7d7a867068f26b770d0fad65415ac82bc910ad48`
 
+## 360DVO
+
+Figure 1, PDF page 1. Distortion-aware spherical features and omnidirectional differentiable BA jointly estimate poses and patch depths.
+
+- PDF: https://arxiv.org/pdf/2601.02309
+- Screenshot: [assets/papers/dvo360_2026.webp](../site/assets/papers/dvo360_2026.webp)
+- Local PDF SHA-256: `6fecb6905dad129ecf0d989b6ea6bed777d34d45451e89ab0566f15dae53afc0`
+
+## Cube-Splat
+
+Figure 2, PDF page 6. ERP or PAL panoramas are factorized into cubemap views for shared-pose tracking and Gaussian-map optimization.
+
+- PDF: https://arxiv.org/pdf/2609.21347
+- Screenshot: [assets/papers/cubesplat2026.webp](../site/assets/papers/cubesplat2026.webp)
+- Local PDF SHA-256: `03cf13240d68f267d2c79f3eabe7c4c3784d9e914337811e384580e0984acf8c`
+
 ## ODGS-SLAM
 
 Figure 1, PDF page 1. Panoramic tracking, keyframe management and spherical Gaussian mapping.
@@ -274,6 +290,14 @@ Figure 2, PDF page 4. Panoramic preprocessing, tracking and 3D Gaussian mapping 
 - Screenshot: [assets/papers/panogsslam2026.webp](../site/assets/papers/panogsslam2026.webp)
 - Local PDF SHA-256: `12968b32c8b404ef3a74154510d37ccde9f6739218418f86f25b71fef688936a`
 
+## PanoLoop
+
+Figure 2, PDF page 4. Chunked panoramic reconstruction with yaw-robust retrieval, candidate suppression, geometric verification and a Sim(3) pose graph.
+
+- PDF: https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download
+- Screenshot: [assets/papers/panoloop2026.webp](../site/assets/papers/panoloop2026.webp)
+- Local PDF SHA-256: `afe4c6ca289ce4f28d31a5ef1e7635698f8d0e6ea51080a70edd1a2acfb353db`
+
 ## MASt3R-SLAM
 
 Figure 3, PDF page 4. MASt3R pointmap matching, tracking/fusion, loop closure and global optimization.
@@ -297,6 +321,16 @@ Figure 2, PDF page 3. RGB-D panoptic mapping: camera tracking, panoptic inferenc
 - PDF: https://arxiv.org/pdf/2501.00352
 - Screenshot: [assets/papers/panoslam2025.webp](../site/assets/papers/panoslam2025.webp)
 - Local PDF SHA-256: `3eb13fed49d4ffdba5e020c4de17d24a200b57fc4324efb1d7fa7c0cb8e46ca2`
+
+## 360-VIO
+
+Author project image, not a PDF screenshot. Spherical-feature tangent-plane reprojection and inertial propagation/measurement updates; an official author-page method image, not a PDF crop.
+
+- Author page: https://shengyang93.github.io/publication/2023-360-vio/
+- Original image: https://shengyang93.github.io/publication/2023-360-vio/featured_hu17281690602998133915.webp
+- Paper: https://ieeexplore.ieee.org/document/10373205/
+- Website image: [assets/papers/vio360_2024.webp](../site/assets/papers/vio360_2024.webp)
+- Original image SHA-256: `8e96e50d850d85c8ca22e393300836ac48addc56ce2f77b7106dc5fca7105d31`
 
 ## 360ORB-SLAM
 
@@ -362,6 +396,14 @@ Figure 4, PDF page 4. Large-FoV VIO initialization, tracking and loop-closure po
 - Screenshot: [assets/papers/lfvislam2023.webp](../site/assets/papers/lfvislam2023.webp)
 - Local PDF SHA-256: `7cb83c606510fb203ea5277ba3596adf3a9482b493a91995650b3c6d4d7f5e91`
 
+## 360VO
+
+Figure 2, PDF page 2. ERP input, initialization and sliding-window direct optimization pipeline.
+
+- PDF: https://huajianup.github.io/research/360VO/360VO_ICRA2022.pdf
+- Screenshot: [assets/papers/vo360_2022.webp](../site/assets/papers/vo360_2022.webp)
+- Local PDF SHA-256: `040d4573158e8f8571c71e47b5905d8a451337ae09cf0711dc35ae8618a8922d`
+
 ## OKVIS2
 
 Figure 1, PDF page 3. Visual-inertial frontend, real-time estimator and full-graph estimator.
@@ -369,6 +411,14 @@ Figure 1, PDF page 3. Visual-inertial frontend, real-time estimator and full-gra
 - PDF: https://arxiv.org/pdf/2202.09199
 - Screenshot: [assets/papers/okvis2_2022.webp](../site/assets/papers/okvis2_2022.webp)
 - Local PDF SHA-256: `d66d18c87f1ceb65bca0435af3e6a66bfc5af9052283c776bffab9aff55a734c`
+
+## PatchMatch-Stereo-Panorama
+
+Figure 3, PDF page 4. Panoramic PatchMatch depth and dense-point-cloud threads added to OpenVSLAM.
+
+- PDF: https://arxiv.org/pdf/2211.16266
+- Screenshot: [assets/papers/patchmatch_panorama2022.webp](../site/assets/papers/patchmatch_panorama2022.webp)
+- Local PDF SHA-256: `53c91d436ebee8403588ed2774dc82394f955ccd2631e4994e45d918d925491e`
 
 ## CodeVIO
 

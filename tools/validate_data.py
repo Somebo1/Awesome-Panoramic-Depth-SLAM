@@ -44,7 +44,6 @@ for e in records:
         errors.append(e['id']+': missing paper figure')
         continue
     if figure.get('verified') is not True:errors.append(e['id']+': figure not visually verified')
-    if not isinstance(figure.get('page'),int) or figure['page']<1:errors.append(e['id']+': invalid PDF page')
     if urlparse(figure.get('paperUrl','')).scheme not in ['https','http']:errors.append(e['id']+': no figure PDF source')
     for key in ['image','thumbnail']:
         relative=figure.get(key,'')
@@ -60,13 +59,26 @@ for e in records:
     for key in ['caption','credit']:
         value=figure.get(key,{})
         if not isinstance(value,dict) or not all(value.get(lang) for lang in ['zh','en']):errors.append(e['id']+': missing localized figure '+key)
-    digest=figure.get('pdfSha256','')
-    if not re.fullmatch(r'[0-9a-f]{64}',digest):errors.append(e['id']+': missing PDF provenance hash')
-    local=ROOT/'library/pdfs'/f"{e['id']}.pdf"
-    if local.exists() and hashlib.sha256(local.read_bytes()).hexdigest()!=digest:errors.append(e['id']+': local PDF does not match figure provenance')
-    box=figure.get('cropBox',[])
-    if not isinstance(box,list) or len(box)!=4 or box[2]<=box[0] or box[3]<=box[1]:errors.append(e['id']+': invalid PDF crop')
-    if not figure.get('originalCaption') or not figure.get('figureLabel'):errors.append(e['id']+': missing figure identity/original caption')
+    source_type=figure.get('sourceType','paper-pdf')
+    if source_type=='author-project-image':
+        for key in ['sourceUrl','sourcePageUrl']:
+            if urlparse(figure.get(key,'')).scheme not in ['https','http']:errors.append(e['id']+': missing safe author image '+key)
+        digest=figure.get('sourceSha256','')
+        if not re.fullmatch(r'[0-9a-f]{64}',digest):errors.append(e['id']+': missing author image provenance hash')
+        local=ROOT/'library/source_images'/f"{e['id']}.webp"
+        if local.exists() and hashlib.sha256(local.read_bytes()).hexdigest()!=digest:errors.append(e['id']+': author image does not match source provenance')
+        if any(figure.get(key) for key in ['page','cropBox','pdfSha256']):errors.append(e['id']+': author webpage image must not claim PDF provenance')
+    elif source_type=='paper-pdf':
+        if not isinstance(figure.get('page'),int) or figure['page']<1:errors.append(e['id']+': invalid PDF page')
+        digest=figure.get('pdfSha256','')
+        if not re.fullmatch(r'[0-9a-f]{64}',digest):errors.append(e['id']+': missing PDF provenance hash')
+        local=ROOT/'library/pdfs'/f"{e['id']}.pdf"
+        if local.exists() and hashlib.sha256(local.read_bytes()).hexdigest()!=digest:errors.append(e['id']+': local PDF does not match figure provenance')
+        box=figure.get('cropBox',[])
+        if not isinstance(box,list) or len(box)!=4 or box[2]<=box[0] or box[3]<=box[1]:errors.append(e['id']+': invalid PDF crop')
+        if not figure.get('originalCaption'):errors.append(e['id']+': missing original PDF caption')
+    else:errors.append(e['id']+': unknown figure source type')
+    if not figure.get('figureLabel'):errors.append(e['id']+': missing figure identity')
 byid={e['id']:e for e in records}
 for id in ['orbslam3_2021','panoslam2025','p2uslam2026','lfvislam2023','omnislam2020']:
     if 'panoramic' in byid[id]['cameras']:errors.append(id+': falsely classified as ERP')

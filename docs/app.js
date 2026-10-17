@@ -220,6 +220,7 @@
     if (record.imu === 'Optional: required for mono, optional for stereo') result.imu = '单目模式必须使用；双目模式可选';
     if (record.imu === 'Optional: required for VI modes') result.imu = '可选；视觉惯性模式必须使用';
     if (typeof record.loopClosure === 'string' && /Implicit nonlocal/.test(record.loopClosure)) result.loopClosure = '非局部图优化或全局 BA；没有独立地点识别声明';
+    if (typeof record.loopClosure === 'string' && /^Unknown\b/i.test(record.loopClosure)) result.loopClosure = t('unknown');
     result.tags = [];
     result.yearConvention = t('yearConvention');
     return result;
