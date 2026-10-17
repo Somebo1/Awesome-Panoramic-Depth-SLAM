@@ -187,11 +187,30 @@ def normalize(e,collection):
         codeEntry=e.get('code_entry','Unknown'),environment=e.get('environment',e.get('hardware_notes','Unknown')))
 
 
+def normalize_dataset(e):
+    # Dataset capabilities and method outputs are different schemas.
+    # Keep reviewed translations and access/GT provenance rather than guessing
+    # depth availability from a dataset's name or camera field of view.
+    record=e.copy()
+    record.update(collection='datasets',summary=e['summary']['zh'],localizedSummary=e['summary'],
+        datasetDetails=e['details'],datasetNotes=e['notes'],datasetLicense=e['license'],
+        homepageUrl=url(e.get('homepageUrl')),paperUrl=url(e.get('paperUrl')) or url(e.get('homepageUrl')),
+        downloadUrl=url(e.get('downloadUrl')),sourceChecked=e.get('checked',UPDATED),
+        authors=e.get('authors','Unknown'),
+        venue=e.get('venue','Dataset / benchmark'),aliases=e.get('aliases',[]))
+    return record
+
+
 def build():
     depth=json.loads((ROOT/'source_data/depth_models.json').read_text(encoding='utf-8'))
     added=json.loads((ROOT/'source_data/panoramic_additions.json').read_text(encoding='utf-8'))
     slam=json.loads((ROOT/'source_data/slam_survey.json').read_text(encoding='utf-8'))
     records=[normalize(e,'depth') for e in depth+added]+[normalize(e,'slam') for e in slam]
+    datasets=[]
+    for filename in ['datasets_depth.json','datasets_slam.json']:
+        path=ROOT/'source_data'/filename
+        if path.exists():datasets.extend(json.loads(path.read_text(encoding='utf-8')))
+    records.extend(normalize_dataset(e) for e in datasets)
     figures={}
     for filename in ['figures_depth.json','figures_slam.json']:
         path=ROOT/'source_data'/filename
@@ -208,8 +227,9 @@ def build():
     records.sort(key=lambda e:(e['collection']!='depth',-int(str(e.get('year',0))[:4]) if str(e.get('year',0))[:4].isdigit() else 0,e['name']))
     catalog=dict(updated=UPDATED,repoUrl=REPO_URL,title='Panoramic Depth Atlas',
         description='Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.',
-        schemaVersion='1.1',records=records,
+        schemaVersion='1.2',records=records,
         stats={'depth':len(depth)+len(added),'slam':len(slam),
+               'datasets':len(datasets),
                'panoramicDepth':sum(e['collection']=='depth' and 'panoramic' in e['cameras'] for e in records),
                'panoramicSLAM':sum(e['collection']=='slam' and 'panoramic' in e['cameras'] for e in records),
                'paperFigures':sum(bool(e.get('figure',{}).get('verified')) for e in records)})
@@ -220,6 +240,7 @@ def build():
     (data/'catalog.json').write_text(serialized+'\n',encoding='utf-8',newline='\n')
     cols=['id','collection','name','title','year','venue','cameras','scale','metricStatus','scaleNote','depthType','pose',
           'nativePanoramic','codeStatus','paperUrl','projectUrl','codeUrl','weightsUrl','inputSummary','outputSummary','license','evidence','notes','sourceChecked']
+    cols += ['tasks','environment','reality','sensors','groundTruth','access','homepageUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes']
     with (data/'catalog.csv').open('w',encoding='utf-8-sig',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=cols);writer.writeheader()
         for e in records:writer.writerow({k:txt(e.get(k,'')) for k in cols})
@@ -231,7 +252,8 @@ def build():
             destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(path,destination)
     sources=[]
     for e in records:
-        sources.append(f"## {e['name']} ({e['year']})\n\n{e['title']}\n\n"+'\n'.join('- '+v for v in e['evidence'])+'\n')
+        evidence=[v if isinstance(v,str) else v.get('url','') for v in e['evidence']]
+        sources.append(f"## {e['name']} ({e['year']})\n\n{e['title']}\n\n"+'\n'.join('- '+v for v in evidence if v)+'\n')
     (ROOT/'references/sources.md').write_text('# Official-source index\n\nChecked '+UPDATED+'. Bibliographic and interface evidence; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
     figure_sources=['# Paper figure excerpts\n\nFigure excerpts support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed by this website. Page numbers refer to the downloaded PDF, counting from 1.\n']
     for e in records:
@@ -244,6 +266,7 @@ def build():
     if (ROOT/'library/pdfs').is_dir():
         local_index=['# Local paper library\n\nFull PDFs are kept on this computer only. This directory is excluded from Git and GitHub Pages. Published screenshots and attribution are indexed in ../references/figure_sources.md.\n\n| Method | Local PDF | Source PDF | Selected figure |\n|---|---|---|---|']
         for e in records:
+            if e['collection']=='datasets':continue
             f=e.get('figure',{})
             local_index.append(f"| {e['name']} | [{e['id']}.pdf](pdfs/{e['id']}.pdf) | [Primary source]({f.get('paperUrl',e['paperUrl'])}) | {f.get('figureLabel','pending')}, p. {f.get('page','?')} |")
         (ROOT/'library/README.md').write_text('\n'.join(local_index)+'\n',encoding='utf-8',newline='\n')

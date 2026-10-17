@@ -1,18 +1,19 @@
 # Panoramic Depth Atlas
 
-A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual odometry and SLAM**.
+A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual odometry, SLAM and datasets**.
 
 **[Explore the website →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/)** · [Panoramic SLAM](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic) · [Full JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-检索与来源核查截点：**2026-10-17**。当前 **56** 项：Depth/Geometry **30** 项（22项包含全景流程），SLAM/VO/VIO **26** 项（5项有明确原生ERP输入证据）。分类可重叠；这是一份任务导向的人工核验资料索引，不是性能排行榜或穷尽性综述。
+检索与来源核查截点：**2026-10-17**。当前 **88** 条：Depth/Geometry **30** 项（22项包含全景流程），SLAM/VO/VIO **26** 项（5项有明确原生ERP输入证据），数据集 **32** 项（13项涉及全景数据或明确的渲染/重采样协议）。分类可重叠；这是一份任务导向的人工核验资料索引，不是性能排行榜或穷尽性综述。
 
 ## 使用方式
 
-- 在 **Depth** 与 **SLAM** 集合间切换，按 Panoramic、Fisheye、Wide-FOV、Perspective 和 Multi-camera 分类。
+- 在 **Depth**、**SLAM** 与 **Datasets** 集合间切换，按 Panoramic、Fisheye、Wide-FOV、Perspective 和 Multi-camera 分类。
 - 用关键词、年份、尺度和代码发布状态组合筛选；地址栏保留查询，链接可以分享。
 - 打开方法详情查看输入输出、形状/单位、几何约定、标定/IMU要求、源码入口、环境、许可和官方证据。
 - 勾选最多4个方法，横向比较相同字段；用本机收藏维护阅读清单。
 - 将当前筛选导出为JSON、CSV或BibTeX草稿；引用前核对作者和正式出版信息。
+- 数据集另有任务、室内外、真实/合成来源和获取方式筛选，可比较传感器、真值来源、标定/时间、评测划分及许可。
 
 卡片展示带出处的论文方法图或代表性结果，点击可查看大图与 PDF 页码；完整论文保存在本地。页眉可选择中文或 English，避免同屏重复展示双语。论文、数据和模型以作者原始来源与各自条款为准。
 
@@ -32,6 +33,16 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 | RGB-D/神经隐式/高斯地图 | SplaTAM、GO-SLAM、MonoGS、PanoSLAM |
 
 完整标题、作者、机构、会议/期刊和原始来源见[可筛选网站](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/)及[证据索引](references/sources.md)。
+
+## 数据集
+
+[打开数据集栏目](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=zh)。首批32项包括全景实测与渲染基准、鱼眼视觉惯性序列和常见透视对照；新增ToF-360、Holo360D、Oxford Spires等资料。
+
+每条区分实际采集的传感器、公开标注、深度/距离定义与单位、轨迹来源、标定与同步、划分及访问条件。360Loc的定位位姿不等于稠密深度真值，TUM VI并非所有片段都有全程动作捕捉，RobotCar的VO不是地面真值，Holo360D包含优化轨迹和填洞深度，相关派生ERP集可能复用训练建筑。这些限制在中英文详情中分别展示。
+
+原始记录为`source_data/datasets_depth.json`和`source_data/datasets_slam.json`；逐项官方来源见[深度数据集核验](references/datasets_depth_sources.md)与[定位建图数据集核验](references/datasets_slam_sources.md)。本次整理公开元数据与获取入口，没有下载或重新分发大型数据集。
+
+界面采用白底、黑字与中性灰边框；少量语义标签保留颜色，方法论文原图保持原色。首页为纯文字介绍。
 
 ## 分类与证据口径
 

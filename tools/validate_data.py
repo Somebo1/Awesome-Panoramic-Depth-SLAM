@@ -14,6 +14,21 @@ ids=[e['id'] for e in records]
 if len(ids)!=len(set(ids)):errors.append('Duplicate record IDs')
 required='id collection name title year venue authors institutions summary cameras scale scaleNote metricStatus depthType inputSummary outputSummary inputs outputDetails codeStatus paperUrl license evidence sourceChecked'.split()
 for e in records:
+    if e['collection']=='datasets':
+        for field in 'id name title year cameras tasks environment reality sensors groundTruth access homepageUrl paperUrl downloadUrl localizedSummary datasetDetails datasetLicense datasetNotes sensorLabels groundTruthLabels sourceChecked evidence'.split():
+            if field not in e or e[field] in [None,'',[]]:errors.append(e['id']+': missing dataset '+field)
+        for field in ['localizedSummary','datasetDetails','datasetLicense','datasetNotes','sensorLabels','groundTruthLabels']:
+            if not isinstance(e.get(field),dict) or not all(e[field].get(lang) for lang in ['en','zh']):errors.append(e['id']+': missing dataset translation '+field)
+        if set(e.get('tasks',[]))-{'depth','slam'}:errors.append(e['id']+': invalid dataset task')
+        if set(e.get('cameras',[]))-{'panoramic','fisheye','wide','perspective','multi'}:errors.append(e['id']+': invalid dataset camera')
+        if set(e.get('environment',[]))-{'indoor','outdoor'}:errors.append(e['id']+': invalid dataset environment')
+        if e.get('reality') not in ['real','synthetic','mixed']:errors.append(e['id']+': invalid data source')
+        if e.get('access') not in ['open','registration','request','restricted','unknown']:errors.append(e['id']+': invalid access')
+        for key in ['homepageUrl','paperUrl','downloadUrl']:
+            if urlparse(e.get(key,'')).scheme not in ['https','http']:errors.append(e['id']+': unsafe dataset URL '+key)
+        for source in e.get('evidence',[]):
+            if not isinstance(source,dict) or urlparse(source.get('url','')).scheme not in ['https','http']:errors.append(e['id']+': missing primary dataset source')
+        continue
     for field in required:
         if field not in e or e[field] in [None,'']:errors.append(f'{e["id"]}: missing {field}')
     if not e.get('paperUrl','').startswith('https://'):errors.append(e['id']+': missing official paper URL')
@@ -87,6 +102,8 @@ class Assets(HTMLParser):
                 if not (ROOT/'site'/unquote(parts.path)).exists():errors.append('Missing site asset '+link)
 
 parser=Assets();parser.feed((ROOT/'site/index.html').read_text(encoding='utf-8'))
+if 'hero-visual' in (ROOT/'site/index.html').read_text(encoding='utf-8'):errors.append('Removed hero illustration is still present')
+if 'tab-datasets' not in parser.ids:errors.append('Missing datasets collection tab')
 if len(parser.ids)!=len(set(parser.ids)):errors.append('Duplicate HTML IDs')
 for p in (ROOT/'site').rglob('*'):
     if p.is_file():

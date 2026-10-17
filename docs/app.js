@@ -5,7 +5,7 @@
   const records = Array.isArray(catalog.records) ? catalog.records : [];
   const byId = new Map(records.map(record => [String(record.id), record]));
   const STORAGE_KEY = 'panoramic-depth-atlas:v1';
-  const defaults = { collection: 'depth', category: 'panoramic', q: '', year: 'all', scale: 'all', code: 'all', view: 'cards', sort: 'newest', favorites: false, lang: 'zh' };
+  const defaults = { collection: 'depth', category: 'panoramic', q: '', year: 'all', scale: 'all', code: 'all', task:'all', environment:'all', reality:'all', access:'all', view: 'cards', sort: 'newest', favorites: false, lang: 'zh' };
   const translations = window.ATLAS_I18N || { ui: { zh: {}, en: {} }, summaries: {}, zhRecords: {} };
   const t = (key, ...args) => { const value = translations.ui[state.lang][key] ?? key; return typeof value === 'function' ? value(...args) : value; };
   const categories = [
@@ -67,6 +67,13 @@
   const codeStatus = record => Object.hasOwn(codes, record.codeStatus) ? record.codeStatus : 'unverified';
   const scaleValue = record => Object.hasOwn(scales, record.scale) ? record.scale : 'unknown';
   const cameras = record => asList(record.cameras).map(String);
+  const isDataset = record => record.collection === 'datasets';
+  const local = value => value && typeof value === 'object' && !Array.isArray(value) ? value[state.lang] ?? value.en ?? '' : value;
+  const datasetSensors = record => asList(local(record.sensorLabels) || record.sensors).join(' · ');
+  const datasetTruth = record => asList(local(record.groundTruthLabels) || record.groundTruth).join(' · ');
+  const datasetTasks = record => asList(record.tasks).map(task => t(task === 'depth' ? 'taskDepth' : 'taskSlam')).join(' · ');
+  const accessKey = value => ({open:'openAccess',registration:'registrationAccess',request:'requestAccess',restricted:'restrictedAccess',unknown:'unknownAccess'})[value] || 'unknownAccess';
+  const realityKey = value => value === 'mixed' ? 'mixedReality' : value;
   let stored = {};
   try { stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { /* Storage is optional. */ }
   if (!stored || typeof stored !== 'object') stored = {};
@@ -74,7 +81,7 @@
   const selected = new Set();
   let state = normalizeState({ ...defaults, ...(stored.state || {}) });
   if ([...new URLSearchParams(location.search).keys()].some(key => Object.hasOwn(defaults, key))) state = stateFromUrl();
-  const searchIndex = new Map(records.map(record => [String(record.id), text({ id: record.id, name: record.name, title: record.title, aliases: record.aliases, authors: record.authors, institutions: record.institutions, year: record.year, venue: record.venue, summary: record.summary, englishSummary: translations.summaries[record.id], chineseInterface: translations.zhRecords[record.id], cameras: record.cameras, tags: record.tags, family: record.family, scale: record.scale, scaleNote: record.scaleNote, license: record.license, input: record.inputs, output: record.outputDetails }).toLocaleLowerCase()]));
+  const searchIndex = new Map(records.map(record => [String(record.id), sourceText({ id: record.id, name: record.name, title: record.title, aliases: record.aliases, authors: record.authors, institutions: record.institutions, year: record.year, venue: record.venue, summary: record.summary, englishSummary: translations.summaries[record.id], chineseInterface: translations.zhRecords[record.id], cameras: record.cameras, tags: record.tags, family: record.family, scale: record.scale, scaleNote: record.scaleNote, license: record.license, input: record.inputs, output: record.outputDetails, datasets:record.datasetDetails, description:record.localizedSummary, sensors:record.sensorLabels,truth:record.groundTruthLabels,tasks:record.tasks }).toLocaleLowerCase()]));
   // Short ASCII queries are usually method abbreviations (DA, GS, VO).
   // Avoid matching every entry merely because its evidence says "dataset".
   const shortSearchIndex = new Map(records.map(record => [String(record.id), text([record.id, record.name, record.aliases]).toLocaleLowerCase()]));
@@ -85,7 +92,7 @@
 
   function normalizeState(candidate) {
     const result = { ...defaults, ...candidate };
-    if (!['depth', 'slam'].includes(result.collection)) result.collection = defaults.collection;
+    if (!['depth', 'slam', 'datasets'].includes(result.collection)) result.collection = defaults.collection;
     if (!categoryMap.has(result.category)) result.category = defaults.category;
     if (!['all', ...Object.keys(scales)].includes(result.scale)) result.scale = 'all';
     if (!['all', ...Object.keys(codes)].includes(result.code)) result.code = 'all';
@@ -95,6 +102,11 @@
     result.year = /^\d{4}$/.test(String(result.year)) ? String(result.year) : 'all';
     result.favorites = result.favorites === true || result.favorites === '1' || result.favorites === 'true';
     result.lang = result.lang === 'en' ? 'en' : 'zh';
+    for (const [key, values] of Object.entries({task:['all','depth','slam'],environment:['all','indoor','outdoor'],reality:['all','real','synthetic','mixed'],access:['all','open','registration','request','restricted','unknown']})) {
+      if (!values.includes(result[key])) result[key]='all';
+    }
+    if (result.collection === 'datasets') { result.scale='all'; result.code='all'; }
+    else { result.task='all'; result.environment='all'; result.reality='all'; result.access='all'; }
     return result;
   }
 
@@ -120,6 +132,10 @@
 
   function setFilter(key, value, replace = false) {
     if (!Object.hasOwn(defaults, key)) return;
+    if (key === 'collection' && value !== state.collection) {
+      if ((state.collection === 'datasets') !== (value === 'datasets')) selected.clear();
+      state = {...defaults,category:state.category,view:state.view,sort:state.sort,lang:state.lang};
+    }
     state = normalizeState({ ...state, [key]: value });
     syncUrl(replace);
     persist();
@@ -139,6 +155,12 @@
       if (state.year !== 'all' && String(record.year) !== state.year) return false;
       if (state.scale !== 'all' && scaleValue(record) !== state.scale) return false;
       if (state.code !== 'all' && codeStatus(record) !== state.code) return false;
+      if (isDataset(record)) {
+        if (state.task !== 'all' && !asList(record.tasks).includes(state.task)) return false;
+        if (state.environment !== 'all' && !asList(record.environment).includes(state.environment)) return false;
+        if (state.reality !== 'all' && record.reality !== state.reality) return false;
+        if (state.access !== 'all' && record.access !== state.access) return false;
+      }
       if (state.favorites && !favorites.has(String(record.id))) return false;
       return words.every(word => (/^[a-z0-9]{1,2}$/.test(word) ? shortSearchIndex : searchIndex).get(String(record.id)).includes(word));
     });
@@ -159,6 +181,7 @@
   }
 
   function localizedRecord(record) {
+    if (isDataset(record)) return {...record,summary:local(record.localizedSummary),license:local(record.datasetLicense),notes:local(record.datasetNotes)};
     if (state.lang === 'en') return { ...record, summary: translations.summaries[record.id] || record.summary };
     const reviewed = translations.zhRecords[record.id];
     if (!reviewed) return record;
@@ -223,14 +246,26 @@
     options('scale-filter', { all:t('allScales'), ...labelTables[state.lang].scales });
     options('code-filter', { all:t('allCodes'), released:t('released'), partial:t('partial'), unverified:t('unverified'), none:t('none') });
     options('sort-select', { newest:t('newest'), oldest:t('oldest'), name:t('byName') });
-    const heroLabels = document.querySelectorAll('.hero-visual text');
-    if (heroLabels[0]) heroLabels[0].textContent = t('fov');
-    if (heroLabels[1]) heroLabels[1].textContent = state.lang === 'en' ? 'SPHERICAL' : '球面';
-    if (heroLabels[2]) heroLabels[2].textContent = state.lang === 'en' ? 'GEOMETRY' : '几何';
-    if (heroLabels[3]) heroLabels[3].textContent = t('illustration');
+    options('task-filter',{all:t('allTasks'),depth:t('taskDepth'),slam:t('taskSlam')});
+    options('environment-filter',{all:t('allEnvironments'),indoor:t('indoor'),outdoor:t('outdoor')});
+    options('reality-filter',{all:t('allRealities'),real:t('real'),synthetic:t('synthetic'),mixed:t('mixedReality')});
+    options('access-filter',{all:t('allAccess'),...Object.fromEntries(['open','registration','request','restricted','unknown'].map(value=>[value,t(accessKey(value))]))});
+    const datasets=state.collection==='datasets';
+    $('search').placeholder=t(datasets?'datasetPlaceholder':'placeholder');
+    document.querySelector('label[for="search"]').textContent=t(datasets?'datasetSearch':'search');
+    document.querySelector('label[for="year-filter"]').textContent=t(datasets?'datasetYear':'year');
+    $('method-filters').hidden=datasets;
+    $('dataset-filters').hidden=!datasets;
+    document.querySelector('[data-i18n="papers"]').textContent=t(datasets?'datasetUnit':'papers');
+    document.querySelector('[data-i18n="footnote"]').textContent=t(datasets?'datasetFootnote':'footnote');
+    document.querySelector('[data-i18n="compareHint"]').textContent=t(datasets?'datasetCompareHint':'compareHint');
+    document.querySelector('[data-i18n="export"]').textContent=t(datasets?'exportDatasets':'export');
+    $('compare-title').textContent=t(datasets?'datasetCompareTitle':'compareTitle');
+    document.querySelector('[data-i18n="compareIntro"]').textContent=t(datasets?'datasetCompareIntro':'compareIntro');
   }
 
   function categoryDescription(category) {
+    if (state.collection==='datasets') return t('datasetDescription');
     if (state.collection === 'slam' && category.id === 'panoramic') return state.lang === 'zh' ? '关注全景视觉的位姿、轨迹与地图，核查尺度来源、IMU 和回环能力。' : 'Explore panoramic poses, trajectories and maps; check scale sources, inertial requirements and loop closure.';
     if (state.lang === 'zh') return category.description;
     return ({all:'Browse methods across camera models and compare projection assumptions, interfaces and reproduction requirements.',panoramic:'Explore 360° depth and spatial perception based on spherical geometry and equirectangular projection.',fisheye:'Check fisheye imaging, distortion models, native support and reproducible model interfaces.',wide:'Explore wide-FOV and cross-camera methods; distinguish field-of-view coverage from native projection support.',perspective:'Perspective baselines and foundation models provide useful controls for panoramic experiments.',multi:'Compare physical multi-camera inputs, extrinsic calibration, fusion and robot integration requirements.'})[category.id];
@@ -243,6 +278,8 @@
     const collectionRecords = records.filter(record => record.collection === state.collection);
     $('depth-count').textContent = String(records.filter(record => record.collection === 'depth').length);
     $('slam-count').textContent = String(records.filter(record => record.collection === 'slam').length);
+    $('datasets-count').textContent = String(records.filter(isDataset).length);
+    document.body.dataset.collection=state.collection;
     $('source-count').textContent = String(records.length);
     $('updated-date').textContent = catalog.updated || t('updatePending');
     document.querySelectorAll('[data-collection]').forEach(button => {
@@ -251,7 +288,7 @@
       button.setAttribute('aria-selected', String(active));
       button.tabIndex = active ? 0 : -1;
     });
-    $('collection-kicker').textContent = t(state.collection === 'depth' ? 'collectionDepth' : 'collectionSlam');
+    $('collection-kicker').textContent = t(state.collection === 'depth' ? 'collectionDepth' : state.collection === 'datasets' ? 'collectionDatasets' : 'collectionSlam');
     $('category-title').textContent = category.id === 'all' ? t(state.collection) : cameraLabels[category.id];
     $('category-description').textContent = categoryDescription(category);
     $('category-nav').replaceChildren(...categories.map(item => {
@@ -274,6 +311,7 @@
     $('year-filter').value = state.year;
     $('scale-filter').value = state.scale;
     $('code-filter').value = state.code;
+    for (const key of ['task','environment','reality','access']) $(key+'-filter').value=state[key];
     $('sort-select').value = state.sort;
     if ($('search').value !== state.q) $('search').value = state.q;
     $('favorites-filter').setAttribute('aria-pressed', String(state.favorites));
@@ -281,7 +319,7 @@
     $('result-count').textContent = String(filtered.length);
     $('result-description').textContent = t('resultTotal', collectionRecords.length);
     document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === state.view)));
-    const activeCount = Number(state.category !== 'all') + Number(Boolean(state.q)) + Number(state.year !== 'all') + Number(state.scale !== 'all') + Number(state.code !== 'all') + Number(state.favorites);
+    const activeCount = Number(state.category !== 'all') + Number(Boolean(state.q)) + Number(state.year !== 'all') + Number(state.scale !== 'all') + Number(state.code !== 'all') + Number(state.favorites) + ['task','environment','reality','access'].filter(key=>state[key]!=='all').length;
     $('mobile-filter-count').textContent = t('selected', activeCount);
     renderFilterChips();
     const container = $('results');
@@ -313,6 +351,10 @@
     if (state.scale !== 'all') chip('scale', scales[state.scale], 'all');
     if (state.code !== 'all') chip('code', codes[state.code], 'all');
     if (state.favorites) chip('favorites', t('favorites'), false);
+    if(state.task!=='all')chip('task',t(state.task==='depth'?'taskDepth':'taskSlam'),'all');
+    if(state.environment!=='all')chip('environment',t(state.environment),'all');
+    if(state.reality!=='all')chip('reality',t(realityKey(state.reality)),'all');
+    if(state.access!=='all')chip('access',t(accessKey(state.access)),'all');
     $('active-filters').replaceChildren(...chips);
   }
 
@@ -368,6 +410,7 @@
   }
 
   function renderCard(record) {
+    if (isDataset(record)) return renderDatasetCard(record);
     const display = localizedRecord(record);
     const article = el('article', `paper-card${selected.has(String(record.id)) ? ' selected' : ''}`);
     article.dataset.recordId = String(record.id);
@@ -405,7 +448,55 @@
     return article;
   }
 
+  function renderDatasetCard(record) {
+    const article=el('article',`paper-card dataset-card${selected.has(record.id)?' selected':''}`);article.dataset.recordId=record.id;
+    const body=el('div','card-body');
+    body.append(el('div','dataset-kicker',t('datasetRecord')+' / '+t(realityKey(record.reality))),makeFavorite(record,'favorite-button'));
+    const meta=el('div','card-meta');meta.append(el('span','year-badge',record.year),el('span','venue-label',asList(record.environment).map(e=>t(e)).join(' · ')));
+    const heading=el('h3','card-heading'),button=el('button','paper-title-button',record.name);button.type='button';button.addEventListener('click',()=>openRecord(record.id));heading.append(button);
+    body.append(meta,heading,el('p','paper-full-title',record.title),el('p','card-summary',local(record.localizedSummary)));
+    const facts=el('div','dataset-facts'),dl=el('dl');
+    for(const [label,value] of [[t('sensors'),datasetSensors(record)],[t('groundTruth'),datasetTruth(record)]])dl.append(el('dt','',label),el('dd','',value||t('unknown')));
+    facts.append(dl);body.append(facts);
+    const tags=el('div','dataset-tags');tags.append(...cameras(record).map(c=>badge(cameraLabels[c]||c)),...asList(record.tasks).map(task=>badge(t(task==='depth'?'taskDepth':'taskSlam'),'task-'+task)));body.append(tags);
+    const footer=el('div','card-footer'),links=el('div','card-links');links.append(sourceLink(t('homepage')+' ↗',record.homepageUrl),sourceLink(t('download')+' ↗',record.downloadUrl));footer.append(links,compareCheckbox(record));body.append(footer);
+    const status=el('div','code-status');status.append(el('span','',t(accessKey(record.access))));const details=el('button','card-detail-trigger',t('datasetDetails')+' ↗');details.type='button';details.addEventListener('click',()=>openRecord(record.id));status.append(details);
+    article.append(body,status);return article;
+  }
+
+  function renderDatasetTable(items) {
+    const table=el('table','results-table'),head=el('thead'),row=el('tr');
+    [t('datasetRecord'),t('year'),t('camera'),t('task'),t('groundTruth'),t('access'),t('readingCompare')].forEach(label=>{const th=el('th','',label);th.scope='col';row.append(th)});head.append(row);
+    const body=el('tbody');
+    for(const record of items){
+      const tr=el('tr',selected.has(record.id)?'selected':'');tr.dataset.recordId=record.id;
+      const title=el('td'),button=el('button','table-title',record.name);button.type='button';button.addEventListener('click',()=>openRecord(record.id));title.append(button,el('span','table-subtitle',local(record.localizedSummary)));
+      const actions=el('td'),wrap=el('div','table-actions');wrap.append(makeFavorite(record,'table-favorite'),compareCheckbox(record));actions.append(wrap);
+      tr.append(title,el('td','table-year',record.year),el('td','',cameras(record).map(c=>cameraLabels[c]||c).join(' · ')),el('td','',datasetTasks(record)),el('td','',datasetTruth(record)),el('td','',t(accessKey(record.access))),actions);body.append(tr);
+    }
+    table.append(head,body);return table;
+  }
+
+  function openDatasetRecord(record) {
+    currentDetailId=record.id;
+    const header=el('div','dialog-header'),heading=el('div');heading.append(el('div','eyebrow',t('collectionDatasets')+' / '+record.year));
+    const title=el('h2','',record.name);title.id='detail-title';heading.append(title,el('p','',record.title));
+    const close=el('button','dialog-close','×');close.type='button';close.setAttribute('aria-label',t('closeDataset'));close.addEventListener('click',()=>closeDialog('detail-dialog'));header.append(heading,close);
+    const body=el('div','dialog-body'),meta=el('div','detail-meta');meta.append(...cameras(record).map(c=>badge(cameraLabels[c]||c)),badge(t(realityKey(record.reality))),...asList(record.tasks).map(task=>badge(t(task==='depth'?'taskDepth':'taskSlam'))));
+    body.append(meta,el('p','detail-summary',local(record.localizedSummary)));
+    const links=el('div','detail-sources');links.append(sourceLink(t('homepage')+' ↗',record.homepageUrl,'source-link'),sourceLink(t('download')+' ↗',record.downloadUrl,'source-link'),sourceLink(t('paper')+' ↗',record.paperUrl,'source-link'));body.append(links);
+    body.append(detailSection(t('datasetOverview'),'',{[t('task')]:datasetTasks(record),[t('environmentType')]:asList(record.environment).map(e=>t(e)).join(' · '),[t('reality')]:t(realityKey(record.reality)),[t('sensors')]:datasetSensors(record),[t('groundTruth')]:datasetTruth(record)}));
+    body.append(detailSection(t('datasetSpecs'),'',local(record.datasetDetails)));
+    body.append(detailSection(t('accessLicense'),'',{[t('access')]:t(accessKey(record.access)),[t('license')]:local(record.datasetLicense),[t('verifiedDate')]:record.sourceChecked}));
+    const notes=asList(local(record.datasetNotes));if(notes.length){const section=detailSection(t('notes'),'',null);section.querySelector('p').remove();const ul=el('ul');notes.forEach(note=>ul.append(el('li','',note)));section.append(ul);body.append(section)}
+    const evidence=detailSection(t('evidence'),'',null);evidence.querySelector('p').remove();const list=el('ol','evidence-list');
+    asList(record.evidence).forEach((item,index)=>{const li=el('li');li.append(sourceLink(state.lang==='en'?(item.title||t('sourceNumber',index+1)):t('sourceNumber',index+1),typeof item==='string'?item:item.url,'evidence-link'));list.append(li)});evidence.append(list);body.append(evidence);
+    const bottom=el('div','detail-bottom');bottom.append(el('span','',t('datasetFootnote')),el('div'));bottom.lastElementChild.id='detail-actions';body.append(bottom);
+    $('detail-content').replaceChildren(header,body);updateDetailActions(record);showDialog('detail-dialog');
+  }
+
   function renderTable(items) {
+    if (state.collection==='datasets') return renderDatasetTable(items);
     const table = el('table', 'results-table');
     const thead = el('thead');
     const headRow = el('tr');
@@ -478,6 +569,7 @@
   function openRecord(id) {
     const original = byId.get(String(id));
     if (!original) return;
+    if (isDataset(original)) { openDatasetRecord(original); return; }
     const record = localizedRecord(original);
     currentDetailId = String(id);
     const header = el('div', 'dialog-header');
@@ -577,10 +669,24 @@
     if (!selected.size) return;
     const items = [...selected].map(id => localizedRecord(byId.get(id)));
     const table = el('table', 'compare-table');
-    const thead = el('thead'); const top = el('tr'); top.append(el('th', '', t('method')));
+    const thead = el('thead'); const top = el('tr'); top.append(el('th', '', t(isDataset(items[0])?'datasetRecord':'method')));
     items.forEach(record => top.append(el('th', '', methodName(record)))); thead.append(top);
     const tbody = el('tbody');
-    const rows = [
+    const rows = isDataset(items[0]) ? [
+      [t('year'),r=>r.year],
+      [t('datasetSummary'),r=>r.summary],
+      [t('camera'),r=>cameras(r).map(c=>cameraLabels[c]||c).join(' · ')],
+      [t('task'),datasetTasks],
+      [t('environmentType'),r=>asList(r.environment).map(e=>t(e)).join(' · ')],
+      [t('reality'),r=>t(realityKey(r.reality))],
+      [t('sensors'),datasetSensors],
+      [t('groundTruth'),datasetTruth],
+      [t('datasetSpecs'),r=>text(local(r.datasetDetails))],
+      [t('access'),r=>t(accessKey(r.access))],
+      [t('license'),r=>r.license],
+      [t('notes'),r=>text(r.notes)],
+      [t('verifiedDate'),r=>r.sourceChecked]
+    ] : [
       [t('yearVenue'), record => `${record.year || t('unknown')} · ${record.venue || t('unknown')}`],
       [t('camera'), record => cameras(record).map(camera => cameraLabels[camera] || camera).join(' · ')],
       [t('input'), record => record.inputSummary || t('unknown')],
@@ -600,7 +706,7 @@
     ];
     rows.forEach(([label, getter]) => { const row = el('tr'); const heading = el('th', '', label); heading.scope = 'row'; row.append(heading); items.forEach(record => row.append(el('td', '', text(getter(record))))); tbody.append(row); });
     const links = el('tr'); links.append(el('th', '', t('official')));
-    items.forEach(record => { const cell = el('td'); cell.append(sourceLink(t('paper') + ' ↗', record.paperUrl, 'compare-link'), sourceLink(t('codeLink') + ' ↗', record.codeUrl, 'compare-link'), sourceLink(t('project') + ' ↗', record.projectUrl, 'compare-link')); links.append(cell); });
+    items.forEach(record => { const cell = el('td'); if(isDataset(record))cell.append(sourceLink(t('homepage')+' ↗',record.homepageUrl,'compare-link'),sourceLink(t('download')+' ↗',record.downloadUrl,'compare-link'));else cell.append(sourceLink(t('paper') + ' ↗', record.paperUrl, 'compare-link'), sourceLink(t('codeLink') + ' ↗', record.codeUrl, 'compare-link'), sourceLink(t('project') + ' ↗', record.projectUrl, 'compare-link')); links.append(cell); });
     tbody.append(links); table.append(thead, tbody); $('compare-content').replaceChildren(table);
     showDialog('compare-dialog');
   }
@@ -625,7 +731,7 @@
       content = JSON.stringify({ title: 'Panoramic Depth Atlas', updated: catalog.updated, exported: new Date().toISOString(), filters: state, records: items }, null, 2);
       type = 'application/json;charset=utf-8'; extension = 'json';
     } else if (format === 'csv') {
-      const fields = ['id', 'collection', 'name', 'title', 'year', 'venue', 'authors', 'institutions', 'cameras', 'scale', 'scaleNote', 'metricStatus', 'depthType', 'inputSummary', 'outputSummary', 'inputs', 'outputDetails', 'pose', 'nativePanoramic', 'family', 'imu', 'loopClosure', 'codeStatus', 'license', 'paperUrl', 'codeUrl', 'projectUrl', 'weightsUrl', 'verificationLevel', 'sourceChecked', 'evidence', 'notes'];
+      const fields = state.collection==='datasets' ? ['id','name','title','year','cameras','tasks','environment','reality','sensors','groundTruth','access','homepageUrl','paperUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes','sourceChecked','evidence'] : ['id', 'collection', 'name', 'title', 'year', 'venue', 'authors', 'institutions', 'cameras', 'scale', 'scaleNote', 'metricStatus', 'depthType', 'inputSummary', 'outputSummary', 'inputs', 'outputDetails', 'pose', 'nativePanoramic', 'family', 'imu', 'loopClosure', 'codeStatus', 'license', 'paperUrl', 'codeUrl', 'projectUrl', 'weightsUrl', 'verificationLevel', 'sourceChecked', 'evidence', 'notes'];
       const cell = value => { let string = sourceText(value); if (/^[=+\-@\t\r]/.test(string)) string = `'${string}`; return `"${string.replace(/"/g, '""')}"`; };
       content = '\uFEFF' + [fields.join(','), ...items.map(record => fields.map(field => cell(record[field])).join(','))].join('\r\n');
       type = 'text/csv;charset=utf-8'; extension = 'csv';
@@ -656,13 +762,13 @@
     button.addEventListener('click', () => setFilter('collection', button.dataset.collection));
     button.addEventListener('keydown', event => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-      event.preventDefault(); const next = event.key === 'Home' ? 'depth' : event.key === 'End' ? 'slam' : state.collection === 'depth' ? 'slam' : 'depth';
+      event.preventDefault(); const collections=['depth','slam','datasets']; const index=collections.indexOf(state.collection); const next = event.key === 'Home' ? 'depth' : event.key === 'End' ? 'datasets' : collections[(index+(event.key==='ArrowRight'?1:2))%3];
       setFilter('collection', next); $(`tab-${next}`).focus();
     });
   });
   document.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => setFilter('lang', button.dataset.language)));
   $('search').addEventListener('input', event => setFilter('q', event.target.value, true));
-  [['year-filter', 'year'], ['scale-filter', 'scale'], ['code-filter', 'code'], ['sort-select', 'sort']].forEach(([id, key]) => $(id).addEventListener('change', event => setFilter(key, event.target.value)));
+  [['year-filter', 'year'], ['scale-filter', 'scale'], ['code-filter', 'code'], ['sort-select', 'sort'],...['task','environment','reality','access'].map(key=>[key+'-filter',key])].forEach(([id, key]) => $(id).addEventListener('change', event => setFilter(key, event.target.value)));
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => setFilter('view', button.dataset.view)));
   $('favorites-filter').addEventListener('click', () => setFilter('favorites', !state.favorites));
   $('reset-filters').addEventListener('click', resetFilters);

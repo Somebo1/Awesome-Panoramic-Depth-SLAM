@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#122c36">
+  <meta name="theme-color" content="#111111">
   <meta name="description" content="全景、鱼眼与广视场深度估计及定位建图文献图谱。">
   <title>全景深度与定位建图文献图谱</title>
-  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=20261017-figures">
-  <link rel="stylesheet" href="./figures.css?v=20261017-figures">
-  <script src="./data/catalog.js?v=20261017-figures" defer></script>
-  <script src="./i18n.js?v=20261017-figures" defer></script>
-  <script src="./figures.js?v=20261017-figures" defer></script>
-  <script src="./app.js?v=20261017-figures" defer></script>
+  <link rel="icon" href="./assets/favicon.svg?v=20261017-datasets" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css?v=20261017-datasets">
+  <link rel="stylesheet" href="./figures.css?v=20261017-datasets">
+  <script src="./data/catalog.js?v=20261017-datasets" defer></script>
+  <script src="./i18n.js?v=20261017-datasets" defer></script>
+  <script src="./figures.js?v=20261017-datasets" defer></script>
+  <script src="./app.js?v=20261017-datasets" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">跳转到文献</a>
   <header class="site-header">
     <a class="brand" href="./" aria-label="Panoramic Depth Atlas 首页">
-      <svg class="brand-symbol" width="39" height="39" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="20" cy="20" rx="7" ry="16" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="20" cy="20" rx="16" ry="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5 14h30M5 26h30" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/><circle cx="31.4" cy="9.2" r="3.8" fill="#e4a95e" stroke="#f7f7f1" stroke-width="2"/></svg>
+      <svg class="brand-symbol" width="39" height="39" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="20" cy="20" rx="7" ry="16" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="20" cy="20" rx="16" ry="6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5 14h30M5 26h30" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/><circle cx="31.4" cy="9.2" r="3.8" fill="#2563eb" stroke="#ffffff" stroke-width="2"/></svg>
       <span>Panoramic<span class="brand-line">Depth Atlas<span class="brand-dot">.</span></span></span>
     </a>
     <div class="header-label" data-i18n="header">开放的机器人视觉文献集</div>
@@ -34,13 +34,10 @@
       <p class="hero-description" data-i18n="description">从投影模型到深度尺度，从输入输出到代码证据。为机器人感知研究，找到值得读、能够复现的方法。</p>
       <div class="hero-bottom"><span class="update"><i></i><span data-i18n="updating">持续整理</span> · <span id="updated-date">—</span></span><span class="hero-separator">/</span><span data-i18n="evidenceMotto">依据原始来源，明确保留未知项。</span></div>
     </div>
-    <div class="hero-visual" aria-hidden="true">
-      <svg viewBox="0 0 500 270" role="img"><defs><linearGradient id="hero-water" x1="0" x2="1"><stop stop-color="#1d777a"/><stop offset="1" stop-color="#2b626f"/></linearGradient><radialGradient id="hero-glow"><stop stop-color="#c9ded7" stop-opacity=".52"/><stop offset="1" stop-color="#c9ded7" stop-opacity="0"/></radialGradient><clipPath id="sphere-clip"><circle cx="291" cy="132" r="104"/></clipPath></defs><ellipse cx="282" cy="141" rx="203" ry="125" fill="url(#hero-glow)"/><g fill="none" stroke="#aac5bd" stroke-width="1"><ellipse cx="291" cy="132" rx="181" ry="43" transform="rotate(-20 291 132)" stroke-dasharray="3 6"/><path d="M75 219H453M115 234H418" opacity=".45"/></g><circle cx="291" cy="132" r="104" fill="#f1f3eb" stroke="#1a606a" stroke-width="1.5"/><g clip-path="url(#sphere-clip)"><path d="M187 175 220 143 250 164 275 111 308 158 331 136 355 171 395 155V237H187Z" fill="#d3dfd3"/><path d="m187 201 51-21 28 9 47-22 26 19 56-9v60H187Z" fill="#a9c7ba"/><path d="m187 213 51-16 45 10 40-14 72 15v29H187Z" fill="url(#hero-water)"/><g fill="none" stroke="#246b72" stroke-width=".75" opacity=".52"><ellipse cx="291" cy="132" rx="104" ry="29"/><ellipse cx="291" cy="132" rx="104" ry="71"/><ellipse cx="291" cy="132" rx="34" ry="104"/><ellipse cx="291" cy="132" rx="75" ry="104"/><path d="M187 132h208M291 28v208"/></g></g><path d="m134 176 157-44-157-16Z" fill="#e3a764" fill-opacity=".12" stroke="#bb8648" stroke-dasharray="3 4"/><g transform="translate(106 130)"><rect width="37" height="31" rx="5" fill="#163b44"/><path d="m37 10 13-7v25l-13-7" fill="#163b44"/><circle cx="14" cy="15.5" r="8" fill="#f3e9d1"/><circle cx="14" cy="15.5" r="4.5" fill="#437b7e"/></g><circle cx="291" cy="132" r="4" fill="#cb8d43" stroke="#fff" stroke-width="2"/><circle cx="367" cy="62" r="4" fill="#175d6a"/><path d="m367 62 40-22h43M395 165l33 23h34" fill="none" stroke="#608d89" stroke-width="1"/><text x="410" y="33" font-size="10" font-family="monospace" fill="#446c6d">360° FIELD OF VIEW</text><text x="431" y="204" font-size="10" font-family="monospace" fill="#446c6d">SPHERICAL</text><text x="431" y="218" font-size="10" font-family="monospace" fill="#446c6d">GEOMETRY</text><path d="M89 79h47M112.5 55.5v47" stroke="#8ba9a0"/><circle cx="112.5" cy="79" r="12" fill="none" stroke="#8ba9a0"/><text x="86" y="252" font-size="9" font-family="monospace" fill="#6e8983" letter-spacing="1.2">ORIGINAL GEOMETRY ILLUSTRATION · NOT MODEL OUTPUT</text></svg>
-    </div>
   </section>
 
   <section class="collection-strip" aria-label="文献集合">
-    <div class="collection-tabs" role="tablist" aria-label="选择研究领域"><button id="tab-depth" type="button" class="collection-tab active" role="tab" aria-selected="true" data-collection="depth"><span class="tab-icon">◉</span><span data-i18n="depth">深度估计</span><span class="tab-count" id="depth-count">0</span></button><button id="tab-slam" type="button" class="collection-tab" role="tab" aria-selected="false" data-collection="slam"><span class="tab-icon">⌘</span><span data-i18n="slam">定位与建图</span><span class="tab-count" id="slam-count">0</span></button></div>
+    <div class="collection-tabs" role="tablist" aria-label="选择研究领域"><button id="tab-depth" type="button" class="collection-tab active" role="tab" aria-selected="true" data-collection="depth"><span class="tab-icon">◉</span><span data-i18n="depth">深度估计</span><span class="tab-count" id="depth-count">0</span></button><button id="tab-slam" type="button" class="collection-tab" role="tab" aria-selected="false" data-collection="slam"><span class="tab-icon">⌘</span><span data-i18n="slam">定位与建图</span><span class="tab-count" id="slam-count">0</span></button><button id="tab-datasets" type="button" class="collection-tab" role="tab" aria-selected="false" data-collection="datasets"><span class="tab-icon" aria-hidden="true">▤</span><span data-i18n="datasets">数据集</span><span class="tab-count" id="datasets-count">0</span></button></div>
     <div class="strip-note"><span class="tiny-dot"></span><span id="source-count">0</span> <span data-i18n="entries">项文献 · 附来源证据</span></div>
   </section>
 
@@ -52,8 +49,16 @@
       <div class="sidebar-divider"></div>
       <div class="sidebar-heading"><span data-i18n="refine">进一步筛选</span></div>
       <label class="filter-label" for="year-filter"><span data-i18n="year">发表年份</span></label><select id="year-filter"><option value="all">全部年份</option></select>
+      <div id="method-filters">
       <label class="filter-label" for="scale-filter"><span data-i18n="scale">尺度类型</span></label><select id="scale-filter"><option value="all">全部尺度</option><option value="metric">Metric · 度量尺度</option><option value="relative">Relative · 相对尺度</option><option value="mixed">Mixed · 依配置而定</option><option value="unknown">Unknown · 待核实</option></select>
       <label class="filter-label" for="code-filter"><span data-i18n="code">代码状态</span></label><select id="code-filter"><option value="all">全部代码状态</option><option value="released">已发布</option><option value="partial">部分发布</option><option value="unverified">待核实</option><option value="none">未发现公开代码</option></select>
+      </div>
+      <div id="dataset-filters" hidden>
+        <label class="filter-label" for="task-filter"><span data-i18n="task">任务</span></label><select id="task-filter"><option value="all" data-i18n="allTasks">全部任务</option><option value="depth" data-i18n="taskDepth">深度估计</option><option value="slam" data-i18n="taskSlam">定位与建图</option></select>
+        <label class="filter-label" for="environment-filter"><span data-i18n="environmentType">环境</span></label><select id="environment-filter"><option value="all" data-i18n="allEnvironments">全部环境</option><option value="indoor" data-i18n="indoor">室内</option><option value="outdoor" data-i18n="outdoor">室外</option></select>
+        <label class="filter-label" for="reality-filter"><span data-i18n="reality">数据类型</span></label><select id="reality-filter"><option value="all" data-i18n="allRealities">全部类型</option><option value="real" data-i18n="real">真实</option><option value="synthetic" data-i18n="synthetic">合成</option><option value="mixed" data-i18n="mixedReality">混合</option></select>
+        <label class="filter-label" for="access-filter"><span data-i18n="access">访问方式</span></label><select id="access-filter"><option value="all" data-i18n="allAccess">全部访问方式</option><option value="open" data-i18n="openAccess">公开下载</option><option value="registration" data-i18n="registrationAccess">需注册</option><option value="request" data-i18n="requestAccess">申请获取</option><option value="restricted" data-i18n="restrictedAccess">受限</option><option value="unknown" data-i18n="unknownAccess">待核实</option></select>
+      </div>
       <button id="favorites-filter" class="favorites-filter" type="button" aria-pressed="false"><span>☆ <span data-i18n="favorites">我的阅读收藏</span></span><span id="favorites-count">0</span></button>
       <button id="reset-filters" class="reset-button" type="button">↺ <span data-i18n="reset">重置筛选</span></button>
       <div class="sidebar-note"><span class="note-symbol">i</span><p data-i18n="sidebarNote">分类可重叠。支持广视场不等于原生全景；度量尺度与深度定义分别记录。详情中保留待核实项。</p></div>

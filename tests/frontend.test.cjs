@@ -131,7 +131,7 @@ check('mobile filters and keyboard search are operable',()=>{
   assert.equal(a.doc.activeElement.id,'search');
 });
 check('all 56 cards use attributed, locally hosted paper figures',()=>{
-  for(const r of catalog.records){
+  for(const r of catalog.records.filter(r=>r.collection!=='datasets')){
     assert.equal(r.figure.verified,true,r.id);assert(r.figure.caption.zh&&r.figure.caption.en);
     assert(r.figure.credit.zh&&r.figure.credit.en);assert(r.figure.page>=1);
     for(const key of ['image','thumbnail'])assert(fs.existsSync(path.join(root,'site',r.figure[key])),r.id+' '+key);
@@ -169,6 +169,33 @@ check('unsafe figure paths and source links are never rendered',()=>{
   const card=b.doc.querySelector(`[data-record-id="${bad.records[0].id}"]`);
   assert.equal(card.querySelectorAll('.paper-preview img').length,0);
   assert.equal(b.doc.querySelectorAll('a[href^="javascript:"]').length,0);b.dom.window.close();
+});
+check('datasets have task-specific filters, localized details, comparison and complete exports',()=>{
+  const datasetRecords=catalog.records.filter(r=>r.collection==='datasets');assert(datasetRecords.length>=20);
+  const b=boot('?collection=datasets&category=all&lang=en');
+  assert.equal(b.api.getFilteredRecords().length,datasetRecords.length);
+  assert.equal(b.doc.getElementById('method-filters').hidden,true);assert.equal(b.doc.getElementById('dataset-filters').hidden,false);
+  assert.equal(b.doc.querySelectorAll('.dataset-card').length,datasetRecords.length);assert.equal(b.doc.querySelectorAll('.dataset-card img').length,0);
+  for(const [key,value] of [['task','slam'],['environment','outdoor'],['reality','real']])b.api.setFilter(key,value);
+  const result=b.api.getFilteredRecords();assert(result.length>0);assert(result.every(r=>r.tasks.includes('slam')&&r.environment.includes('outdoor')&&r.reality==='real'));
+  assert.equal(new URL(b.w.location.href).searchParams.get('task'),'slam');
+  const csv=b.api.exportRecords('csv');assert(csv.includes('groundTruth'));assert(csv.includes('datasetDetails'));
+  assert.equal(JSON.parse(b.api.exportRecords('json')).records.length,result.length);
+  b.doc.querySelector('[data-view="table"]').click();assert.equal(b.doc.querySelectorAll('tbody tr').length,result.length);
+  b.doc.querySelector('[data-view="cards"]').click();
+  for(const checkbox of Array.from(b.doc.querySelectorAll('[data-compare-id]')).slice(0,2)){checkbox.checked=true;checkbox.dispatchEvent(new b.w.Event('change',{bubbles:true}))}
+  b.doc.getElementById('open-compare').click();assert(b.doc.getElementById('compare-content').textContent.includes('Ground truth'));
+  b.doc.getElementById('compare-dialog').close();
+  for(const record of datasetRecords){b.api.openRecord(record.id);assert(!/[\u3400-\u9fff]/.test(b.doc.getElementById('detail-content').textContent),record.id+' dataset English');b.doc.getElementById('detail-dialog').close()}
+  b.api.setLanguage('zh');b.api.openRecord(datasetRecords[0].id);assert(b.doc.getElementById('detail-content').textContent.includes('真值'));b.doc.getElementById('detail-dialog').close();
+  b.api.setFilter('collection','depth');assert.equal(b.api.getState().task,'all');assert.equal(b.doc.getElementById('method-filters').hidden,false);assert.equal(b.api.getSelectedIds().length,0);
+  b.dom.window.close();
+});
+check('third tab keyboard navigation and dataset deep links normalize correctly',()=>{
+  const b=boot();b.doc.getElementById('tab-depth').dispatchEvent(new b.w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(b.api.getState().collection,'datasets');
+  b.doc.getElementById('tab-datasets').dispatchEvent(new b.w.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));assert.equal(b.api.getState().collection,'depth');
+  const c=boot('?collection=datasets&category=all&task=invalid&access=unknown&scale=metric&lang=en');assert.equal(c.api.getState().task,'all');assert.equal(c.api.getState().scale,'all');assert(c.api.getFilteredRecords().every(r=>r.access==='unknown'));
+  assert.equal(c.doc.querySelectorAll('.hero-visual').length,0);b.dom.window.close();c.dom.window.close();
 });
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};

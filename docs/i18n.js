@@ -280,5 +280,29 @@
       output:{primary:reviewed[1],depth_convention:convention,metric_status:reviewed[2],pose_output:slamPoseOutputs[id] || '是，输出估计的六自由度轨迹；转换到腕部或机器人工具中心点需额外外参。',runtime:'待核实；没有可公平比较的本机运行效率测量。'}
     };
   }
+  Object.assign(ui.zh,{
+    header:'机器人视觉方法与数据集',eyebrow:'开放的机器人空间视觉资料库',hero:'全景深度、定位与建图',
+    subtitle:'汇集全景、鱼眼与广视场的研究方法和数据集。',description:'检索论文与基准，比较模型输入输出、数据真值和复现条件。',entries:'条目 · 附原始来源',
+    datasets:'数据集',collectionDatasets:'深度估计与定位建图数据集',datasetRecord:'数据集',datasetUnit:'个数据集',datasetSearch:'搜索数据集',datasetPlaceholder:'搜索数据集、传感器、真值、关键词…',datasetYear:'年份（论文或发布）',resultTotal:n=>`集合共 ${n} 项`,
+    task:'适用任务',taskDepth:'深度估计',taskSlam:'定位与建图',allTasks:'全部任务',environmentType:'采集环境',allEnvironments:'全部环境',indoor:'室内',outdoor:'室外',
+    reality:'数据来源',allRealities:'全部来源',real:'真实采集',synthetic:'合成渲染',mixedReality:'真实与合成',
+    access:'获取方式',allAccess:'全部获取方式',openAccess:'公开下载',registrationAccess:'需注册或同意条款',requestAccess:'需申请访问',restrictedAccess:'受限访问',unknownAccess:'获取状态待核实',
+    sensors:'传感器与模态',groundTruth:'真值与标注',homepage:'官方主页',download:'获取数据',datasetDetails:'数据集详情',closeDataset:'关闭数据集详情',datasetSummary:'数据集摘要',datasetOverview:'数据概览',datasetSpecs:'几何、真值与评测协议',accessLicense:'获取方式与许可',
+    datasetDescription:'按相机类型、任务、采集环境和获取方式检索，核查深度、位姿与地图真值的来源和定义。',
+    datasetFootnote:'区分原生采集、渲染深度和估计轨迹；相关派生集可能复用相同场景。标定、有效掩码、数据划分和访问条款以对应版本的官方说明为准。',
+    datasetCompareHint:'勾选数据集，比较传感器、真值与评测协议',datasetCompareTitle:'数据集对比',datasetCompareIntro:'比较同一口径的数据来源与真值，核查任务适用性和访问条件。',exportDatasets:'导出数据集'
+  });
+  Object.assign(ui.en,{
+    header:'Robotics methods & datasets',eyebrow:'AN OPEN SPATIAL VISION COLLECTION',hero:'Panoramic Depth & SLAM',
+    subtitle:'Methods and datasets for panoramic, fisheye and wide-field perception.',description:'Explore papers and benchmarks. Compare model interfaces, ground-truth provenance and reproduction requirements.',entries:'entries · primary sources linked',
+    datasets:'Datasets',collectionDatasets:'DEPTH & SLAM DATASETS',datasetRecord:'Dataset',datasetUnit:'datasets',datasetSearch:'Search datasets',datasetPlaceholder:'Search datasets, sensors, ground truth, keywords…',datasetYear:'Year (paper / release)',
+    task:'Tasks',taskDepth:'Depth estimation',taskSlam:'SLAM / localization',allTasks:'All tasks',environmentType:'Environment',allEnvironments:'All environments',indoor:'Indoor',outdoor:'Outdoor',
+    reality:'Data source',allRealities:'All sources',real:'Real captures',synthetic:'Synthetic renders',mixedReality:'Real & synthetic',
+    access:'Access',allAccess:'All access types',openAccess:'Public download',registrationAccess:'Registration / terms',requestAccess:'Access request',restrictedAccess:'Restricted access',unknownAccess:'Access unverified',
+    sensors:'Sensors & modalities',groundTruth:'Ground truth & labels',homepage:'Homepage',download:'Get data',datasetDetails:'Dataset details',closeDataset:'Close dataset details',datasetSummary:'Dataset summary',datasetOverview:'Dataset overview',datasetSpecs:'Geometry, ground truth & evaluation',accessLicense:'Access & licensing',
+    datasetDescription:'Filter camera geometry, tasks, environment and access. Check how depth, poses and maps were measured or derived.',
+    datasetFootnote:'Distinguish native captures, rendered depth and estimated trajectories. Derivative datasets may share scenes. Check the cited version for calibration, valid masks, splits and access terms.',
+    datasetCompareHint:'Select datasets to compare sensors, ground truth & evaluation',datasetCompareTitle:'Dataset comparison',datasetCompareIntro:'Compare data provenance, ground truth, task suitability and access using consistent definitions.',exportDatasets:'Export datasets'
+  });
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

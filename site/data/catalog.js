@@ -3,7 +3,7 @@ window.ATLAS_DATA = {
   "repoUrl": "https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM",
   "title": "Panoramic Depth Atlas",
   "description": "Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.",
-  "schemaVersion": "1.1",
+  "schemaVersion": "1.2",
   "records": [
     {
       "id": "da2_panorama",
@@ -3945,6 +3945,147 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "ds_holo360d",
+      "name": "Holo360D",
+      "title": "Holo360D: A Large-Scale Real-World Dataset with Continuous Trajectories for Advancing Panoramic 3D Reconstruction and Beyond",
+      "year": 2026,
+      "cameras": [
+        "panoramic"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "360° RGB camera",
+        "LiDAR scanner",
+        "IMU / RTK-GNSS capture rig"
+      ],
+      "sensorLabels": {
+        "en": [
+          "360° RGB camera",
+          "LiDAR scanner",
+          "IMU / RTK-GNSS capture rig"
+        ],
+        "zh": [
+          "360° RGB 相机",
+          "激光扫描器",
+          "含 IMU / RTK-GNSS 的采集装置"
+        ]
+      },
+      "groundTruth": [
+        "Mesh/point-cloud depth",
+        "Refined camera poses",
+        "Validity masks"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Mesh/point-cloud depth",
+          "Refined camera poses",
+          "Validity masks"
+        ],
+        "zh": [
+          "网格与点云深度",
+          "优化后的相机位姿",
+          "有效性掩码"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://jou719.github.io/Holo360D_homepage/",
+      "paperUrl": "https://arxiv.org/abs/2604.22482",
+      "downloadUrl": "https://huggingface.co/datasets/ouou123/Holo360D/tree/main",
+      "license": {
+        "en": "Repository code has MIT; the inspected dataset card has no explicit dataset license metadata. Confirm data terms with authors before redistribution.",
+        "zh": "仓库代码为 MIT；核对的数据卡未注明明确数据许可元信息，重新分发前需向作者确认数据条款。"
+      },
+      "summary": "连续真实室内外全景，提供激光派生网格、点云深度和优化位姿，官方已发布完整数据。",
+      "details": {
+        "en": {
+          "Projection and inputs": "360° camera records 5760×2880 panoramas at 24 FPS; published archives separate RGB, mesh_depth, pointcloud_depth, masks and poses.",
+          "Depth and validity": "Mesh depth is camera-center Euclidean distance, EXR; point depth uses mesh visibility filtering. Numeric unit/mask encoding should be confirmed in loaders.",
+          "Ground truth provenance": "LiDAR, online/offline SLAM and bundle adjustment produce references; meshes undergo denoising and hole filling. Poses are not independent motion-capture GT.",
+          "Timing and calibration": "Scanner and rigidly mounted camera share software start/stop triggering. Do not infer that all raw IMU/RTK streams are included in RGB-D archives.",
+          "Evaluation and versions": "Paper uses scene-disjoint 60/15 train/test; release news describes a different initial test grouping. Pin release scene lists; re-download test masks predating July 2026 fix."
+        },
+        "zh": {
+          "投影与输入": "360° 相机以 24 FPS 记录 5760×2880 全景；发布包分开存储 RGB、mesh_depth、pointcloud_depth、掩码和位姿。",
+          "深度与有效性": "网格深度是相机中心欧氏距离，以 EXR 存储；点云深度利用网格处理可见性。数值单位和掩码编码需进一步核对加载器。",
+          "真值来源": "参考值来自激光、在线离线 SLAM 与束调整，网格经去噪和补洞；位姿并非独立动捕真值。",
+          "时间与标定": "扫描器与刚性安装相机共享软件启停触发；不能据此推断 RGB-D 压缩包包含所有原始 IMU、RTK 流。",
+          "评测与版本": "论文采用场景隔离的 60/15 训练测试划分，发布新闻的初始测试分组不同。需固定场景清单，旧测试掩码应更新至 2026 年 7 月修正版。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Mesh-filled regions and point-cloud-supported pixels provide different supervision; report which target and mask were used."
+        ],
+        "zh": [
+          "网格补洞区域与点云实测支持像素提供不同监督，需报告所用目标与掩码。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/Jou719/Holo360D",
+          "title": "Official release status, structure and corrected test masks"
+        },
+        {
+          "url": "https://arxiv.org/html/2604.22482v2",
+          "title": "Paper: range definition, timing, refinement and scene splits"
+        },
+        {
+          "url": "https://huggingface.co/datasets/ouou123/Holo360D",
+          "title": "Official data release card"
+        },
+        {
+          "url": "https://jou719.github.io/Holo360D_homepage/",
+          "title": "Authors' dataset overview"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Continuous real indoor/outdoor panoramas with LiDAR-derived mesh/point-cloud depth and refined poses; official full data release is available.",
+        "zh": "连续真实室内外全景，提供激光派生网格、点云深度和优化位姿，官方已发布完整数据。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "360° camera records 5760×2880 panoramas at 24 FPS; published archives separate RGB, mesh_depth, pointcloud_depth, masks and poses.",
+          "Depth and validity": "Mesh depth is camera-center Euclidean distance, EXR; point depth uses mesh visibility filtering. Numeric unit/mask encoding should be confirmed in loaders.",
+          "Ground truth provenance": "LiDAR, online/offline SLAM and bundle adjustment produce references; meshes undergo denoising and hole filling. Poses are not independent motion-capture GT.",
+          "Timing and calibration": "Scanner and rigidly mounted camera share software start/stop triggering. Do not infer that all raw IMU/RTK streams are included in RGB-D archives.",
+          "Evaluation and versions": "Paper uses scene-disjoint 60/15 train/test; release news describes a different initial test grouping. Pin release scene lists; re-download test masks predating July 2026 fix."
+        },
+        "zh": {
+          "投影与输入": "360° 相机以 24 FPS 记录 5760×2880 全景；发布包分开存储 RGB、mesh_depth、pointcloud_depth、掩码和位姿。",
+          "深度与有效性": "网格深度是相机中心欧氏距离，以 EXR 存储；点云深度利用网格处理可见性。数值单位和掩码编码需进一步核对加载器。",
+          "真值来源": "参考值来自激光、在线离线 SLAM 与束调整，网格经去噪和补洞；位姿并非独立动捕真值。",
+          "时间与标定": "扫描器与刚性安装相机共享软件启停触发；不能据此推断 RGB-D 压缩包包含所有原始 IMU、RTK 流。",
+          "评测与版本": "论文采用场景隔离的 60/15 训练测试划分，发布新闻的初始测试分组不同。需固定场景清单，旧测试掩码应更新至 2026 年 7 月修正版。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Mesh-filled regions and point-cloud-supported pixels provide different supervision; report which target and mask were used."
+        ],
+        "zh": [
+          "网格补洞区域与点云实测支持像素提供不同监督，需报告所用目标与掩码。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Repository code has MIT; the inspected dataset card has no explicit dataset license metadata. Confirm data terms with authors before redistribution.",
+        "zh": "仓库代码为 MIT；核对的数据卡未注明明确数据许可元信息，重新分发前需向作者确认数据条款。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
       "id": "odgsslam2026",
       "collection": "slam",
       "name": "ODGS-SLAM",
@@ -4233,6 +4374,139 @@ window.ATLAS_DATA = {
           570
         ]
       }
+    },
+    {
+      "id": "ds_panoair",
+      "name": "PanoAir",
+      "title": "PanoAir: A Panoramic Visual-Inertial SLAM with Cross-Time Real-World UAV Dataset",
+      "year": 2026,
+      "cameras": [
+        "panoramic",
+        "fisheye",
+        "wide",
+        "perspective",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "ERP / dual fisheye",
+        "IMU",
+        "RTK"
+      ],
+      "sensorLabels": {
+        "en": [
+          "ERP / dual fisheye",
+          "IMU",
+          "RTK"
+        ],
+        "zh": [
+          "ERP/双鱼眼",
+          "IMU",
+          "RTK"
+        ]
+      },
+      "groundTruth": [
+        "RTK trajectory"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "RTK trajectory"
+        ],
+        "zh": [
+          "RTK 轨迹"
+        ]
+      },
+      "access": "unknown",
+      "homepageUrl": "https://github.com/YYWumm/PanoAir",
+      "paperUrl": "https://arxiv.org/abs/2604.00852",
+      "downloadUrl": "https://github.com/YYWumm/PanoAir#-download",
+      "license": {
+        "en": "Repository is GPL-3.0; a separate dataset licence was not verified. Do not infer data rights from the code licence.",
+        "zh": "仓库标为 GPL-3.0；未核验单独数据许可，不根据代码许可推断数据权利。"
+      },
+      "summary": "跨光照和飞行条件的真实无人机全景惯性序列；官方提供 Drive 数据链接，但本次未核验归档访问。",
+      "details": {
+        "en": {
+          "Inputs": "30 Hz stitched ERP; dual-fisheye ROS1 recordings and virtual pinhole sequences; 1000 Hz IMU.",
+          "Reference": "README lists 5 Hz RTK trajectories. Inspect files/paper for position versus orientation coverage and antenna/body transforms before 6DoF evaluation.",
+          "Calibration": "Camera intrinsics, IMU intrinsics, camera–IMU extrinsics and virtual-pinhole parameters are listed.",
+          "Release status": "README says data/calibrations are on Google Drive; repository source-code release is still stated as after acceptance.",
+          "Evidence limit": "No dense depth GT, complete-download check, or measured synchronization-error bound is asserted here."
+        },
+        "zh": {
+          "输入": "30 Hz 拼接 ERP、双鱼眼 ROS1 记录、虚拟透视序列，以及 1000 Hz IMU。",
+          "参考": "README 列出 5 Hz RTK 轨迹；六自由度评测前需检查文件/论文，核对位置与姿态覆盖及天线/机体变换。",
+          "标定": "列出相机内参、IMU 内参、相机–IMU 外参及虚拟透视参数。",
+          "发布状态": "README 声称数据/标定可从 Google Drive 下载；代码仍写明接收后发布。",
+          "证据限制": "本条目不宣称稠密深度真值、完整下载验证或已测同步误差界限。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Access marked unknown because the linked Drive archive was not downloaded or unpacked.",
+          "A linked dataset release does not imply the full SLAM code is released."
+        ],
+        "zh": [
+          "由于未下载和解包 Drive 归档，获取状态标为未知。",
+          "链接数据发布不代表完整 SLAM 代码已经发布。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/YYWumm/PanoAir",
+          "title": "PanoAir official README, sensor rates and release roadmap"
+        },
+        {
+          "url": "https://arxiv.org/abs/2604.00852",
+          "title": "PanoAir 2026 preprint"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Real UAV panoramic-inertial sequences across illumination and flight conditions; the official Drive release is linked but archive access remains unverified.",
+        "zh": "跨光照和飞行条件的真实无人机全景惯性序列；官方提供 Drive 数据链接，但本次未核验归档访问。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Inputs": "30 Hz stitched ERP; dual-fisheye ROS1 recordings and virtual pinhole sequences; 1000 Hz IMU.",
+          "Reference": "README lists 5 Hz RTK trajectories. Inspect files/paper for position versus orientation coverage and antenna/body transforms before 6DoF evaluation.",
+          "Calibration": "Camera intrinsics, IMU intrinsics, camera–IMU extrinsics and virtual-pinhole parameters are listed.",
+          "Release status": "README says data/calibrations are on Google Drive; repository source-code release is still stated as after acceptance.",
+          "Evidence limit": "No dense depth GT, complete-download check, or measured synchronization-error bound is asserted here."
+        },
+        "zh": {
+          "输入": "30 Hz 拼接 ERP、双鱼眼 ROS1 记录、虚拟透视序列，以及 1000 Hz IMU。",
+          "参考": "README 列出 5 Hz RTK 轨迹；六自由度评测前需检查文件/论文，核对位置与姿态覆盖及天线/机体变换。",
+          "标定": "列出相机内参、IMU 内参、相机–IMU 外参及虚拟透视参数。",
+          "发布状态": "README 声称数据/标定可从 Google Drive 下载；代码仍写明接收后发布。",
+          "证据限制": "本条目不宣称稠密深度真值、完整下载验证或已测同步误差界限。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Access marked unknown because the linked Drive archive was not downloaded or unpacked.",
+          "A linked dataset release does not imply the full SLAM code is released."
+        ],
+        "zh": [
+          "由于未下载和解包 Drive 归档，获取状态标为未知。",
+          "链接数据发布不代表完整 SLAM 代码已经发布。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Repository is GPL-3.0; a separate dataset licence was not verified. Do not infer data rights from the code licence.",
+        "zh": "仓库标为 GPL-3.0；未核验单独数据许可，不根据代码许可推断数据权利。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
     },
     {
       "id": "panogsslam2026",
@@ -4525,6 +4799,156 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "ds_oxford_spires",
+      "name": "Oxford Spires",
+      "title": "The Oxford Spires Dataset: Benchmarking Large-Scale LiDAR-Visual Localisation, Reconstruction and Radiance Field Methods",
+      "year": 2025,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "multi"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Three colour fisheye cameras",
+        "LiDAR",
+        "IMU",
+        "Survey TLS"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Three colour fisheye cameras",
+          "LiDAR",
+          "IMU",
+          "Survey TLS"
+        ],
+        "zh": [
+          "三彩色鱼眼相机",
+          "LiDAR",
+          "IMU",
+          "地面激光测量"
+        ]
+      },
+      "groundTruth": [
+        "Survey 3D map",
+        "Map-registered metric poses",
+        "Projected sparse depth"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Survey 3D map",
+          "Map-registered metric poses",
+          "Projected sparse depth"
+        ],
+        "zh": [
+          "测量三维地图",
+          "地图配准米制位姿",
+          "投影稀疏深度"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://dynamic.robots.ox.ac.uk/datasets/oxford-spires/",
+      "paperUrl": "https://arxiv.org/abs/2411.10546",
+      "downloadUrl": "https://github.com/ori-drs/oxford_spires_dataset#download",
+      "license": {
+        "en": "CC BY-NC-SA 4.0; intended for non-commercial academic use.",
+        "zh": "CC BY-NC-SA 4.0，面向非商业学术用途。"
+      },
+      "summary": "三路彩色鱼眼与测量地图构成的大尺度定位/重建基准，官方工具可由 LiDAR 生成图像稀疏深度。",
+      "details": {
+        "en": {
+          "Inputs": "Three global-shutter colour fisheyes at 20 Hz, Hesai QT64 LiDAR at 10 Hz and camera-synchronized IMU at 400 Hz.",
+          "Independent map": "Leica RTC360 TLS provides millimetre-accurate reference geometry.",
+          "Pose reference": "Core sequences have centimetre-accurate LiDAR poses registered to the TLS map; poses give base-to-world transforms.",
+          "Derived depth": "Official script projects undistorted LiDAR clouds into cameras. These are scan-derived sparse depths, not dense independent depth labels.",
+          "Data hygiene": "Calibration and raw recordings are supplied. Keep VILENS-SLAM/COLMAP outputs separate from survey GT."
+        },
+        "zh": {
+          "输入": "三路 20 Hz 全局快门彩色鱼眼、10 Hz Hesai QT64 LiDAR，以及与相机同步的 400 Hz IMU。",
+          "独立地图": "Leica RTC360 地面激光扫描提供毫米级参考几何。",
+          "位姿参考": "核心序列提供配准到测量地图的厘米级 LiDAR 位姿，为基座到世界变换。",
+          "推导深度": "官方脚本将去畸变 LiDAR 点云投到相机，所得为扫描推导的稀疏深度，并非稠密独立深度标签。",
+          "数据区分": "提供标定与原始记录；VILENS-SLAM/COLMAP 输出需与测量真值分开。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Not all sequences have the core localisation ground-truth trajectory.",
+          "TLS map accuracy and trajectory-registration accuracy are different quantities.",
+          "2025 denotes public release/acceptance; the preprint first appeared in 2024."
+        ],
+        "zh": [
+          "并非所有序列都具有核心定位基准的真值轨迹。",
+          "地面扫描地图精度与轨迹配准精度是不同指标。",
+          "2025 对应公开发布/接收年份；预印本首发于 2024 年。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://dynamic.robots.ox.ac.uk/datasets/oxford-spires/",
+          "title": "Oxford Spires official sensors, references, core sequences and licence"
+        },
+        {
+          "url": "https://github.com/ori-drs/oxford_spires_dataset",
+          "title": "Oxford Spires official downloader and depth-image generation"
+        },
+        {
+          "url": "https://arxiv.org/abs/2411.10546",
+          "title": "Oxford Spires dataset paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Three colour fisheye views and survey maps for large-scale localisation/reconstruction; official tools can derive sparse image depth from LiDAR.",
+        "zh": "三路彩色鱼眼与测量地图构成的大尺度定位/重建基准，官方工具可由 LiDAR 生成图像稀疏深度。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Inputs": "Three global-shutter colour fisheyes at 20 Hz, Hesai QT64 LiDAR at 10 Hz and camera-synchronized IMU at 400 Hz.",
+          "Independent map": "Leica RTC360 TLS provides millimetre-accurate reference geometry.",
+          "Pose reference": "Core sequences have centimetre-accurate LiDAR poses registered to the TLS map; poses give base-to-world transforms.",
+          "Derived depth": "Official script projects undistorted LiDAR clouds into cameras. These are scan-derived sparse depths, not dense independent depth labels.",
+          "Data hygiene": "Calibration and raw recordings are supplied. Keep VILENS-SLAM/COLMAP outputs separate from survey GT."
+        },
+        "zh": {
+          "输入": "三路 20 Hz 全局快门彩色鱼眼、10 Hz Hesai QT64 LiDAR，以及与相机同步的 400 Hz IMU。",
+          "独立地图": "Leica RTC360 地面激光扫描提供毫米级参考几何。",
+          "位姿参考": "核心序列提供配准到测量地图的厘米级 LiDAR 位姿，为基座到世界变换。",
+          "推导深度": "官方脚本将去畸变 LiDAR 点云投到相机，所得为扫描推导的稀疏深度，并非稠密独立深度标签。",
+          "数据区分": "提供标定与原始记录；VILENS-SLAM/COLMAP 输出需与测量真值分开。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Not all sequences have the core localisation ground-truth trajectory.",
+          "TLS map accuracy and trajectory-registration accuracy are different quantities.",
+          "2025 denotes public release/acceptance; the preprint first appeared in 2024."
+        ],
+        "zh": [
+          "并非所有序列都具有核心定位基准的真值轨迹。",
+          "地面扫描地图精度与轨迹配准精度是不同指标。",
+          "2025 对应公开发布/接收年份；预印本首发于 2024 年。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY-NC-SA 4.0; intended for non-commercial academic use.",
+        "zh": "CC BY-NC-SA 4.0，面向非商业学术用途。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
       "id": "panoslam2025",
       "collection": "slam",
       "name": "PanoSLAM (Panoptic)",
@@ -4620,6 +5044,270 @@ window.ATLAS_DATA = {
           535
         ]
       }
+    },
+    {
+      "id": "ds_tof360",
+      "name": "ToF-360",
+      "title": "ToF-360: A Panoramic Time-of-flight RGB-D Dataset for Single Capture Indoor Semantic 3D Reconstruction",
+      "year": 2025,
+      "cameras": [
+        "panoramic",
+        "fisheye"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "360° ToF RGB-D sensor"
+      ],
+      "sensorLabels": {
+        "en": [
+          "360° ToF RGB-D sensor"
+        ],
+        "zh": [
+          "360° ToF RGB-D 传感器"
+        ]
+      },
+      "groundTruth": [
+        "Measured radial depth",
+        "Normals and XYZ",
+        "Semantic/layout labels"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Measured radial depth",
+          "Normals and XYZ",
+          "Semantic/layout labels"
+        ],
+        "zh": [
+          "实测径向深度",
+          "法向与 XYZ",
+          "语义及布局标注"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://huggingface.co/datasets/COLE-Ricoh/ToF-360",
+      "paperUrl": "https://openaccess.thecvf.com/content/CVPR2025W/PBVS/html/Kanayama_ToF-360_-_A_Panoramic_Time-of-flight_RGB-D_Dataset_for_Single_Capture_CVPRW_2025_paper.html",
+      "downloadUrl": "https://huggingface.co/datasets/COLE-Ricoh/ToF-360/tree/main",
+      "license": {
+        "en": "CC BY-NC-SA 4.0 according to the official Hugging Face card.",
+        "zh": "官方 Hugging Face 数据卡标注 CC BY-NC-SA 4.0。"
+      },
+      "summary": "真实全景 ToF RGB-D 测量，包含双鱼眼来源与 ERP 标注；深度逐次拍摄获得，不由全局网格渲染。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Paper describes 5792×2896 ERP color/depth/XYZ products and raw fisheye capture. Bottom blind regions require masking.",
+          "Depth and validity": "16-bit PNG radial distance: meters = value / 512; zero means missing. XYZ NumPy data uses millimeter precision.",
+          "Ground truth": "ToF sensor measurements, with normals, XYZ/HHA products and manual pixel semantics/layout. No independent continuous trajectory GT is claimed.",
+          "Evaluation": "The official card lists 179 ERP images across four scenes; the workshop paper reports a different collection total. Pin the actual release and scene split.",
+          "Calibration": "Use the supplied fisheye-to-ERP processing and pixel-aligned products; do not apply a pinhole Z backprojection to radial ERP depth."
+        },
+        "zh": {
+          "投影与输入": "论文描述 5792×2896 ERP 彩色、深度、XYZ 产品与原始鱼眼采集；底部盲区需掩码处理。",
+          "深度与有效性": "16 位 PNG 存径向距离：米数＝数值 / 512，0 表示缺失；XYZ NumPy 数据具有毫米精度。",
+          "真值来源": "ToF 传感器测量，提供法向、XYZ、HHA 及人工逐像素语义、布局；此条不声称含独立连续轨迹真值。",
+          "评测协议": "官方卡片列四个场景、179 幅 ERP 图，而研讨会论文报告的采集总数不同；评测需固定具体发布与场景划分。",
+          "标定": "使用配套鱼眼转 ERP 处理与像素对齐产品，不能用针孔 Z 反投影处理 ERP 径向深度。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Useful for real panoramic depth/domain transfer; its original benchmarks emphasize semantics and layout."
+        ],
+        "zh": [
+          "可用于真实全景深度和域迁移，原论文基准主要强调语义与布局。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://huggingface.co/datasets/COLE-Ricoh/ToF-360",
+          "title": "Official data card: units, masks and license"
+        },
+        {
+          "url": "https://openaccess.thecvf.com/content/CVPR2025W/PBVS/papers/Kanayama_ToF-360_-_A_Panoramic_Time-of-flight_RGB-D_Dataset_for_Single_Capture_CVPRW_2025_paper.pdf",
+          "title": "Official paper: capture and resolution"
+        },
+        {
+          "url": "https://www.dfki.de/en/web/research/projects-and-publications/publication/15783",
+          "title": "Authors' publication and DOI"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Real panoramic ToF RGB-D measurements, with dual-fisheye source data and ERP annotations; depth is measured per capture rather than rendered from a global mesh.",
+        "zh": "真实全景 ToF RGB-D 测量，包含双鱼眼来源与 ERP 标注；深度逐次拍摄获得，不由全局网格渲染。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Paper describes 5792×2896 ERP color/depth/XYZ products and raw fisheye capture. Bottom blind regions require masking.",
+          "Depth and validity": "16-bit PNG radial distance: meters = value / 512; zero means missing. XYZ NumPy data uses millimeter precision.",
+          "Ground truth": "ToF sensor measurements, with normals, XYZ/HHA products and manual pixel semantics/layout. No independent continuous trajectory GT is claimed.",
+          "Evaluation": "The official card lists 179 ERP images across four scenes; the workshop paper reports a different collection total. Pin the actual release and scene split.",
+          "Calibration": "Use the supplied fisheye-to-ERP processing and pixel-aligned products; do not apply a pinhole Z backprojection to radial ERP depth."
+        },
+        "zh": {
+          "投影与输入": "论文描述 5792×2896 ERP 彩色、深度、XYZ 产品与原始鱼眼采集；底部盲区需掩码处理。",
+          "深度与有效性": "16 位 PNG 存径向距离：米数＝数值 / 512，0 表示缺失；XYZ NumPy 数据具有毫米精度。",
+          "真值来源": "ToF 传感器测量，提供法向、XYZ、HHA 及人工逐像素语义、布局；此条不声称含独立连续轨迹真值。",
+          "评测协议": "官方卡片列四个场景、179 幅 ERP 图，而研讨会论文报告的采集总数不同；评测需固定具体发布与场景划分。",
+          "标定": "使用配套鱼眼转 ERP 处理与像素对齐产品，不能用针孔 Z 反投影处理 ERP 径向深度。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Useful for real panoramic depth/domain transfer; its original benchmarks emphasize semantics and layout."
+        ],
+        "zh": [
+          "可用于真实全景深度和域迁移，原论文基准主要强调语义与布局。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY-NC-SA 4.0 according to the official Hugging Face card.",
+        "zh": "官方 Hugging Face 数据卡标注 CC BY-NC-SA 4.0。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_360loc",
+      "name": "360Loc",
+      "title": "360Loc: A Dataset and Benchmark for Omnidirectional Visual Localization with Cross-device Queries",
+      "year": 2024,
+      "cameras": [
+        "panoramic",
+        "fisheye",
+        "wide",
+        "perspective"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "360° RGB",
+        "LiDAR-assisted mapping"
+      ],
+      "sensorLabels": {
+        "en": [
+          "360° RGB",
+          "LiDAR-assisted mapping"
+        ],
+        "zh": [
+          "360° RGB",
+          "LiDAR 辅助建图"
+        ]
+      },
+      "groundTruth": [
+        "Metric 6DoF poses"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Metric 6DoF poses"
+        ],
+        "zh": [
+          "米制六自由度位姿"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://huajianup.github.io/research/360Loc/",
+      "paperUrl": "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html",
+      "downloadUrl": "https://github.com/HuajianUP/360Loc",
+      "license": {
+        "en": "No explicit dataset reuse licence located in the inspected official page/README; confirm with authors.",
+        "zh": "本次查看的官方页面/README 未找到明确数据复用许可，需向作者确认。"
+      },
+      "summary": "提供原生全景参考/查询图像及 LiDAR 辅助六自由度位姿，用于跨相机定位，并可生成虚拟鱼眼和透视查询。",
+      "details": {
+        "en": {
+          "Task": "Absolute 6DoF visual localisation against a mapped scene; not primarily a dense-depth benchmark.",
+          "Query generation": "Official release keeps original 360° images and generates lower-FoV fisheye/pinhole queries with supplied camera configurations.",
+          "Pose provenance": "360° imagery and LiDAR mapping jointly establish metric reference poses.",
+          "Pose format": "JSON stores camera-to-world transforms; text uses x y z qw qx qy qz. Follow the toolkit's COLMAP conventions.",
+          "Access": "Official toolkit links downloads and supplies processing scripts; archive contents were not fully downloaded here."
+        },
+        "zh": {
+          "任务": "已建图场景中的绝对六自由度视觉定位，主要目标不是稠密深度评测。",
+          "查询生成": "官方保留原始 360° 图像，使用相机配置生成较小视场的鱼眼/透视查询。",
+          "位姿来源": "结合 360° 图像与 LiDAR 建图生成米制参考位姿。",
+          "位姿格式": "JSON 存储相机到世界变换；文本采用 x y z qw qx qy qz，遵循工具中的 COLMAP 约定。",
+          "获取": "官方工具链接数据并提供处理脚本；本次未完整下载和解包归档。"
+        }
+      },
+      "notes": {
+        "en": [
+          "No complete dense per-pixel depth GT is claimed.",
+          "Virtual fisheye queries are resampled views, not separate physical fisheye recordings."
+        ],
+        "zh": [
+          "不宣称具有完整逐像素深度真值。",
+          "虚拟鱼眼查询是重采样视图，不是另外采集的实体鱼眼图像。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://huajianup.github.io/research/360Loc/",
+          "title": "360Loc official project and mapping provenance"
+        },
+        {
+          "url": "https://github.com/HuajianUP/360Loc",
+          "title": "360Loc release, virtual cameras and pose formats"
+        },
+        {
+          "url": "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html",
+          "title": "360Loc CVPR 2024 paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Native panoramic reference/query images and LiDAR-assisted 6DoF poses for cross-camera localisation, including virtual fisheye and pinhole queries.",
+        "zh": "提供原生全景参考/查询图像及 LiDAR 辅助六自由度位姿，用于跨相机定位，并可生成虚拟鱼眼和透视查询。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Task": "Absolute 6DoF visual localisation against a mapped scene; not primarily a dense-depth benchmark.",
+          "Query generation": "Official release keeps original 360° images and generates lower-FoV fisheye/pinhole queries with supplied camera configurations.",
+          "Pose provenance": "360° imagery and LiDAR mapping jointly establish metric reference poses.",
+          "Pose format": "JSON stores camera-to-world transforms; text uses x y z qw qx qy qz. Follow the toolkit's COLMAP conventions.",
+          "Access": "Official toolkit links downloads and supplies processing scripts; archive contents were not fully downloaded here."
+        },
+        "zh": {
+          "任务": "已建图场景中的绝对六自由度视觉定位，主要目标不是稠密深度评测。",
+          "查询生成": "官方保留原始 360° 图像，使用相机配置生成较小视场的鱼眼/透视查询。",
+          "位姿来源": "结合 360° 图像与 LiDAR 建图生成米制参考位姿。",
+          "位姿格式": "JSON 存储相机到世界变换；文本采用 x y z qw qx qy qz，遵循工具中的 COLMAP 约定。",
+          "获取": "官方工具链接数据并提供处理脚本；本次未完整下载和解包归档。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "No complete dense per-pixel depth GT is claimed.",
+          "Virtual fisheye queries are resampled views, not separate physical fisheye recordings."
+        ],
+        "zh": [
+          "不宣称具有完整逐像素深度真值。",
+          "虚拟鱼眼查询是重采样视图，不是另外采集的实体鱼眼图像。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "No explicit dataset reuse licence located in the inspected official page/README; confirm with authors.",
+        "zh": "本次查看的官方页面/README 未找到明确数据复用许可，需向作者确认。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
     },
     {
       "id": "360orbslam2024",
@@ -5105,6 +5793,158 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "ds_adt",
+      "name": "Aria Digital Twin",
+      "title": "Aria Digital Twin: A New Benchmark Dataset for Egocentric 3D Machine Perception",
+      "year": 2023,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "multi"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "mixed",
+      "sensors": [
+        "RGB",
+        "Stereo monochrome",
+        "IMU",
+        "Motion capture",
+        "Digital twin"
+      ],
+      "sensorLabels": {
+        "en": [
+          "RGB",
+          "Stereo monochrome",
+          "IMU",
+          "Motion capture",
+          "Digital twin"
+        ],
+        "zh": [
+          "RGB",
+          "双路灰度",
+          "IMU",
+          "动作捕捉",
+          "数字孪生"
+        ]
+      },
+      "groundTruth": [
+        "Rendered Z-depth",
+        "GT device poses",
+        "Object poses"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Rendered Z-depth",
+          "GT device poses",
+          "Object poses"
+        ],
+        "zh": [
+          "渲染 Z 深度",
+          "设备真值位姿",
+          "物体位姿"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset",
+      "paperUrl": "https://openaccess.thecvf.com/content/ICCV2023/html/Pan_Aria_Digital_Twin_A_New_Benchmark_Dataset_for_Egocentric_3D_ICCV_2023_paper.html",
+      "downloadUrl": "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/dataset_download",
+      "license": {
+        "en": "Aria Digital Twin Dataset License Agreement; download implies acceptance. Tooling licences do not replace dataset terms.",
+        "zh": "遵循 Aria Digital Twin 数据集许可协议；下载即表示接受。工具许可不替代数据条款。"
+      },
+      "summary": "真实第一视角鱼眼记录配合动作捕捉/数字孪生真值，明确区分渲染深度与 MPS 估计产物。",
+      "details": {
+        "en": {
+          "Geometry and data": "Aria raw RGB, two monochrome camera streams, IMUs, calibrations and synchronized ground-truth products in VRS/CSV.",
+          "Depth convention": "ADT depth_images.vrs stores camera-Z depth in millimetres, unlike ASE ray distances; convert units before backprojection.",
+          "Pose provenance": "aria_trajectory.csv is generated by the ADT GT system. MPS open/closed-loop trajectories and semidense points are estimates.",
+          "Coordinates and time": "Ground truth and aligned MPS outputs use the ADT scene frame; use stream timestamps and alignment metadata.",
+          "Dynamic coverage": "Select body-mesh-occlusion versus no-body depth consistently; not every sequence has body-skeleton GT."
+        },
+        "zh": {
+          "成像与数据": "Aria 原始 RGB、两路灰度相机、IMU、标定与同步真值，以 VRS/CSV 提供。",
+          "深度约定": "ADT 的 depth_images.vrs 为毫米单位的相机 Z 深度，区别于 ASE 的射线距离；反投影前先换算单位。",
+          "位姿来源": "aria_trajectory.csv 来自 ADT 真值系统；MPS 开/闭环轨迹及半稠密点云是估计结果。",
+          "坐标与时间": "真值及对齐后的 MPS 数据使用 ADT 场景坐标系；按各流时间戳及对齐元数据读取。",
+          "动态覆盖": "一致选择包含人体网格遮挡或不含人体的深度；并非每个序列都有骨架真值。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Mixed means real observations plus rendered digital-twin annotations, not measured RGB-D depth.",
+          "Do not count MPS estimates as independent pose GT; website/paper sequence totals vary with release version."
+        ],
+        "zh": [
+          "“混合”指真实观测加数字孪生渲染标签，不是实测 RGB-D 深度。",
+          "MPS 估计不能当作独立位姿真值；网页与论文序列总数随发布版本变化。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset",
+          "title": "ADT official dataset overview"
+        },
+        {
+          "url": "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/data_format",
+          "title": "ADT Z-depth units, GT/MPS separation and coordinates"
+        },
+        {
+          "url": "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/dataset_download",
+          "title": "ADT download, sign-up and licence agreement"
+        },
+        {
+          "url": "https://openaccess.thecvf.com/content/ICCV2023/html/Pan_Aria_Digital_Twin_A_New_Benchmark_Dataset_for_Egocentric_3D_ICCV_2023_paper.html",
+          "title": "ADT ICCV 2023 dataset paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Real egocentric fisheye recordings paired with motion-capture/digital-twin ground truth; rendered depth and estimated MPS products are explicitly distinct.",
+        "zh": "真实第一视角鱼眼记录配合动作捕捉/数字孪生真值，明确区分渲染深度与 MPS 估计产物。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Geometry and data": "Aria raw RGB, two monochrome camera streams, IMUs, calibrations and synchronized ground-truth products in VRS/CSV.",
+          "Depth convention": "ADT depth_images.vrs stores camera-Z depth in millimetres, unlike ASE ray distances; convert units before backprojection.",
+          "Pose provenance": "aria_trajectory.csv is generated by the ADT GT system. MPS open/closed-loop trajectories and semidense points are estimates.",
+          "Coordinates and time": "Ground truth and aligned MPS outputs use the ADT scene frame; use stream timestamps and alignment metadata.",
+          "Dynamic coverage": "Select body-mesh-occlusion versus no-body depth consistently; not every sequence has body-skeleton GT."
+        },
+        "zh": {
+          "成像与数据": "Aria 原始 RGB、两路灰度相机、IMU、标定与同步真值，以 VRS/CSV 提供。",
+          "深度约定": "ADT 的 depth_images.vrs 为毫米单位的相机 Z 深度，区别于 ASE 的射线距离；反投影前先换算单位。",
+          "位姿来源": "aria_trajectory.csv 来自 ADT 真值系统；MPS 开/闭环轨迹及半稠密点云是估计结果。",
+          "坐标与时间": "真值及对齐后的 MPS 数据使用 ADT 场景坐标系；按各流时间戳及对齐元数据读取。",
+          "动态覆盖": "一致选择包含人体网格遮挡或不含人体的深度；并非每个序列都有骨架真值。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Mixed means real observations plus rendered digital-twin annotations, not measured RGB-D depth.",
+          "Do not count MPS estimates as independent pose GT; website/paper sequence totals vary with release version."
+        ],
+        "zh": [
+          "“混合”指真实观测加数字孪生渲染标签，不是实测 RGB-D 深度。",
+          "MPS 估计不能当作独立位姿真值；网页与论文序列总数随发布版本变化。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Aria Digital Twin Dataset License Agreement; download implies acceptance. Tooling licences do not replace dataset terms.",
+        "zh": "遵循 Aria Digital Twin 数据集许可协议；下载即表示接受。工具许可不替代数据条款。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
       "id": "dpvo2023",
       "collection": "slam",
       "name": "DPVO",
@@ -5391,6 +6231,413 @@ window.ATLAS_DATA = {
           345
         ]
       }
+    },
+    {
+      "id": "ds_deep360",
+      "name": "Deep360",
+      "title": "MODE: Multi-view Omnidirectional Depth Estimation with 360° Cameras",
+      "year": 2022,
+      "cameras": [
+        "panoramic",
+        "multi"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "synthetic",
+      "sensors": [
+        "CARLA virtual cameras"
+      ],
+      "sensorLabels": {
+        "en": [
+          "CARLA virtual cameras"
+        ],
+        "zh": [
+          "CARLA 虚拟相机"
+        ]
+      },
+      "groundTruth": [
+        "Rendered depth",
+        "Stereo disparity"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Rendered depth",
+          "Stereo disparity"
+        ],
+        "zh": [
+          "渲染深度",
+          "立体视差"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://github.com/nju-ee/MODE-2022",
+      "paperUrl": "https://link.springer.com/chapter/10.1007/978-3-031-19827-4_12",
+      "downloadUrl": "https://drive.google.com/drive/folders/1YJIaqDGWMTmGF0tyW8ktfG26xk-jSntg?usp=sharing",
+      "license": {
+        "en": "Repository BSD-3-Clause is code licensing; an explicit dataset-wide license was not verified from the overview.",
+        "zh": "仓库 BSD-3-Clause 属代码许可；概览未核实明确的数据集统一许可。"
+      },
+      "summary": "合成室外多视全景，配套深度、视差及泥点、水滴、眩光污染镜头版本。",
+      "details": {
+        "en": {
+          "Projection and inputs": "CARLA-generated multi-camera road panoramas; the paper uses four 360° views. Preserve camera placement/baseline from the archive README.",
+          "Depth and validity": "Rendered depth and disparity are separate targets. File scale, range convention and invalid masks must follow archive README and official dataloader.",
+          "Splits": "Official repository lists 2100 train, 300 validation and 600 test frames across six episode archives; preserve the provided partitions.",
+          "Robustness evaluation": "Clean and soiled versions share underlying scenes; never put one version in training and its counterpart in test.",
+          "Calibration and access": "Known synthetic geometry provides stereo scale; it is not a measured real-rig benchmark. Official Drive folder and checksums are published."
+        },
+        "zh": {
+          "投影与输入": "CARLA 生成多相机道路全景；论文使用四路 360° 视图，需保留压缩包说明中的相机布局和基线。",
+          "深度与有效性": "渲染深度与视差是不同目标；文件缩放、距离约定与无效掩码必须按压缩包说明及官方加载器处理。",
+          "数据划分": "官方列出 2100 训练、300 验证、600 测试帧，分为六个片段压缩包；应保留现成划分。",
+          "鲁棒性评测": "干净和污染版本共享源场景，不能把同帧不同版本分别放入训练和测试。",
+          "标定与获取": "已知合成几何提供立体尺度，不是真实装置实测基准；官方发布 Drive 文件夹与校验和。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Depth360 (SegFuse) and Deep360 (MODE) are different datasets despite similar names."
+        ],
+        "zh": [
+          "Depth360（SegFuse）与 Deep360（MODE）名称相近但为不同数据集。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/nju-ee/MODE-2022",
+          "title": "Official dataset structure, splits and download"
+        },
+        {
+          "url": "https://link.springer.com/chapter/10.1007/978-3-031-19827-4_12",
+          "title": "Official MODE paper"
+        },
+        {
+          "url": "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf",
+          "title": "Author paper with CARLA data generation"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Synthetic outdoor multi-view panoramas with depth/disparity and a soiled-lens variant for mud, droplets and glare.",
+        "zh": "合成室外多视全景，配套深度、视差及泥点、水滴、眩光污染镜头版本。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "CARLA-generated multi-camera road panoramas; the paper uses four 360° views. Preserve camera placement/baseline from the archive README.",
+          "Depth and validity": "Rendered depth and disparity are separate targets. File scale, range convention and invalid masks must follow archive README and official dataloader.",
+          "Splits": "Official repository lists 2100 train, 300 validation and 600 test frames across six episode archives; preserve the provided partitions.",
+          "Robustness evaluation": "Clean and soiled versions share underlying scenes; never put one version in training and its counterpart in test.",
+          "Calibration and access": "Known synthetic geometry provides stereo scale; it is not a measured real-rig benchmark. Official Drive folder and checksums are published."
+        },
+        "zh": {
+          "投影与输入": "CARLA 生成多相机道路全景；论文使用四路 360° 视图，需保留压缩包说明中的相机布局和基线。",
+          "深度与有效性": "渲染深度与视差是不同目标；文件缩放、距离约定与无效掩码必须按压缩包说明及官方加载器处理。",
+          "数据划分": "官方列出 2100 训练、300 验证、600 测试帧，分为六个片段压缩包；应保留现成划分。",
+          "鲁棒性评测": "干净和污染版本共享源场景，不能把同帧不同版本分别放入训练和测试。",
+          "标定与获取": "已知合成几何提供立体尺度，不是真实装置实测基准；官方发布 Drive 文件夹与校验和。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Depth360 (SegFuse) and Deep360 (MODE) are different datasets despite similar names."
+        ],
+        "zh": [
+          "Depth360（SegFuse）与 Deep360（MODE）名称相近但为不同数据集。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Repository BSD-3-Clause is code licensing; an explicit dataset-wide license was not verified from the overview.",
+        "zh": "仓库 BSD-3-Clause 属代码许可；概览未核实明确的数据集统一许可。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_hilti2022",
+      "name": "Hilti-Oxford 2022",
+      "title": "Hilti-Oxford Dataset: A Millimeter-Accurate Benchmark for Simultaneous Localization and Mapping",
+      "year": 2022,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Five fisheye cameras",
+        "LiDAR",
+        "IMU",
+        "Survey control"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Five fisheye cameras",
+          "LiDAR",
+          "IMU",
+          "Survey control"
+        ],
+        "zh": [
+          "五鱼眼相机",
+          "LiDAR",
+          "IMU",
+          "测量控制点"
+        ]
+      },
+      "groundTruth": [
+        "Sparse metric positions",
+        "Selected 6DoF"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Sparse metric positions",
+          "Selected 6DoF"
+        ],
+        "zh": [
+          "稀疏米制位置",
+          "部分六自由度真值"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://hilti-challenge.com/dataset-2022",
+      "paperUrl": "https://arxiv.org/abs/2208.09825",
+      "downloadUrl": "https://hilti-challenge.com/dataset-2022",
+      "license": {
+        "en": "CC BY-NC-SA 3.0 dataset and benchmark.",
+        "zh": "数据与基准采用 CC BY-NC-SA 3.0。"
+      },
+      "summary": "五个同步鱼眼相机、Hesai LiDAR 与 IMU，覆盖施工现场和谢尔登剧院，以毫米级测量控制点评估。",
+      "details": {
+        "en": {
+          "Inputs": "Five 40 Hz global-shutter fisheye streams, 400 Hz IMU and 10 Hz Hesai LiDAR.",
+          "Ground truth": "Challenge data uses sparse surveyed 3DoF positions; selected additional sequences provide denser 6DoF references.",
+          "Reference frame": "All released ground-truth data is expressed in the IMU frame.",
+          "Calibration": "Kalibr-like equidistant camera models, camera–IMU calibration recordings, noise data and rig CAD are provided.",
+          "Protocol": "Respect the challenge control-point evaluation; do not assume every frame has millimetre-accurate orientation."
+        },
+        "zh": {
+          "输入": "五路 40 Hz 全局快门鱼眼、400 Hz IMU 与 10 Hz Hesai LiDAR。",
+          "真值": "挑战序列采用稀疏测量三维位置；部分附加序列另有更密的六自由度参考。",
+          "参考坐标系": "发布的真值统一位于 IMU 坐标系。",
+          "标定": "提供类似 Kalibr 的等距畸变参数、相机–IMU 标定记录、噪声资料和机架 CAD。",
+          "协议": "采用挑战控制点评测；不能假设每帧都有毫米级姿态。"
+        }
+      },
+      "notes": {
+        "en": [
+          "2022 denotes challenge release; the journal citation is RA-L 2023.",
+          "Five fisheye views are a camera rig, not a single ERP panorama."
+        ],
+        "zh": [
+          "2022 为挑战发布年份，期刊引用为 RA-L 2023。",
+          "五路鱼眼是相机组，不是单幅 ERP 全景。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://hilti-challenge.com/dataset-2022",
+          "title": "Hilti-Oxford official ground-truth coverage and licence"
+        },
+        {
+          "url": "https://arxiv.org/abs/2208.09825",
+          "title": "Hilti-Oxford camera model, synchronization and reference methodology"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Five synchronized fisheye cameras, Hesai LiDAR and IMU in construction sites and the Sheldonian Theatre; surveyed control points target millimetre accuracy.",
+        "zh": "五个同步鱼眼相机、Hesai LiDAR 与 IMU，覆盖施工现场和谢尔登剧院，以毫米级测量控制点评估。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Inputs": "Five 40 Hz global-shutter fisheye streams, 400 Hz IMU and 10 Hz Hesai LiDAR.",
+          "Ground truth": "Challenge data uses sparse surveyed 3DoF positions; selected additional sequences provide denser 6DoF references.",
+          "Reference frame": "All released ground-truth data is expressed in the IMU frame.",
+          "Calibration": "Kalibr-like equidistant camera models, camera–IMU calibration recordings, noise data and rig CAD are provided.",
+          "Protocol": "Respect the challenge control-point evaluation; do not assume every frame has millimetre-accurate orientation."
+        },
+        "zh": {
+          "输入": "五路 40 Hz 全局快门鱼眼、400 Hz IMU 与 10 Hz Hesai LiDAR。",
+          "真值": "挑战序列采用稀疏测量三维位置；部分附加序列另有更密的六自由度参考。",
+          "参考坐标系": "发布的真值统一位于 IMU 坐标系。",
+          "标定": "提供类似 Kalibr 的等距畸变参数、相机–IMU 标定记录、噪声资料和机架 CAD。",
+          "协议": "采用挑战控制点评测；不能假设每帧都有毫米级姿态。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "2022 denotes challenge release; the journal citation is RA-L 2023.",
+          "Five fisheye views are a camera rig, not a single ERP panorama."
+        ],
+        "zh": [
+          "2022 为挑战发布年份，期刊引用为 RA-L 2023。",
+          "五路鱼眼是相机组，不是单幅 ERP 全景。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY-NC-SA 3.0 dataset and benchmark.",
+        "zh": "数据与基准采用 CC BY-NC-SA 3.0。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_kitti360",
+      "name": "KITTI-360",
+      "title": "KITTI-360: A Novel Dataset and Benchmarks for Urban Scene Understanding in 2D and 3D",
+      "year": 2022,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "perspective",
+        "multi"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Stereo",
+        "Fisheye",
+        "LiDAR",
+        "GPS/IMU"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Stereo",
+          "Fisheye",
+          "LiDAR",
+          "GPS/IMU"
+        ],
+        "zh": [
+          "双目",
+          "鱼眼",
+          "LiDAR",
+          "GPS/IMU"
+        ]
+      },
+      "groundTruth": [
+        "Optimized metric poses",
+        "3D maps",
+        "Sparse LiDAR"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Optimized metric poses",
+          "3D maps",
+          "Sparse LiDAR"
+        ],
+        "zh": [
+          "优化米制位姿",
+          "三维地图",
+          "稀疏 LiDAR"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://www.cvlibs.net/datasets/kitti-360/",
+      "paperUrl": "https://arxiv.org/abs/2109.13410",
+      "downloadUrl": "https://www.cvlibs.net/datasets/kitti-360/download.php",
+      "license": {
+        "en": "CC BY-NC-SA 3.0; registration and intended-use declaration required.",
+        "zh": "CC BY-NC-SA 3.0；需注册并说明用途。"
+      },
+      "summary": "前向透视双目加两侧 180° 鱼眼的城市建图数据；360° 覆盖来自相机组，不是拼接 ERP 图像。",
+      "details": {
+        "en": {
+          "Ground truth": "Georegistered poses are optimized using SfM with GPS and LiDAR constraints, not raw OXTS alone.",
+          "Coordinates": "poses.txt is IMU-to-world; cam0_to_world.txt is rectified camera-0-to-world. Some slowly moving frames lack entries.",
+          "Depth use": "Laser scans and 3D geometry can be projected with the supplied models; this does not guarantee dense per-pixel depth.",
+          "Calibration": "Perspective intrinsics/rectification, fisheye YAMLs and sensor extrinsics are provided.",
+          "Protocol": "Use the localisation/mapping task split; avoid treating derived pose optimization as independent motion capture."
+        },
+        "zh": {
+          "真值": "地理配准位姿由 SfM 加 GPS/LiDAR 约束优化得到，并不等同于原始 OXTS。",
+          "坐标约定": "poses.txt 为 IMU 到世界；cam0_to_world.txt 为校正后相机 0 到世界；低速运动时部分帧无位姿条目。",
+          "深度使用": "可利用官方相机模型投影扫描与三维几何，但不能据此假设每像素都有稠密深度。",
+          "标定": "提供透视内参/校正、鱼眼 YAML 和传感器外参。",
+          "协议": "按定位/建图任务的划分使用；优化位姿不能当作独立动作捕捉测量。"
+        }
+      },
+      "notes": {
+        "en": [
+          "No native panoramic camera tag: the source release is multi-camera.",
+          "Depth sparsity, occlusions and scan timing require explicit masks."
+        ],
+        "zh": [
+          "不标为原生全景：源数据发布形式是多相机。",
+          "投影深度需显式处理稀疏性、遮挡和扫描时间。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://www.cvlibs.net/datasets/kitti-360/",
+          "title": "KITTI-360 official sensors, licence and tasks"
+        },
+        {
+          "url": "https://www.cvlibs.net/datasets/kitti-360/documentation.php",
+          "title": "KITTI-360 optimized poses and calibration conventions"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Urban mapping with front perspective stereo plus side 180° fisheye cameras; 360° coverage comes from a rig, not stitched ERP frames.",
+        "zh": "前向透视双目加两侧 180° 鱼眼的城市建图数据；360° 覆盖来自相机组，不是拼接 ERP 图像。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Ground truth": "Georegistered poses are optimized using SfM with GPS and LiDAR constraints, not raw OXTS alone.",
+          "Coordinates": "poses.txt is IMU-to-world; cam0_to_world.txt is rectified camera-0-to-world. Some slowly moving frames lack entries.",
+          "Depth use": "Laser scans and 3D geometry can be projected with the supplied models; this does not guarantee dense per-pixel depth.",
+          "Calibration": "Perspective intrinsics/rectification, fisheye YAMLs and sensor extrinsics are provided.",
+          "Protocol": "Use the localisation/mapping task split; avoid treating derived pose optimization as independent motion capture."
+        },
+        "zh": {
+          "真值": "地理配准位姿由 SfM 加 GPS/LiDAR 约束优化得到，并不等同于原始 OXTS。",
+          "坐标约定": "poses.txt 为 IMU 到世界；cam0_to_world.txt 为校正后相机 0 到世界；低速运动时部分帧无位姿条目。",
+          "深度使用": "可利用官方相机模型投影扫描与三维几何，但不能据此假设每像素都有稠密深度。",
+          "标定": "提供透视内参/校正、鱼眼 YAML 和传感器外参。",
+          "协议": "按定位/建图任务的划分使用；优化位姿不能当作独立动作捕捉测量。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "No native panoramic camera tag: the source release is multi-camera.",
+          "Depth sparsity, occlusions and scan timing require explicit masks."
+        ],
+        "zh": [
+          "不标为原生全景：源数据发布形式是多相机。",
+          "投影深度需显式处理稀疏性、遮挡和扫描时间。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY-NC-SA 3.0; registration and intended-use declaration required.",
+        "zh": "CC BY-NC-SA 3.0；需注册并说明用途。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
     },
     {
       "id": "okvis2_2022",
@@ -5680,6 +6927,397 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "ds_hm3d",
+      "name": "HM3D",
+      "title": "Habitat-Matterport 3D Dataset: 1000 Large-scale 3D Environments for Embodied AI",
+      "year": 2021,
+      "cameras": [
+        "perspective"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Matterport scene scans",
+        "Habitat simulator"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Matterport scene scans",
+          "Habitat simulator"
+        ],
+        "zh": [
+          "Matterport 场景扫描",
+          "Habitat 仿真器"
+        ]
+      },
+      "groundTruth": [
+        "Scanned meshes",
+        "Renderer-dependent depth"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Scanned meshes",
+          "Renderer-dependent depth"
+        ],
+        "zh": [
+          "扫描网格",
+          "依赖渲染配置的深度"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://aihabitat.org/datasets/hm3d/",
+      "paperUrl": "https://arxiv.org/abs/2109.08238",
+      "downloadUrl": "https://aihabitat.org/datasets/hm3d/",
+      "license": {
+        "en": "Free for academic non-commercial research under HM3D/Matterport access terms.",
+        "zh": "依 HM3D、Matterport 获取条款供学术非商业研究免费使用。"
+      },
+      "summary": "面向具身仿真的建筑级真实场景网格；深度训练图像对需依据明确的相机协议另行渲染。",
+      "details": {
+        "en": {
+          "Release and projection": "The official release is 3D scene scans, not fixed RGB-D videos or native ERP depth pairs. Perspective is a simulation use case; ERP is not claimed here.",
+          "Depth and validity": "Depth derives from simulator geometry. Resolution, camera model, units, clipping, range/Z and invalid masks must be specified by the generated benchmark.",
+          "Reference poses": "Rendered camera poses are generated references. They do not establish physical IMU timing or independent trajectory ground truth.",
+          "Evaluation": "Respect official train/validation scene identities. Official metadata says test scenes are held out and not publicly released.",
+          "Quality and access": "Scene-quality ratings and navigability metadata aid filtering. Download depends on Matterport research access; asset quality is not sensor-depth accuracy."
+        },
+        "zh": {
+          "发布与投影": "官方发布为三维场景扫描，不是固定 RGB-D 视频或原生 ERP 深度对。透视属于仿真用途，此条不声称自带 ERP。",
+          "深度与有效性": "深度来自仿真几何；生成基准必须注明分辨率、相机模型、单位、截断、径向距离或 Z 及无效掩码。",
+          "参考位姿": "渲染相机位姿是生成参考，不代表包含物理 IMU 时间或独立轨迹真值。",
+          "评测协议": "遵守官方训练、验证场景身份；官方元数据说明测试场景保留，不公开发布。",
+          "质量与获取": "场景质量评分与可通行元数据可辅助筛选；下载依赖 Matterport 研究访问权限，资产质量不等同于传感器深度精度。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Keep HM3D distinct from Matterport3D and HM3D-Semantics annotation releases."
+        ],
+        "zh": [
+          "HM3D、Matterport3D 与 HM3D-Semantics 标注发布需分别记录。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://aihabitat.org/datasets/hm3d/",
+          "title": "Official scope, access and scene-split metadata"
+        },
+        {
+          "url": "https://arxiv.org/abs/2109.08238",
+          "title": "HM3D dataset paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Building-scale real scene meshes for embodied simulation; depth training pairs must be rendered under a declared camera protocol.",
+        "zh": "面向具身仿真的建筑级真实场景网格；深度训练图像对需依据明确的相机协议另行渲染。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Release and projection": "The official release is 3D scene scans, not fixed RGB-D videos or native ERP depth pairs. Perspective is a simulation use case; ERP is not claimed here.",
+          "Depth and validity": "Depth derives from simulator geometry. Resolution, camera model, units, clipping, range/Z and invalid masks must be specified by the generated benchmark.",
+          "Reference poses": "Rendered camera poses are generated references. They do not establish physical IMU timing or independent trajectory ground truth.",
+          "Evaluation": "Respect official train/validation scene identities. Official metadata says test scenes are held out and not publicly released.",
+          "Quality and access": "Scene-quality ratings and navigability metadata aid filtering. Download depends on Matterport research access; asset quality is not sensor-depth accuracy."
+        },
+        "zh": {
+          "发布与投影": "官方发布为三维场景扫描，不是固定 RGB-D 视频或原生 ERP 深度对。透视属于仿真用途，此条不声称自带 ERP。",
+          "深度与有效性": "深度来自仿真几何；生成基准必须注明分辨率、相机模型、单位、截断、径向距离或 Z 及无效掩码。",
+          "参考位姿": "渲染相机位姿是生成参考，不代表包含物理 IMU 时间或独立轨迹真值。",
+          "评测协议": "遵守官方训练、验证场景身份；官方元数据说明测试场景保留，不公开发布。",
+          "质量与获取": "场景质量评分与可通行元数据可辅助筛选；下载依赖 Matterport 研究访问权限，资产质量不等同于传感器深度精度。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Keep HM3D distinct from Matterport3D and HM3D-Semantics annotation releases."
+        ],
+        "zh": [
+          "HM3D、Matterport3D 与 HM3D-Semantics 标注发布需分别记录。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Free for academic non-commercial research under HM3D/Matterport access terms.",
+        "zh": "依 HM3D、Matterport 获取条款供学术非商业研究免费使用。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_hilti2021",
+      "name": "Hilti SLAM 2021",
+      "title": "The Hilti SLAM Challenge Dataset",
+      "year": 2021,
+      "cameras": [
+        "wide",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Multi-camera",
+        "LiDAR",
+        "IMU",
+        "Total station",
+        "MoCap"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Multi-camera",
+          "LiDAR",
+          "IMU",
+          "Total station",
+          "MoCap"
+        ],
+        "zh": [
+          "多相机",
+          "LiDAR",
+          "IMU",
+          "全站仪",
+          "动作捕捉"
+        ]
+      },
+      "groundTruth": [
+        "Sparse metric positions",
+        "Selected 6DoF"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Sparse metric positions",
+          "Selected 6DoF"
+        ],
+        "zh": [
+          "稀疏米制位置",
+          "部分六自由度真值"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://hilti-challenge.com/dataset-2021",
+      "paperUrl": "https://arxiv.org/abs/2109.11316",
+      "downloadUrl": "https://hilti-challenge.com/dataset-2021",
+      "license": {
+        "en": "CC BY-NC-SA 3.0 dataset and benchmark.",
+        "zh": "数据与基准采用 CC BY-NC-SA 3.0。"
+      },
+      "summary": "广视场多相机、双 LiDAR 与惯性的施工环境基准；需区分稀疏测量位置和完整位姿轨迹。",
+      "details": {
+        "en": {
+          "Geometry": "Five Alphasense cameras cover approximately 270° in total; a physical stereo pair is included. Not a stitched ERP sensor.",
+          "Ground truth": "Most sequences: stationary total-station 3DoF positions. Lab/arena sequences: OptiTrack 6DoF.",
+          "Accuracy and frame": "Official reference accuracy is better than 5 mm; filenames identify the reference frame, e.g. prism.",
+          "Synchronization": "FPGA and PTP synchronization; sensor TF tree, calibration and noise resources are supplied.",
+          "Evaluation": "Compare the correctly transformed reference point at surveyed timestamps; sparse control points cannot support dense trajectory ATE."
+        },
+        "zh": {
+          "成像模型": "五个 Alphasense 相机总覆盖约 270°，包含真实双目；不是拼接 ERP 传感器。",
+          "真值": "大多数序列为全站仪在静止时测量的三自由度位置；实验室/测试场序列提供 OptiTrack 六自由度真值。",
+          "精度与坐标系": "官方给出参考精度优于 5 毫米；文件名标明参考坐标系，例如棱镜。",
+          "同步": "采用 FPGA 和 PTP，同步资料、TF 树、标定及噪声资源随数据提供。",
+          "评测": "在测量时刻比较正确变换后的参考点；稀疏控制点不能用于全程稠密轨迹 ATE。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Year denotes the 2021 challenge; the journal paper is RA-L 2022.",
+          "LiDAR scans are measurements, not complete dense image-depth labels."
+        ],
+        "zh": [
+          "年份对应 2021 挑战；期刊论文发表于 RA-L 2022。",
+          "LiDAR 扫描是测量数据，并非完整稠密图像深度标签。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://hilti-challenge.com/dataset-2021",
+          "title": "Hilti 2021 official downloads, truth dimensions and licence"
+        },
+        {
+          "url": "https://arxiv.org/abs/2109.11316",
+          "title": "Hilti SLAM sensor and calibration paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Wide-FoV multicamera, dual-LiDAR and inertial construction benchmark; sparse surveyed positions must be distinguished from full pose trajectories.",
+        "zh": "广视场多相机、双 LiDAR 与惯性的施工环境基准；需区分稀疏测量位置和完整位姿轨迹。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Geometry": "Five Alphasense cameras cover approximately 270° in total; a physical stereo pair is included. Not a stitched ERP sensor.",
+          "Ground truth": "Most sequences: stationary total-station 3DoF positions. Lab/arena sequences: OptiTrack 6DoF.",
+          "Accuracy and frame": "Official reference accuracy is better than 5 mm; filenames identify the reference frame, e.g. prism.",
+          "Synchronization": "FPGA and PTP synchronization; sensor TF tree, calibration and noise resources are supplied.",
+          "Evaluation": "Compare the correctly transformed reference point at surveyed timestamps; sparse control points cannot support dense trajectory ATE."
+        },
+        "zh": {
+          "成像模型": "五个 Alphasense 相机总覆盖约 270°，包含真实双目；不是拼接 ERP 传感器。",
+          "真值": "大多数序列为全站仪在静止时测量的三自由度位置；实验室/测试场序列提供 OptiTrack 六自由度真值。",
+          "精度与坐标系": "官方给出参考精度优于 5 毫米；文件名标明参考坐标系，例如棱镜。",
+          "同步": "采用 FPGA 和 PTP，同步资料、TF 树、标定及噪声资源随数据提供。",
+          "评测": "在测量时刻比较正确变换后的参考点；稀疏控制点不能用于全程稠密轨迹 ATE。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Year denotes the 2021 challenge; the journal paper is RA-L 2022.",
+          "LiDAR scans are measurements, not complete dense image-depth labels."
+        ],
+        "zh": [
+          "年份对应 2021 挑战；期刊论文发表于 RA-L 2022。",
+          "LiDAR 扫描是测量数据，并非完整稠密图像深度标签。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY-NC-SA 3.0 dataset and benchmark.",
+        "zh": "数据与基准采用 CC BY-NC-SA 3.0。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_hypersim",
+      "name": "Hypersim",
+      "title": "Hypersim: A Photorealistic Synthetic Dataset for Holistic Indoor Scene Understanding",
+      "year": 2021,
+      "cameras": [
+        "perspective"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "synthetic",
+      "sensors": [
+        "V-Ray renderer"
+      ],
+      "sensorLabels": {
+        "en": [
+          "V-Ray renderer"
+        ],
+        "zh": [
+          "V-Ray 渲染器"
+        ]
+      },
+      "groundTruth": [
+        "Euclidean range",
+        "Normals and semantics",
+        "Camera poses"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Euclidean range",
+          "Normals and semantics",
+          "Camera poses"
+        ],
+        "zh": [
+          "欧氏径向距离",
+          "法向与语义",
+          "相机位姿"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://github.com/apple-aiml-research/ml-hypersim",
+      "paperUrl": "https://arxiv.org/abs/2011.02523",
+      "downloadUrl": "https://github.com/apple-aiml-research/ml-hypersim#downloading-the-hypersim-dataset",
+      "license": {
+        "en": "Dataset CC BY-SA 3.0; original scene mesh assets require separate purchase.",
+        "zh": "数据集 CC BY-SA 3.0；原始场景网格资产需另外购买。"
+      },
+      "summary": "照片级合成室内基线，明确记录相机中心距离，是容易出现径向距离与 Z 混用的典型数据集。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Perspective HDR/color renders; camera intrinsics vary, including tilt-shift parameters. This is not a native panoramic release.",
+          "Depth and validity": "depth_meters HDF5 stores Euclidean distance in meters, not camera Z. Apply finite/valid geometric masks and the exact evaluation depth limits.",
+          "Geometry and scale": "Normals, semantics, instances and camera trajectories accompany renders. Camera positions remain in asset units: convert using meters_per_asset_unit.",
+          "Evaluation": "Use scene-level metadata_images_split_scene_v1.csv. Objects may be reused across different scenes; do not imply strict object-disjoint evaluation.",
+          "Access": "Public image/annotation download script; preview JPEGs are for inspection, not a substitute for lossless HDR data."
+        },
+        "zh": {
+          "投影与输入": "透视 HDR、彩色渲染；内参按场景变化，并包含移轴参数；不是原生全景发布。",
+          "深度与有效性": "depth_meters HDF5 存储米制欧氏距离，不是相机 Z。需应用有限、有效几何掩码及所选评测深度范围。",
+          "几何与尺度": "提供法向、语义、实例和相机轨迹。相机位置仍用资产单位，需用 meters_per_asset_unit 转换。",
+          "评测协议": "使用场景级 metadata_images_split_scene_v1.csv。不同场景可能复用物体，不能声称严格物体隔离。",
+          "获取方式": "提供公开图像、标注下载脚本；预览 JPEG 用于检查，不能替代无损 HDR 数据。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Perspective camera pixels can still encode radial range; projection alone does not determine the depth definition."
+        ],
+        "zh": [
+          "透视图像也可以存储径向距离，不能仅凭投影判断深度定义。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/apple-aiml-research/ml-hypersim",
+          "title": "Official format, range, split and license"
+        },
+        {
+          "url": "https://arxiv.org/abs/2011.02523",
+          "title": "Dataset paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Photorealistic synthetic indoor baseline with explicitly documented camera-center distance, a frequent source of range-versus-Z errors.",
+        "zh": "照片级合成室内基线，明确记录相机中心距离，是容易出现径向距离与 Z 混用的典型数据集。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Perspective HDR/color renders; camera intrinsics vary, including tilt-shift parameters. This is not a native panoramic release.",
+          "Depth and validity": "depth_meters HDF5 stores Euclidean distance in meters, not camera Z. Apply finite/valid geometric masks and the exact evaluation depth limits.",
+          "Geometry and scale": "Normals, semantics, instances and camera trajectories accompany renders. Camera positions remain in asset units: convert using meters_per_asset_unit.",
+          "Evaluation": "Use scene-level metadata_images_split_scene_v1.csv. Objects may be reused across different scenes; do not imply strict object-disjoint evaluation.",
+          "Access": "Public image/annotation download script; preview JPEGs are for inspection, not a substitute for lossless HDR data."
+        },
+        "zh": {
+          "投影与输入": "透视 HDR、彩色渲染；内参按场景变化，并包含移轴参数；不是原生全景发布。",
+          "深度与有效性": "depth_meters HDF5 存储米制欧氏距离，不是相机 Z。需应用有限、有效几何掩码及所选评测深度范围。",
+          "几何与尺度": "提供法向、语义、实例和相机轨迹。相机位置仍用资产单位，需用 meters_per_asset_unit 转换。",
+          "评测协议": "使用场景级 metadata_images_split_scene_v1.csv。不同场景可能复用物体，不能声称严格物体隔离。",
+          "获取方式": "提供公开图像、标注下载脚本；预览 JPEG 用于检查，不能替代无损 HDR 数据。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Perspective camera pixels can still encode radial range; projection alone does not determine the depth definition."
+        ],
+        "zh": [
+          "透视图像也可以存储径向距离，不能仅凭投影判断深度定义。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Dataset CC BY-SA 3.0; original scene mesh assets require separate purchase.",
+        "zh": "数据集 CC BY-SA 3.0；原始场景网格资产需另外购买。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
       "id": "orbslam3_2021",
       "collection": "slam",
       "name": "ORB-SLAM3",
@@ -5775,6 +7413,264 @@ window.ATLAS_DATA = {
           570
         ]
       }
+    },
+    {
+      "id": "ds_omniscenes",
+      "name": "OmniScenes",
+      "title": "OmniScenes (PICCOLO panoramic localisation dataset)",
+      "year": 2021,
+      "cameras": [
+        "panoramic"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Panoramic RGB",
+        "Point-cloud map"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Panoramic RGB",
+          "Point-cloud map"
+        ],
+        "zh": [
+          "全景 RGB",
+          "点云地图"
+        ]
+      },
+      "groundTruth": [
+        "Query 6DoF poses",
+        "Reference point clouds"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Query 6DoF poses",
+          "Reference point clouds"
+        ],
+        "zh": [
+          "查询六自由度位姿",
+          "参考点云"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://github.com/82magnolia/piccolo#downloading-omniscenes-update-new-scenes-added",
+      "paperUrl": "https://openaccess.thecvf.com/content/ICCV2021/html/Kim_PICCOLO_Point_Cloud-Centric_Omnidirectional_Localization_ICCV_2021_paper.html",
+      "downloadUrl": "https://github.com/82magnolia/piccolo#downloading-omniscenes-update-new-scenes-added",
+      "license": {
+        "en": "Official code is GPL-3.0; a separate explicit dataset licence was not located in the inspected README.",
+        "zh": "官方代码为 GPL-3.0；查看的 README 未找到单独明确的数据许可。"
+      },
+      "summary": "室内查询全景、点云地图及参考位姿，用于手持/机器人采集和场景变化条件下的定位。",
+      "details": {
+        "en": {
+          "Versions": "Official repository links an original release and a newer expanded release; the consolidated localisation library explicitly uses the older version.",
+          "Geometry": "Panoramic images and scene point clouds; not a synchronized multi-sensor VIO benchmark.",
+          "Pose convention": "The current README gives the point transformation X_camera = R(X_world − t). Match parser to release version.",
+          "Ground truth": "Per-query reference poses are supplied. The inspected README does not establish an independent motion-capture accuracy bound.",
+          "Depth use": "Projecting the point cloud produces map-derived depths with holes/occlusions; no complete measured depth GT is assumed."
+        },
+        "zh": {
+          "版本": "官方仓库同时链接原始和扩展发布；综合定位库明确使用旧版，比较时需统一版本。",
+          "成像模型": "全景图像与场景点云，不是同步多传感器 VIO 基准。",
+          "位姿约定": "当前 README 给出 X_camera = R(X_world − t)；解析器需匹配版本。",
+          "真值": "提供逐查询参考位姿；所查看的 README 未建立独立动作捕捉精度界限。",
+          "深度使用": "投影点云得到的是带空洞/遮挡的地图推导深度，不假设完整实测深度真值。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Keep original/new scene splits separate in reported results.",
+          "Download links are present; full cloud archives were not downloaded in this audit."
+        ],
+        "zh": [
+          "报告结果时区分原始/新增场景划分。",
+          "官方提供下载链接，本次未下载完整点云归档。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/82magnolia/piccolo",
+          "title": "PICCOLO official OmniScenes release and pose convention"
+        },
+        {
+          "url": "https://github.com/82magnolia/panoramic-localization",
+          "title": "Consolidated library: old OmniScenes version warning"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Indoor query panoramas with point-cloud maps and reference poses, designed for localisation under handheld/robot capture and scene changes.",
+        "zh": "室内查询全景、点云地图及参考位姿，用于手持/机器人采集和场景变化条件下的定位。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Versions": "Official repository links an original release and a newer expanded release; the consolidated localisation library explicitly uses the older version.",
+          "Geometry": "Panoramic images and scene point clouds; not a synchronized multi-sensor VIO benchmark.",
+          "Pose convention": "The current README gives the point transformation X_camera = R(X_world − t). Match parser to release version.",
+          "Ground truth": "Per-query reference poses are supplied. The inspected README does not establish an independent motion-capture accuracy bound.",
+          "Depth use": "Projecting the point cloud produces map-derived depths with holes/occlusions; no complete measured depth GT is assumed."
+        },
+        "zh": {
+          "版本": "官方仓库同时链接原始和扩展发布；综合定位库明确使用旧版，比较时需统一版本。",
+          "成像模型": "全景图像与场景点云，不是同步多传感器 VIO 基准。",
+          "位姿约定": "当前 README 给出 X_camera = R(X_world − t)；解析器需匹配版本。",
+          "真值": "提供逐查询参考位姿；所查看的 README 未建立独立动作捕捉精度界限。",
+          "深度使用": "投影点云得到的是带空洞/遮挡的地图推导深度，不假设完整实测深度真值。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Keep original/new scene splits separate in reported results.",
+          "Download links are present; full cloud archives were not downloaded in this audit."
+        ],
+        "zh": [
+          "报告结果时区分原始/新增场景划分。",
+          "官方提供下载链接，本次未下载完整点云归档。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Official code is GPL-3.0; a separate explicit dataset licence was not located in the inspected README.",
+        "zh": "官方代码为 GPL-3.0；查看的 README 未找到单独明确的数据许可。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_pano3d",
+      "name": "Pano3D",
+      "title": "Pano3D: A Holistic Benchmark and a Solid Baseline for 360° Depth Estimation",
+      "year": 2021,
+      "cameras": [
+        "panoramic"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "mixed",
+      "sensors": [
+        "Matterport3D / GibsonV2 meshes",
+        "Panoramic renderer"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Matterport3D / GibsonV2 meshes",
+          "Panoramic renderer"
+        ],
+        "zh": [
+          "Matterport3D / GibsonV2 网格",
+          "全景渲染器"
+        ]
+      },
+      "groundTruth": [
+        "Rendered range/depth",
+        "Normals"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Rendered range/depth",
+          "Normals"
+        ],
+        "zh": [
+          "渲染距离与深度",
+          "法向"
+        ]
+      },
+      "access": "request",
+      "homepageUrl": "https://vcl3d.github.io/Pano3D/",
+      "paperUrl": "https://arxiv.org/abs/2109.02749",
+      "downloadUrl": "https://vcl3d.github.io/Pano3D/#download",
+      "license": {
+        "en": "Matterport3D and GibsonV2 terms, request form and individual Zenodo access requests.",
+        "zh": "遵守 Matterport3D、GibsonV2 条款，填写表单并向对应 Zenodo 资源申请访问。"
+      },
+      "summary": "基于已有扫描场景渲染的基准与协议，重点考察球面评测及跨数据集泛化。",
+      "details": {
+        "en": {
+          "Projection and inputs": "ERP RGB, depth and normals at 1024×512 or 512×256 (width×height); mono rather than 3D60 stereo offsets.",
+          "Ground truth": "Matterport3D and GibsonV2 geometry are re-rendered. Keep renderer invalid masks; the overview alone does not fix every file's scaling convention.",
+          "Evaluation": "M3D training / GV2 test enables transfer tests with depth-distribution, scene-context and camera-domain shifts. Use spherical-area weighted metrics.",
+          "Leakage and variants": "Released non-test GV2 scenes may augment training; exclude the exact GV2 test split and overlapping source buildings.",
+          "Calibration": "ERP rays and generated poses define geometry. No synchronized physical IMU stream is implied by these renders."
+        },
+        "zh": {
+          "投影与输入": "ERP RGB、深度与法向，分辨率为 1024×512 或 512×256（宽×高）；提供单目而非 3D60 的立体偏移。",
+          "真值来源": "重新渲染 Matterport3D 与 GibsonV2 几何。需保留渲染无效掩码；概览页不足以确定每类文件的缩放约定。",
+          "评测协议": "M3D 训练、GV2 测试用于深度分布、场景内容与相机域偏移评测；应采用球面面积加权指标。",
+          "泄漏与变体": "发布的非测试 GV2 场景可补充训练；必须排除相应 GV2 测试划分与重复源建筑。",
+          "标定": "几何由 ERP 射线与生成位姿决定，渲染发布不意味着包含同步的物理 IMU 流。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Pano3D is both a benchmark and baseline method; its data are not a new independently captured building corpus."
+        ],
+        "zh": [
+          "Pano3D 同时是基准与基线方法，其数据不是新独立采集的建筑语料。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://vcl3d.github.io/Pano3D/",
+          "title": "Official render protocol, access and weighted metrics"
+        },
+        {
+          "url": "https://arxiv.org/abs/2109.02749",
+          "title": "Pano3D paper"
+        },
+        {
+          "url": "https://github.com/VCL3D/Pano3D",
+          "title": "Official implementation"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "A rendered benchmark/protocol over existing scanned scenes, emphasizing spherical metrics and cross-dataset generalization.",
+        "zh": "基于已有扫描场景渲染的基准与协议，重点考察球面评测及跨数据集泛化。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "ERP RGB, depth and normals at 1024×512 or 512×256 (width×height); mono rather than 3D60 stereo offsets.",
+          "Ground truth": "Matterport3D and GibsonV2 geometry are re-rendered. Keep renderer invalid masks; the overview alone does not fix every file's scaling convention.",
+          "Evaluation": "M3D training / GV2 test enables transfer tests with depth-distribution, scene-context and camera-domain shifts. Use spherical-area weighted metrics.",
+          "Leakage and variants": "Released non-test GV2 scenes may augment training; exclude the exact GV2 test split and overlapping source buildings.",
+          "Calibration": "ERP rays and generated poses define geometry. No synchronized physical IMU stream is implied by these renders."
+        },
+        "zh": {
+          "投影与输入": "ERP RGB、深度与法向，分辨率为 1024×512 或 512×256（宽×高）；提供单目而非 3D60 的立体偏移。",
+          "真值来源": "重新渲染 Matterport3D 与 GibsonV2 几何。需保留渲染无效掩码；概览页不足以确定每类文件的缩放约定。",
+          "评测协议": "M3D 训练、GV2 测试用于深度分布、场景内容与相机域偏移评测；应采用球面面积加权指标。",
+          "泄漏与变体": "发布的非测试 GV2 场景可补充训练；必须排除相应 GV2 测试划分与重复源建筑。",
+          "标定": "几何由 ERP 射线与生成位姿决定，渲染发布不意味着包含同步的物理 IMU 流。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Pano3D is both a benchmark and baseline method; its data are not a new independently captured building corpus."
+        ],
+        "zh": [
+          "Pano3D 同时是基准与基线方法，其数据不是新独立采集的建筑语料。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Matterport3D and GibsonV2 terms, request form and individual Zenodo access requests.",
+        "zh": "遵守 Matterport3D、GibsonV2 条款，填写表单并向对应 Zenodo 资源申请访问。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
     },
     {
       "id": "basalt2020",
@@ -5969,6 +7865,157 @@ window.ATLAS_DATA = {
           517
         ]
       }
+    },
+    {
+      "id": "ds_newer_college",
+      "name": "Newer College",
+      "title": "The Newer College Dataset: Handheld LiDAR, Inertial and Vision with Ground Truth",
+      "year": 2020,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "perspective",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Stereo / multi-camera",
+        "LiDAR",
+        "IMU",
+        "Survey map"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Stereo / multi-camera",
+          "LiDAR",
+          "IMU",
+          "Survey map"
+        ],
+        "zh": [
+          "双目/多相机",
+          "LiDAR",
+          "IMU",
+          "测量地图"
+        ]
+      },
+      "groundTruth": [
+        "Map-registered metric poses",
+        "Reference 3D map"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Map-registered metric poses",
+          "Reference 3D map"
+        ],
+        "zh": [
+          "地图配准米制位姿",
+          "参考三维地图"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://ori-drs.github.io/newer-college-dataset/",
+      "paperUrl": "https://doi.org/10.1109/IROS45743.2020.9340849",
+      "downloadUrl": "https://ori-drs.github.io/newer-college-dataset/download/",
+      "license": {
+        "en": "CC BY-NC-SA 4.0; intended for non-commercial academic use.",
+        "zh": "CC BY-NC-SA 4.0，面向非商业学术用途。"
+      },
+      "summary": "手持建图数据系列，包括原始双目和 2021 年多相机扩展，利用独立测量地图建立米制轨迹参考。",
+      "details": {
+        "en": {
+          "Versions": "Original: RealSense D435i and Ouster OS1. Extension: four Alphasense cameras and Ouster OS0-128; do not mix their calibrations.",
+          "Reference provenance": "Ouster scans are registered by ICP to a Leica BLK360 survey map; poses are centimetre-level map-derived references, not mocap.",
+          "Coordinates": "Original pose frame: RS_C1; multicamera extension: Base. CSV quaternions are x y z w.",
+          "Calibration and time": "Version-specific Kalibr files include equidistant distortion for the multicamera extension; that extension uses hardware/PTP synchronization.",
+          "Evaluation": "Suitable for SLAM, map reconstruction and relocalization; report map-registration dependence."
+        },
+        "zh": {
+          "版本": "原始版为 RealSense D435i 与 Ouster OS1；扩展为四个 Alphasense 相机与 OS0-128，不可混用标定。",
+          "参考来源": "Ouster 扫描经 ICP 配准到 Leica BLK360 测量地图；位姿为厘米级地图推导参考，不是动作捕捉。",
+          "坐标约定": "原始位姿坐标系为 RS_C1，多相机版为 Base；CSV 四元数顺序为 x y z w。",
+          "标定与时间": "对应版本的 Kalibr 文件分别使用；多相机扩展采用等距畸变模型和硬件/PTP 同步。",
+          "评测": "适合 SLAM、地图重建和重定位；需说明参考位姿对地图配准的依赖。"
+        }
+      },
+      "notes": {
+        "en": [
+          "A point cloud is not automatically a dense per-pixel depth map.",
+          "The 2025 Oxford Spires successor is catalogued separately."
+        ],
+        "zh": [
+          "点云不能自动等同于逐像素稠密深度。",
+          "2025 年后继数据 Oxford Spires 另有独立条目。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://ori-drs.github.io/newer-college-dataset/",
+          "title": "Newer College official version overview"
+        },
+        {
+          "url": "https://ori-drs.github.io/newer-college-dataset/ground-truth/",
+          "title": "Newer College ICP references and pose frames"
+        },
+        {
+          "url": "https://ori-drs.github.io/newer-college-dataset/download/",
+          "title": "Newer College download and licence"
+        },
+        {
+          "url": "https://arxiv.org/abs/2112.08854",
+          "title": "Multicamera extension paper"
+        },
+        {
+          "url": "https://ori-drs.github.io/newer-college-dataset/multi-cam/calibration-multi/",
+          "title": "Newer College multicamera distortion and synchronization"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Hand-carried mapping family with original stereo and a 2021 multicamera extension; independent survey maps anchor metric trajectory references.",
+        "zh": "手持建图数据系列，包括原始双目和 2021 年多相机扩展，利用独立测量地图建立米制轨迹参考。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Versions": "Original: RealSense D435i and Ouster OS1. Extension: four Alphasense cameras and Ouster OS0-128; do not mix their calibrations.",
+          "Reference provenance": "Ouster scans are registered by ICP to a Leica BLK360 survey map; poses are centimetre-level map-derived references, not mocap.",
+          "Coordinates": "Original pose frame: RS_C1; multicamera extension: Base. CSV quaternions are x y z w.",
+          "Calibration and time": "Version-specific Kalibr files include equidistant distortion for the multicamera extension; that extension uses hardware/PTP synchronization.",
+          "Evaluation": "Suitable for SLAM, map reconstruction and relocalization; report map-registration dependence."
+        },
+        "zh": {
+          "版本": "原始版为 RealSense D435i 与 Ouster OS1；扩展为四个 Alphasense 相机与 OS0-128，不可混用标定。",
+          "参考来源": "Ouster 扫描经 ICP 配准到 Leica BLK360 测量地图；位姿为厘米级地图推导参考，不是动作捕捉。",
+          "坐标约定": "原始位姿坐标系为 RS_C1，多相机版为 Base；CSV 四元数顺序为 x y z w。",
+          "标定与时间": "对应版本的 Kalibr 文件分别使用；多相机扩展采用等距畸变模型和硬件/PTP 同步。",
+          "评测": "适合 SLAM、地图重建和重定位；需说明参考位姿对地图配准的依赖。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "A point cloud is not automatically a dense per-pixel depth map.",
+          "The 2025 Oxford Spires successor is catalogued separately."
+        ],
+        "zh": [
+          "点云不能自动等同于逐像素稠密深度。",
+          "2025 年后继数据 Oxford Spires 另有独立条目。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY-NC-SA 4.0; intended for non-commercial academic use.",
+        "zh": "CC BY-NC-SA 4.0，面向非商业学术用途。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
     },
     {
       "id": "omnislam2020",
@@ -6167,6 +8214,678 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "ds_structured3d",
+      "name": "Structured3D",
+      "title": "Structured3D: A Large Photo-realistic Dataset for Structured 3D Modeling",
+      "year": 2020,
+      "cameras": [
+        "panoramic",
+        "perspective"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "synthetic",
+      "sensors": [
+        "Photorealistic renderer"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Photorealistic renderer"
+        ],
+        "zh": [
+          "照片级真实渲染器"
+        ]
+      },
+      "groundTruth": [
+        "Rendered depth",
+        "Layout and semantics",
+        "Camera metadata"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Rendered depth",
+          "Layout and semantics",
+          "Camera metadata"
+        ],
+        "zh": [
+          "渲染深度",
+          "布局与语义",
+          "相机元数据"
+        ]
+      },
+      "access": "request",
+      "homepageUrl": "https://structured3d-dataset.org/",
+      "paperUrl": "https://arxiv.org/abs/1908.00222",
+      "downloadUrl": "https://structured3d-dataset.org/#download",
+      "license": {
+        "en": "Structured3D Terms of Use and agreement form; code MIT is separate.",
+        "zh": "需遵守 Structured3D 数据条款并填写协议表；代码 MIT 与数据许可分开。"
+      },
+      "summary": "合成房屋设计提供全景和透视深度，可控制照明、家具，并包含丰富结构标注。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Separate panorama and perspective folders contain RGB, depth, normals, albedo and semantic labels. Panorama cameras are gravity-aligned.",
+          "Depth and validity": "Unsigned 16-bit PNG in millimeters; 1000 = 1 m; zero invalid. The format page does not explicitly settle range versus Z for every projection.",
+          "Ground truth": "Dense labels are rendered from designed geometry, not measured by a physical depth sensor; junction/line/plane relations and layouts are provided.",
+          "Calibration": "Panorama camera_xyz uses millimeters, looks toward negative Y, with Z up. Perspective poses additionally include view/up and FOV.",
+          "Evaluation": "Official scene IDs: 00000–02999 train, 03000–03249 validation, 03250–03499 test. Keep furniture/light variants together; use published invalid-case list."
+        },
+        "zh": {
+          "投影与输入": "panorama 与 perspective 分目录存放 RGB、深度、法向、反照率和语义；全景相机与重力方向对齐。",
+          "深度与有效性": "无符号 16 位 PNG，单位毫米；1000＝1 米，0 无效。格式页未明确解释所有投影的径向距离与 Z 区别。",
+          "真值来源": "稠密标注由设计几何渲染，不是物理深度传感器实测；提供角点、线、平面关系与布局。",
+          "标定": "全景 camera_xyz 使用毫米，朝向负 Y，Z 向上；透视位姿另含视线、上方向和 FOV。",
+          "评测协议": "官方场景编号：00000–02999 训练，03000–03249 验证，03250–03499 测试。家具、照明变体不得跨集，使用官方无效样本列表。"
+        }
+      },
+      "notes": {
+        "en": [
+          "A rendered metric label does not establish transfer to real panoramic cameras."
+        ],
+        "zh": [
+          "具有公制渲染标签不代表能直接迁移到真实全景相机。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://structured3d-dataset.org/",
+          "title": "Official project"
+        },
+        {
+          "url": "https://github.com/bertjiazheng/Structured3D",
+          "title": "Official splits and errata"
+        },
+        {
+          "url": "https://github.com/bertjiazheng/Structured3D/blob/master/data_organization.md",
+          "title": "Official depth units and camera conventions"
+        },
+        {
+          "url": "https://arxiv.org/abs/1908.00222",
+          "title": "Official Structured3D preprint"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Synthetic house designs provide panoramic/perspective depth with controlled lighting and furnishing, plus rich structural annotations.",
+        "zh": "合成房屋设计提供全景和透视深度，可控制照明、家具，并包含丰富结构标注。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Separate panorama and perspective folders contain RGB, depth, normals, albedo and semantic labels. Panorama cameras are gravity-aligned.",
+          "Depth and validity": "Unsigned 16-bit PNG in millimeters; 1000 = 1 m; zero invalid. The format page does not explicitly settle range versus Z for every projection.",
+          "Ground truth": "Dense labels are rendered from designed geometry, not measured by a physical depth sensor; junction/line/plane relations and layouts are provided.",
+          "Calibration": "Panorama camera_xyz uses millimeters, looks toward negative Y, with Z up. Perspective poses additionally include view/up and FOV.",
+          "Evaluation": "Official scene IDs: 00000–02999 train, 03000–03249 validation, 03250–03499 test. Keep furniture/light variants together; use published invalid-case list."
+        },
+        "zh": {
+          "投影与输入": "panorama 与 perspective 分目录存放 RGB、深度、法向、反照率和语义；全景相机与重力方向对齐。",
+          "深度与有效性": "无符号 16 位 PNG，单位毫米；1000＝1 米，0 无效。格式页未明确解释所有投影的径向距离与 Z 区别。",
+          "真值来源": "稠密标注由设计几何渲染，不是物理深度传感器实测；提供角点、线、平面关系与布局。",
+          "标定": "全景 camera_xyz 使用毫米，朝向负 Y，Z 向上；透视位姿另含视线、上方向和 FOV。",
+          "评测协议": "官方场景编号：00000–02999 训练，03000–03249 验证，03250–03499 测试。家具、照明变体不得跨集，使用官方无效样本列表。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "A rendered metric label does not establish transfer to real panoramic cameras."
+        ],
+        "zh": [
+          "具有公制渲染标签不代表能直接迁移到真实全景相机。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Structured3D Terms of Use and agreement form; code MIT is separate.",
+        "zh": "需遵守 Structured3D 数据条款并填写协议表；代码 MIT 与数据许可分开。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_tartanair",
+      "name": "TartanAir / V2",
+      "title": "TartanAir: A Dataset to Push the Limits of Visual SLAM",
+      "year": 2020,
+      "cameras": [
+        "panoramic",
+        "fisheye",
+        "wide",
+        "perspective",
+        "multi"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "synthetic",
+      "sensors": [
+        "RGB",
+        "Rendered depth",
+        "Simulated IMU",
+        "Simulated LiDAR"
+      ],
+      "sensorLabels": {
+        "en": [
+          "RGB",
+          "Rendered depth",
+          "Simulated IMU",
+          "Simulated LiDAR"
+        ],
+        "zh": [
+          "RGB",
+          "渲染深度",
+          "仿真 IMU",
+          "仿真 LiDAR"
+        ]
+      },
+      "groundTruth": [
+        "Simulation depth",
+        "Simulation poses"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Simulation depth",
+          "Simulation poses"
+        ],
+        "zh": [
+          "仿真深度",
+          "仿真位姿"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://tartanair.org/",
+      "paperUrl": "https://arxiv.org/abs/2003.14338",
+      "downloadUrl": "https://tartanair.org/examples.html",
+      "license": {
+        "en": "Current V2 data: CC BY 4.0; toolkit: MIT. Check the original V1 terms separately.",
+        "zh": "当前 V2 数据为 CC BY 4.0，工具为 MIT；V1 单独核对许可。"
+      },
+      "summary": "合成深度与运动数据系列；V2 可将同步六面相机重采样为可配置鱼眼和全景观测。",
+      "details": {
+        "en": {
+          "Version and year": "2020 is the original paper year; the linked current documentation describes V2, not an unchanged V1 release.",
+          "Geometry": "V2 raw data has two stereo sets of six 90° pinhole views; panorama/fisheye RGB, depth and semantics are resampled.",
+          "Depth format": "Float32 depth is losslessly packed into four-channel PNG. Decode as float32; mask sky/very large values.",
+          "Poses": "Camera translation/quaternions use NED conventions; preserve metric translations and the per-camera frame transforms.",
+          "Calibration and timing": "Simulated views are synchronized; use the selected camera model, sampling rotation and IMU noise configuration."
+        },
+        "zh": {
+          "版本与年份": "2020 为原始论文年份；当前链接文档描述 V2，不是保持不变的 V1 发布。",
+          "成像模型": "V2 原始数据为两组各六个 90° 透视视图；全景/鱼眼 RGB、深度和语义由此重采样。",
+          "深度格式": "float32 深度无损打包到四通道 PNG，需按浮点解码，并屏蔽天空/极大值。",
+          "位姿": "相机平移/四元数采用 NED 约定；保留米制平移和各相机坐标变换。",
+          "标定与时间": "仿真视图已同步；使用选定模型、采样旋转及 IMU 噪声配置。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Synthetic ground truth does not establish real-camera calibration robustness.",
+          "Confirm Z-depth versus ray-distance semantics in the chosen resampler before evaluating panoramas."
+        ],
+        "zh": [
+          "仿真真值不能证明对真实相机标定误差的鲁棒性。",
+          "全景评测前需核对所选重采样器输出的是 Z 深度还是射线距离。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://tartanair.org/",
+          "title": "TartanAir V2 official documentation and licence"
+        },
+        {
+          "url": "https://tartanair.org/modalities.html",
+          "title": "V2 modalities, depth packing and camera poses"
+        },
+        {
+          "url": "https://arxiv.org/abs/2003.14338",
+          "title": "Original TartanAir 2020 paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Synthetic depth-and-motion family; V2 resamples synchronized cubeface cameras into configurable fisheye and panoramic observations.",
+        "zh": "合成深度与运动数据系列；V2 可将同步六面相机重采样为可配置鱼眼和全景观测。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Version and year": "2020 is the original paper year; the linked current documentation describes V2, not an unchanged V1 release.",
+          "Geometry": "V2 raw data has two stereo sets of six 90° pinhole views; panorama/fisheye RGB, depth and semantics are resampled.",
+          "Depth format": "Float32 depth is losslessly packed into four-channel PNG. Decode as float32; mask sky/very large values.",
+          "Poses": "Camera translation/quaternions use NED conventions; preserve metric translations and the per-camera frame transforms.",
+          "Calibration and timing": "Simulated views are synchronized; use the selected camera model, sampling rotation and IMU noise configuration."
+        },
+        "zh": {
+          "版本与年份": "2020 为原始论文年份；当前链接文档描述 V2，不是保持不变的 V1 发布。",
+          "成像模型": "V2 原始数据为两组各六个 90° 透视视图；全景/鱼眼 RGB、深度和语义由此重采样。",
+          "深度格式": "float32 深度无损打包到四通道 PNG，需按浮点解码，并屏蔽天空/极大值。",
+          "位姿": "相机平移/四元数采用 NED 约定；保留米制平移和各相机坐标变换。",
+          "标定与时间": "仿真视图已同步；使用选定模型、采样旋转及 IMU 噪声配置。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Synthetic ground truth does not establish real-camera calibration robustness.",
+          "Confirm Z-depth versus ray-distance semantics in the chosen resampler before evaluating panoramas."
+        ],
+        "zh": [
+          "仿真真值不能证明对真实相机标定误差的鲁棒性。",
+          "全景评测前需核对所选重采样器输出的是 Z 深度还是射线距离。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Current V2 data: CC BY 4.0; toolkit: MIT. Check the original V1 terms separately.",
+        "zh": "当前 V2 数据为 CC BY 4.0，工具为 MIT；V1 单独核对许可。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_diode",
+      "name": "DIODE",
+      "title": "DIODE: A Dense Indoor and Outdoor DEpth Dataset",
+      "year": 2019,
+      "cameras": [
+        "perspective"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "FARO Focus S350",
+        "Coaxial RGB camera"
+      ],
+      "sensorLabels": {
+        "en": [
+          "FARO Focus S350",
+          "Coaxial RGB camera"
+        ],
+        "zh": [
+          "FARO Focus S350",
+          "同轴 RGB 相机"
+        ]
+      },
+      "groundTruth": [
+        "Laser-derived depth",
+        "Validity masks",
+        "Normals"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Laser-derived depth",
+          "Validity masks",
+          "Normals"
+        ],
+        "zh": [
+          "激光测量深度",
+          "有效性掩码",
+          "法向"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://diode-dataset.org/",
+      "paperUrl": "https://arxiv.org/abs/1908.00463",
+      "downloadUrl": "https://diode-dataset.org/",
+      "license": {
+        "en": "MIT for dataset and code according to the official page.",
+        "zh": "官方页面注明数据与代码均为 MIT。"
+      },
+      "summary": "覆盖室内外的稠密激光深度，以校正透视裁剪图发布，并非整幅全景。",
+      "details": {
+        "en": {
+          "Projection and inputs": "1024×768 RGB crops, 60° horizontal ×45° vertical FOV, extracted from scanner panoramas. Full scanner capture does not imply a public ERP benchmark.",
+          "Depth and validity": "NumPy depth and binary validity arrays; mask 1 means valid return. Paper derives samples along scanner rays; range/Z should be checked before reprojection.",
+          "Measurement and timing": "FARO laser measurements provide depth; RGB is collected after the scan, so moving objects can disagree despite manual curation.",
+          "Calibration and annotations": "Official devkit supplies camera intrinsics and normal/metric utilities. Normals are derived from neighboring 3D samples.",
+          "Evaluation": "Public train/validation depth and normals are documented; do not treat validation as unseen test after tuning. Keep crops from the same scan together."
+        },
+        "zh": {
+          "投影与输入": "从扫描器全景提取 1024×768 RGB 裁剪图，水平 60°、垂直 45°；扫描过程为全景不代表公开版本是 ERP 基准。",
+          "深度与有效性": "NumPy 深度与二值有效掩码，1 表示有效回波。论文沿扫描射线生成样本，重投影前仍需核对径向距离与 Z 约定。",
+          "测量与时间": "FARO 激光测量提供深度；RGB 在扫描后采集，尽管经过人工筛选，动态物体仍可能造成不一致。",
+          "标定与标注": "官方工具提供相机内参、法向及评测工具，法向由邻域三维采样估计。",
+          "评测协议": "官方明确发布训练、验证深度和法向；调参后不能把验证集称为未见测试集，同一扫描的裁剪图应保持同组。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Laser maximum range specifications are not a guarantee that every image pixel has valid depth."
+        ],
+        "zh": [
+          "激光器最大量程指标不保证每个图像像素均有有效深度。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://diode-dataset.org/",
+          "title": "Official downloads, masks, resolution and MIT license"
+        },
+        {
+          "url": "https://github.com/diode-dataset/diode-devkit",
+          "title": "Official intrinsics and dataloader"
+        },
+        {
+          "url": "https://arxiv.org/html/1908.00463v1",
+          "title": "Official paper: perspective extraction and scan timing"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Dense laser-derived depth across indoor/outdoor scenes, released as rectified perspective crops rather than full panoramas.",
+        "zh": "覆盖室内外的稠密激光深度，以校正透视裁剪图发布，并非整幅全景。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "1024×768 RGB crops, 60° horizontal ×45° vertical FOV, extracted from scanner panoramas. Full scanner capture does not imply a public ERP benchmark.",
+          "Depth and validity": "NumPy depth and binary validity arrays; mask 1 means valid return. Paper derives samples along scanner rays; range/Z should be checked before reprojection.",
+          "Measurement and timing": "FARO laser measurements provide depth; RGB is collected after the scan, so moving objects can disagree despite manual curation.",
+          "Calibration and annotations": "Official devkit supplies camera intrinsics and normal/metric utilities. Normals are derived from neighboring 3D samples.",
+          "Evaluation": "Public train/validation depth and normals are documented; do not treat validation as unseen test after tuning. Keep crops from the same scan together."
+        },
+        "zh": {
+          "投影与输入": "从扫描器全景提取 1024×768 RGB 裁剪图，水平 60°、垂直 45°；扫描过程为全景不代表公开版本是 ERP 基准。",
+          "深度与有效性": "NumPy 深度与二值有效掩码，1 表示有效回波。论文沿扫描射线生成样本，重投影前仍需核对径向距离与 Z 约定。",
+          "测量与时间": "FARO 激光测量提供深度；RGB 在扫描后采集，尽管经过人工筛选，动态物体仍可能造成不一致。",
+          "标定与标注": "官方工具提供相机内参、法向及评测工具，法向由邻域三维采样估计。",
+          "评测协议": "官方明确发布训练、验证深度和法向；调参后不能把验证集称为未见测试集，同一扫描的裁剪图应保持同组。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Laser maximum range specifications are not a guarantee that every image pixel has valid depth."
+        ],
+        "zh": [
+          "激光器最大量程指标不保证每个图像像素均有有效深度。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "MIT for dataset and code according to the official page.",
+        "zh": "官方页面注明数据与代码均为 MIT。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_replica",
+      "name": "Replica",
+      "title": "The Replica Dataset: A Digital Replica of Indoor Spaces",
+      "year": 2019,
+      "cameras": [
+        "perspective"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "mixed",
+      "sensors": [
+        "Real scanned scene assets",
+        "Replica renderer"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Real scanned scene assets",
+          "Replica renderer"
+        ],
+        "zh": [
+          "真实扫描场景资产",
+          "Replica 渲染器"
+        ]
+      },
+      "groundTruth": [
+        "Meshes",
+        "Rendered RGB-D",
+        "Synthetic camera poses"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Meshes",
+          "Rendered RGB-D",
+          "Synthetic camera poses"
+        ],
+        "zh": [
+          "网格",
+          "渲染 RGB-D",
+          "合成相机位姿"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://github.com/facebookresearch/Replica-Dataset",
+      "paperUrl": "https://arxiv.org/abs/1906.05797",
+      "downloadUrl": "https://github.com/facebookresearch/Replica-Dataset#download-on-mac-os-and-linux",
+      "license": {
+        "en": "Replica Dataset Research Terms: non-commercial / not-for-profit research or educational purposes.",
+        "zh": "Replica 数据研究条款：用于非商业、非营利研究或教育目的。"
+      },
+      "summary": "高质量真实室内重建作为仿真资产；常见 RGB-D SLAM 轨迹是另外渲染的派生产品。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Official release centers on textured meshes and a renderer, not one fixed RGB-D sequence. Perspective frame resolution/intrinsics depend on the chosen renderer.",
+          "Depth and validity": "Depth is rendered from reconstructed geometry. Serialization scale, range/Z and invalid pixels must be checked for the specific trajectory export.",
+          "Ground truth": "Dense meshes, semantic/instance and plane annotations; glass/mirror metadata. Rendered poses are simulator references, not physical tracking measurements.",
+          "Calibration and timing": "Trajectory and camera calibration are renderer inputs. No physical IMU synchronization guarantee follows from the asset release.",
+          "Evaluation": "Name the exact sequence producer, scene list, coordinate convention and depth scale. Avoid training on the same underlying room through another derivative."
+        },
+        "zh": {
+          "投影与输入": "官方以纹理网格和渲染器为主，不是固定的一套 RGB-D 序列；透视帧分辨率、内参由渲染配置决定。",
+          "深度与有效性": "深度来自重建几何渲染。序列导出的数值缩放、径向距离或 Z、无效像素规则必须逐版本核对。",
+          "真值来源": "提供稠密网格、语义实例、平面及玻璃镜面信息；渲染位姿是仿真参考，不是物理跟踪测量。",
+          "标定与时间": "轨迹和相机标定由渲染者设置；资产发布本身不包含物理 IMU 同步保证。",
+          "评测协议": "注明序列生成者、场景清单、坐标约定和深度缩放；避免通过其他派生集训练到相同房间。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Replica assets, Replica360 and the popular neural-SLAM Replica trajectories are distinct releases."
+        ],
+        "zh": [
+          "Replica 资产、Replica360 和常用神经 SLAM 的 Replica 轨迹是不同发布。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/facebookresearch/Replica-Dataset",
+          "title": "Official assets, renderer and download"
+        },
+        {
+          "url": "https://github.com/facebookresearch/Replica-Dataset/blob/main/LICENSE",
+          "title": "Replica research terms"
+        },
+        {
+          "url": "https://arxiv.org/abs/1906.05797",
+          "title": "Official Replica report"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "High-quality real indoor reconstructions serve as simulation assets; common RGB-D SLAM trajectories are separately rendered derivatives.",
+        "zh": "高质量真实室内重建作为仿真资产；常见 RGB-D SLAM 轨迹是另外渲染的派生产品。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Official release centers on textured meshes and a renderer, not one fixed RGB-D sequence. Perspective frame resolution/intrinsics depend on the chosen renderer.",
+          "Depth and validity": "Depth is rendered from reconstructed geometry. Serialization scale, range/Z and invalid pixels must be checked for the specific trajectory export.",
+          "Ground truth": "Dense meshes, semantic/instance and plane annotations; glass/mirror metadata. Rendered poses are simulator references, not physical tracking measurements.",
+          "Calibration and timing": "Trajectory and camera calibration are renderer inputs. No physical IMU synchronization guarantee follows from the asset release.",
+          "Evaluation": "Name the exact sequence producer, scene list, coordinate convention and depth scale. Avoid training on the same underlying room through another derivative."
+        },
+        "zh": {
+          "投影与输入": "官方以纹理网格和渲染器为主，不是固定的一套 RGB-D 序列；透视帧分辨率、内参由渲染配置决定。",
+          "深度与有效性": "深度来自重建几何渲染。序列导出的数值缩放、径向距离或 Z、无效像素规则必须逐版本核对。",
+          "真值来源": "提供稠密网格、语义实例、平面及玻璃镜面信息；渲染位姿是仿真参考，不是物理跟踪测量。",
+          "标定与时间": "轨迹和相机标定由渲染者设置；资产发布本身不包含物理 IMU 同步保证。",
+          "评测协议": "注明序列生成者、场景清单、坐标约定和深度缩放；避免通过其他派生集训练到相同房间。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Replica assets, Replica360 and the popular neural-SLAM Replica trajectories are distinct releases."
+        ],
+        "zh": [
+          "Replica 资产、Replica360 和常用神经 SLAM 的 Replica 轨迹是不同发布。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Replica Dataset Research Terms: non-commercial / not-for-profit research or educational purposes.",
+        "zh": "Replica 数据研究条款：用于非商业、非营利研究或教育目的。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_woodscape",
+      "name": "WoodScape",
+      "title": "WoodScape: A Multi-Task, Multi-Camera Fisheye Dataset for Autonomous Driving",
+      "year": 2019,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "multi"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Four fisheye cameras",
+        "Vehicle CAN"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Four fisheye cameras",
+          "Vehicle CAN"
+        ],
+        "zh": [
+          "四路鱼眼相机",
+          "车辆 CAN"
+        ]
+      },
+      "groundTruth": [
+        "Semantics and motion masks",
+        "No released dense depth listed"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Semantics and motion masks",
+          "No released dense depth listed"
+        ],
+        "zh": [
+          "语义与运动掩码",
+          "未列出已发布稠密深度"
+        ]
+      },
+      "access": "restricted",
+      "homepageUrl": "https://github.com/valeoai/WoodScape",
+      "paperUrl": "https://arxiv.org/abs/1905.01489",
+      "downloadUrl": "https://github.com/valeoai/WoodScape#dataset-contents",
+      "license": {
+        "en": "Proprietary dataset agreement; repository MIT explicitly covers code only.",
+        "zh": "数据适用专有协议；仓库 MIT 明确仅适用于代码。"
+      },
+      "summary": "真实环视鱼眼 RGB 与前一帧可支持自监督几何研究；发布说明未确立公开的稠密深度真值。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Front, rear, mirror-left and mirror-right fisheye cameras. RGB, previous images, per-image calibration and CAN information are listed.",
+          "Depth availability": "Released content lists semantic/instance/motion labels and boxes, not dense depth maps. LiDAR/dGPS scenes remain marked coming soon in this README.",
+          "Use in depth research": "Suitable as fisheye image-pair input for self-supervised objectives; do not report supervised metric-depth accuracy without a separate released GT source.",
+          "Calibration and timing": "Calibration and vehicle information are provided, but do not assume previous frames form fully synchronized multi-camera SLAM sequences.",
+          "Evaluation": "Respect held-out test samples and camera/sequence identities. State the actual available task labels, rather than planned paper modalities."
+        },
+        "zh": {
+          "投影与输入": "包含前、后、左后视、右后视鱼眼相机；列出 RGB、前一帧、逐图标定及 CAN 信息。",
+          "深度可用性": "已发布内容列有语义、实例、运动标签与框，未列稠密深度。此 README 的 LiDAR、dGPS 场景仍标为即将发布。",
+          "深度研究用途": "可作为鱼眼图像对用于自监督目标；若无额外公开真值，不能报告有监督公制深度精度。",
+          "标定与时间": "提供标定与车辆信息，但不能假定前一帧构成完全同步的多相机 SLAM 序列。",
+          "评测协议": "遵守留出测试样本及相机、序列身份；注明实际可用标签，而不是论文计划提供的模态。"
+        }
+      },
+      "notes": {
+        "en": [
+          "This is included as a fisheye depth-learning input source, explicitly not as a confirmed dense-depth GT benchmark."
+        ],
+        "zh": [
+          "此条作为鱼眼深度学习输入来源收录，明确不作为已确认具备稠密深度真值的基准。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/valeoai/WoodScape",
+          "title": "Official released tasks, camera IDs, calibration and data license"
+        },
+        {
+          "url": "https://arxiv.org/abs/1905.01489",
+          "title": "Official WoodScape paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Real surround fisheye RGB and previous frames support self-supervised geometry research; public dense-depth GT is not established by the release README.",
+        "zh": "真实环视鱼眼 RGB 与前一帧可支持自监督几何研究；发布说明未确立公开的稠密深度真值。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Front, rear, mirror-left and mirror-right fisheye cameras. RGB, previous images, per-image calibration and CAN information are listed.",
+          "Depth availability": "Released content lists semantic/instance/motion labels and boxes, not dense depth maps. LiDAR/dGPS scenes remain marked coming soon in this README.",
+          "Use in depth research": "Suitable as fisheye image-pair input for self-supervised objectives; do not report supervised metric-depth accuracy without a separate released GT source.",
+          "Calibration and timing": "Calibration and vehicle information are provided, but do not assume previous frames form fully synchronized multi-camera SLAM sequences.",
+          "Evaluation": "Respect held-out test samples and camera/sequence identities. State the actual available task labels, rather than planned paper modalities."
+        },
+        "zh": {
+          "投影与输入": "包含前、后、左后视、右后视鱼眼相机；列出 RGB、前一帧、逐图标定及 CAN 信息。",
+          "深度可用性": "已发布内容列有语义、实例、运动标签与框，未列稠密深度。此 README 的 LiDAR、dGPS 场景仍标为即将发布。",
+          "深度研究用途": "可作为鱼眼图像对用于自监督目标；若无额外公开真值，不能报告有监督公制深度精度。",
+          "标定与时间": "提供标定与车辆信息，但不能假定前一帧构成完全同步的多相机 SLAM 序列。",
+          "评测协议": "遵守留出测试样本及相机、序列身份；注明实际可用标签，而不是论文计划提供的模态。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "This is included as a fisheye depth-learning input source, explicitly not as a confirmed dense-depth GT benchmark."
+        ],
+        "zh": [
+          "此条作为鱼眼深度学习输入来源收录，明确不作为已确认具备稠密深度真值的基准。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Proprietary dataset agreement; repository MIT explicitly covers code only.",
+        "zh": "数据适用专有协议；仓库 MIT 明确仅适用于代码。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
       "id": "stella_vslam",
       "collection": "slam",
       "name": "stella_vslam",
@@ -6266,6 +8985,398 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "ds_3d60",
+      "name": "3D60",
+      "title": "OmniDepth / 3D60 spherical RGB-D benchmark",
+      "year": 2018,
+      "cameras": [
+        "panoramic",
+        "multi"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "mixed",
+      "sensors": [
+        "Mesh ray tracing"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Mesh ray tracing"
+        ],
+        "zh": [
+          "网格光线追踪"
+        ]
+      },
+      "groundTruth": [
+        "Rendered panoramic depth",
+        "Normals",
+        "Stereo viewpoints"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Rendered panoramic depth",
+          "Normals",
+          "Stereo viewpoints"
+        ],
+        "zh": [
+          "渲染全景深度",
+          "法向",
+          "立体视点"
+        ]
+      },
+      "access": "request",
+      "homepageUrl": "https://vcl3d.github.io/3D60/",
+      "paperUrl": "https://arxiv.org/abs/1807.09620",
+      "downloadUrl": "https://vcl3d.github.io/3D60/#download",
+      "license": {
+        "en": "Underlying source-dataset agreements plus access requests; available variants have different source assets.",
+        "zh": "需遵守上游数据协议并申请访问；不同发布变体使用不同源资产。"
+      },
+      "summary": "从扫描及合成室内场景渲染球面全景与立体偏移视点；单目协议已由 Pano3D 更新。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Spherical/ERP RGB with center, right and up views. Real-only variant uses Matterport3D and Stanford2D3D; original also included SunCG.",
+          "Depth and validity": "Floating-point single-channel EXR depth; infinity denotes holes. Normal invalids include zero/NaN. Verify meter/range conversion in the selected loader.",
+          "Ground truth": "Depth/normal supervision comes from ray tracing geometry, not an independent full-sphere sensor capture.",
+          "Calibration": "Stereo placements are controlled rendering offsets. Cite the particular center/right/up subset and baseline; physical timing/IMU is not supplied.",
+          "Evaluation": "Use source-scene splits. Official notice flags a rendering lighting bias; Pano3D fixes it, but currently lacks 3D60 stereo renders."
+        },
+        "zh": {
+          "投影与输入": "球面 ERP RGB，包含中心、右侧和上方视点。真实域版本用 Matterport3D 与 Stanford2D3D，早期版本还含 SunCG。",
+          "深度与有效性": "单通道浮点 EXR 深度，以无穷值表示空洞；法向的无效值包括零和 NaN。米制、径向转换需核对所用加载器。",
+          "真值来源": "深度、法向监督来自几何光线追踪，不是独立的整球传感器实测。",
+          "标定": "立体布局是受控渲染偏移，需注明中心、右侧、上方子集与基线；不提供物理时间同步或 IMU。",
+          "评测协议": "使用源场景划分。官方指出渲染照明偏差；Pano3D 修复该问题，但目前不提供 3D60 的立体渲染。"
+        }
+      },
+      "notes": {
+        "en": [
+          "3D60 and Pano3D share source scenes and are not independent captures."
+        ],
+        "zh": [
+          "3D60 与 Pano3D 共用源场景，不能作为独立采集数据。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://vcl3d.github.io/3D60/",
+          "title": "Official modalities, stereo views, splits and lighting-bias notice"
+        },
+        {
+          "url": "https://arxiv.org/abs/1807.09620",
+          "title": "OmniDepth paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Rendered spherical panoramas and stereo offsets derived from scanned/synthetic interiors; Pano3D supersedes its monocular protocol.",
+        "zh": "从扫描及合成室内场景渲染球面全景与立体偏移视点；单目协议已由 Pano3D 更新。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Spherical/ERP RGB with center, right and up views. Real-only variant uses Matterport3D and Stanford2D3D; original also included SunCG.",
+          "Depth and validity": "Floating-point single-channel EXR depth; infinity denotes holes. Normal invalids include zero/NaN. Verify meter/range conversion in the selected loader.",
+          "Ground truth": "Depth/normal supervision comes from ray tracing geometry, not an independent full-sphere sensor capture.",
+          "Calibration": "Stereo placements are controlled rendering offsets. Cite the particular center/right/up subset and baseline; physical timing/IMU is not supplied.",
+          "Evaluation": "Use source-scene splits. Official notice flags a rendering lighting bias; Pano3D fixes it, but currently lacks 3D60 stereo renders."
+        },
+        "zh": {
+          "投影与输入": "球面 ERP RGB，包含中心、右侧和上方视点。真实域版本用 Matterport3D 与 Stanford2D3D，早期版本还含 SunCG。",
+          "深度与有效性": "单通道浮点 EXR 深度，以无穷值表示空洞；法向的无效值包括零和 NaN。米制、径向转换需核对所用加载器。",
+          "真值来源": "深度、法向监督来自几何光线追踪，不是独立的整球传感器实测。",
+          "标定": "立体布局是受控渲染偏移，需注明中心、右侧、上方子集与基线；不提供物理时间同步或 IMU。",
+          "评测协议": "使用源场景划分。官方指出渲染照明偏差；Pano3D 修复该问题，但目前不提供 3D60 的立体渲染。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "3D60 and Pano3D share source scenes and are not independent captures."
+        ],
+        "zh": [
+          "3D60 与 Pano3D 共用源场景，不能作为独立采集数据。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Underlying source-dataset agreements plus access requests; available variants have different source assets.",
+        "zh": "需遵守上游数据协议并申请访问；不同发布变体使用不同源资产。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_gibson",
+      "name": "Gibson / GibsonV2",
+      "title": "Gibson Env: Real-World Perception for Embodied Agents",
+      "year": 2018,
+      "cameras": [
+        "panoramic",
+        "perspective"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "mixed",
+      "sensors": [
+        "Real RGB-D scene scans",
+        "Gibson / iGibson renderer"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Real RGB-D scene scans",
+          "Gibson / iGibson renderer"
+        ],
+        "zh": [
+          "真实 RGB-D 场景扫描",
+          "Gibson / iGibson 渲染器"
+        ]
+      },
+      "groundTruth": [
+        "Reconstructed meshes",
+        "Rendered RGB-D"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Reconstructed meshes",
+          "Rendered RGB-D"
+        ],
+        "zh": [
+          "重建网格",
+          "渲染 RGB-D"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://gibsonenv.github.io/",
+      "paperUrl": "https://arxiv.org/abs/1808.10654",
+      "downloadUrl": "https://stanfordvl.github.io/iGibson/dataset.html",
+      "license": {
+        "en": "Scene download requires license agreement; do not equate simulator code licensing with scene-data rights.",
+        "zh": "场景下载需同意许可协议；仿真器代码许可不等于场景数据使用权。"
+      },
+      "summary": "真实重建室内场景支持虚拟 RGB-D 观测；Pano3D 提供明确的 GibsonV2 ERP 评测派生版本。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Perspective observations are simulator-configured; panoramic depth here refers to the documented Pano3D/GV2 derivative, not every Gibson archive.",
+          "Depth and validity": "Depth is rendered from reconstructed meshes. Units, clipping, range/Z and resolution belong to the simulator/export protocol and must be recorded.",
+          "Scene quality": "Static scans retain measured textures; reflective surfaces and thin structures may contain geometry irregularities.",
+          "Evaluation": "GibsonV2 all-scenes and quality-filtered 4+ packages differ. Identify scene subset and scene-level splits; avoid overlap with Pano3D test assets.",
+          "Poses and timing": "Simulated trajectories provide reference poses, not independently measured motion-capture GT. Physical synchronization is not an asset-level property."
+        },
+        "zh": {
+          "投影与输入": "透视观测由仿真器配置；这里的全景深度指已记录的 Pano3D/GV2 派生版，不代表所有 Gibson 压缩包均含 ERP。",
+          "深度与有效性": "深度由重建网格渲染；单位、截断、径向距离或 Z、分辨率属于仿真与导出协议，需逐项记录。",
+          "场景质量": "静态扫描保留实测纹理；反光表面和细结构可能存在几何瑕疵。",
+          "评测协议": "GibsonV2 全场景包与质量筛选 4+ 包不同，需注明子集和场景级划分，并排除与 Pano3D 测试资产重叠。",
+          "位姿与时间": "仿真轨迹提供参考位姿，不是独立动捕真值；物理同步不属于场景资产本身的属性。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Gibson static scenes and interactive iGibson scene/object assets are different products."
+        ],
+        "zh": [
+          "Gibson 静态场景与交互式 iGibson 场景、物体资产属于不同产品。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://gibsonenv.github.io/",
+          "title": "Official Gibson project"
+        },
+        {
+          "url": "https://stanfordvl.github.io/iGibson/dataset.html",
+          "title": "Official current static-scene download and scan caveats"
+        },
+        {
+          "url": "https://vcl3d.github.io/Pano3D/",
+          "title": "Documented GibsonV2 ERP derivatives"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Real reconstructed indoor scenes support virtual RGB-D observations; Pano3D provides a specific GibsonV2 ERP evaluation derivative.",
+        "zh": "真实重建室内场景支持虚拟 RGB-D 观测；Pano3D 提供明确的 GibsonV2 ERP 评测派生版本。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Perspective observations are simulator-configured; panoramic depth here refers to the documented Pano3D/GV2 derivative, not every Gibson archive.",
+          "Depth and validity": "Depth is rendered from reconstructed meshes. Units, clipping, range/Z and resolution belong to the simulator/export protocol and must be recorded.",
+          "Scene quality": "Static scans retain measured textures; reflective surfaces and thin structures may contain geometry irregularities.",
+          "Evaluation": "GibsonV2 all-scenes and quality-filtered 4+ packages differ. Identify scene subset and scene-level splits; avoid overlap with Pano3D test assets.",
+          "Poses and timing": "Simulated trajectories provide reference poses, not independently measured motion-capture GT. Physical synchronization is not an asset-level property."
+        },
+        "zh": {
+          "投影与输入": "透视观测由仿真器配置；这里的全景深度指已记录的 Pano3D/GV2 派生版，不代表所有 Gibson 压缩包均含 ERP。",
+          "深度与有效性": "深度由重建网格渲染；单位、截断、径向距离或 Z、分辨率属于仿真与导出协议，需逐项记录。",
+          "场景质量": "静态扫描保留实测纹理；反光表面和细结构可能存在几何瑕疵。",
+          "评测协议": "GibsonV2 全场景包与质量筛选 4+ 包不同，需注明子集和场景级划分，并排除与 Pano3D 测试资产重叠。",
+          "位姿与时间": "仿真轨迹提供参考位姿，不是独立动捕真值；物理同步不属于场景资产本身的属性。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Gibson static scenes and interactive iGibson scene/object assets are different products."
+        ],
+        "zh": [
+          "Gibson 静态场景与交互式 iGibson 场景、物体资产属于不同产品。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Scene download requires license agreement; do not equate simulator code licensing with scene-data rights.",
+        "zh": "场景下载需同意许可协议；仿真器代码许可不等于场景数据使用权。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_tum_vi",
+      "name": "TUM VI",
+      "title": "The TUM VI Benchmark for Evaluating Visual-Inertial Odometry",
+      "year": 2018,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Stereo fisheye",
+        "IMU",
+        "MoCap"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Stereo fisheye",
+          "IMU",
+          "MoCap"
+        ],
+        "zh": [
+          "双目鱼眼",
+          "IMU",
+          "动作捕捉"
+        ]
+      },
+      "groundTruth": [
+        "Metric poses",
+        "Partial trajectory"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Metric poses",
+          "Partial trajectory"
+        ],
+        "zh": [
+          "米制位姿",
+          "部分轨迹真值"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset",
+      "paperUrl": "https://arxiv.org/abs/1804.06120",
+      "downloadUrl": "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset#dataset",
+      "license": {
+        "en": "CC BY 4.0 data; accompanying code BSD-2-Clause.",
+        "zh": "数据为 CC BY 4.0；附带代码为 BSD-2-Clause。"
+      },
+      "summary": "硬件同步的 195° 双目鱼眼与 IMU，附光度标定；房间序列有完整参考，其他序列通常只有起终段。",
+      "details": {
+        "en": {
+          "Inputs": "1024×1024 16-bit linear images at 20 Hz; IMU at 200 Hz. Downsampled exports are also provided.",
+          "Ground-truth coverage": "Room sequences: full motion capture. Corridor, magistrale, outdoors and slides: start/end segments only.",
+          "Reference frame": "Calibrated ground truth is in the IMU frame; corrected timestamps and IMU scaling are already applied.",
+          "Calibration": "Geometric, camera–IMU, exposure/vignette and IMU-noise resources are supplied.",
+          "Evaluation": "Evaluate only reference-covered intervals; endpoint drift is not full-route ATE."
+        },
+        "zh": {
+          "输入": "1024×1024、16 位线性图像，20 Hz；IMU 为 200 Hz，另提供降采样版本。",
+          "真值覆盖": "room 序列有完整动作捕捉；corridor、magistrale、outdoors、slides 仅起终段有真值。",
+          "参考坐标系": "标定版本真值已转到 IMU 坐标系，并已校正时间戳与 IMU 比例。",
+          "标定": "提供几何、相机–IMU、曝光/暗角和 IMU 噪声资料。",
+          "评测": "仅在真值覆盖区间计算对应误差；端点漂移不等于全程 ATE。"
+        }
+      },
+      "notes": {
+        "en": [
+          "No dense depth labels; this is a VIO/SLAM benchmark.",
+          "Do not apply raw-clock offsets again to calibrated exports."
+        ],
+        "zh": [
+          "没有稠密深度标签，主要用于 VIO/SLAM。",
+          "不要对标定后导出数据重复应用原始时钟偏移。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset",
+          "title": "TUM VI official sequences, calibration, coverage and licence"
+        },
+        {
+          "url": "https://arxiv.org/abs/1804.06120",
+          "title": "TUM VI paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Hardware-synchronized 195° stereo fisheye and IMU with photometric calibration; full room trajectories but partial reference elsewhere.",
+        "zh": "硬件同步的 195° 双目鱼眼与 IMU，附光度标定；房间序列有完整参考，其他序列通常只有起终段。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Inputs": "1024×1024 16-bit linear images at 20 Hz; IMU at 200 Hz. Downsampled exports are also provided.",
+          "Ground-truth coverage": "Room sequences: full motion capture. Corridor, magistrale, outdoors and slides: start/end segments only.",
+          "Reference frame": "Calibrated ground truth is in the IMU frame; corrected timestamps and IMU scaling are already applied.",
+          "Calibration": "Geometric, camera–IMU, exposure/vignette and IMU-noise resources are supplied.",
+          "Evaluation": "Evaluate only reference-covered intervals; endpoint drift is not full-route ATE."
+        },
+        "zh": {
+          "输入": "1024×1024、16 位线性图像，20 Hz；IMU 为 200 Hz，另提供降采样版本。",
+          "真值覆盖": "room 序列有完整动作捕捉；corridor、magistrale、outdoors、slides 仅起终段有真值。",
+          "参考坐标系": "标定版本真值已转到 IMU 坐标系，并已校正时间戳与 IMU 比例。",
+          "标定": "提供几何、相机–IMU、曝光/暗角和 IMU 噪声资料。",
+          "评测": "仅在真值覆盖区间计算对应误差；端点漂移不等于全程 ATE。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "No dense depth labels; this is a VIO/SLAM benchmark.",
+          "Do not apply raw-clock offsets again to calibrated exports."
+        ],
+        "zh": [
+          "没有稠密深度标签，主要用于 VIO/SLAM。",
+          "不要对标定后导出数据重复应用原始时钟偏移。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY 4.0 data; accompanying code BSD-2-Clause.",
+        "zh": "数据为 CC BY 4.0；附带代码为 BSD-2-Clause。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
       "id": "vinsfusion2019",
       "collection": "slam",
       "name": "VINS-Fusion",
@@ -6363,6 +9474,543 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "ds_kitti_depth",
+      "name": "KITTI Depth",
+      "title": "Sparsity Invariant CNNs / KITTI Depth Prediction and Completion",
+      "year": 2017,
+      "cameras": [
+        "perspective"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Stereo RGB",
+        "Velodyne LiDAR"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Stereo RGB",
+          "Velodyne LiDAR"
+        ],
+        "zh": [
+          "双目 RGB",
+          "Velodyne 激光雷达"
+        ]
+      },
+      "groundTruth": [
+        "Accumulated LiDAR depth",
+        "Sparse input depth"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Accumulated LiDAR depth",
+          "Sparse input depth"
+        ],
+        "zh": [
+          "累积激光深度",
+          "稀疏输入深度"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction",
+      "paperUrl": "https://arxiv.org/abs/1708.06500",
+      "downloadUrl": "https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_completion",
+      "license": {
+        "en": "KITTI download registration and dataset terms apply; evaluation submissions have separate eligibility rules.",
+        "zh": "适用 KITTI 下载注册及数据条款，评测提交另有资格限制。"
+      },
+      "summary": "采用激光派生目标的室外透视基准；官方预测、补全与常见 Eigen 式划分是不同协议。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Depth maps align with KITTI raw left/right perspective images; raw LiDAR and corresponding RGB are separate inputs.",
+          "Depth and validity": "Depth targets combine LiDAR observations; they remain sparse/occlusion-sensitive. Verify PNG scaling and valid-pixel rules in the downloaded official devkit.",
+          "Calibration": "Use raw-data camera/LiDAR calibration and frame mapping. A depth benchmark is not a replacement for odometry ground truth.",
+          "Evaluation": "Separate depth prediction (RGB) from depth completion (RGB plus sparse depth). Specify split, crop, depth cap and scale alignment explicitly.",
+          "Access": "Official downloads require login. Hidden test targets are evaluated by the benchmark; site eligibility rules restrict routine submissions."
+        },
+        "zh": {
+          "投影与输入": "深度图对应 KITTI 原始左右透视图，原始激光与对应 RGB 需分别加载。",
+          "深度与有效性": "深度目标融合激光观测，仍受稀疏性与遮挡影响；PNG 缩放和有效像素规则需以下载的官方工具为准。",
+          "标定": "需用原始相机、激光标定及帧映射；深度基准不能代替里程计位姿真值。",
+          "评测协议": "区分深度预测（RGB）与深度补全（RGB 加稀疏深度），明确划分、裁剪、深度上限及尺度对齐。",
+          "获取方式": "官方下载需登录；隐藏测试标签由官方评测，常规提交受网站资格规则约束。"
+        }
+      },
+      "notes": {
+        "en": [
+          "A KITTI score cannot be directly compared with KITTI-360 fisheye or panoramic evaluation."
+        ],
+        "zh": [
+          "KITTI 分数不能与 KITTI-360 鱼眼或全景评测直接比较。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction",
+          "title": "Official depth prediction benchmark"
+        },
+        {
+          "url": "https://arxiv.org/abs/1708.06500",
+          "title": "Sparsity Invariant CNNs paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Outdoor perspective benchmark with LiDAR-derived targets; official prediction/completion and common Eigen-style splits are different protocols.",
+        "zh": "采用激光派生目标的室外透视基准；官方预测、补全与常见 Eigen 式划分是不同协议。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Depth maps align with KITTI raw left/right perspective images; raw LiDAR and corresponding RGB are separate inputs.",
+          "Depth and validity": "Depth targets combine LiDAR observations; they remain sparse/occlusion-sensitive. Verify PNG scaling and valid-pixel rules in the downloaded official devkit.",
+          "Calibration": "Use raw-data camera/LiDAR calibration and frame mapping. A depth benchmark is not a replacement for odometry ground truth.",
+          "Evaluation": "Separate depth prediction (RGB) from depth completion (RGB plus sparse depth). Specify split, crop, depth cap and scale alignment explicitly.",
+          "Access": "Official downloads require login. Hidden test targets are evaluated by the benchmark; site eligibility rules restrict routine submissions."
+        },
+        "zh": {
+          "投影与输入": "深度图对应 KITTI 原始左右透视图，原始激光与对应 RGB 需分别加载。",
+          "深度与有效性": "深度目标融合激光观测，仍受稀疏性与遮挡影响；PNG 缩放和有效像素规则需以下载的官方工具为准。",
+          "标定": "需用原始相机、激光标定及帧映射；深度基准不能代替里程计位姿真值。",
+          "评测协议": "区分深度预测（RGB）与深度补全（RGB 加稀疏深度），明确划分、裁剪、深度上限及尺度对齐。",
+          "获取方式": "官方下载需登录；隐藏测试标签由官方评测，常规提交受网站资格规则约束。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "A KITTI score cannot be directly compared with KITTI-360 fisheye or panoramic evaluation."
+        ],
+        "zh": [
+          "KITTI 分数不能与 KITTI-360 鱼眼或全景评测直接比较。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "KITTI download registration and dataset terms apply; evaluation submissions have separate eligibility rules.",
+        "zh": "适用 KITTI 下载注册及数据条款，评测提交另有资格限制。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_lafida",
+      "name": "LaFiDa",
+      "title": "LaFiDa – A Laserscanner Multi-Fisheye Camera Dataset",
+      "year": 2017,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Three fisheye cameras",
+        "Laser scanner",
+        "Motion capture"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Three fisheye cameras",
+          "Laser scanner",
+          "Motion capture"
+        ],
+        "zh": [
+          "三鱼眼相机",
+          "激光扫描仪",
+          "动作捕捉"
+        ]
+      },
+      "groundTruth": [
+        "Metric trajectory",
+        "Laser point cloud"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Metric trajectory",
+          "Laser point cloud"
+        ],
+        "zh": [
+          "米制轨迹",
+          "激光点云"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://www.ipf.kit.edu/lafida.php",
+      "paperUrl": "https://doi.org/10.3390/jimaging3010005",
+      "downloadUrl": "https://www.ipf.kit.edu/lafida_datasets.php",
+      "license": {
+        "en": "CC BY 4.0, as stated by KIT IPF.",
+        "zh": "KIT IPF 声明采用 CC BY 4.0。"
+      },
+      "summary": "头盔式三鱼眼/激光基准，提供动作捕捉参考和明确的相机/机架标定。",
+      "details": {
+        "en": {
+          "Geometry": "Three divergent physical fisheye cameras and a laser scanner; not an ERP panorama stream.",
+          "Reference provenance": "OptiTrack tracks a rigid-body marker bar; apply its measured camera/scanner transforms for sensor-frame evaluation.",
+          "Accuracy": "Official description distinguishes stable submillimetre position precision from dynamic errors of a few millimetres.",
+          "Calibration and time": "Ocam-Toolbox intrinsics, multicamera/laser/rigid-body extrinsics and per-image/scan timestamps are documented.",
+          "Task": "SLAM trajectory ATE/RPE and mapping on indoor/outdoor static/dynamic sequences; laser returns are not complete image-depth GT."
+        },
+        "zh": {
+          "成像模型": "三个朝向不同的真实鱼眼相机和激光扫描仪，不是 ERP 全景流。",
+          "参考来源": "OptiTrack 跟踪刚性标记杆；评估传感器轨迹时需应用相机/扫描仪到刚体的标定变换。",
+          "精度": "官方区分静态亚毫米级位置精度与动态数毫米误差。",
+          "标定与时间": "说明 Ocam-Toolbox 内参、多相机/激光/刚体外参及逐图像/扫描时间戳。",
+          "任务": "室内外静态/动态序列的 SLAM 轨迹 ATE/RPE 和建图；激光回波不等于完整图像深度真值。"
+        }
+      },
+      "notes": {
+        "en": [
+          "The outdoor large-loop sequence leaves the tracking volume; its full path does not have continuous mocap.",
+          "Full archives were not downloaded; download entry points are linked from the official project."
+        ],
+        "zh": [
+          "室外大回环序列离开动作捕捉范围，全程并非都有连续动作捕捉真值。",
+          "本次未下载完整归档；下载入口由官方项目页提供。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://www.ipf.kit.edu/english/code_1842.php",
+          "title": "KIT IPF official LaFiDa release and CC BY 4.0 licence"
+        },
+        {
+          "url": "https://www.ipf.kit.edu/lafida.php",
+          "title": "LaFiDa motion capture, calibration and synchronization"
+        },
+        {
+          "url": "https://www.ipf.kit.edu/lafida_datasets.php",
+          "title": "LaFiDa downloads, units and outdoor tracking-volume limitation"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Helmet-mounted three-fisheye/laser benchmark with motion-capture references and explicit camera/rig calibration.",
+        "zh": "头盔式三鱼眼/激光基准，提供动作捕捉参考和明确的相机/机架标定。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Geometry": "Three divergent physical fisheye cameras and a laser scanner; not an ERP panorama stream.",
+          "Reference provenance": "OptiTrack tracks a rigid-body marker bar; apply its measured camera/scanner transforms for sensor-frame evaluation.",
+          "Accuracy": "Official description distinguishes stable submillimetre position precision from dynamic errors of a few millimetres.",
+          "Calibration and time": "Ocam-Toolbox intrinsics, multicamera/laser/rigid-body extrinsics and per-image/scan timestamps are documented.",
+          "Task": "SLAM trajectory ATE/RPE and mapping on indoor/outdoor static/dynamic sequences; laser returns are not complete image-depth GT."
+        },
+        "zh": {
+          "成像模型": "三个朝向不同的真实鱼眼相机和激光扫描仪，不是 ERP 全景流。",
+          "参考来源": "OptiTrack 跟踪刚性标记杆；评估传感器轨迹时需应用相机/扫描仪到刚体的标定变换。",
+          "精度": "官方区分静态亚毫米级位置精度与动态数毫米误差。",
+          "标定与时间": "说明 Ocam-Toolbox 内参、多相机/激光/刚体外参及逐图像/扫描时间戳。",
+          "任务": "室内外静态/动态序列的 SLAM 轨迹 ATE/RPE 和建图；激光回波不等于完整图像深度真值。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "The outdoor large-loop sequence leaves the tracking volume; its full path does not have continuous mocap.",
+          "Full archives were not downloaded; download entry points are linked from the official project."
+        ],
+        "zh": [
+          "室外大回环序列离开动作捕捉范围，全程并非都有连续动作捕捉真值。",
+          "本次未下载完整归档；下载入口由官方项目页提供。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY 4.0, as stated by KIT IPF.",
+        "zh": "KIT IPF 声明采用 CC BY 4.0。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_matterport3d",
+      "name": "Matterport3D",
+      "title": "Matterport3D: Learning from RGB-D Data in Indoor Environments",
+      "year": 2017,
+      "cameras": [
+        "panoramic",
+        "perspective",
+        "multi"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Matterport Pro RGB-D"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Matterport Pro RGB-D"
+        ],
+        "zh": [
+          "Matterport Pro RGB-D"
+        ]
+      },
+      "groundTruth": [
+        "Measured depth",
+        "Camera poses",
+        "Meshes and semantics"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Measured depth",
+          "Camera poses",
+          "Meshes and semantics"
+        ],
+        "zh": [
+          "实测深度",
+          "相机位姿",
+          "网格与语义"
+        ]
+      },
+      "access": "request",
+      "homepageUrl": "https://niessner.github.io/Matterport/",
+      "paperUrl": "https://arxiv.org/abs/1709.06158",
+      "downloadUrl": "https://niessner.github.io/Matterport/#download",
+      "license": {
+        "en": "Matterport3D Terms of Use; signed agreement and institutional-email access request. Repository MIT applies to code.",
+        "zh": "数据适用 Matterport3D 使用条款；签署协议并通过机构邮箱申请。仓库 MIT 仅适用于代码。"
+      },
+      "summary": "真实建筑扫描是许多全景深度基准的基础；原始 RGB-D 采集与渲染 ERP 派生集需要分别处理。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Three RGB-D sensors capture 18 views per tripod station; skyboxes and calibrated perspective images are provided. Published ERP depth protocols are derived products.",
+          "Depth and validity": "Original 16-bit depth is camera Z: meters = value / 4000; zero is invalid. Do not copy this scale or Z convention to rendered ERP range.",
+          "Geometry and annotations": "Sensor depth, reconstructed meshes, region/object semantics, intrinsics and camera-to-world poses; pose translations are meters.",
+          "Timing and calibration": "Per-view intrinsics/extrinsics are supplied. Rotating static scan stations are not continuous synchronized VIO sequences.",
+          "Evaluation": "Keep building identities separated. State whether using native depth, 3D60, Pano3D, or another ERP renderer and its mask/crop."
+        },
+        "zh": {
+          "投影与输入": "每站由三个 RGB-D 传感器采集 18 个视图，提供天空盒及标定透视图。论文常用的 ERP 深度协议属于派生产品。",
+          "深度与有效性": "原始 16 位深度是相机 Z：米数＝数值 / 4000；0 无效。不能直接把该缩放和 Z 定义套用于渲染 ERP 径向深度。",
+          "几何与标注": "包含传感器深度、重建网格、区域和物体语义、内参与相机到世界位姿；位姿平移使用米。",
+          "时间与标定": "提供逐视图内外参；旋转式静态扫描站不是连续同步的 VIO 序列。",
+          "评测协议": "按建筑隔离训练和测试；注明使用原始深度、3D60、Pano3D 或其他 ERP 渲染版本及掩码、裁剪。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Many datasets reuse these buildings; combining derivatives does not create an independent test set."
+        ],
+        "zh": [
+          "多个派生集复用这些建筑，合并后不能视为独立测试集。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://niessner.github.io/Matterport/",
+          "title": "Official project and access"
+        },
+        {
+          "url": "https://github.com/niessner/Matterport/blob/master/data_organization.md",
+          "title": "Official data organization"
+        },
+        {
+          "url": "https://github.com/niessner/Matterport",
+          "title": "Official repository"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Real building scans underpin many panoramic depth benchmarks; raw RGB-D capture and rendered ERP derivatives require different loaders.",
+        "zh": "真实建筑扫描是许多全景深度基准的基础；原始 RGB-D 采集与渲染 ERP 派生集需要分别处理。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Three RGB-D sensors capture 18 views per tripod station; skyboxes and calibrated perspective images are provided. Published ERP depth protocols are derived products.",
+          "Depth and validity": "Original 16-bit depth is camera Z: meters = value / 4000; zero is invalid. Do not copy this scale or Z convention to rendered ERP range.",
+          "Geometry and annotations": "Sensor depth, reconstructed meshes, region/object semantics, intrinsics and camera-to-world poses; pose translations are meters.",
+          "Timing and calibration": "Per-view intrinsics/extrinsics are supplied. Rotating static scan stations are not continuous synchronized VIO sequences.",
+          "Evaluation": "Keep building identities separated. State whether using native depth, 3D60, Pano3D, or another ERP renderer and its mask/crop."
+        },
+        "zh": {
+          "投影与输入": "每站由三个 RGB-D 传感器采集 18 个视图，提供天空盒及标定透视图。论文常用的 ERP 深度协议属于派生产品。",
+          "深度与有效性": "原始 16 位深度是相机 Z：米数＝数值 / 4000；0 无效。不能直接把该缩放和 Z 定义套用于渲染 ERP 径向深度。",
+          "几何与标注": "包含传感器深度、重建网格、区域和物体语义、内参与相机到世界位姿；位姿平移使用米。",
+          "时间与标定": "提供逐视图内外参；旋转式静态扫描站不是连续同步的 VIO 序列。",
+          "评测协议": "按建筑隔离训练和测试；注明使用原始深度、3D60、Pano3D 或其他 ERP 渲染版本及掩码、裁剪。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Many datasets reuse these buildings; combining derivatives does not create an independent test set."
+        ],
+        "zh": [
+          "多个派生集复用这些建筑，合并后不能视为独立测试集。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Matterport3D Terms of Use; signed agreement and institutional-email access request. Repository MIT applies to code.",
+        "zh": "数据适用 Matterport3D 使用条款；签署协议并通过机构邮箱申请。仓库 MIT 仅适用于代码。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_robotcar",
+      "name": "Oxford RobotCar",
+      "title": "1 Year, 1000km: The Oxford RobotCar Dataset",
+      "year": 2017,
+      "cameras": [
+        "fisheye",
+        "wide",
+        "perspective",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Trinocular stereo",
+        "Fisheye",
+        "LiDAR",
+        "GPS/INS"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Trinocular stereo",
+          "Fisheye",
+          "LiDAR",
+          "GPS/INS"
+        ],
+        "zh": [
+          "三目立体",
+          "鱼眼",
+          "LiDAR",
+          "GPS/INS"
+        ]
+      },
+      "groundTruth": [
+        "RTK reference",
+        "GPS/INS"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "RTK reference",
+          "GPS/INS"
+        ],
+        "zh": [
+          "RTK 参考",
+          "GPS/INS"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://robotcar-dataset.robots.ox.ac.uk/",
+      "paperUrl": "https://doi.org/10.1177/0278364916679498",
+      "downloadUrl": "https://robotcar-dataset.robots.ox.ac.uk/downloads/",
+      "license": {
+        "en": "CC BY-NC-SA 4.0; registration is required for downloads.",
+        "zh": "CC BY-NC-SA 4.0；下载需注册。"
+      },
+      "summary": "跨天气、季节反复采集的城市路线，含双目与 180° 鱼眼视图，适合长期定位研究。",
+      "details": {
+        "en": {
+          "Geometry": "Forward trinocular stereo plus left/right/rear fisheye cameras; source images are unrectified Bayer PNGs.",
+          "Reference quality": "Use the separate 2020 RTK release and its validity flags for global evaluation; original GPS/INS quality varies.",
+          "Not ground truth": "vo.csv is a drifting local visual-odometry reference, explicitly not global or relative-pose ground truth.",
+          "Calibration and timing": "Intrinsics, rectification lookup tables, extrinsics and per-sensor timestamps are supplied; sensors have different rates.",
+          "Year and evaluation": "2017 is the journal volume year (online publication 2016). Specify traversal split, RTK coverage and the coordinate transform."
+        },
+        "zh": {
+          "成像模型": "前向三目加左/右/后三个鱼眼相机；原图为未经校正的 Bayer PNG。",
+          "参考质量": "全局评测采用单独发布的 2020 年 RTK 参考及有效标记；原始 GPS/INS 的质量随场景变化。",
+          "非真值数据": "vo.csv 只是会漂移的局部视觉里程计参考，官方明确不把它当作相对或全局位姿真值。",
+          "标定与时间": "提供内参、校正查找表、外参与各传感器时间戳；不同传感器采样率不同。",
+          "年份与评测": "2017 为期刊卷年，2016 年在线发表；需说明路线划分、RTK 覆盖与坐标变换。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Do not merge this release with the Radar RobotCar extension without stating the version.",
+          "LiDAR projection is sparse supervision, not native dense-depth GT."
+        ],
+        "zh": [
+          "与 Radar RobotCar 扩展一起使用时需明确版本。",
+          "LiDAR 投影只能提供稀疏监督，并非原生稠密深度真值。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://robotcar-dataset.robots.ox.ac.uk/",
+          "title": "Oxford RobotCar overview, licence and registration"
+        },
+        {
+          "url": "https://robotcar-dataset.robots.ox.ac.uk/documentation/",
+          "title": "RobotCar sensor models and VO reference warning"
+        },
+        {
+          "url": "https://arxiv.org/abs/2002.10152",
+          "title": "2020 RTK ground-truth release"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Repeated urban traversals across weather and seasons with stereo and 180° fisheye views, useful for long-term localisation.",
+        "zh": "跨天气、季节反复采集的城市路线，含双目与 180° 鱼眼视图，适合长期定位研究。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Geometry": "Forward trinocular stereo plus left/right/rear fisheye cameras; source images are unrectified Bayer PNGs.",
+          "Reference quality": "Use the separate 2020 RTK release and its validity flags for global evaluation; original GPS/INS quality varies.",
+          "Not ground truth": "vo.csv is a drifting local visual-odometry reference, explicitly not global or relative-pose ground truth.",
+          "Calibration and timing": "Intrinsics, rectification lookup tables, extrinsics and per-sensor timestamps are supplied; sensors have different rates.",
+          "Year and evaluation": "2017 is the journal volume year (online publication 2016). Specify traversal split, RTK coverage and the coordinate transform."
+        },
+        "zh": {
+          "成像模型": "前向三目加左/右/后三个鱼眼相机；原图为未经校正的 Bayer PNG。",
+          "参考质量": "全局评测采用单独发布的 2020 年 RTK 参考及有效标记；原始 GPS/INS 的质量随场景变化。",
+          "非真值数据": "vo.csv 只是会漂移的局部视觉里程计参考，官方明确不把它当作相对或全局位姿真值。",
+          "标定与时间": "提供内参、校正查找表、外参与各传感器时间戳；不同传感器采样率不同。",
+          "年份与评测": "2017 为期刊卷年，2016 年在线发表；需说明路线划分、RTK 覆盖与坐标变换。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Do not merge this release with the Radar RobotCar extension without stating the version.",
+          "LiDAR projection is sparse supervision, not native dense-depth GT."
+        ],
+        "zh": [
+          "与 Radar RobotCar 扩展一起使用时需明确版本。",
+          "LiDAR 投影只能提供稀疏监督，并非原生稠密深度真值。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY-NC-SA 4.0; registration is required for downloads.",
+        "zh": "CC BY-NC-SA 4.0；下载需注册。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
       "id": "svo_pro",
       "collection": "slam",
       "name": "SVO Pro",
@@ -6458,11 +10106,665 @@ window.ATLAS_DATA = {
           598
         ]
       }
+    },
+    {
+      "id": "ds_stanford2d3ds",
+      "name": "Stanford2D3D / 2D-3D-S",
+      "title": "Joint 2D-3D-Semantic Data for Indoor Scene Understanding",
+      "year": 2017,
+      "cameras": [
+        "panoramic",
+        "perspective"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "mixed",
+      "sensors": [
+        "Matterport RGB-D scans"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Matterport RGB-D scans"
+        ],
+        "zh": [
+          "Matterport RGB-D 扫描"
+        ]
+      },
+      "groundTruth": [
+        "Rendered depth",
+        "Camera poses",
+        "Semantics and XYZ"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Rendered depth",
+          "Camera poses",
+          "Semantics and XYZ"
+        ],
+        "zh": [
+          "渲染深度",
+          "相机位姿",
+          "语义与 XYZ"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://github.com/alexsax/2D-3D-Semantics",
+      "paperUrl": "https://arxiv.org/abs/1702.01105",
+      "downloadUrl": "https://github.com/alexsax/2D-3D-Semantics#download",
+      "license": {
+        "en": "Dataset license agreement required; repository Apache-2.0 covers software only.",
+        "zh": "下载需同意数据集协议；仓库 Apache-2.0 仅覆盖软件。"
+      },
+      "summary": "室内配准 RGB、深度、法向、语义与 XYZ，明确提供透视和等距柱状全景版本。",
+      "details": {
+        "en": {
+          "Projection and inputs": "The release has data/ perspective images and pano/ ERP modalities plus raw scan views. Perspective images are 1080×1080.",
+          "Depth and validity": "16-bit PNG: meters = value / 512, invalid = 65535. Perspective depth is Z; panoramic depth is camera-center Euclidean distance.",
+          "Ground truth": "Real scanned meshes generate registered 2D/2.5D products. Normals, global XYZ and semantic instances accompany depth.",
+          "Calibration": "Pose JSON contains K, camera location and rotations. ERP metadata may say 90° FOV although the image is 360°.",
+          "Evaluation": "Preserve area/building splits and disclose the exact fold. Panorama rotations and perspective crops from one station must remain together."
+        },
+        "zh": {
+          "投影与输入": "发布包含 data/ 透视图、pano/ ERP 各模态及原始扫描视图；透视图分辨率为 1080×1080。",
+          "深度与有效性": "16 位 PNG：米数＝数值 / 512，65535 无效。透视深度是 Z；全景深度是相机中心到表面的欧氏距离。",
+          "真值来源": "真实扫描网格生成配准二维及 2.5D 产品，同时提供法向、全局 XYZ 和语义实例。",
+          "标定": "位姿 JSON 包含 K、相机位置和旋转。ERP 元数据可能写 90° FOV，但图像实际为 360°。",
+          "评测协议": "保留区域、建筑级划分并注明具体折次；同一扫描站的全景旋转与透视裁剪必须放在同一集合。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Do not substitute the S3DIS point-cloud-only release for the richer 2D-3D-S release."
+        ],
+        "zh": [
+          "不能用仅点云的 S3DIS 发布替代包含丰富二维模态的 2D-3D-S。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/alexsax/2D-3D-Semantics",
+          "title": "Official modalities, data license and depth encoding"
+        },
+        {
+          "url": "https://arxiv.org/abs/1702.01105",
+          "title": "Dataset paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Registered indoor RGB, depth, normals, semantics and XYZ, explicitly supplied as perspective and equirectangular products.",
+        "zh": "室内配准 RGB、深度、法向、语义与 XYZ，明确提供透视和等距柱状全景版本。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "The release has data/ perspective images and pano/ ERP modalities plus raw scan views. Perspective images are 1080×1080.",
+          "Depth and validity": "16-bit PNG: meters = value / 512, invalid = 65535. Perspective depth is Z; panoramic depth is camera-center Euclidean distance.",
+          "Ground truth": "Real scanned meshes generate registered 2D/2.5D products. Normals, global XYZ and semantic instances accompany depth.",
+          "Calibration": "Pose JSON contains K, camera location and rotations. ERP metadata may say 90° FOV although the image is 360°.",
+          "Evaluation": "Preserve area/building splits and disclose the exact fold. Panorama rotations and perspective crops from one station must remain together."
+        },
+        "zh": {
+          "投影与输入": "发布包含 data/ 透视图、pano/ ERP 各模态及原始扫描视图；透视图分辨率为 1080×1080。",
+          "深度与有效性": "16 位 PNG：米数＝数值 / 512，65535 无效。透视深度是 Z；全景深度是相机中心到表面的欧氏距离。",
+          "真值来源": "真实扫描网格生成配准二维及 2.5D 产品，同时提供法向、全局 XYZ 和语义实例。",
+          "标定": "位姿 JSON 包含 K、相机位置和旋转。ERP 元数据可能写 90° FOV，但图像实际为 360°。",
+          "评测协议": "保留区域、建筑级划分并注明具体折次；同一扫描站的全景旋转与透视裁剪必须放在同一集合。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Do not substitute the S3DIS point-cloud-only release for the richer 2D-3D-S release."
+        ],
+        "zh": [
+          "不能用仅点云的 S3DIS 发布替代包含丰富二维模态的 2D-3D-S。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Dataset license agreement required; repository Apache-2.0 covers software only.",
+        "zh": "下载需同意数据集协议；仓库 Apache-2.0 仅覆盖软件。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_euroc",
+      "name": "EuRoC MAV",
+      "title": "The EuRoC micro aerial vehicle datasets",
+      "year": 2016,
+      "cameras": [
+        "perspective",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Stereo",
+        "IMU",
+        "Laser tracker",
+        "MoCap"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Stereo",
+          "IMU",
+          "Laser tracker",
+          "MoCap"
+        ],
+        "zh": [
+          "双目",
+          "IMU",
+          "激光跟踪仪",
+          "动作捕捉"
+        ]
+      },
+      "groundTruth": [
+        "Metric poses",
+        "3D structure"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Metric poses",
+          "3D structure"
+        ],
+        "zh": [
+          "米制位姿",
+          "三维结构"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+      "paperUrl": "https://doi.org/10.1177/0278364915620033",
+      "downloadUrl": "https://doi.org/10.3929/ethz-b-000690084",
+      "license": {
+        "en": "Consult the ETH Research Collection record; dataset licence was not independently verified in this audit.",
+        "zh": "以 ETH Research Collection 条目许可为准；本次未独立核验数据许可。"
+      },
+      "summary": "经典双目惯性无人机基准，提供米制运动参考，可作为广视场 VIO 的透视相机对照。",
+      "details": {
+        "en": {
+          "Geometry": "Monochrome stereo, 20 Hz; IMU, 200 Hz. Not a panoramic or fisheye release.",
+          "Ground-truth provenance": "Vicon 6DoF pose or Leica laser-tracker 3D position, depending on sequence; structure scans are also available.",
+          "Calibration and time": "Camera intrinsics, camera–IMU extrinsics and aligned references are supplied. Separate reference recording systems leave documented synchronization limits.",
+          "Evaluation": "Use the supplied sensor/body transforms and timestamps; position-only laser measurements do not independently observe every orientation.",
+          "Download": "Official hosting moved to ETH Research Collection."
+        },
+        "zh": {
+          "成像模型": "20 Hz 灰度双目与 200 Hz IMU；不是全景或鱼眼数据。",
+          "真值来源": "不同序列采用 Vicon 六自由度位姿或 Leica 激光跟踪三维位置，并提供结构扫描。",
+          "标定与时间": "提供相机内参、相机–IMU 外参和已对齐参考；独立参考采集系统仍有文档说明的同步限制。",
+          "评测": "使用数据所定义的传感器/机体变换与时间戳；激光仪的纯位置测量不能独立观测所有姿态。",
+          "下载": "官方文件已迁移至 ETH Research Collection。"
+        }
+      },
+      "notes": {
+        "en": [
+          "No per-frame dense image-depth ground truth is assumed.",
+          "Aggressive motion can degrade the laser-tracker reference."
+        ],
+        "zh": [
+          "不将其视为逐帧稠密图像深度真值集。",
+          "剧烈运动可能降低激光跟踪参考质量。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+          "title": "ETH ASL: EuRoC MAV dataset and known issues"
+        },
+        {
+          "url": "https://doi.org/10.1177/0278364915620033",
+          "title": "EuRoC dataset paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Canonical stereo-inertial MAV benchmark with metric motion references; a perspective-camera baseline for wide-FoV VIO studies.",
+        "zh": "经典双目惯性无人机基准，提供米制运动参考，可作为广视场 VIO 的透视相机对照。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Geometry": "Monochrome stereo, 20 Hz; IMU, 200 Hz. Not a panoramic or fisheye release.",
+          "Ground-truth provenance": "Vicon 6DoF pose or Leica laser-tracker 3D position, depending on sequence; structure scans are also available.",
+          "Calibration and time": "Camera intrinsics, camera–IMU extrinsics and aligned references are supplied. Separate reference recording systems leave documented synchronization limits.",
+          "Evaluation": "Use the supplied sensor/body transforms and timestamps; position-only laser measurements do not independently observe every orientation.",
+          "Download": "Official hosting moved to ETH Research Collection."
+        },
+        "zh": {
+          "成像模型": "20 Hz 灰度双目与 200 Hz IMU；不是全景或鱼眼数据。",
+          "真值来源": "不同序列采用 Vicon 六自由度位姿或 Leica 激光跟踪三维位置，并提供结构扫描。",
+          "标定与时间": "提供相机内参、相机–IMU 外参和已对齐参考；独立参考采集系统仍有文档说明的同步限制。",
+          "评测": "使用数据所定义的传感器/机体变换与时间戳；激光仪的纯位置测量不能独立观测所有姿态。",
+          "下载": "官方文件已迁移至 ETH Research Collection。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "No per-frame dense image-depth ground truth is assumed.",
+          "Aggressive motion can degrade the laser-tracker reference."
+        ],
+        "zh": [
+          "不将其视为逐帧稠密图像深度真值集。",
+          "剧烈运动可能降低激光跟踪参考质量。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Consult the ETH Research Collection record; dataset licence was not independently verified in this audit.",
+        "zh": "以 ETH Research Collection 条目许可为准；本次未独立核验数据许可。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_kitti_odom",
+      "name": "KITTI Odometry",
+      "title": "KITTI Visual Odometry / SLAM Evaluation",
+      "year": 2012,
+      "cameras": [
+        "perspective",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Stereo",
+        "LiDAR",
+        "GPS/INS"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Stereo",
+          "LiDAR",
+          "GPS/INS"
+        ],
+        "zh": [
+          "双目",
+          "LiDAR",
+          "GPS/INS"
+        ]
+      },
+      "groundTruth": [
+        "Metric trajectories",
+        "Held-out test"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Metric trajectories",
+          "Held-out test"
+        ],
+        "zh": [
+          "米制轨迹",
+          "测试真值不公开"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://www.cvlibs.net/datasets/kitti/eval_odometry.php",
+      "paperUrl": "https://doi.org/10.1109/CVPR.2012.6248074",
+      "downloadUrl": "https://www.cvlibs.net/datasets/kitti/eval_odometry.php",
+      "license": {
+        "en": "CC BY-NC-SA 3.0; download registration and KITTI terms apply.",
+        "zh": "CC BY-NC-SA 3.0；下载需注册并遵循 KITTI 条款。"
+      },
+      "summary": "经典车载双目/LiDAR 里程计基准，提供米制参考轨迹及成熟的分段误差评测协议。",
+      "details": {
+        "en": {
+          "Split": "22 stereo sequences: 00–10 expose reference trajectories; 11–21 withhold them for server evaluation.",
+          "Geometry": "Perspective stereo and Velodyne scans. This entry is separate from KITTI depth prediction/completion.",
+          "Pose and scale": "GPS/OXTS-based metric reference; use the official devkit coordinate and pose conventions.",
+          "Protocol": "Translation/rotation drift over 100–800 m subsequences; report scale alignment explicitly for monocular estimates.",
+          "Access": "Downloads require login; leaderboard submissions have publication and novelty policies."
+        },
+        "zh": {
+          "划分": "22 段双目序列：00–10 公开参考轨迹，11–21 的真值由服务器保留。",
+          "成像模型": "透视双目和 Velodyne 扫描；此条目与 KITTI 深度预测/补全分开。",
+          "位姿与尺度": "GPS/OXTS 米制参考；采用官方开发工具的坐标与位姿约定。",
+          "协议": "在 100–800 米子轨迹上评估平移/旋转漂移；单目结果是否对齐尺度需明确报告。",
+          "获取": "下载需要登录；榜单提交另有论文及创新性要求。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Not native panoramic or fisheye imagery.",
+          "Use official training splits for local experiments when server submission criteria do not apply."
+        ],
+        "zh": [
+          "不是原生全景或鱼眼图像。",
+          "本地实验可采用公开训练集划分，服务器另有提交条件。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://www.cvlibs.net/datasets/kitti/eval_odometry.php",
+          "title": "KITTI odometry benchmark splits and evaluation protocol"
+        },
+        {
+          "url": "https://www.cvlibs.net/datasets/kitti/",
+          "title": "KITTI official dataset suite"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Driving stereo/LiDAR odometry baseline with metric reference trajectories and an established subsequence-error protocol.",
+        "zh": "经典车载双目/LiDAR 里程计基准，提供米制参考轨迹及成熟的分段误差评测协议。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Split": "22 stereo sequences: 00–10 expose reference trajectories; 11–21 withhold them for server evaluation.",
+          "Geometry": "Perspective stereo and Velodyne scans. This entry is separate from KITTI depth prediction/completion.",
+          "Pose and scale": "GPS/OXTS-based metric reference; use the official devkit coordinate and pose conventions.",
+          "Protocol": "Translation/rotation drift over 100–800 m subsequences; report scale alignment explicitly for monocular estimates.",
+          "Access": "Downloads require login; leaderboard submissions have publication and novelty policies."
+        },
+        "zh": {
+          "划分": "22 段双目序列：00–10 公开参考轨迹，11–21 的真值由服务器保留。",
+          "成像模型": "透视双目和 Velodyne 扫描；此条目与 KITTI 深度预测/补全分开。",
+          "位姿与尺度": "GPS/OXTS 米制参考；采用官方开发工具的坐标与位姿约定。",
+          "协议": "在 100–800 米子轨迹上评估平移/旋转漂移；单目结果是否对齐尺度需明确报告。",
+          "获取": "下载需要登录；榜单提交另有论文及创新性要求。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Not native panoramic or fisheye imagery.",
+          "Use official training splits for local experiments when server submission criteria do not apply."
+        ],
+        "zh": [
+          "不是原生全景或鱼眼图像。",
+          "本地实验可采用公开训练集划分，服务器另有提交条件。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY-NC-SA 3.0; download registration and KITTI terms apply.",
+        "zh": "CC BY-NC-SA 3.0；下载需注册并遵循 KITTI 条款。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_nyuv2",
+      "name": "NYU Depth V2",
+      "title": "Indoor Segmentation and Support Inference from RGBD Images",
+      "year": 2012,
+      "cameras": [
+        "perspective"
+      ],
+      "tasks": [
+        "depth"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Microsoft Kinect RGB-D",
+        "Accelerometer"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Microsoft Kinect RGB-D",
+          "Accelerometer"
+        ],
+        "zh": [
+          "Microsoft Kinect RGB-D",
+          "加速度计"
+        ]
+      },
+      "groundTruth": [
+        "Measured/inpainted depth",
+        "Semantic instances"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Measured/inpainted depth",
+          "Semantic instances"
+        ],
+        "zh": [
+          "实测与补全深度",
+          "语义实例"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+      "paperUrl": "https://cs.nyu.edu/~fergus/datasets/indoor_seg_support.pdf",
+      "downloadUrl": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+      "license": {
+        "en": "Public downloads; a dataset-wide license was not stated on the inspected official overview. Check archive terms before reuse.",
+        "zh": "可公开下载；本次核对的官方概览未注明统一数据许可，使用前需核对压缩包条款。"
+      },
+      "summary": "标准室内透视 RGB-D 基线；需严格区分实测 rawDepths 与补全后的 depths。",
+      "details": {
+        "en": {
+          "Projection and inputs": "Kinect RGB/depth videos plus synchronized labeled RGB-D pairs in a MATLAB file; not fisheye or ERP.",
+          "Depth and validity": "Both depths and aligned rawDepths are expressed in meters. depths fills missing values; rawDepths preserves holes before filling.",
+          "Ground truth": "Structured-light sensor depth and semantic/instance labels. Inpainted pixels are processed supervision, not additional physical measurements.",
+          "Timing and calibration": "Raw RGB and depth streams are unsynchronized with varying 20–30 FPS; timestamps and toolbox synchronization/calibration functions are supplied.",
+          "Evaluation": "Disclose labeled/raw training subset, official split file, crop, depth cap and mask. Avoid using held-out scene raw frames for training."
+        },
+        "zh": {
+          "投影与输入": "Kinect RGB、深度视频及 MATLAB 文件中的同步标注 RGB-D 图像对，不是鱼眼或 ERP。",
+          "深度与有效性": "depths 与对齐后的 rawDepths 均以米表示；depths 填补缺失值，rawDepths 保留补全前空洞。",
+          "真值来源": "结构光传感器深度与语义实例标注；补全像素属于处理后监督，不是新增物理测量。",
+          "时间与标定": "原始 RGB、深度不同步，帧率在 20–30 FPS 间变化；提供时间戳、同步及标定工具。",
+          "评测协议": "说明标注、原始训练子集、划分文件、裁剪、深度上限和掩码；不能用留出场景的原始帧训练。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Accelerometer values do not make this a fully calibrated IMU/VIO benchmark with independent pose GT."
+        ],
+        "zh": [
+          "包含加速度计数据不代表它是具备独立位姿真值和完整 IMU 标定的 VIO 基准。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+          "title": "Official raw/labeled depth, timing and calibration"
+        },
+        {
+          "url": "https://cs.nyu.edu/~fergus/datasets/indoor_seg_support.pdf",
+          "title": "Original dataset paper"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Standard indoor perspective RGB-D baseline; measured rawDepths and inpainted depths must be kept separate.",
+        "zh": "标准室内透视 RGB-D 基线；需严格区分实测 rawDepths 与补全后的 depths。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Projection and inputs": "Kinect RGB/depth videos plus synchronized labeled RGB-D pairs in a MATLAB file; not fisheye or ERP.",
+          "Depth and validity": "Both depths and aligned rawDepths are expressed in meters. depths fills missing values; rawDepths preserves holes before filling.",
+          "Ground truth": "Structured-light sensor depth and semantic/instance labels. Inpainted pixels are processed supervision, not additional physical measurements.",
+          "Timing and calibration": "Raw RGB and depth streams are unsynchronized with varying 20–30 FPS; timestamps and toolbox synchronization/calibration functions are supplied.",
+          "Evaluation": "Disclose labeled/raw training subset, official split file, crop, depth cap and mask. Avoid using held-out scene raw frames for training."
+        },
+        "zh": {
+          "投影与输入": "Kinect RGB、深度视频及 MATLAB 文件中的同步标注 RGB-D 图像对，不是鱼眼或 ERP。",
+          "深度与有效性": "depths 与对齐后的 rawDepths 均以米表示；depths 填补缺失值，rawDepths 保留补全前空洞。",
+          "真值来源": "结构光传感器深度与语义实例标注；补全像素属于处理后监督，不是新增物理测量。",
+          "时间与标定": "原始 RGB、深度不同步，帧率在 20–30 FPS 间变化；提供时间戳、同步及标定工具。",
+          "评测协议": "说明标注、原始训练子集、划分文件、裁剪、深度上限和掩码；不能用留出场景的原始帧训练。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Accelerometer values do not make this a fully calibrated IMU/VIO benchmark with independent pose GT."
+        ],
+        "zh": [
+          "包含加速度计数据不代表它是具备独立位姿真值和完整 IMU 标定的 VIO 基准。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Public downloads; a dataset-wide license was not stated on the inspected official overview. Check archive terms before reuse.",
+        "zh": "可公开下载；本次核对的官方概览未注明统一数据许可，使用前需核对压缩包条款。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
+    },
+    {
+      "id": "ds_tum_rgbd",
+      "name": "TUM RGB-D",
+      "title": "A Benchmark for the Evaluation of RGB-D SLAM Systems",
+      "year": 2012,
+      "cameras": [
+        "perspective"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "RGB-D",
+        "Accelerometer",
+        "MoCap"
+      ],
+      "sensorLabels": {
+        "en": [
+          "RGB-D",
+          "Accelerometer",
+          "MoCap"
+        ],
+        "zh": [
+          "RGB-D",
+          "加速度计",
+          "动作捕捉"
+        ]
+      },
+      "groundTruth": [
+        "Measured depth",
+        "Metric poses"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Measured depth",
+          "Metric poses"
+        ],
+        "zh": [
+          "实测深度",
+          "米制位姿"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://cvg.cit.tum.de/data/datasets/rgbd-dataset",
+      "paperUrl": "https://doi.org/10.1109/IROS.2012.6385773",
+      "downloadUrl": "https://cvg.cit.tum.de/data/datasets/rgbd-dataset/download",
+      "license": {
+        "en": "CC BY 4.0 data unless otherwise stated; accompanying code BSD-2-Clause.",
+        "zh": "除另有说明，数据为 CC BY 4.0；附带代码为 BSD-2-Clause。"
+      },
+      "summary": "真实 Kinect RGB-D 序列与独立动作捕捉位姿，适合米制 RGB-D SLAM 和重建对照。",
+      "details": {
+        "en": {
+          "Inputs": "640×480 RGB and measured depth, nominally 30 Hz; timestamps are provided separately.",
+          "Depth convention": "16-bit PNG values divided by 5000 give metres; zero indicates missing depth. Released RGB/depth are registered.",
+          "Pose reference": "Motion-capture trajectories at 100 Hz; pose format is timestamp tx ty tz qx qy qz qw in the reference world.",
+          "Calibration": "Use the per-camera parameters and dataset notes; do not apply a second distortion correction to already registered depth.",
+          "Evaluation": "Associate timestamps and apply the published ATE/RPE tools; retain depth holes and masks."
+        },
+        "zh": {
+          "输入": "640×480 RGB 与实测深度，标称 30 Hz；各自提供时间戳。",
+          "深度约定": "16 位 PNG 除以 5000 得到米，零值表示缺测；发布的 RGB/深度已经配准。",
+          "位姿参考": "100 Hz 动作捕捉轨迹；格式为时间戳、平移 tx ty tz 和四元数 qx qy qz qw。",
+          "标定": "使用各相机参数及数据说明；不要对已经配准的深度再次做畸变校正。",
+          "评测": "先关联时间戳，再用官方 ATE/RPE 工具；保留深度空洞及有效掩码。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Measured Kinect depth is noisy and incomplete, not perfect dense geometry.",
+          "Kinect accelerometer data is not a full gyro–accelerometer IMU."
+        ],
+        "zh": [
+          "Kinect 实测深度有噪声和缺测，并非完美稠密几何。",
+          "Kinect 加速度数据不是完整的陀螺仪–加速度计 IMU。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://cvg.cit.tum.de/data/datasets/rgbd-dataset",
+          "title": "TUM RGB-D benchmark overview and licence"
+        },
+        {
+          "url": "https://cvg.cit.tum.de/data/datasets/rgbd-dataset/file_formats",
+          "title": "TUM RGB-D image, depth and pose formats"
+        }
+      ],
+      "checked": "2026-10-17",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Real Kinect RGB-D sequences with independent motion capture, useful for metric RGB-D SLAM and reconstruction baselines.",
+        "zh": "真实 Kinect RGB-D 序列与独立动作捕捉位姿，适合米制 RGB-D SLAM 和重建对照。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Inputs": "640×480 RGB and measured depth, nominally 30 Hz; timestamps are provided separately.",
+          "Depth convention": "16-bit PNG values divided by 5000 give metres; zero indicates missing depth. Released RGB/depth are registered.",
+          "Pose reference": "Motion-capture trajectories at 100 Hz; pose format is timestamp tx ty tz qx qy qz qw in the reference world.",
+          "Calibration": "Use the per-camera parameters and dataset notes; do not apply a second distortion correction to already registered depth.",
+          "Evaluation": "Associate timestamps and apply the published ATE/RPE tools; retain depth holes and masks."
+        },
+        "zh": {
+          "输入": "640×480 RGB 与实测深度，标称 30 Hz；各自提供时间戳。",
+          "深度约定": "16 位 PNG 除以 5000 得到米，零值表示缺测；发布的 RGB/深度已经配准。",
+          "位姿参考": "100 Hz 动作捕捉轨迹；格式为时间戳、平移 tx ty tz 和四元数 qx qy qz qw。",
+          "标定": "使用各相机参数及数据说明；不要对已经配准的深度再次做畸变校正。",
+          "评测": "先关联时间戳，再用官方 ATE/RPE 工具；保留深度空洞及有效掩码。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Measured Kinect depth is noisy and incomplete, not perfect dense geometry.",
+          "Kinect accelerometer data is not a full gyro–accelerometer IMU."
+        ],
+        "zh": [
+          "Kinect 实测深度有噪声和缺测，并非完美稠密几何。",
+          "Kinect 加速度数据不是完整的陀螺仪–加速度计 IMU。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY 4.0 data unless otherwise stated; accompanying code BSD-2-Clause.",
+        "zh": "除另有说明，数据为 CC BY 4.0；附带代码为 BSD-2-Clause。"
+      },
+      "sourceChecked": "2026-10-17",
+      "authors": "Unknown",
+      "venue": "Dataset / benchmark",
+      "aliases": []
     }
   ],
   "stats": {
     "depth": 30,
     "slam": 26,
+    "datasets": 32,
     "panoramicDepth": 22,
     "panoramicSLAM": 5,
     "paperFigures": 56

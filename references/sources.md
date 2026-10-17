@@ -300,6 +300,15 @@ UniFuse: Unidirectional Fusion for 360° Panorama Depth Estimation
 - https://arxiv.org/abs/2102.03550
 - https://github.com/alibaba/UniFuse-Unidirectional-Fusion
 
+## Holo360D (2026)
+
+Holo360D: A Large-Scale Real-World Dataset with Continuous Trajectories for Advancing Panoramic 3D Reconstruction and Beyond
+
+- https://github.com/Jou719/Holo360D
+- https://arxiv.org/html/2604.22482v2
+- https://huggingface.co/datasets/ouou123/Holo360D
+- https://jou719.github.io/Holo360D_homepage/
+
 ## ODGS-SLAM (2026)
 
 ODGS-SLAM: Omnidirectional Gaussian Splatting SLAM
@@ -326,6 +335,13 @@ PanoAir: A Panoramic Visual-Inertial SLAM with Cross-Time Real-World UAV Dataset
 - https://arxiv.org/html/2604.00852v1
 - https://drive.google.com/file/d/1lG1Upn6yi-N6tYpEHAt6dfR1uhzNtWbT/view
 
+## PanoAir (2026)
+
+PanoAir: A Panoramic Visual-Inertial SLAM with Cross-Time Real-World UAV Dataset
+
+- https://github.com/YYWumm/PanoAir
+- https://arxiv.org/abs/2604.00852
+
 ## PanoGS-SLAM (2026)
 
 PanoGS-SLAM: Panoramic 3D Gaussian Splatting SLAM
@@ -351,6 +367,14 @@ OKVIS2-X: Open Keyframe-Based Visual-Inertial SLAM Configurable With Dense Depth
 - https://arxiv.org/abs/2510.04612
 - https://github.com/ethz-mrl/OKVIS2-X
 
+## Oxford Spires (2025)
+
+The Oxford Spires Dataset: Benchmarking Large-Scale LiDAR-Visual Localisation, Reconstruction and Radiance Field Methods
+
+- https://dynamic.robots.ox.ac.uk/datasets/oxford-spires/
+- https://github.com/ori-drs/oxford_spires_dataset
+- https://arxiv.org/abs/2411.10546
+
 ## PanoSLAM (Panoptic) (2025)
 
 PanoSLAM: Panoptic 3D Scene Reconstruction via Gaussian SLAM
@@ -358,6 +382,22 @@ PanoSLAM: Panoptic 3D Scene Reconstruction via Gaussian SLAM
 - Official abstract explicitly specifies sequential RGB-D panoptic reconstruction; repository tree is README-only.
 - https://arxiv.org/abs/2501.00352
 - https://github.com/runnanchen/PanoSLAM
+
+## ToF-360 (2025)
+
+ToF-360: A Panoramic Time-of-flight RGB-D Dataset for Single Capture Indoor Semantic 3D Reconstruction
+
+- https://huggingface.co/datasets/COLE-Ricoh/ToF-360
+- https://openaccess.thecvf.com/content/CVPR2025W/PBVS/papers/Kanayama_ToF-360_-_A_Panoramic_Time-of-flight_RGB-D_Dataset_for_Single_Capture_CVPRW_2025_paper.pdf
+- https://www.dfki.de/en/web/research/projects-and-publications/publication/15783
+
+## 360Loc (2024)
+
+360Loc: A Dataset and Benchmark for Omnidirectional Visual Localization with Cross-device Queries
+
+- https://huajianup.github.io/research/360Loc/
+- https://github.com/HuajianUP/360Loc
+- https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html
 
 ## 360ORB-SLAM (2024)
 
@@ -401,6 +441,15 @@ SplaTAM: Splat, Track & Map 3D Gaussians for Dense RGB-D SLAM
 - https://spla-tam.github.io/
 - https://github.com/spla-tam/SplaTAM
 
+## Aria Digital Twin (2023)
+
+Aria Digital Twin: A New Benchmark Dataset for Egocentric 3D Machine Perception
+
+- https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset
+- https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/data_format
+- https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/dataset_download
+- https://openaccess.thecvf.com/content/ICCV2023/html/Pan_Aria_Digital_Twin_A_New_Benchmark_Dataset_for_Egocentric_3D_ICCV_2023_paper.html
+
 ## DPVO (2023)
 
 Deep Patch Visual Odometry
@@ -426,6 +475,28 @@ LF-VISLAM: A SLAM Framework for Large Field-of-View Cameras With Negative Imagin
 - https://arxiv.org/abs/2209.05167
 - https://github.com/flysoaryun/LF-VISLAM
 
+## Deep360 (2022)
+
+MODE: Multi-view Omnidirectional Depth Estimation with 360° Cameras
+
+- https://github.com/nju-ee/MODE-2022
+- https://link.springer.com/chapter/10.1007/978-3-031-19827-4_12
+- https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf
+
+## Hilti-Oxford 2022 (2022)
+
+Hilti-Oxford Dataset: A Millimeter-Accurate Benchmark for Simultaneous Localization and Mapping
+
+- https://hilti-challenge.com/dataset-2022
+- https://arxiv.org/abs/2208.09825
+
+## KITTI-360 (2022)
+
+KITTI-360: A Novel Dataset and Benchmarks for Urban Scene Understanding in 2D and 3D
+
+- https://www.cvlibs.net/datasets/kitti-360/
+- https://www.cvlibs.net/datasets/kitti-360/documentation.php
+
 ## OKVIS2 (2022)
 
 OKVIS2: Realtime Scalable Visual-Inertial SLAM with Loop Closure
@@ -449,6 +520,27 @@ DROID-SLAM: Deep Visual SLAM for Monocular, Stereo, and RGB-D Cameras
 - https://arxiv.org/abs/2108.10869
 - https://github.com/princeton-vl/DROID-SLAM
 
+## HM3D (2021)
+
+Habitat-Matterport 3D Dataset: 1000 Large-scale 3D Environments for Embodied AI
+
+- https://aihabitat.org/datasets/hm3d/
+- https://arxiv.org/abs/2109.08238
+
+## Hilti SLAM 2021 (2021)
+
+The Hilti SLAM Challenge Dataset
+
+- https://hilti-challenge.com/dataset-2021
+- https://arxiv.org/abs/2109.11316
+
+## Hypersim (2021)
+
+Hypersim: A Photorealistic Synthetic Dataset for Holistic Indoor Scene Understanding
+
+- https://github.com/apple-aiml-research/ml-hypersim
+- https://arxiv.org/abs/2011.02523
+
 ## ORB-SLAM3 (2021)
 
 ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual-Inertial and Multi-Map SLAM
@@ -456,6 +548,21 @@ ORB-SLAM3: An Accurate Open-Source Library for Visual, Visual-Inertial and Multi
 - Official repository explicitly provides EuRoC and TUM-VI mono/stereo/fisheye/IMU examples; paper claims dataset performance, not verified on handheld robotics
 - https://arxiv.org/abs/2007.11898
 - https://github.com/UZ-SLAMLab/ORB_SLAM3
+
+## OmniScenes (2021)
+
+OmniScenes (PICCOLO panoramic localisation dataset)
+
+- https://github.com/82magnolia/piccolo
+- https://github.com/82magnolia/panoramic-localization
+
+## Pano3D (2021)
+
+Pano3D: A Holistic Benchmark and a Solid Baseline for 360° Depth Estimation
+
+- https://vcl3d.github.io/Pano3D/
+- https://arxiv.org/abs/2109.02749
+- https://github.com/VCL3D/Pano3D
 
 ## Basalt (2020)
 
@@ -473,6 +580,16 @@ D3VO: Deep Depth, Deep Pose and Deep Uncertainty for Monocular Visual Odometry
 - Method section and Tables 4/6 component ablations read; KITTI/EuRoC training/test conditions constrain interpretation; not reproduced
 - https://arxiv.org/pdf/2003.01060
 - https://cvg.cit.tum.de/research/vslam/d3vo
+
+## Newer College (2020)
+
+The Newer College Dataset: Handheld LiDAR, Inertial and Vision with Ground Truth
+
+- https://ori-drs.github.io/newer-college-dataset/
+- https://ori-drs.github.io/newer-college-dataset/ground-truth/
+- https://ori-drs.github.io/newer-college-dataset/download/
+- https://arxiv.org/abs/2112.08854
+- https://ori-drs.github.io/newer-college-dataset/multi-cam/calibration-multi/
 
 ## OmniSLAM (2020)
 
@@ -492,6 +609,46 @@ OpenVINS: A Research Platform for Visual-Inertial Estimation
 - https://github.com/rpng/open_vins
 - https://docs.openvins.com/classov__core_1_1CamEqui.html
 
+## Structured3D (2020)
+
+Structured3D: A Large Photo-realistic Dataset for Structured 3D Modeling
+
+- https://structured3d-dataset.org/
+- https://github.com/bertjiazheng/Structured3D
+- https://github.com/bertjiazheng/Structured3D/blob/master/data_organization.md
+- https://arxiv.org/abs/1908.00222
+
+## TartanAir / V2 (2020)
+
+TartanAir: A Dataset to Push the Limits of Visual SLAM
+
+- https://tartanair.org/
+- https://tartanair.org/modalities.html
+- https://arxiv.org/abs/2003.14338
+
+## DIODE (2019)
+
+DIODE: A Dense Indoor and Outdoor DEpth Dataset
+
+- https://diode-dataset.org/
+- https://github.com/diode-dataset/diode-devkit
+- https://arxiv.org/html/1908.00463v1
+
+## Replica (2019)
+
+The Replica Dataset: A Digital Replica of Indoor Spaces
+
+- https://github.com/facebookresearch/Replica-Dataset
+- https://github.com/facebookresearch/Replica-Dataset/blob/main/LICENSE
+- https://arxiv.org/abs/1906.05797
+
+## WoodScape (2019)
+
+WoodScape: A Multi-Task, Multi-Camera Fisheye Dataset for Autonomous Driving
+
+- https://github.com/valeoai/WoodScape
+- https://arxiv.org/abs/1905.01489
+
 ## stella_vslam (2019)
 
 stella_vslam / OpenVSLAM: A Versatile Visual SLAM Framework
@@ -501,6 +658,28 @@ stella_vslam / OpenVSLAM: A Versatile Visual SLAM Framework
 - https://stella-cv.readthedocs.io/en/latest/
 - https://github.com/stella-cv/stella_vslam
 
+## 3D60 (2018)
+
+OmniDepth / 3D60 spherical RGB-D benchmark
+
+- https://vcl3d.github.io/3D60/
+- https://arxiv.org/abs/1807.09620
+
+## Gibson / GibsonV2 (2018)
+
+Gibson Env: Real-World Perception for Embodied Agents
+
+- https://gibsonenv.github.io/
+- https://stanfordvl.github.io/iGibson/dataset.html
+- https://vcl3d.github.io/Pano3D/
+
+## TUM VI (2018)
+
+The TUM VI Benchmark for Evaluating Visual-Inertial Odometry
+
+- https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset
+- https://arxiv.org/abs/1804.06120
+
 ## VINS-Fusion (2018)
 
 VINS-Fusion: An Optimization-based Multi-sensor State Estimator
@@ -509,6 +688,37 @@ VINS-Fusion: An Optimization-based Multi-sensor State Estimator
 - https://arxiv.org/abs/1708.03852
 - https://github.com/HKUST-Aerial-Robotics/VINS-Fusion
 
+## KITTI Depth (2017)
+
+Sparsity Invariant CNNs / KITTI Depth Prediction and Completion
+
+- https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction
+- https://arxiv.org/abs/1708.06500
+
+## LaFiDa (2017)
+
+LaFiDa – A Laserscanner Multi-Fisheye Camera Dataset
+
+- https://www.ipf.kit.edu/english/code_1842.php
+- https://www.ipf.kit.edu/lafida.php
+- https://www.ipf.kit.edu/lafida_datasets.php
+
+## Matterport3D (2017)
+
+Matterport3D: Learning from RGB-D Data in Indoor Environments
+
+- https://niessner.github.io/Matterport/
+- https://github.com/niessner/Matterport/blob/master/data_organization.md
+- https://github.com/niessner/Matterport
+
+## Oxford RobotCar (2017)
+
+1 Year, 1000km: The Oxford RobotCar Dataset
+
+- https://robotcar-dataset.robots.ox.ac.uk/
+- https://robotcar-dataset.robots.ox.ac.uk/documentation/
+- https://arxiv.org/abs/2002.10152
+
 ## SVO Pro (2017)
 
 SVO Pro / SVO: Semi-Direct Visual Odometry for Monocular and Multi-Camera Systems
@@ -516,3 +726,38 @@ SVO Pro / SVO: Semi-Direct Visual Odometry for Monocular and Multi-Camera System
 - Official project and README enumerate camera models and VO/VIO/VI-SLAM/loop configurations.
 - https://rpg.ifi.uzh.ch/svo_pro.html
 - https://github.com/uzh-rpg/rpg_svo_pro_open
+
+## Stanford2D3D / 2D-3D-S (2017)
+
+Joint 2D-3D-Semantic Data for Indoor Scene Understanding
+
+- https://github.com/alexsax/2D-3D-Semantics
+- https://arxiv.org/abs/1702.01105
+
+## EuRoC MAV (2016)
+
+The EuRoC micro aerial vehicle datasets
+
+- https://projects.asl.ethz.ch/datasets/euroc-mav/
+- https://doi.org/10.1177/0278364915620033
+
+## KITTI Odometry (2012)
+
+KITTI Visual Odometry / SLAM Evaluation
+
+- https://www.cvlibs.net/datasets/kitti/eval_odometry.php
+- https://www.cvlibs.net/datasets/kitti/
+
+## NYU Depth V2 (2012)
+
+Indoor Segmentation and Support Inference from RGBD Images
+
+- https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html
+- https://cs.nyu.edu/~fergus/datasets/indoor_seg_support.pdf
+
+## TUM RGB-D (2012)
+
+A Benchmark for the Evaluation of RGB-D SLAM Systems
+
+- https://cvg.cit.tum.de/data/datasets/rgbd-dataset
+- https://cvg.cit.tum.de/data/datasets/rgbd-dataset/file_formats
