@@ -17,6 +17,8 @@ Follow-up on **2026-10-19**: the existing TartanAir record now explicitly descri
 
 Additional follow-up on **2026-10-19**: [MILD](mild_dataset_sources.md) is indexed as an announced real/synthetic fisheye and stereo localization dataset, with public dataset download and licence still unverified. The associated AprilVINS method remains a separate paper record.
 
+Additional follow-up on **2026-10-19**: [UZH RPG Multi-FoV](rpg_fov_sources.md) adds the two-scene synthetic perspective/fisheye/catadioptric dataset family for depth and VO. The archive README confirms ray-distance depth and camera-to-world poses. Download checks and the urban depth-index limitation are documented in the linked audit.
+
 ## Source records
 
 ### EuRoC MAV (`ds_euroc`)

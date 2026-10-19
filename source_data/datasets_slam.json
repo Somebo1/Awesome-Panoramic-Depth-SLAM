@@ -2290,5 +2290,153 @@
     "checked": "2026-10-19",
     "authors": "Junjie Zhang; Deteng Zhang; Zhisong Xu; Bo Sun; Liuyang Li; Yihong Tian; Jie Yin",
     "venue": "arXiv preprint 2610.09857v1, 7 October 2026; submitted to IEEE, acceptance not established"
+  },
+  {
+    "id": "ds_rpg_fov",
+    "name": "RPG Multi-FoV",
+    "title": "Benefit of Large Field-of-View Cameras for Visual Odometry",
+    "year": 2016,
+    "cameras": [
+      "fisheye",
+      "wide",
+      "perspective"
+    ],
+    "tasks": [
+      "depth",
+      "slam"
+    ],
+    "environment": [
+      "indoor",
+      "outdoor"
+    ],
+    "reality": "synthetic",
+    "sensors": [
+      "Rendered camera images"
+    ],
+    "sensorLabels": {
+      "en": [
+        "Rendered camera images"
+      ],
+      "zh": [
+        "合成相机图像"
+      ]
+    },
+    "groundTruth": [
+      "Rendered range",
+      "Simulator poses"
+    ],
+    "groundTruthLabels": {
+      "en": [
+        "Rendered range",
+        "Simulator poses"
+      ],
+      "zh": [
+        "渲染射线距离",
+        "仿真位姿"
+      ]
+    },
+    "access": "open",
+    "homepageUrl": "https://rpg.ifi.uzh.ch/fov.html",
+    "paperUrl": "https://rpg.ifi.uzh.ch/docs/ICRA16_Zhang.pdf",
+    "downloadUrl": "https://rpg.ifi.uzh.ch/fov.html",
+    "license": {
+      "en": "CC BY-NC-SA 3.0 for the dataset and Blender patch; attribution, non-commercial use and share-alike conditions apply.",
+      "zh": "数据集及 Blender 补丁采用 CC BY-NC-SA 3.0，须署名、限非商业用途并遵守相同方式共享条件。"
+    },
+    "summary": {
+      "en": "Controlled synthetic urban and room sequences compare perspective, fisheye and catadioptric optics, with calibration, camera poses and optical-ray depth for FoV-aware VO and depth research.",
+      "zh": "以城市和室内合成序列对比透视、鱼眼及折反射成像，提供标定、相机位姿和射线距离深度，适合研究视场对 VO 与深度估计的影响。"
+    },
+    "details": {
+      "en": {
+        "Scenes and release scope": "Blender Cycles renders two environments, Urban Canyon (a vehicle moving through a city) and Room/Indoor (a hovering or circularly moving camera in a confined room), each with three optics. The requested download page currently exposes these synthetic releases; real Flyroom and Zurich experiments in the paper are not assumed to be included.",
+        "Optics and representation": "The paper reports nominal 90° perspective, 180° fisheye and 360° catadioptric configurations. The catadioptric view is an annular omnidirectional image with 360° azimuth, not a full-sphere 2:1 ERP panorama. The catadioptric camera faces upward toward its mirror; other synthetic camera orientations differ by scene.",
+        "Sampling and size": "Official info archives list 2500 images/poses per Urban Canyon optic and 200 per Room optic, with image timestamps at approximately 30 Hz. Fisheye/catadioptric calibration files explicitly specify 640×480; the project holds sensor image resolution constant across optics. These are alternative rendered runs, not a synchronized physical multicamera or inertial rig.",
+        "Calibration": "intrinsics.txt supplies a pinhole K matrix for perspective images and OCamCalib polynomial omnidirectional parameters for fisheye/catadioptric images. Backproject using that model and retain circular/annular validity masks; the supplied C++ model checks only rectangular image boundaries.",
+        "Pose format and association": "groundtruth.txt stores image_id tx ty tz qx qy qz qw and T_world_camera, transforming camera coordinates into the world frame. Join image_id to images.txt for the timestamp in seconds; the first ground-truth column is a frame identifier, not a timestamp. These are simulator references, not estimated SLAM trajectories or motion capture.",
+        "Depth meaning and encoding": "The optional .depth maps contain floating-point ASCII values separated by spaces, row-major and at image size. They store Euclidean distance along the optical ray, including the perspective release. With a unit bearing f, Z-depth = range × f_z; do not interpret the stored range as optical-axis Z.",
+        "Depth coverage check": "The Room info archives enumerate 200 depth associations for each optic. Each Urban Canyon info archive lists only the first depth association despite 2500 image/pose entries. The larger depth archives are publicly reachable but were not fully downloaded in this audit; complete urban per-frame depth coverage must be checked in the chosen archive before evaluation.",
+        "Evaluation and splits": "This is a controlled FoV/VO comparison with two scenes, not an official large-scale train/validation/test depth benchmark. No standard learning split is stated on the reviewed page or archive README. Avoid splitting corresponding optics of the same scene/trajectory across training and testing; use the appropriate camera orientation, model and valid pixel domain.",
+        "Access and provenance": "Official image, depth, calibration/trajectory info and Blender-scene archives are linked without registration. Download endpoints responded successfully on 2026-10-19; only the six small info archives were downloaded. An IMU stream or hardware synchronization is not established by this synthetic release."
+      },
+      "zh": {
+        "场景与收录范围": "Blender Cycles 渲染两个环境：Urban Canyon 模拟车辆穿行城市，Room/Indoor 模拟狭小房间中悬停或绕圆运动的相机；每个环境有三种光学配置。用户提供的下载页当前展示这些合成数据，不据论文中的实验推定真实 Flyroom 和 Zurich 序列也在此发布。",
+        "光学与图像表示": "论文给出标称 90° 透视、180° 鱼眼及 360° 折反射配置。折反射图像是覆盖 360° 方位角的环形全向像面，不是覆盖完整球面的 2∶1 ERP 全景。折反射相机朝上面向镜面；其他合成相机的朝向随场景而异。",
+        "采样与规模": "官方 info 小包中，Urban Canyon 每种光学配置含 2500 条图像/位姿，Room 每种含 200 条；图像时间戳间隔约为 1/30 秒。鱼眼/折反射标定文件明确写 640×480，项目固定各配置的传感器图像分辨率。这些是不同光学配置的渲染序列，不是同步的真实多相机或惯性设备。",
+        "标定": "intrinsics.txt 对透视图像提供针孔 K 矩阵，对鱼眼/折反射图像提供 OCamCalib 多项式全向模型参数。按对应模型反投影并保留圆形/环形有效掩码；官方 C++ 实现的可见性检查仅判断矩形边界。",
+        "位姿格式与关联": "groundtruth.txt 格式为 image_id tx ty tz qx qy qz qw，变换为 T_world_camera，将相机坐标变到世界坐标。通过 image_id 与 images.txt 关联获取秒制时间戳；真值首列是帧 ID，不是时间戳。这些是仿真参考，不是 SLAM 估计轨迹或动作捕捉测量。",
+        "深度语义与编码": "可选 .depth 文件以空格分隔的浮点 ASCII 编码，逐行存储，尺寸与图像相同。各配置（包括透视）存储的都是沿光学射线的欧氏距离 range。对单位视线 f，Z-depth = range × f_z；不能把文件内的距离直接当光轴 Z。",
+        "深度覆盖核查": "Room 的 info 包为每种配置列出 200 条深度关联；Urban Canyon 虽有 2500 条图像/位姿，但各 info 包的深度关联表仅列第一帧。本次确认大深度包可公开访问，未完整下载；正式评测前须在所选数据包中核查城市序列逐帧深度是否齐全。",
+        "评测与划分": "这是两个场景的受控视场/VO 对比数据，不是官方大型深度学习训练基准。已核网页及包内 README 未规定统一训练/验证/测试划分。避免将同场景、同轨迹的不同光学配置拆到训练与测试两侧，并使用对应相机朝向、模型及有效像素域。",
+        "获取与来源": "官方提供无需注册的图像、深度、标定/轨迹 info 及 Blender 场景包链接，2026-10-19 检查下载端点成功。本次仅下载六个小型 info 包；该合成发布未确立 IMU 数据流或硬件同步信息。"
+      }
+    },
+    "notes": {
+      "en": [
+        "The 360° catadioptric release is not classified as an ERP/full-sphere panoramic dataset in this atlas.",
+        "Depth and poses are generated by simulation; they do not measure real-scene sensor noise or generalization.",
+        "Photorealism was not the original release's main objective."
+      ],
+      "zh": [
+        "本图谱不将 360° 折反射环视数据归入 ERP/完整球面全景数据集筛选。",
+        "深度与位姿来自仿真，不能表征真实传感器噪声或真实场景泛化。",
+        "原始发布以几何条件下的 VO 对比为主，并非以完美照片真实感为目标。"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://rpg.ifi.uzh.ch/fov.html",
+        "title": "UZH RPG Multi-FoV synthetic datasets, archive links and licence"
+      },
+      {
+        "url": "https://rpg.ifi.uzh.ch/docs/ICRA16_Zhang.pdf",
+        "title": "ICRA 2016 paper, synthetic optics and scene/trajectory setup"
+      },
+      {
+        "url": "https://rpg.ifi.uzh.ch/datasets/rpg_urban_pinhole_info.tar.gz",
+        "title": "Official Urban Canyon info: image IDs, poses, calibration and optical-ray depth README"
+      },
+      {
+        "url": "https://rpg.ifi.uzh.ch/datasets/rpg_urban_fisheye_info.tar.gz",
+        "title": "Official Urban Canyon fisheye calibration and association files"
+      },
+      {
+        "url": "https://rpg.ifi.uzh.ch/datasets/rpg_urban_cata_info.tar.gz",
+        "title": "Official Urban Canyon catadioptric calibration and association files"
+      },
+      {
+        "url": "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_pinhole_info.tar.gz",
+        "title": "Official Room perspective info and association files"
+      },
+      {
+        "url": "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_fisheye_info.tar.gz",
+        "title": "Official Room fisheye calibration and association files"
+      },
+      {
+        "url": "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_cata_info.tar.gz",
+        "title": "Official Room catadioptric calibration and association files"
+      },
+      {
+        "url": "https://github.com/zhangzichao/omni_cam",
+        "title": "Author's polynomial omnidirectional camera model and image-mask warning"
+      },
+      {
+        "url": "https://github.com/uzh-rpg/rpg_blender_omni_camera",
+        "title": "Official Cycles omnidirectional camera patch and model parameters"
+      }
+    ],
+    "checked": "2026-10-19",
+    "authors": "Zichao Zhang; Henri Rebecq; Christian Forster; Davide Scaramuzza",
+    "venue": "ICRA 2016",
+    "aliases": [
+      "Multi-FoV",
+      "Multi-FOV",
+      "RPG Multi-FoV",
+      "UZH RPG Multi-FoV",
+      "Urban Canyon",
+      "Room",
+      "Indoor",
+      "Benefit of Large Field-of-View Cameras for Visual Odometry"
+    ]
   }
 ]

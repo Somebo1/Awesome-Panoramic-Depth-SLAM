@@ -887,6 +887,21 @@ The EuRoC micro aerial vehicle datasets
 - https://projects.asl.ethz.ch/datasets/euroc-mav/
 - https://doi.org/10.1177/0278364915620033
 
+## RPG Multi-FoV (2016)
+
+Benefit of Large Field-of-View Cameras for Visual Odometry
+
+- https://rpg.ifi.uzh.ch/fov.html
+- https://rpg.ifi.uzh.ch/docs/ICRA16_Zhang.pdf
+- https://rpg.ifi.uzh.ch/datasets/rpg_urban_pinhole_info.tar.gz
+- https://rpg.ifi.uzh.ch/datasets/rpg_urban_fisheye_info.tar.gz
+- https://rpg.ifi.uzh.ch/datasets/rpg_urban_cata_info.tar.gz
+- https://rpg.ifi.uzh.ch/datasets/rpg_vfr_pinhole_info.tar.gz
+- https://rpg.ifi.uzh.ch/datasets/rpg_vfr_fisheye_info.tar.gz
+- https://rpg.ifi.uzh.ch/datasets/rpg_vfr_cata_info.tar.gz
+- https://github.com/zhangzichao/omni_cam
+- https://github.com/uzh-rpg/rpg_blender_omni_camera
+
 ## KITTI Odometry (2012)
 
 KITTI Visual Odometry / SLAM Evaluation
