@@ -985,5 +985,36 @@
     ],
     "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Repository code license does not cover these figures.",
     "verificationNote": "Visually inspected the original image linked by the official author project page. No PDF page, crop box or PDF hash is claimed. This diagram illustrates spherical tangent-plane measurement updates; it is not the Figure 2 EKF flowchart."
+  },
+  "aprilvins2026": {
+    "thumbnail": "assets/papers/aprilvins2026-thumb.webp",
+    "image": "assets/papers/aprilvins2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2610.09857",
+    "page": 5,
+    "figureLabel": "Figure 4",
+    "caption": {
+      "zh": "鱼眼与 IMU 滑窗估计、序列局部标签几何、先验接纳和联合状态导出门控。",
+      "en": "Fisheye/IMU sliding-window estimation, sequence-local tag geometry, prior admission and guarded joint-state output."
+    },
+    "credit": {
+      "zh": "来源：Zhang 等，2026；论文第 5 页图 4 截图。",
+      "en": "Source: Zhang et al. (2026), Figure 4 crop from PDF page 5."
+    },
+    "kind": "method",
+    "verified": true,
+    "originalCaption": "Fig. 4. AprilVINS pipeline.",
+    "cropBox": [
+      54,
+      48,
+      558,
+      258
+    ],
+    "sourceLicense": "Unknown figure reuse license; copyright remains with the paper authors/publisher. Public access is not a figure reuse license.",
+    "verificationNote": "Visually inspected full PDF page 5 and final WebP crop after extending its lower margin. Entire Figure 4 overview retained with source diagram labels; original figure, not generated artwork.",
+    "pdfSha256": "c55449b7590f8959e584f156d3e98f197489c72e0f7980398b5ecc709d98a9fc",
+    "imageSize": [
+      1540,
+      641
+    ]
   }
 }

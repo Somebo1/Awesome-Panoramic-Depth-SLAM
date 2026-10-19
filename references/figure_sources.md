@@ -18,6 +18,14 @@ Figure 3, PDF page 5. DAP distortion-aware depth decoding and geometric training
 - Screenshot: [assets/papers/dap.webp](../site/assets/papers/dap.webp)
 - Local PDF SHA-256: `d8e8003a95388f671218d7a12e2f5666aaf538fca7fbaf5cd693d52a36ce66c0`
 
+## GeoPano
+
+Figure 3, PDF page 5. GeoPano view decomposition, panorama-aware attention, local point-map prediction and global point-cloud fusion.
+
+- PDF: https://arxiv.org/pdf/2610.21297
+- Screenshot: [assets/papers/geopano2026.webp](../site/assets/papers/geopano2026.webp)
+- Local PDF SHA-256: `cf64e0e5fb5c7406151dd40ba6b563e55062660b9df573b2779dea3879924cf7`
+
 ## MCPDepth
 
 Figure 3, PDF page 5. Multicylindrical stereo matching, confidence prediction and depth fusion.
@@ -249,6 +257,14 @@ Figure 1, PDF page 1. Distortion-aware spherical features and omnidirectional di
 - PDF: https://arxiv.org/pdf/2601.02309
 - Screenshot: [assets/papers/dvo360_2026.webp](../site/assets/papers/dvo360_2026.webp)
 - Local PDF SHA-256: `6fecb6905dad129ecf0d989b6ea6bed777d34d45451e89ab0566f15dae53afc0`
+
+## AprilVINS
+
+Figure 4, PDF page 5. Fisheye/IMU sliding-window estimation, sequence-local tag geometry, prior admission and guarded joint-state output.
+
+- PDF: https://arxiv.org/pdf/2610.09857
+- Screenshot: [assets/papers/aprilvins2026.webp](../site/assets/papers/aprilvins2026.webp)
+- Local PDF SHA-256: `c55449b7590f8959e584f156d3e98f197489c72e0f7980398b5ecc709d98a9fc`
 
 ## Cube-Splat
 

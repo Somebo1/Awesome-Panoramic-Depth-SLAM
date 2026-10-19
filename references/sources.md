@@ -1,6 +1,6 @@
 # Official-source index
 
-Checked 2026-10-17. Bibliographic and interface evidence; no local reproduction is claimed.
+Checked 2026-10-19. Bibliographic and interface evidence; no local reproduction is claimed.
 
 ## DA² (2026)
 
@@ -27,6 +27,15 @@ Depth Any Panoramas: A Foundation Model for Panoramic Depth Estimation
 - https://arxiv.org/abs/2512.16913
 - https://insta360-research-team.github.io/DAP_website/
 - https://github.com/Insta360-Research-Team/DAP
+
+## GeoPano (2026)
+
+GeoPano: Towards Geometrically Accurate 3D Reconstruction from a Single Panorama
+
+- https://arxiv.org/abs/2610.21297
+- https://arxiv.org/html/2610.21297v1
+- https://arxiv.org/pdf/2610.21297
+- https://creativecommons.org/licenses/by/4.0/
 
 ## MCPDepth (2026)
 
@@ -314,6 +323,26 @@ UniFuse: Unidirectional Fusion for 360° Panorama Depth Estimation
 - https://raw.githubusercontent.com/chris1004336379/360DVO/master/LICENSE
 - https://raw.githubusercontent.com/chris1004336379/360DVO/master/environment.yml
 
+## 360DVO Dataset (2026)
+
+360DVO: Deep Visual Odometry for Monocular 360-Degree Camera — real-world benchmark
+
+- https://huggingface.co/datasets/chris1004336379/360DVO
+- https://huggingface.co/api/datasets/chris1004336379/360DVO
+- https://arxiv.org/html/2601.02309v1
+- https://chris1004336379.github.io/360DVO-homepage/
+
+## AprilVINS (2026)
+
+Towards Accurate End-Effector Localization for UMI-Style Robotic Manipulation Teaching
+
+- Paper IV defines ray residuals, local tag layout and guarded output; V uses SE(3) without scale fitting. Official project footer confirms release after acceptance; public website backend is a pilot/template, not verified estimator source. No local estimator reproduction.
+- https://arxiv.org/abs/2610.09857
+- https://arxiv.org/html/2610.09857v1
+- https://arxiv.org/pdf/2610.09857
+- https://mild-web.github.io/
+- https://github.com/mild-web/mild-web.github.io
+
 ## Cube-Splat (2026)
 
 Cube-Splat: High-Fidelity 360° Gaussian Splatting SLAM via Cubemap Factorization and Adjoint-Consistent Optimization
@@ -344,6 +373,16 @@ ODGS-SLAM: Omnidirectional Gaussian Splatting SLAM
 - https://odgs-slam.github.io/
 - https://github.com/odgs-slam/odgs-slam
 
+## ODGS-SLAM Dataset (2026)
+
+ODGS-SLAM Dataset: synthetic and real omnidirectional motion sequences
+
+- https://researchdata.uibk.ac.at/records/z6f6r-sjc65
+- https://researchdata.uibk.ac.at/api/records/z6f6r-sjc65
+- https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1
+- https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_room_synthetic_README.md?download=1
+- https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/outdoor_synthetic_README.md?download=1
+
 ## P2U-SLAM (2026)
 
 P2U-SLAM: A Monocular Wide-FoV SLAM System Based on Point Uncertainty and Pose Uncertainty
@@ -367,6 +406,17 @@ PanoAir: A Panoramic Visual-Inertial SLAM with Cross-Time Real-World UAV Dataset
 
 - https://github.com/YYWumm/PanoAir
 - https://arxiv.org/abs/2604.00852
+
+## PanoCARLA-Static (2026)
+
+PanoCARLA-Static: static-scene panoramic RGB-D video with moving virtual cameras
+
+- https://huggingface.co/datasets/Soon122/PanoCARLA-Static
+- https://huggingface.co/api/datasets/Soon122/PanoCARLA-Static
+- https://github.com/ChuanxinSong/PanoCARLA
+- https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py
+- https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/record_2stage.py
+- https://proceedings.mlr.press/v306/song26u.html
 
 ## PanoGS-SLAM (2026)
 

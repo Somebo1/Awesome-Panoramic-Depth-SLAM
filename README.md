@@ -4,7 +4,7 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 
 **[Explore the website →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/)** · [Panoramic SLAM](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic) · [Full JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-检索与来源核查截点：**2026-10-17**。当前 **94** 条：Depth/Geometry **30** 项（22项包含全景流程），SLAM/VO/VIO **32** 项（11项有明确ERP输入证据），数据集 **32** 项（13项涉及全景数据或明确的渲染/重采样协议）。分类可重叠；这是一份任务导向的人工核验资料索引，不是性能排行榜或穷尽性综述。
+检索与来源核查截点：**2026-10-19**。当前 **99** 条：Depth/Geometry **31** 项（23项包含全景流程），SLAM/VO/VIO **33** 项（11项有明确ERP输入证据），数据集 **35** 项（16项涉及全景数据或明确的渲染/重采样协议）。分类可重叠；这是一份任务导向的人工核验资料索引，不是性能排行榜或穷尽性综述。
 
 ## 使用方式
 
@@ -34,11 +34,20 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 
 完整标题、作者、机构、会议/期刊和原始来源见[可筛选网站](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/)及[证据索引](references/sources.md)。
 
-本轮从指定候选中新增六项非 MDPI 工作，覆盖直接法 VO、滤波 VIO、学习式 VO、传统稠密建图、全景高斯地图与前馈重建回环。360VO、360-VIO 和 360DVO 是里程计，不能据此宣称具备全局回环；PatchMatch-Stereo-Panorama 是 OpenVSLAM 的稠密化扩展；Cube-Splat 的四个虚拟视图共享光心与位姿，不产生物理立体基线；PanoLoop 采用整段序列的离线检索和 Sim(3) 校正，不能标为实时在线公制 SLAM。作者原文与实现核验分别见[经典方法](references/slam_candidates_classics_sources.md)和[近期方法](references/slam_candidates_recent_sources.md)。本轮按选题要求不加入两篇 Sensors（MDPI）候选。
+2026-10-17 从指定候选中新增六项非 MDPI 工作，覆盖直接法 VO、滤波 VIO、学习式 VO、传统稠密建图、全景高斯地图与前馈重建回环。360VO、360-VIO 和 360DVO 是里程计，不能据此宣称具备全局回环；PatchMatch-Stereo-Panorama 是 OpenVSLAM 的稠密化扩展；Cube-Splat 的四个虚拟视图共享光心与位姿，不产生物理立体基线；PanoLoop 采用整段序列的离线检索和 Sim(3) 校正，不能标为实时在线公制 SLAM。作者原文与实现核验分别见[经典方法](references/slam_candidates_classics_sources.md)和[近期方法](references/slam_candidates_recent_sources.md)。该轮按选题要求不加入两篇 Sensors（MDPI）候选。
+
+## 2026-10-19 每周更新
+
+- 新增 GeoPano（10 月 15 日）与 AprilVINS / MILD 论文（10 月 7 日），两项均有已核验的原论文方法图。GeoPano 为单张 ERP 点图重建、尺度对齐输出；AprilVINS 是鱼眼＋IMU＋AprilTag 的有条件公制 VIO，算法和 MILD 数据仍待录用后发布。
+- 新增 PanoCARLA-Static（官方 HF 仓库创建于 10 月 7 日，当前公开且无门控）；补录 360DVO Dataset 与 ODGS-SLAM Dataset 两个旧遗漏，不将其误称为本周新数据。
+- 保留尺度、真值与获取限制：360DVO 为 SfM 伪真值；ODGS-SLAM 的真实 Pro 深度为立体估计，X4 没有深度，合成子集单列；PanoCARLA-Static 与动态版不逐帧同位姿。
+- MILD、SynPano 等仍待发布或待核实的下载不伪装成可用数据；P2U-SLAM、PanoSLAM、PanoGS-SLAM 等未核实新的完整算法发布。
+
+逐项证据、版本日期和待核队列见[本周核验记录](references/weekly_20261019_sources.md)。完整 PDF 仅保存在本地，不上传仓库；未运行这些算法或下载大型数据集。
 
 ## 数据集
 
-[打开数据集栏目](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=zh)。首批32项包括全景实测与渲染基准、鱼眼视觉惯性序列和常见透视对照；新增ToF-360、Holo360D、Oxford Spires等资料。
+[打开数据集栏目](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=zh)。当前35项包括全景实测与渲染基准、鱼眼视觉惯性序列和常见透视对照；新增ToF-360、Holo360D、Oxford Spires等资料。
 
 每条区分实际采集的传感器、公开标注、深度/距离定义与单位、轨迹来源、标定与同步、划分及访问条件。360Loc的定位位姿不等于稠密深度真值，TUM VI并非所有片段都有全程动作捕捉，RobotCar的VO不是地面真值，Holo360D包含优化轨迹和填洞深度，相关派生ERP集可能复用训练建筑。这些限制在中英文详情中分别展示。
 
@@ -96,4 +105,4 @@ tests/                   数据与真实目录的 DOM 功能测试
 
 完整论文保存在本地 `library/pdfs/`（按方法 ID 命名），下载和选图预览位于 `library/`；该目录已被 Git 忽略，不会上传 GitHub。论文配图的下载与裁剪脚本在 `tools/acquire_depth_figures.py` 和 `tools/acquire_slam_figures.py`；修改选图后重新构建和核验网站。
 
-本轮五篇新增方法已保存原论文并截图；360-VIO 的原论文下载受限，采用作者官网公开的真实方法图，原图存于忽略的 `library/source_images/`。网站不会将该图标为 PDF 截图，完整论文获取缺口仍保留。
+2026-10-17 补录的五篇方法已保存原论文并截图；360-VIO 的原论文下载受限，采用作者官网公开的真实方法图，原图存于忽略的 `library/source_images/`。网站不会将该图标为 PDF 截图，完整论文获取缺口仍保留。

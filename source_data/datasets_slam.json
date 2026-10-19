@@ -1652,5 +1652,340 @@
       }
     ],
     "checked": "2026-10-17"
+  },
+  {
+    "id": "ds_360dvo",
+    "name": "360DVO Dataset",
+    "title": "360DVO: Deep Visual Odometry for Monocular 360-Degree Camera — real-world benchmark",
+    "year": 2026,
+    "cameras": [
+      "panoramic",
+      "perspective"
+    ],
+    "tasks": [
+      "slam"
+    ],
+    "environment": [
+      "indoor",
+      "outdoor"
+    ],
+    "reality": "real",
+    "sensors": [
+      "Heterogeneous 360-degree RGB video"
+    ],
+    "sensorLabels": {
+      "en": [
+        "Heterogeneous 360-degree RGB video"
+      ],
+      "zh": [
+        "不同来源的 360° RGB 视频"
+      ]
+    },
+    "groundTruth": [
+      "SfM pseudo-reference trajectories"
+    ],
+    "groundTruthLabels": {
+      "en": [
+        "SfM pseudo-reference trajectories"
+      ],
+      "zh": [
+        "SfM 伪参考轨迹"
+      ]
+    },
+    "access": "open",
+    "homepageUrl": "https://chris1004336379.github.io/360DVO-homepage/",
+    "paperUrl": "https://arxiv.org/abs/2601.02309",
+    "downloadUrl": "https://huggingface.co/datasets/chris1004336379/360DVO",
+    "license": {
+      "en": "CC BY-NC-SA 4.0, as declared by the official Hugging Face dataset card; original video provenance remains documented in the paper.",
+      "zh": "官方 Hugging Face 数据卡声明 CC BY-NC-SA 4.0；原始视频来源仍需参考论文。"
+    },
+    "summary": {
+      "en": "Real panoramic video benchmark with 20 Easy/Hard sequences and Agisoft Metashape trajectory references; these are SfM pseudo ground truth, not independent tracking measurements.",
+      "zh": "包含 20 段 Easy/Hard 真实全景视频及 Agisoft Metashape 参考轨迹；位姿属于 SfM 伪真值，不是独立跟踪测量。"
+    },
+    "details": {
+      "en": {
+        "Projection and timing": "ERP RGB frames are standardized to 3840×1920 at 10 FPS. The paper also evaluates derived 90-degree, 640×640 perspective views; these are crops/reprojections, not extra physical cameras.",
+        "Capture provenance": "Three sequences come from 360VOTS, fifteen from internet videos, and two from Hong Kong tram recordings. A common physical camera/IMU rig and shared hardware calibration are not established.",
+        "Pose reference": "Agisoft Metashape SfM produces the pseudo-reference trajectories. No independent motion capture, RTK, or dense measured depth is claimed.",
+        "Evaluation and scale": "Easy and Hard each contain ten sequences. The paper uses Sim(3) Umeyama alignment, reports ATE in meters and RPE in m/frame and deg/frame, and evaluates overlapping trajectory segments. Independent absolute metric calibration of each real sequence is not established.",
+        "Access and version": "The official HF repository is public and ungated, with Sequences/ and twenty GroundTruth/ files listed. Full image payloads were not downloaded. HF createdAt is 2026-01-04; this is an older omission, not an October release."
+      },
+      "zh": {
+        "投影与时间": "ERP RGB 统一为 3840×1920、10 FPS。论文另评估 90°、640×640 的派生透视视图；它们是裁剪/重投影，不是额外真实相机。",
+        "采集来源": "3 段来自 360VOTS，15 段来自网络视频，2 段为香港电车实录；未建立共同的相机/IMU 机架或统一硬件标定。",
+        "位姿参考": "参考轨迹由 Agisoft Metashape SfM 产生；不宣称独立动作捕捉、RTK 或稠密实测深度。",
+        "评测与尺度": "Easy/Hard 各 10 段。论文采用 Sim(3) Umeyama 对齐，ATE 用米、平移/旋转 RPE 用米/帧和度/帧，仅评估轨迹重叠段。各真实序列的独立绝对公制标定未获证实。",
+        "获取与版本": "官方 HF 仓库公开、无门控，列有 Sequences/ 及 20 个 GroundTruth/ 文件；未下载完整图像。HF 创建于 2026-01-04，本轮属于补漏，不能称为十月新发布。"
+      }
+    },
+    "notes": {
+      "en": [
+        "HF's automatic train split and viewer row count are storage/viewer artifacts, not the paper's Easy/Hard evaluation protocol.",
+        "No dense depth GT is inferred from the VO method's internal patch depths; pose serialization, timestamps and scale must be checked before using a new loader."
+      ],
+      "zh": [
+        "HF 自动生成的 train 划分和预览行数是存储/预览产物，不等于论文的 Easy/Hard 评测协议。",
+        "不根据 VO 方法内部的图像块深度推断稠密深度真值；使用新加载器前需核对位姿文件格式、时间戳和尺度。"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://huggingface.co/datasets/chris1004336379/360DVO",
+        "title": "Official dataset card: release, SfM reference, sequence groups and licence"
+      },
+      {
+        "url": "https://huggingface.co/api/datasets/chris1004336379/360DVO",
+        "title": "Official HF API: ungated public access, creation date and twenty reference files"
+      },
+      {
+        "url": "https://arxiv.org/html/2601.02309v1",
+        "title": "Paper sections IV and V-B: source videos, pseudo GT and Sim(3) evaluation"
+      },
+      {
+        "url": "https://chris1004336379.github.io/360DVO-homepage/",
+        "title": "Official method and dataset project"
+      }
+    ],
+    "checked": "2026-10-19"
+  },
+  {
+    "id": "ds_odgs_slam",
+    "name": "ODGS-SLAM Dataset",
+    "title": "ODGS-SLAM Dataset: synthetic and real omnidirectional motion sequences",
+    "year": 2026,
+    "cameras": [
+      "panoramic",
+      "fisheye",
+      "wide",
+      "perspective",
+      "multi"
+    ],
+    "tasks": [
+      "depth",
+      "slam"
+    ],
+    "environment": [
+      "indoor",
+      "outdoor"
+    ],
+    "reality": "mixed",
+    "sensors": [
+      "Insta360 Pro",
+      "Insta360 X4",
+      "OptiTrack",
+      "Blender Cycles virtual cameras"
+    ],
+    "sensorLabels": {
+      "en": [
+        "Insta360 Pro",
+        "Insta360 X4",
+        "OptiTrack",
+        "Blender Cycles virtual cameras"
+      ],
+      "zh": [
+        "Insta360 Pro",
+        "Insta360 X4",
+        "OptiTrack",
+        "Blender Cycles 虚拟相机"
+      ]
+    },
+    "groundTruth": [
+      "Rendered depth and poses",
+      "Motion-capture reference poses",
+      "Estimated real-panorama stereo depth"
+    ],
+    "groundTruthLabels": {
+      "en": [
+        "Rendered depth and poses",
+        "Motion-capture reference poses",
+        "Estimated real-panorama stereo depth"
+      ],
+      "zh": [
+        "渲染深度与位姿",
+        "动作捕捉参考位姿",
+        "真实全景的立体估计深度"
+      ]
+    },
+    "access": "open",
+    "homepageUrl": "https://odgs-slam.github.io/",
+    "paperUrl": "https://openaccess.thecvf.com/content/CVPR2026/html/Spiss_ODGS-SLAM_Omnidirectional_Gaussian_Splatting_SLAM_CVPR_2026_paper.html",
+    "downloadUrl": "https://researchdata.uibk.ac.at/records/z6f6r-sjc65",
+    "license": {
+      "en": "CC BY-NC-SA 4.0, explicitly recorded in the official University of Innsbruck repository API metadata.",
+      "zh": "因斯布鲁克大学官方数据仓库 API 元数据明确声明 CC BY-NC-SA 4.0。"
+    },
+    "summary": {
+      "en": "Public synthetic indoor/outdoor and real indoor SLAM sequences compare ERP, six-fisheye rigs and perspective inputs; rendered depths, mocap poses and estimated real depths have distinct provenance.",
+      "zh": "公开的合成室内/室外与真实室内 SLAM 序列，对比 ERP、六鱼眼机架及透视输入；需区分渲染深度、动作捕捉位姿和真实图像的估计深度。"
+    },
+    "details": {
+      "en": {
+        "Subsets and provenance": "Indoor room and outdoor urban subsets are fully synthetic Blender Cycles renders, not photogrammetric real scans. The real subset records a myAGV robot indoors; five Insta360 Pro and eight X4 sequences are documented.",
+        "Physical camera outputs": "Real Pro data includes six 1440×1920 fisheye streams at 30 FPS and 1920×960 stitched ERP. X4 provides 3840×1920 stitched ERP at 60 FPS, without separate physical lens images in this release.",
+        "Depth provenance": "Synthetic ERP/pinhole EXR depths are rendered; real Pro panorama EXR depths come from sphere-sweeping stereo and are estimates. The real X4 listing contains RGB, poses and robot masks, not depth. Depth encoding units and range-versus-Z are not settled by the inspected READMEs.",
+        "Pose and synchronization": "Real OptiTrack tracks three markers with the reference origin at the camera mount; video alignment is manual. Apply the documented mount-specific Y rotation. Synthetic poses use Blender coordinates; both versions store XYZ Euler angles in radians. Translation units and a synchronization error bound are not specified in the inspected READMEs.",
+        "Calibration and protocols": "MC-Calib YAML provides the Pro multicamera calibration. Synthetic views simulate that rig and also offer a 113-degree perspective camera. Choose the documented subset/sequence: some retracing data has only Camera_0; no universal train/validation/test split is asserted.",
+        "Access and version": "University archive DOI 10.48323/z6f6r-sjc65, v1.0.0, published 2026-04-17. Three ZIPs and their separate small READMEs are publicly listed; only READMEs/API metadata were read. This is an older omission, not a new October dataset."
+      },
+      "zh": {
+        "子集与来源": "室内房间及室外城市子集均由 Blender Cycles 完全合成，并非真实扫描后摄影测量的场景；真实子集在室内记录 myAGV，列有 5 段 Pro 和 8 段 X4 序列。",
+        "真实相机输出": "Pro 包含 6 路 1440×1920、30 FPS 鱼眼及 1920×960 拼接 ERP；X4 提供 3840×1920、60 FPS 拼接 ERP，本发布不含独立镜头图像。",
+        "深度来源": "合成 ERP/透视 EXR 深度来自渲染；真实 Pro 全景 EXR 深度由球面扫描立体算法估计。真实 X4 列表包含 RGB、位姿和机器人掩码，不含深度。所读 README 未确定深度编码单位及径向距离/Z 定义。",
+        "位姿与同步": "真实 OptiTrack 跟踪三个标记点，参考原点为相机安装位置；视频按运动模式手工对时，并需应用各安装配置的 Y 轴补偿旋转。合成位姿采用 Blender 坐标；两者 XYZ 欧拉角均为弧度。所读 README 未说明平移单位或同步误差界限。",
+        "标定与协议": "MC-Calib YAML 提供 Pro 多相机标定；合成视图模拟该机架，另含 113° 透视相机。按明确子集/序列选择数据；部分折返数据仅含 Camera_0，不宣称统一训练/验证/测试划分。",
+        "获取与版本": "大学仓库 DOI 为 10.48323/z6f6r-sjc65，v1.0.0 发布于 2026-04-17。公开列出 3 个 ZIP 和各自小型 README；仅阅读说明/API，未下载完整数据。本轮属于旧遗漏补充。"
+      }
+    },
+    "notes": {
+      "en": [
+        "Do not score the real stereo-estimated depth as an independent measured depth ground truth.",
+        "Synthetic camera-to-world uses Blender +Z up and optical axis −Z; real data uses world +Y up plus mount offsets. A single unchanged pose parser is unsafe across subsets.",
+        "A public archive listing establishes an access route, not a completed integrity or full-download test."
+      ],
+      "zh": [
+        "不能把真实序列的立体估计深度当作独立实测深度真值。",
+        "合成相机到世界采用 Blender 的 +Z 向上、光轴 −Z；真实数据世界 +Y 向上且有安装旋转。不同子集不能未经转换共用位姿解析器。",
+        "公开归档列表证明存在获取入口，不代表已完成全量下载和完整性校验。"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://researchdata.uibk.ac.at/records/z6f6r-sjc65",
+        "title": "Official university dataset archive, DOI, versions and files"
+      },
+      {
+        "url": "https://researchdata.uibk.ac.at/api/records/z6f6r-sjc65",
+        "title": "Official metadata API including explicit CC BY-NC-SA 4.0 rights"
+      },
+      {
+        "url": "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1",
+        "title": "Official real recording README: cameras, estimated depth, mocap and manual alignment"
+      },
+      {
+        "url": "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_room_synthetic_README.md?download=1",
+        "title": "Official synthetic indoor README: rendering, calibration and pose coordinates"
+      },
+      {
+        "url": "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/outdoor_synthetic_README.md?download=1",
+        "title": "Official synthetic outdoor README: urban Blender renders and camera modalities"
+      }
+    ],
+    "checked": "2026-10-19"
+  },
+  {
+    "id": "ds_panocarla_static2026",
+    "name": "PanoCARLA-Static",
+    "title": "PanoCARLA-Static: static-scene panoramic RGB-D video with moving virtual cameras",
+    "year": 2026,
+    "cameras": [
+      "panoramic"
+    ],
+    "tasks": [
+      "depth",
+      "slam"
+    ],
+    "environment": [
+      "outdoor"
+    ],
+    "reality": "synthetic",
+    "sensors": [
+      "CARLA 0.9.16 virtual RGB/depth/semantic cameras"
+    ],
+    "sensorLabels": {
+      "en": [
+        "CARLA 0.9.16 virtual RGB/depth/semantic cameras"
+      ],
+      "zh": [
+        "CARLA 0.9.16 虚拟 RGB/深度/语义相机"
+      ]
+    },
+    "groundTruth": [
+      "Rendered radial depth",
+      "Simulator camera position and yaw",
+      "Rendered semantic labels"
+    ],
+    "groundTruthLabels": {
+      "en": [
+        "Rendered radial depth",
+        "Simulator camera position and yaw",
+        "Rendered semantic labels"
+      ],
+      "zh": [
+        "渲染径向深度",
+        "仿真相机位置与偏航角",
+        "渲染语义标签"
+      ]
+    },
+    "access": "open",
+    "homepageUrl": "https://huggingface.co/datasets/Soon122/PanoCARLA-Static",
+    "paperUrl": "https://proceedings.mlr.press/v306/song26u.html",
+    "downloadUrl": "https://huggingface.co/datasets/Soon122/PanoCARLA-Static/tree/main",
+    "license": {
+      "en": "CC BY 4.0 for the dataset, stated in the official card. Cite PVDepth; the collection repository's MIT code licence is separate.",
+      "zh": "官方数据卡声明数据为 CC BY 4.0；使用时引用 PVDepth，采集仓库的 MIT 代码许可单独适用。"
+    },
+    "summary": {
+      "en": "October 2026 HF release of static-scene CARLA panoramas with moving cameras, radial metric depth and simulator poses; shared route names do not make it pose-matched to dynamic PanoCARLA.",
+      "zh": "2026 年 10 月发布到 HF 的 CARLA 静态场景全景序列，含移动相机、径向公制深度和仿真位姿；同名路线并不与动态 PanoCARLA 逐帧同位姿。"
+    },
+    "details": {
+      "en": {
+        "Release and access": "Official HF API records creation on 2026-10-07 and update on 2026-10-08, with private=false and gated=false at this check. These dates describe this data repository, not the first publication date of the ICML 2026 PVDepth paper. Large data files were not downloaded.",
+        "Coverage and capture": "The card lists 127,334 frames, 127 clips, 67 routes and eight towns at 20 FPS. Vehicles/pedestrians are removed while the camera moves with varying height. Six synchronized virtual views produce ERP; they are not a physical stereo rig or measured baseline.",
+        "Depth and validity": "HDF5 depth is float16 [T,1200,2400,1] radial distance in meters. Capture code decodes CARLA depth with a 1000-meter scale; stitching converts optical-axis depth to ray distance. Check finite/positive validity and sky/far-plane masking for the selected evaluation; the 1000-meter source scale is not an ERP valid-depth cutoff.",
+        "Pose and coordinates": "Float32 poses store x,y,z in CARLA world meters and yaw in degrees; pitch and roll are fixed at zero and omitted. Use each release's supplied poses, not a newly generated path or a dynamic-release trajectory.",
+        "Formats and indexing": "RGB is uint8 [T,1200,2400,3]; segmentation uses uint8 CARLA IDs. setting_static.json maps frame IDs to HDF5 paths/indices. Collision/gap filtering creates clip boundaries; preview videos include excluded frames and do not share HDF5 indexing.",
+        "Evaluation and relation": "Static and dynamic variants reuse overall routes but regenerate camera-height motion, so they are not pixel/pose-aligned pairs. Preserve town/route identity when splitting data; the card does not define a separate static train/validation/test benchmark."
+      },
+      "zh": {
+        "发布与获取": "官方 HF API 记录仓库于 2026-10-07 创建、10-08 更新，本次核验 private=false、gated=false。这是该数据仓库的日期，不是 ICML 2026 PVDepth 论文首发日期；未下载完整大文件。",
+        "覆盖与采集": "数据卡列出 127334 帧、127 个片段、67 条路线、8 个城镇，20 FPS。移除车辆和行人，相机仍移动且高度变化；6 个同步虚拟视图生成 ERP，不是真实立体机架或实测基线。",
+        "深度与有效性": "HDF5 深度为 float16 [T,1200,2400,1]、米制径向距离。采集代码以 1000 米缩放解码 CARLA 深度，拼接时将光轴深度转为射线距离。按选定评测检查有限/正值、天空和远平面掩码；1000 米源缩放不能直接当作 ERP 有效深度上限。",
+        "位姿与坐标": "float32 位姿存储 CARLA 世界坐标的米制 x,y,z 和角度制 yaw；pitch、roll 固定为零而省略。几何计算应使用本版本位姿，不能借用新生成路线或动态版轨迹。",
+        "格式与索引": "RGB 为 uint8 [T,1200,2400,3]，语义为 uint8 CARLA 类别。setting_static.json 将源帧号映射到 HDF5 路径/索引；碰撞和帧号空隙决定片段边界，预览视频包含被剔除帧，不可与 HDF5 索引混用。",
+        "评测与关联": "静态/动态版复用大致路线，但重新随机生成相机高度，因此不是逐像素、逐位姿对齐的数据对。划分应保留城镇/路线身份；数据卡未定义单独的静态版训练/验证/测试基准。"
+      }
+    },
+    "notes": {
+      "en": [
+        "This is synthetic annotation, not measured physical depth or independently tracked real poses; yaw-only orientation limits motion diversity.",
+        "The original dynamic PanoCARLA repository is currently gated; access policies must be checked separately for each release.",
+        "HF viewer failure does not establish missing downloadable files; access=open is based on current public ungated repository metadata."
+      ],
+      "zh": [
+        "标注由仿真生成，并非物理深度测量或真实独立跟踪位姿；仅偏航角变化限制了运动多样性。",
+        "原始动态 PanoCARLA 当前有访问门控，不能把其政策套用到静态版；各发布需分别核对。",
+        "HF 预览器失败不代表文件无法下载；公开获取状态以当前无门控仓库元数据为据。"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://huggingface.co/datasets/Soon122/PanoCARLA-Static",
+        "title": "Official static dataset card: dimensions, depth convention, poses, clips and CC BY 4.0"
+      },
+      {
+        "url": "https://huggingface.co/api/datasets/Soon122/PanoCARLA-Static",
+        "title": "Official API: 2026-10-07 creation, 2026-10-08 update and ungated public access"
+      },
+      {
+        "url": "https://github.com/ChuanxinSong/PanoCARLA",
+        "title": "Official shared collection pipeline; six virtual views and dataset licence separation"
+      },
+      {
+        "url": "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py",
+        "title": "Official conversion: optical-axis to radial distance and face-selection stitching"
+      },
+      {
+        "url": "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/record_2stage.py",
+        "title": "Official capture: CARLA depth decoding, six views, pose and collision processing"
+      },
+      {
+        "url": "https://proceedings.mlr.press/v306/song26u.html",
+        "title": "PVDepth ICML 2026 publication associated with PanoCARLA"
+      }
+    ],
+    "checked": "2026-10-19"
   }
 ]

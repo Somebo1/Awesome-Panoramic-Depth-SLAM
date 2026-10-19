@@ -499,5 +499,91 @@
   "cubemap panoramic Gaussian SLAM": "立方体投影全景高斯定位建图",
   "offline feed-forward panoramic loop-closure SLAM": "离线前馈全景回环定位建图"
 });
+  // Reviewed weekly additions, 2026-10-19.
+  Object.assign(summaries, {
+  "geopano2026": "Reconstructs a single ERP panorama through 10 co-centered virtual views, overlap-masked Pano-Attention and point-map fusion. Its losses align scale to ground truth; metric output and public implementation are unverified.",
+  "aprilvins2026": "Combines fisheye VIO with sequence-local AprilTag geometry and separate prior-admission/output gates for close-range UMI teaching. Estimator code and MILD data remain promised after acceptance."
+});
+  Object.assign(zhRecords, {
+  "geopano2026": [
+    "单张完整 ERP RGB 全景；内部生成 8 个水平、1 个向上和 1 个向下的共心虚拟透视视图；无需 IMU。",
+    "直接预测各虚拟视图的局部三维点图，重投影并融合为全景点云；可再重投影为 ERP 深度。",
+    "局部与全景点云损失均先求预测到真值的最佳标量对齐；输出保留未知全局尺度，不能据此宣称米制深度或米制定位。",
+    [
+      "2026 年 10 月 15 日提交的新预印本；正式发表出处尚未核实。",
+      "10 个视图来自同一张全景的同一投影中心，不是物理多相机或有基线的立体系统。",
+      "属于单图三维重建；没有已核实的真实运动轨迹、VO、SLAM 或回环输出。",
+      "截至 2026 年 10 月 19 日，未在作者原始来源中核实公开实现和权重；这不等于证明代码不存在。",
+      "训练采用已有 Holo360D；本论文未提出独立命名的新数据集。"
+    ]
+  ],
+  "aprilvins2026": [
+    "经过标定的鱼眼图像与同步 IMU、已知 AprilTag 编号和物理尺寸，以及相机—机体—TCP 外参；无需预先测量全部标签位姿。",
+    "视觉惯性机体位姿、速度与 IMU 偏置；经过导出门控及外参转换的 TCP 轨迹，以及序列局部标签几何。",
+    "标定 IMU 与已知标签尺寸提供公制约束；依赖同步、标定和有效观测。论文使用 SE(3) 对齐，不拟合尺度。",
+    [
+      "球面切平面标签残差接入 VINS-Fisheye 固定滞后滑窗；先验接纳与联合状态导出分别门控。",
+      "没有已核实的完整 ERP 输入、稠密深度预测或全局回环模块。",
+      "参考轨迹来自机器人运动学与编码器；毫米级对齐误差只对应论文 AprilTag4 及逐序列配置，不是独立绝对精度保证。",
+      "算法、MILD 数据和评测清单待论文录用后发布；公开项目网页与受限离线上传服务不等于开源实现。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "geopano2026": {
+    "input": {
+      "frames": "单张完整 ERP RGB 全景。",
+      "projection": "完整 ERP 接口，内部拆为 10 个重叠共心虚拟针孔视图：8 个水平、1 个向上、1 个向下。",
+      "intrinsics": "采用标准 ERP 球面几何和固定虚拟视图射线；未核实任意原始鱼眼图像接口。",
+      "resolution": "Holo360D 训练源为 2880×1440；网络实际缩放与已发布推理配置待核实。",
+      "extrinsics": "不需要实测多相机外参；所有虚拟视图具有同一投影中心。",
+      "imu": "无需。",
+      "gravity": "未描述实测重力输入；方向鲁棒性尚未独立核实。",
+      "synchronization": "单张全景；实际相机采集和拼接同步仍属于外部系统条件。"
+    },
+    "output": {
+      "primary": "局部三维点图、融合后的全景点云及重投影 ERP 深度。",
+      "point_map": "直接局部点图预测头；之后进行球面重投影和融合。",
+      "normal": "未核实独立法线预测头。",
+      "confidence": "未核实标定过的置信度输出。",
+      "camera_parameters": "没有已核实的部署相机参数输出；虚拟视图朝向来自单张全景。",
+      "depth_convention": "原文预测三维点图并在球面坐标融合，再生成 ERP 深度；尚无经核实的导出实现，因此不臆断序列化标量的 range/Z-depth 约定。",
+      "metric_status": "尺度不变；第 3.4 节公式 (3)、(4) 均显式进行最佳尺度对齐。",
+      "pose_output": "没有已核实的真实运动轨迹或在线 SLAM 位姿输出。",
+      "runtime": "论文评测使用单张 NVIDIA A800，训练使用四张 A800；没有本机运行效率或峰值显存测量。"
+    }
+  },
+  "aprilvins2026": {
+    "input": {
+      "requirements": "经过标定的鱼眼序列、同步 IMU、已知标签编号和尺寸及 TCP 外参。",
+      "projection": "直接鱼眼反投影到单位球面；未确认完整 ERP 输入。",
+      "intrinsics": "需要鱼眼逆投影标定；标签角点残差定义在球面切平面。",
+      "extrinsics": "相机到机体以及机体/相机到 TCP 的外参。",
+      "imu": true
+    },
+    "output": {
+      "primary": "经过导出门控的机体及 TCP 轨迹、速度与偏置。",
+      "depth_convention": "稀疏特征和标签几何，不提供稠密径向距离或 Z 深度。",
+      "metric_status": "标定 IMU 与已知标签尺寸提供有条件的公制约束；论文 SE(3) 对齐不拟合尺度。",
+      "pose_output": "是；导出联合优化的已接纳状态，而非逐帧直接标签 PnP。",
+      "runtime": "完整官方算法环境及可比运行效率待核实；未本机复现。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "geopano2026": {
+    "code": "待核实：尚未核实官方实现及其软件许可。",
+    "weights": "待核实：尚未核实官方预训练权重及其许可。"
+  },
+  "aprilvins2026": "算法和数据许可待核实；论文与项目网页的公开访问不等于开源软件授权。"
+});
+  Object.assign(environments, {
+  "geopano2026": "尚未核实可安装的官方推理环境；论文基于 DINOv2 与 π³ 初始化，评测使用单张 NVIDIA A800。",
+  "aprilvins2026": "VINS-Fisheye 固定滞后滑窗与 AprilTag 前端；完整实现、依赖版本和本机效率尚未核实。"
+});
+  Object.assign(families, {
+  "single-panorama feed-forward point-map reconstruction": "单张全景前馈点图重建",
+  "fiducial-assisted fisheye VIO": "标记辅助鱼眼视觉惯性里程计"
+});
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

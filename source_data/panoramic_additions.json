@@ -1040,5 +1040,100 @@
       "depth-adaptation"
     ],
     "summary_zh": "生成式相关方向：把二维扩散操作同步到立方体六面，支持RGB-D全景生成和深度模型适配；生成几何不能直接当米制测量。"
+  },
+  {
+    "id": "geopano2026",
+    "short_name": "GeoPano",
+    "title": "GeoPano: Towards Geometrically Accurate 3D Reconstruction from a Single Panorama",
+    "year": 2026,
+    "venue": "arXiv 2610.21297 (2026-10-15); preprint",
+    "authors": [
+      "Jing Ou",
+      "Zidong Cao",
+      "Liaoyuan Fan",
+      "Zhuoxiao Li",
+      "Shuai Zhang",
+      "Yinrui Ren",
+      "Dongli Wu",
+      "Haoang Li",
+      "Hui Xiong",
+      "Wufan Zhao"
+    ],
+    "institutions": [
+      "The Hong Kong University of Science and Technology (Guangzhou)",
+      "Sun Yat-sen University",
+      "The Hong Kong University"
+    ],
+    "paper_url": "https://arxiv.org/abs/2610.21297",
+    "project_url": null,
+    "code_url": null,
+    "weights_url": null,
+    "license": {
+      "code": "Unknown: no official implementation verified",
+      "weights": "Unknown: no official checkpoint verified"
+    },
+    "input": {
+      "frames": "Single RGB equirectangular panorama",
+      "projection": "Full ERP input; internally decomposed into 10 overlapping co-centered perspective views (8 horizontal, 1 upward, 1 downward)",
+      "intrinsics": "Standard ERP spherical geometry and fixed virtual-view ray directions; no verified arbitrary raw-fisheye interface",
+      "resolution": "Training source Holo360D has 2880x1440 panoramas; exact network resize and released inference configuration unverified",
+      "extrinsics": "No measured multi-camera extrinsics; all derived views share the same projection center",
+      "imu": "No",
+      "gravity": "No measured gravity input documented; orientation robustness was not independently established",
+      "synchronization": "Single RGB panorama; capture/stitch synchronization remains an external system concern"
+    },
+    "output": {
+      "primary": "Per-view local 3D point maps fused into a global panoramic point cloud; ERP depth obtained by reprojection",
+      "point_map": "Direct local point-map head followed by spherical reprojection and fusion",
+      "normal": "No independent normal prediction head verified",
+      "confidence": "No calibrated uncertainty output verified",
+      "camera_parameters": "No verified deployed camera-parameter output; virtual-view orientations are derived from a single panorama"
+    },
+    "depth_convention": "The paper regresses local 3D point maps and fuses them in spherical coordinates. ERP depth is reprojected from the reconstructed point cloud. The exact serialized range/Z-depth convention is unverified because no official inference implementation was verified.",
+    "scale": "Relative, up to an unknown global scale: local and panoramic losses explicitly align predicted points to ground truth with an optimal scalar (Sec. 3.4, Eqs. 3-4). Geometric consistency does not establish metric output in meters.",
+    "code_entry": [],
+    "innovation": "Adapts a pi-cubed/DINOv2 feed-forward geometry backbone using overlap-masked Pano-Attention and local/global scale-aligned point-cloud supervision.",
+    "evidence": [
+      "https://arxiv.org/abs/2610.21297",
+      "https://arxiv.org/html/2610.21297v1",
+      "https://arxiv.org/pdf/2610.21297",
+      "https://creativecommons.org/licenses/by/4.0/"
+    ],
+    "engineering_notes": [
+      "New preprint submitted 2026-10-15; no formal venue verified.",
+      "The 10 perspective views are virtual views from one projection center, not a physical multi-camera or stereo rig.",
+      "A single-panorama reconstruction method; inherited virtual-view reasoning is not evidence of a real camera trajectory, VO, SLAM, or loop closure.",
+      "No author-linked public code or pretrained checkpoint was verified as of 2026-10-19. This does not prove that none exists.",
+      "Training uses Holo360D; this paper does not introduce a separately named new dataset. Evaluation uses Matterport3D, Stanford2D3D, and Deep360."
+    ],
+    "accessed": "2026-10-19",
+    "pose_output": "No real camera trajectory or online SLAM pose output verified; a single panorama is reconstructed",
+    "runtime": "Paper uses a single NVIDIA A800 for evaluation and four A800 GPUs for training; no comparable local runtime or peak-VRAM measurement performed.",
+    "environment": "No installable official inference environment verified; paper uses DINOv2 and pi-cubed initialization.",
+    "reproduction_status": "Original paper reviewed; no local model inference performed; code and checkpoints unverified.",
+    "evidence_level": "L2_original_paper_method_review_no_implementation_verified",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-19: original arXiv abstract, HTML and PDF inspected; no author-linked code/checkpoint located in these sources.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "task_family": "single-panorama feed-forward point-map reconstruction",
+    "native_panoramic": true,
+    "geometry_output": [
+      "point_map",
+      "depth_unknown_convention"
+    ],
+    "metric_status": "scale_invariant",
+    "official_release_status": "implementation_status_unverified",
+    "category": [
+      "monocular",
+      "ERP",
+      "virtual-perspective-views",
+      "feed-forward",
+      "point-map",
+      "Pano-Attention",
+      "scale-invariant"
+    ],
+    "summary_zh": "单张 ERP 拆成 10 个共心虚拟透视视图，通过球面重叠约束的注意力预测并融合点图；训练显式对齐尺度，不能视为公制定位。"
   }
 ]

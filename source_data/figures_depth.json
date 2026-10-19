@@ -898,5 +898,35 @@
     "pdfSha256": "a20072f9ff0578bd2a553af7dd48336bce89911dd8fd3f886bb9bc2921b27e77",
     "imageSha256": "43d3bafd6acb2a7c932e638e7834f31b7c225608847b7b8035df8939feb2ad5d",
     "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+  },
+  "geopano2026": {
+    "thumbnail": "assets/papers/geopano2026-thumb.webp",
+    "image": "assets/papers/geopano2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2610.21297",
+    "page": 5,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "zh": "GeoPano：全景视图分解、球面感知注意力、局部点图预测与全局点云融合。",
+      "en": "GeoPano view decomposition, panorama-aware attention, local point-map prediction and global point-cloud fusion."
+    },
+    "credit": {
+      "zh": "来源：Jing Ou 等，GeoPano 原论文图 3（第 5 页）；CC BY 4.0：https://creativecommons.org/licenses/by/4.0/；已裁剪页边与图注并转换为 WebP。",
+      "en": "Source: Jing Ou et al., GeoPano, Figure 3 (page 5); CC BY 4.0: https://creativecommons.org/licenses/by/4.0/ . Page margins/caption cropped and converted to WebP."
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      125,
+      69,
+      487,
+      212
+    ],
+    "originalCaption": "Figure 3: Overview of the framework. Given a panorama, we decompose it into perspective views and encode them using DINOv2.",
+    "sourceLicense": "CC BY 4.0; arXiv abstract license link and HTML verified 2026-10-19. https://creativecommons.org/licenses/by/4.0/",
+    "reviewedAt": "2026-10-19",
+    "selectionNotes": "Original Figure 3 method overview, cropped from PDF page 5 with padding; figure artwork preserved, page caption excluded.",
+    "pdfSha256": "cf64e0e5fb5c7406151dd40ba6b563e55062660b9df573b2779dea3879924cf7",
+    "imageSha256": "bf7323e86a5b5ebe5285af7ca7769c543d5efbbb31d32d9daf1f6527e5592d65",
+    "verification": "Original PDF page 5 and both final WebP crops visually inspected; Figure 3 identity, stage labels, full artwork boundaries and readability checked. Page caption excluded and attribution/CC BY 4.0 retained in metadata."
   }
 }

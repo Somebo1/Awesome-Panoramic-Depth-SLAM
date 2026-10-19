@@ -81,6 +81,20 @@ check('reviewed panoramic additions preserve sensor, scale and loop distinctions
   const loop=Array.from(a.doc.querySelectorAll('#detail-content dt')).find(d=>d.textContent.includes('回环'));
   assert.equal(loop.nextElementSibling.textContent,'待核实');a.doc.getElementById('detail-dialog').close();
 });
+check('weekly methods keep single-panorama geometry distinct from fiducial fisheye VIO',()=>{
+  const byId=new Map(catalog.records.map(r=>[r.id,r]));
+  const geometry=byId.get('geopano2026'),vio=byId.get('aprilvins2026');
+  assert(geometry&&vio);assert.equal(geometry.collection,'depth');assert.equal(geometry.pose,false);
+  assert.equal(geometry.scale,'relative');assert.equal(geometry.depthType,'points');
+  assert(geometry.cameras.includes('panoramic'));assert(!geometry.cameras.includes('multi'));
+  assert.equal(geometry.codeStatus,'unverified');
+  assert.equal(vio.collection,'slam');assert(vio.cameras.includes('fisheye'));assert(!vio.cameras.includes('panoramic'));
+  assert.equal(vio.nativePanoramic,false);assert.equal(vio.imu,true);assert.equal(vio.scale,'metric');
+  assert.equal(vio.depthType,'none');assert.equal(vio.codeStatus,'none');
+  for(const id of ['ds_360dvo','ds_odgs_slam','ds_panocarla_static2026'])assert.equal(byId.get(id).collection,'datasets');
+  assert.match(byId.get('ds_360dvo').localizedSummary.en,/pseudo ground truth/i);
+  assert.equal(byId.get('ds_panocarla_static2026').reality,'synthetic');
+});
 check('combined year, code status and metric filters use explicit metadata',()=>{
   a.api.setFilter('collection','depth');a.api.setFilter('category','all');
   a.api.setFilter('year','2026');a.api.setFilter('scale','metric');a.api.setFilter('code','released');

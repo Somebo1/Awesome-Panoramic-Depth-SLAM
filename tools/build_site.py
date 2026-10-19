@@ -7,7 +7,7 @@ import shutil
 from urllib.parse import urlparse
 
 ROOT=Path(__file__).resolve().parents[1]
-UPDATED='2026-10-17'
+UPDATED='2026-10-19'
 REPO_URL='https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM'
 
 # Explicit reviewed labels: substring search is not a test of camera support.
@@ -32,19 +32,23 @@ DEPTH={
  'panoformer':('PanoFormer',['panoramic'],'mixed','unknown','在球面切平面上构造 token 的室内全景 Transformer；数据集监督精度不代表开放域公制保证。'),
  'bifuse_pp':('BiFuse++',['panoramic'],'mixed','unknown','融合 ERP 与 cubemap 表征，包含监督与自监督方案；不同训练配置的尺度来源应分别记录。')
 }
+DEPTH['geopano2026']=('GeoPano',['panoramic'],'relative','points','单张 ERP 拆为十个共心虚拟视图，利用球面重叠注意力融合点图；训练显式对齐尺度，不提供已核实的真实轨迹或公制输出。')
 CAMERAS={'panoramic_erp':'panoramic','erp':'panoramic','panoramic':'panoramic',
  'fisheye':'fisheye','wide_fov':'wide','wide-angle':'wide','wide-fov':'wide',
  'perspective':'perspective','pinhole':'perspective','multi-camera':'multi','multi_camera':'multi'}
 SCALE_OVERRIDES={'p2uslam2026':'relative','odgsslam2026':'mixed','goslam2023':'mixed',
                  'monogs2024':'mixed','svo_pro':'mixed','360orbslam2024':'unknown'}
+SCALE_OVERRIDES['aprilvins2026']='metric'
 CODE_OVERRIDES={'p2uslam2026':'none','panogsslam2026':'none','panoslam2025':'none',
                 'panoair2026':'unverified','lfvislam2023':'partial','dreamcube':'partial'}
+CODE_OVERRIDES['aprilvins2026']='none'
 SLAM_DEPTH={'dbafusion2024':'inverse','droidslam2021':'inverse','goslam2023':'inverse',
             'mast3rslam2025':'points','splatam2024':'z','monogs2024':'z',
             'vo360_2022':'inverse','dvo360_2026':'inverse','panoloop2026':'points'}
 NO_DENSE_DEPTH={'openvins2020','orbslam3_2021','stella_vslam','basalt2020','vinsfusion2019',
                 'okvis2_2022','okvis2x2025','svo_pro','omnislam2020','360orbslam2024',
                 'lfvislam2023','p2uslam2026','panoair2026','vio360_2024'}
+NO_DENSE_DEPTH.add('aprilvins2026')
 DEPTH_METRIC_STATUS={k:('metric_learned' if v[2]=='metric' else 'scale_invariant' if v[2]=='relative' else
                       'mixed_checkpoints' if v[2]=='mixed' else 'unknown') for k,v in DEPTH.items()}
 DEPTH_METRIC_STATUS.update(unifuse='dataset_scale_only',panoformer='dataset_scale_only')

@@ -1378,5 +1378,55 @@
       "https://diglib7.eg.org/bitstreams/8f7f04ff-aeaf-4c8e-bbaf-0068bee7a665/download",
       "https://pacificgraphics2026.github.io/full-program.html?format=video"
     ]
+  },
+  {
+    "id": "aprilvins2026",
+    "short_name": "AprilVINS",
+    "title": "Towards Accurate End-Effector Localization for UMI-Style Robotic Manipulation Teaching",
+    "authors": "Junjie Zhang; Deteng Zhang; Zhisong Xu; Bo Sun; Liuyang Li; Yihong Tian; Jie Yin",
+    "institutions": "Chongqing University; Northwestern Polytechnical University; The University of Tokyo; Jiaxing University; Sichuan University; Beijing Institute of Technology; Shanghai Jiao Tong University",
+    "year": 2026,
+    "venue": "arXiv preprint 2610.09857v1, 7 October 2026; submitted to IEEE, acceptance not established",
+    "paper_url": "https://arxiv.org/abs/2610.09857",
+    "project_url": "https://mild-web.github.io/",
+    "code_url": "Unknown: algorithm release promised after acceptance; public project-page source is not an AprilVINS implementation release",
+    "weights_url": "Not applicable: no learned weights required for the described estimator",
+    "license": "Unknown: estimator and dataset release terms not yet verified; public paper and website do not establish a software license",
+    "input": "Calibrated fisheye images and synchronized IMU; known AprilTag IDs and physical sizes; camera-body and TCP extrinsics. Sequence-local tag poses are estimated, without a pre-surveyed tag map.",
+    "output": "Visual-inertial body poses, velocity and IMU biases; guarded TCP trajectory after calibrated frame conversion; sequence-local fiducial geometry",
+    "depth_convention": "Sparse geometric feature/tag constraints; no dense range or camera-axis Z-depth prediction",
+    "scale": "Metric constraints from calibrated IMU and known physical tag sizes; requires calibration, synchronization and suitable observations. Reported TCP error uses SE(3) alignment without scale fitting.",
+    "pose_output": "Yes: guarded visual-inertial body and TCP trajectory; an exported sample requires an accepted joint solution",
+    "slam_family": "fiducial-assisted fisheye VIO",
+    "camera_support": [
+      "fisheye"
+    ],
+    "imu_required": true,
+    "loop_closure": "Unknown: no global loop-closure module established by this paper",
+    "metric_status": "metric with calibrated IMU, known tag sizes and valid geometry; SE(3)-aligned evaluation",
+    "hardware_notes": "VINS-Fisheye fixed-lag sliding window and fiducial front end; official installable runtime and local timing not verified",
+    "runtime": "Unknown: no comparable local measurement or verified full estimator release",
+    "limitations": "Close-range marker-assisted teaching; no established native ERP or global loop closure. TCP reference comes from robot kinematics/encoders, not independent motion capture. Millimeter SE(3)-aligned error is conditional on the tested AprilTag4 recordings and sequence-specific profiles; not an absolute precision guarantee.",
+    "official_release_status": "Paper and public project available; code, datasets and evaluation manifests promised after acceptance, not released as verified artifacts",
+    "summary_zh": "将鱼眼 VIO 与序列局部 AprilTag 几何结合，分别控制位姿先验接纳和联合状态导出，面向 UMI 近距离示教定位；代码与 MILD 数据待录用后发布。",
+    "native_panoramic": false,
+    "native_erp": false,
+    "panoramic_representation": "Raw calibrated fisheye observations and unit-sphere tag bearings; full ERP input is not established",
+    "evidence": "Paper IV defines ray residuals, local tag layout and guarded output; V uses SE(3) without scale fitting. Official project footer confirms release after acceptance; public website backend is a pilot/template, not verified estimator source. No local estimator reproduction.",
+    "evidence_level": "Official paper and public project reviewed; method figure visually inspected; estimator and data not locally reproduced",
+    "accessed": "2026-10-19",
+    "source_urls": [
+      "https://arxiv.org/abs/2610.09857",
+      "https://arxiv.org/html/2610.09857v1",
+      "https://arxiv.org/pdf/2610.09857",
+      "https://mild-web.github.io/",
+      "https://github.com/mild-web/mild-web.github.io"
+    ],
+    "engineering_notes": [
+      "The paired MILD benchmark is announced; its dataset download, license and manifests remain pending acceptance.",
+      "The public X5 upload pilot requires an access key and processes offline; it is not evidence of an open-source estimator release."
+    ],
+    "code_entry": "Unknown",
+    "environment": "VINS-Fisheye sliding window plus AprilTag front end; installable implementation and dependency versions not released as verified artifacts"
   }
 ]
