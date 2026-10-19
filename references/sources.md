@@ -355,6 +355,23 @@ Cube-Splat: High-Fidelity 360° Gaussian Splatting SLAM via Cubemap Factorizatio
 - https://github.com/guoxf304/CubeSplat
 - https://wangkaiwei.org/publications/
 
+## Hilti–Trimble–Oxford 2026 · Indoor (2026)
+
+Hilti-Trimble-Oxford Dataset: 360 Visual-Inertial Benchmark with Floor Plan Priors for SLAM and Localization
+
+- https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/dataset.md
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/sensors.md
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/ground-truth.md
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/challenge-tools.md
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/floorplans.md
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/challenge-evaluation.md
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/config/hilti_openvins/rs_config.yaml
+- https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/camera_calibration/kalibr_imucam_chain.yaml
+- https://arxiv.org/abs/2607.06464
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026
+- https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026
+
 ## Holo360D (2026)
 
 Holo360D: A Large-Scale Real-World Dataset with Continuous Trajectories for Advancing Panoramic 3D Reconstruction and Beyond
@@ -735,13 +752,18 @@ Structured3D: A Large Photo-realistic Dataset for Structured 3D Modeling
 - https://github.com/bertjiazheng/Structured3D/blob/master/data_organization.md
 - https://arxiv.org/abs/1908.00222
 
-## TartanAir / V2 (2020)
+## TartanAir V2 (2020)
 
 TartanAir: A Dataset to Push the Limits of Visual SLAM
 
 - https://tartanair.org/
 - https://tartanair.org/modalities.html
-- https://arxiv.org/abs/2003.14338
+- https://tartanair.org/examples.html
+- https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/reader.py#L112-L153
+- https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/customizer.py#L126-L130
+- https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/customizer.py#L232-L259
+- https://github.com/castacks/tartanair_tools/blob/master/data_type.md#pose-file
+- https://theairlab.org/tartanair-dataset/
 
 ## DIODE (2019)
 

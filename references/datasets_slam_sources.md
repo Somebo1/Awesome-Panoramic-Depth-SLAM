@@ -13,6 +13,8 @@ Important editorial distinctions:
 - Mocap, RTK, sparse survey control points and map-registration-derived references are not treated as interchangeable.
 - Published benchmark examples are not reproduced or independently evaluated here.
 
+Follow-up on **2026-10-19**: the existing TartanAir record now explicitly describes V2, and a separate Hilti 2026 indoor record has been added. The original 2026-10-17 register below is historical; current sensor, geometry, reference and access evidence is recorded in the [TartanAir V2 / Hilti 2026 audit](tartanair_v2_hilti2026_sources.md) and the generated [current source index](sources.md). Hilti 2026 provides raw fisheye observations; ERP is an optional official stitching pipeline, not native recorded panoramas.
+
 ## Source records
 
 ### EuRoC MAV (`ds_euroc`)
