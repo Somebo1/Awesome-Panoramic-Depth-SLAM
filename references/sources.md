@@ -381,6 +381,13 @@ Holo360D: A Large-Scale Real-World Dataset with Continuous Trajectories for Adva
 - https://huggingface.co/datasets/ouou123/Holo360D
 - https://jou719.github.io/Holo360D_homepage/
 
+## MILD / MILD-Sim (2026)
+
+Towards Accurate End-Effector Localization for UMI-Style Robotic Manipulation Teaching
+
+- https://mild-web.github.io/
+- https://arxiv.org/abs/2610.09857
+
 ## ODGS-SLAM (2026)
 
 ODGS-SLAM: Omnidirectional Gaussian Splatting SLAM

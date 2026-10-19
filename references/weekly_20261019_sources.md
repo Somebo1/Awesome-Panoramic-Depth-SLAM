@@ -30,6 +30,7 @@ Official README pages inspected for DAP, DA-2, DreamCube, and PaGeR. No new date
 - New method: AprilVINS, arXiv:2610.09857v1, submitted 7 October 2026. https://arxiv.org/abs/2610.09857
 - Paper methods IV and experiments V reviewed. Figure 4 is on PDF page 5. https://arxiv.org/pdf/2610.09857
 - Official project, read directly over HTTP on 2026-10-19: https://mild-web.github.io/ . Footer says dataset, code and additional details will be released after paper acceptance. The upload pilot requires an access key and is offline/trajectory-only.
+- Follow-up requested on 2026-10-19: MILD is now also indexed as a separate announced dataset (`ds_mild2026`), with its release still pending. See the [dataset source audit](mild_dataset_sources.md). This does not upgrade download availability or estimator source status.
 - Project-page source: https://github.com/mild-web/mild-web.github.io . Its local backend MVP uses a configurable AprilVINS command template or mock worker. This website repo is not evidence of the estimator implementation being released.
 - Metric statement is conditional on calibrated IMU and known physical tag dimensions. Evaluation SE(3) alignment does not fit scale. Robot kinematics/encoders supply the executed TCP reference, rather than independent motion capture.
 

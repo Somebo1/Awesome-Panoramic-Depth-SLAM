@@ -4,7 +4,7 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 
 **[Explore the website →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/)** · [Panoramic SLAM](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic) · [Full JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-检索与来源核查截点：**2026-10-19**。当前 **100** 条：Depth/Geometry **31** 项（23项包含全景流程），SLAM/VO/VIO **33** 项（11项有明确ERP输入证据），数据集 **36** 项（17项涉及全景数据或明确的渲染/重采样协议）。分类可重叠；这是一份任务导向的人工核验资料索引，不是性能排行榜或穷尽性综述。
+检索与来源核查截点：**2026-10-19**。当前 **101** 条：Depth/Geometry **31** 项（23项包含全景流程），SLAM/VO/VIO **33** 项（11项有明确ERP输入证据），数据集 **37** 项（17项涉及全景数据或明确的渲染/重采样协议）。分类可重叠；这是一份任务导向的人工核验资料索引，不是性能排行榜或穷尽性综述。
 
 ## 使用方式
 
@@ -47,9 +47,11 @@ A curated visual atlas of **panoramic, fisheye and wide-FOV depth models, visual
 
 ## 数据集
 
-[打开数据集栏目](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=zh)。当前36项包括全景实测与渲染基准、鱼眼视觉惯性序列和常见透视对照；新增ToF-360、Holo360D、Oxford Spires等资料。
+[打开数据集栏目](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=zh)。当前37项包括全景实测与渲染基准、鱼眼视觉惯性序列和常见透视对照；新增ToF-360、Holo360D、Oxford Spires等资料。
 
 2026-10-19 按指定链接补充 **TartanAir V2** 与 **Hilti 2026 室内序列**：前者细化已有条目并保留原 ID，区分原始透视 Z-depth 与定制鱼眼/ERP 的射线距离；后者新增双鱼眼惯性、30 段楼层序列与 LiDAR-inertial 参考轨迹资料，明确原始数据不含 LiDAR，也不把轨迹当作稠密深度真值。传感器、标定/同步、划分和获取许可均有中英文说明。见[本次原始来源核验](references/tartanair_v2_hilti2026_sources.md)。
+
+2026-10-19 另将 **MILD** 独立收录为数据集，关联既有 AprilVINS 论文：整理真实 X5 双鱼眼、Insight9 和 MILD-Sim 子集，以及机器人运动学 TCP 参考的适用范围。官网仍声明数据、代码及更多细节待论文录用后发布，未核实公开数据下载、许可和完整划分；预览视频与受限上传服务不代表数据已开放。条目明确保留待发布状态，不归入已核实的完整 ERP 或稠密深度真值集。数据集总数包含这类已介绍但待发布的条目。见[MILD 原始来源核验](references/mild_dataset_sources.md)。
 
 每条区分实际采集的传感器、公开标注、深度/距离定义与单位、轨迹来源、标定与同步、划分及访问条件。360Loc的定位位姿不等于稠密深度真值，TUM VI并非所有片段都有全程动作捕捉，RobotCar的VO不是地面真值，Holo360D包含优化轨迹和填洞深度，相关派生ERP集可能复用训练建筑。这些限制在中英文详情中分别展示。
 

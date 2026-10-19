@@ -4852,6 +4852,160 @@
       "aliases": []
     },
     {
+      "id": "ds_mild2026",
+      "name": "MILD / MILD-Sim",
+      "title": "Towards Accurate End-Effector Localization for UMI-Style Robotic Manipulation Teaching",
+      "year": 2026,
+      "aliases": [
+        "MILD",
+        "MILD-Sim",
+        "Manipulation-Interface Localization Dataset",
+        "Towards Accurate End-Effector Localization for UMI-Style Robotic Manipulation Teaching",
+        "AprilVINS dataset"
+      ],
+      "cameras": [
+        "fisheye",
+        "wide",
+        "multi"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "mixed",
+      "sensors": [
+        "Dual fisheye",
+        "Stereo / RGB-D",
+        "IMU",
+        "Robot encoders",
+        "Simulated cameras"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Dual fisheye",
+          "Stereo / RGB-D",
+          "IMU",
+          "Robot encoders",
+          "Simulated cameras"
+        ],
+        "zh": [
+          "双鱼眼",
+          "双目 / RGB-D",
+          "IMU",
+          "机器人编码器",
+          "仿真相机"
+        ]
+      },
+      "groundTruth": [
+        "Executed robot TCP reference",
+        "Simulation states"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Executed robot TCP reference",
+          "Simulation states"
+        ],
+        "zh": [
+          "实际执行的机器人 TCP 参考轨迹",
+          "仿真状态"
+        ]
+      },
+      "access": "unknown",
+      "homepageUrl": "https://mild-web.github.io/",
+      "paperUrl": "https://arxiv.org/abs/2610.09857",
+      "downloadUrl": "https://mild-web.github.io/",
+      "license": {
+        "en": "A dataset reuse license is not specified on the public project page or in the paper. Dataset, code and evaluation-manifest release is announced for acceptance; the paper's arXiv license does not establish a dataset license.",
+        "zh": "公开项目页与论文尚未明确数据集再利用许可。数据、代码与评测清单计划于论文录用后发布；论文的 arXiv 许可不能视为数据集许可。"
+      },
+      "summary": "面向近距离操作定位的已公布基准：包含 Insta360 X5 与 Insight9 的 86 段真实录制、实际执行的机器人 TCP 参考轨迹，以及 Isaac Sim 仿真子集；完整数据待论文录用后发布。",
+      "details": {
+        "en": {
+          "Scope and coverage": "Real-world subset: 86 sensor recordings, comprising 67 Insta360 X5 and 19 Insight9 recordings across 15 repeated tabletop tasks on an AGIbot G2. The paper also lists nine MILD-Sim task entries; these are not nine additional real sensor recordings.",
+          "Imaging and inputs": "X5 provides dual-fisheye observations and inertial measurements; Insight9 is described as a stereo/RGB-D sensing route. MILD-Sim uses Isaac Sim, with simulated fisheye stereo and RGB views shown on the project page. A raw ERP panorama release, exact lens FoV, resolutions and sampling rates are not established by the public release description.",
+          "Reference provenance": "Each real execution has its own end-effector/TCP reference derived from logged robot kinematics and encoder feedback. It is not an external motion-capture reference or an AprilTag-surveyed global trajectory; residual robot-state, extrinsic-calibration and timing uncertainty remains.",
+          "Calibration and synchronization": "The paper describes calibration assets for converting camera or visual-inertial estimates to the robot TCP frame. A downloadable manifest of sensor transforms, clock alignment and synchronization specifications is not yet available. Project comparison clips align separate recordings by normalized reference-trajectory progress, which does not establish hardware synchronization between devices.",
+          "Scenes and evaluation": "Plain, textured/tablecloth, ArUco and AprilTag workspaces isolate feature scarcity, occlusion and marker-layout effects. Known marker IDs and sizes do not imply pre-surveyed marker poses. Evaluate SE(3)-aligned TCP-relative APE together with time completion and continuity, using each recording's executed reference rather than a shared command trajectory.",
+          "Simulation and depth": "MILD-Sim supplies controlled robot/object/trajectory states and manipulation replay studies. Public descriptions do not establish a downloadable dense image-depth ground-truth release, depth convention, validity masks or a depth-estimation split; RGB-D hardware naming alone does not establish those annotations.",
+          "Release and splits": "As checked on 2026-10-19, the paper and project page announce code, datasets and evaluation manifests upon acceptance. A complete public data-download endpoint, official train/validation/test split and dataset license are not confirmed. The restricted trajectory-upload pilot is an evaluation interface rather than a dataset download."
+        },
+        "zh": {
+          "范围与规模": "真实子集由 AGIbot G2 执行 15 项重复桌面任务，录制 86 段传感器序列，其中 Insta360 X5 为 67 段、Insight9 为 19 段。论文另列 9 项 MILD-Sim 任务条目，不应将其理解为另外 9 段真实传感器录制。",
+          "成像与输入": "X5 提供双鱼眼观测和惯性测量；Insight9 被描述为双目/RGB-D 感知路线。MILD-Sim 使用 Isaac Sim，项目页展示仿真鱼眼双目和 RGB 视图。公开发布说明尚未确认原始 ERP 全景数据、准确单镜头视场角、分辨率与采样率。",
+          "参考轨迹来源": "每次真实执行均有独立的末端执行器/TCP 参考，由机器人运动学日志与编码器反馈得到。它不是外部动作捕捉真值，也不是经全局测量的 AprilTag 轨迹；仍包含机器人状态、外参标定与同步的残余不确定性。",
+          "标定与同步": "论文描述了将相机或视觉惯性估计转换到机器人 TCP 坐标系的标定资产。传感器变换、时钟对齐和同步规格的可下载清单尚未公开。项目页的跨设备对比片段按参考轨迹的归一化进度对齐，不能据此推断设备之间硬件同步。",
+          "场景与评测": "无标记、纹理桌布、ArUco 与 AprilTag 工作区用于区分特征稀缺、遮挡和标记布局影响。已知标记 ID 与尺寸不代表已测量标记全局位姿。以各次执行自己的参考轨迹进行 SE(3) 对齐的 TCP 相对 APE 评测，并同时考察时间完成率与连续性，而不是共用指令轨迹。",
+          "仿真与深度": "MILD-Sim 提供可观测的机器人、物体与轨迹状态及操作回放研究。公开说明尚未确认可下载的稠密图像深度真值、深度定义、有效掩码或深度估计划分；不能仅凭 RGB-D 硬件名称推断这些标注已发布。",
+          "发布与划分": "截至 2026-10-19，论文和项目页仍声明代码、数据集与评测清单于录用后发布。完整公开下载入口、官方训练/验证/测试划分及数据许可尚未确认。受限轨迹上传试点是评测接口，不是数据集下载入口。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Relevant to fisheye/wide-FoV visual-inertial localization for UMI-style manipulation; full-sphere ERP support is not inferred from the Insta360 product name.",
+          "Public video excerpts and upload-duration limits do not specify the complete dataset's sequence durations."
+        ],
+        "zh": [
+          "适用于 UMI 式操作的鱼眼/广视场视觉惯性定位研究；不从 Insta360 产品名称推断原生完整球面 ERP 支持。",
+          "公开展示片段与上传时长限制不代表完整数据集的序列时长。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://mild-web.github.io/",
+          "title": "MILD official project page: real/simulation views and pending release statement"
+        },
+        {
+          "url": "https://arxiv.org/abs/2610.09857",
+          "title": "MILD and AprilVINS paper, arXiv 2610.09857v1, Sections III and V"
+        }
+      ],
+      "checked": "2026-10-19",
+      "authors": "Junjie Zhang; Deteng Zhang; Zhisong Xu; Bo Sun; Liuyang Li; Yihong Tian; Jie Yin",
+      "venue": "arXiv preprint 2610.09857v1, 7 October 2026; submitted to IEEE, acceptance not established",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Announced close-range manipulation-localization benchmark: 86 real recordings with Insta360 X5 and Insight9, executed robot TCP references, and an Isaac Sim companion subset. Full data release is pending acceptance.",
+        "zh": "面向近距离操作定位的已公布基准：包含 Insta360 X5 与 Insight9 的 86 段真实录制、实际执行的机器人 TCP 参考轨迹，以及 Isaac Sim 仿真子集；完整数据待论文录用后发布。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Scope and coverage": "Real-world subset: 86 sensor recordings, comprising 67 Insta360 X5 and 19 Insight9 recordings across 15 repeated tabletop tasks on an AGIbot G2. The paper also lists nine MILD-Sim task entries; these are not nine additional real sensor recordings.",
+          "Imaging and inputs": "X5 provides dual-fisheye observations and inertial measurements; Insight9 is described as a stereo/RGB-D sensing route. MILD-Sim uses Isaac Sim, with simulated fisheye stereo and RGB views shown on the project page. A raw ERP panorama release, exact lens FoV, resolutions and sampling rates are not established by the public release description.",
+          "Reference provenance": "Each real execution has its own end-effector/TCP reference derived from logged robot kinematics and encoder feedback. It is not an external motion-capture reference or an AprilTag-surveyed global trajectory; residual robot-state, extrinsic-calibration and timing uncertainty remains.",
+          "Calibration and synchronization": "The paper describes calibration assets for converting camera or visual-inertial estimates to the robot TCP frame. A downloadable manifest of sensor transforms, clock alignment and synchronization specifications is not yet available. Project comparison clips align separate recordings by normalized reference-trajectory progress, which does not establish hardware synchronization between devices.",
+          "Scenes and evaluation": "Plain, textured/tablecloth, ArUco and AprilTag workspaces isolate feature scarcity, occlusion and marker-layout effects. Known marker IDs and sizes do not imply pre-surveyed marker poses. Evaluate SE(3)-aligned TCP-relative APE together with time completion and continuity, using each recording's executed reference rather than a shared command trajectory.",
+          "Simulation and depth": "MILD-Sim supplies controlled robot/object/trajectory states and manipulation replay studies. Public descriptions do not establish a downloadable dense image-depth ground-truth release, depth convention, validity masks or a depth-estimation split; RGB-D hardware naming alone does not establish those annotations.",
+          "Release and splits": "As checked on 2026-10-19, the paper and project page announce code, datasets and evaluation manifests upon acceptance. A complete public data-download endpoint, official train/validation/test split and dataset license are not confirmed. The restricted trajectory-upload pilot is an evaluation interface rather than a dataset download."
+        },
+        "zh": {
+          "范围与规模": "真实子集由 AGIbot G2 执行 15 项重复桌面任务，录制 86 段传感器序列，其中 Insta360 X5 为 67 段、Insight9 为 19 段。论文另列 9 项 MILD-Sim 任务条目，不应将其理解为另外 9 段真实传感器录制。",
+          "成像与输入": "X5 提供双鱼眼观测和惯性测量；Insight9 被描述为双目/RGB-D 感知路线。MILD-Sim 使用 Isaac Sim，项目页展示仿真鱼眼双目和 RGB 视图。公开发布说明尚未确认原始 ERP 全景数据、准确单镜头视场角、分辨率与采样率。",
+          "参考轨迹来源": "每次真实执行均有独立的末端执行器/TCP 参考，由机器人运动学日志与编码器反馈得到。它不是外部动作捕捉真值，也不是经全局测量的 AprilTag 轨迹；仍包含机器人状态、外参标定与同步的残余不确定性。",
+          "标定与同步": "论文描述了将相机或视觉惯性估计转换到机器人 TCP 坐标系的标定资产。传感器变换、时钟对齐和同步规格的可下载清单尚未公开。项目页的跨设备对比片段按参考轨迹的归一化进度对齐，不能据此推断设备之间硬件同步。",
+          "场景与评测": "无标记、纹理桌布、ArUco 与 AprilTag 工作区用于区分特征稀缺、遮挡和标记布局影响。已知标记 ID 与尺寸不代表已测量标记全局位姿。以各次执行自己的参考轨迹进行 SE(3) 对齐的 TCP 相对 APE 评测，并同时考察时间完成率与连续性，而不是共用指令轨迹。",
+          "仿真与深度": "MILD-Sim 提供可观测的机器人、物体与轨迹状态及操作回放研究。公开说明尚未确认可下载的稠密图像深度真值、深度定义、有效掩码或深度估计划分；不能仅凭 RGB-D 硬件名称推断这些标注已发布。",
+          "发布与划分": "截至 2026-10-19，论文和项目页仍声明代码、数据集与评测清单于录用后发布。完整公开下载入口、官方训练/验证/测试划分及数据许可尚未确认。受限轨迹上传试点是评测接口，不是数据集下载入口。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Relevant to fisheye/wide-FoV visual-inertial localization for UMI-style manipulation; full-sphere ERP support is not inferred from the Insta360 product name.",
+          "Public video excerpts and upload-duration limits do not specify the complete dataset's sequence durations."
+        ],
+        "zh": [
+          "适用于 UMI 式操作的鱼眼/广视场视觉惯性定位研究；不从 Insta360 产品名称推断原生完整球面 ERP 支持。",
+          "公开展示片段与上传时长限制不代表完整数据集的序列时长。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "A dataset reuse license is not specified on the public project page or in the paper. Dataset, code and evaluation-manifest release is announced for acceptance; the paper's arXiv license does not establish a dataset license.",
+        "zh": "公开项目页与论文尚未明确数据集再利用许可。数据、代码与评测清单计划于论文录用后发布；论文的 arXiv 许可不能视为数据集许可。"
+      },
+      "sourceChecked": "2026-10-19"
+    },
+    {
       "id": "odgsslam2026",
       "collection": "slam",
       "name": "ODGS-SLAM",
@@ -12279,7 +12433,7 @@
   "stats": {
     "depth": 31,
     "slam": 33,
-    "datasets": 36,
+    "datasets": 37,
     "panoramicDepth": 23,
     "panoramicSLAM": 11,
     "paperFigures": 64
