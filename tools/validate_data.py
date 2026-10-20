@@ -28,6 +28,28 @@ for e in records:
             if urlparse(e.get(key,'')).scheme not in ['https','http']:errors.append(e['id']+': unsafe dataset URL '+key)
         for source in e.get('evidence',[]):
             if not isinstance(source,dict) or urlparse(source.get('url','')).scheme not in ['https','http']:errors.append(e['id']+': missing primary dataset source')
+        c=e.get('curation',{})
+        if c.get('tier') not in ['established','common','specialized','pending'] or not isinstance(c.get('rank'),int):errors.append(e['id']+': invalid dataset priority')
+        for key in ['scope','reason']:
+            if not isinstance(c.get(key),dict) or not all(c[key].get(lang) for lang in ['en','zh']):errors.append(e['id']+': missing localized curation '+key)
+        if not c.get('evidence') or not all(urlparse(s.get('url','')).scheme in ['http','https'] for s in c['evidence']):errors.append(e['id']+': missing priority evidence')
+        f=e.get('figure',{})
+        if f.get('verified') is not True or f.get('kind')!='dataset-preview':errors.append(e['id']+': dataset preview not verified')
+        for key in ['image','thumbnail']:
+            path=f.get(key,'')
+            if not re.fullmatch(r'assets/datasets/[A-Za-z0-9_-]+\.(webp|png|jpg|jpeg)',path) or not (ROOT/'site'/path).is_file():errors.append(e['id']+': unsafe or missing dataset '+key)
+        for key in ['caption','credit']:
+            if not isinstance(f.get(key),dict) or not all(f[key].get(lang) for lang in ['en','zh']):errors.append(e['id']+': missing localized dataset '+key)
+        if f.get('sourceType') in ['author-project-image','author-video-frame']:
+            for key in ['sourceUrl','sourcePageUrl']:
+                if urlparse(f.get(key,'')).scheme not in ['http','https']:errors.append(e['id']+': missing preview '+key)
+            if not re.fullmatch(r'[a-f0-9]{64}',f.get('sourceSha256','')):errors.append(e['id']+': missing preview source hash')
+            if f.get('sourceType')=='author-video-frame' and (not isinstance(f.get('frameSeconds'),(int,float)) or f['frameSeconds']<0):errors.append(e['id']+': invalid source video frame')
+        elif f.get('sourceType')=='paper-pdf':
+            if urlparse(f.get('paperUrl','')).scheme not in ['https','http'] or not re.fullmatch(r'[a-f0-9]{64}',f.get('pdfSha256','')):errors.append(e['id']+': missing dataset PDF provenance')
+            box=f.get('cropBox',[])
+            if not isinstance(f.get('page'),int) or f['page']<1 or len(box)!=4 or box[2]<=box[0] or box[3]<=box[1] or not f.get('originalCaption'):errors.append(e['id']+': invalid dataset PDF crop provenance')
+        else:errors.append(e['id']+': unknown dataset preview type')
         continue
     for field in required:
         if field not in e or e[field] in [None,'']:errors.append(f'{e["id"]}: missing {field}')

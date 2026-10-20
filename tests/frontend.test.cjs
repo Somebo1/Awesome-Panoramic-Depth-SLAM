@@ -227,7 +227,7 @@ check('datasets have task-specific filters, localized details, comparison and co
   const b=boot('?collection=datasets&category=all&lang=en');
   assert.equal(b.api.getFilteredRecords().length,datasetRecords.length);
   assert.equal(b.doc.getElementById('method-filters').hidden,true);assert.equal(b.doc.getElementById('dataset-filters').hidden,false);
-  assert.equal(b.doc.querySelectorAll('.dataset-card').length,datasetRecords.length);assert.equal(b.doc.querySelectorAll('.dataset-card img').length,0);
+  assert.equal(b.doc.querySelectorAll('.dataset-card').length,datasetRecords.length);assert.equal(b.doc.querySelectorAll('.dataset-card img').length,datasetRecords.length);
   for(const [key,value] of [['task','slam'],['environment','outdoor'],['reality','real']])b.api.setFilter(key,value);
   const result=b.api.getFilteredRecords();assert(result.length>0);assert(result.every(r=>r.tasks.includes('slam')&&r.environment.includes('outdoor')&&r.reality==='real'));
   assert.equal(new URL(b.w.location.href).searchParams.get('task'),'slam');
@@ -242,6 +242,43 @@ check('datasets have task-specific filters, localized details, comparison and co
   b.api.setLanguage('zh');b.api.openRecord(datasetRecords[0].id);assert(b.doc.getElementById('detail-content').textContent.includes('真值'));b.doc.getElementById('detail-dialog').close();
   b.api.setFilter('collection','depth');assert.equal(b.api.getState().task,'all');assert.equal(b.doc.getElementById('method-filters').hidden,false);assert.equal(b.api.getSelectedIds().length,0);
   b.dom.window.close();
+});
+check('dataset priority is scoped, precedes recency, and survives language and category changes',()=>{
+  const b=boot('?collection=datasets&category=all&lang=en');
+  assert.equal(b.api.getState().sort,'recommended');assert.equal(b.doc.getElementById('sort-select').value,'recommended');
+  assert.equal(b.api.getFilteredRecords()[0].id,'ds_matterport3d');
+  const tiers={established:0,common:1,specialized:2,pending:3};
+  const ordered=Array.from(b.api.getFilteredRecords(),r=>tiers[r.curation.tier]);
+  assert.deepEqual(ordered,ordered.slice().sort((x,y)=>x-y));
+  assert.equal(b.doc.querySelectorAll('.dataset-priority').length,b.api.getFilteredRecords().length);
+  b.api.setFilter('category','panoramic');assert.equal(b.api.getFilteredRecords()[0].id,'ds_matterport3d');
+  b.api.setLanguage('zh');assert.equal(b.api.getState().sort,'recommended');
+  assert(b.doc.querySelector('.dataset-priority').textContent.includes('经典基准'));
+  b.api.setFilter('category','all');b.api.setFilter('sort','newest');
+  const years=Array.from(b.api.getFilteredRecords(),r=>Number(r.year));assert.deepEqual(years,years.slice().sort((x,y)=>y-x));
+  b.doc.getElementById('reset-filters').click();assert.equal(b.api.getState().sort,'recommended');assert.equal(b.doc.getElementById('sort-select').value,'recommended');
+  b.api.setFilter('collection','depth');assert.equal(b.api.getState().sort,'newest');
+  b.api.setFilter('collection','datasets');assert.equal(b.api.getState().sort,'recommended');
+  b.dom.window.close();
+  const explicit=boot('?collection=datasets&category=all&sort=newest');assert.equal(explicit.api.getState().sort,'newest');explicit.dom.window.close();
+});
+check('dataset previews open with bilingual credits and reject untrusted paths and sources',()=>{
+  const b=boot('?collection=datasets&category=all&lang=en');
+  for(const r of catalog.records.filter(r=>r.collection==='datasets')){
+    assert.equal(r.figure.verified,true,r.id);assert(r.figure.image.startsWith('assets/datasets/'));
+    assert(r.figure.credit.en&&r.figure.credit.zh);assert(r.curation.reason.en&&r.curation.reason.zh);
+  }
+  b.doc.querySelector('[data-figure-id="ds_matterport3d"]').click();
+  const dialog=b.doc.getElementById('paper-figure-dialog');assert(dialog.open);
+  assert(dialog.querySelector('img').src.includes('/assets/datasets/'));assert(dialog.querySelector('.paper-figure-credit').textContent.length>10);dialog.close();
+  const exported=JSON.parse(b.api.exportRecords('json'));assert(exported.records.every(r=>r.figure&&r.curation));
+  assert(b.api.exportRecords('csv').includes('curation'));
+  const hostile=JSON.parse(JSON.stringify(catalog));const r=hostile.records.find(r=>r.id==='ds_matterport3d');
+  r.figure.image='assets/datasets/../../secret.png';r.figure.sourcePageUrl='javascript:alert(1)';
+  const c=boot('?collection=datasets&category=all',hostile);
+  assert.equal(c.doc.querySelector('[data-record-id="ds_matterport3d"] img'),null);
+  c.api.openRecord('ds_matterport3d');assert.equal(c.doc.querySelectorAll('a[href^="javascript:"]').length,0);
+  b.dom.window.close();c.dom.window.close();
 });
 check('third tab keyboard navigation and dataset deep links normalize correctly',()=>{
   const b=boot();b.doc.getElementById('tab-depth').dispatchEvent(new b.w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(b.api.getState().collection,'datasets');

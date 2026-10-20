@@ -1,0 +1,694 @@
+{
+  "ds_euroc": {
+    "image": "assets/datasets/ds_euroc.webp",
+    "thumbnail": "assets/datasets/ds_euroc-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+    "sourceUrl": "https://projects.asl.ethz.ch/assets/datasets/euroc/overview_ml.jpg",
+    "paperUrl": "https://doi.org/10.1177/0278364915620033",
+    "sourceTitle": "EuRoC MAV official dataset preview",
+    "caption": {
+      "en": "ETH machine-hall recording environment from the EuRoC project page.",
+      "zh": "EuRoC 官网展示的 ETH 机械大厅采集环境。"
+    },
+    "credit": {
+      "en": "Source: EuRoC MAV authors, official project preview.",
+      "zh": "来源：EuRoC MAV 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: EuRoC MAV authors, official project preview.",
+      "zh": "来源：EuRoC MAV 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      230,
+      153
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "fb499ff73a6516915af0943e190e9be3226d904acfd077751b3e663425316a5b"
+  },
+  "ds_tum_rgbd": {
+    "image": "assets/datasets/ds_tum_rgbd.webp",
+    "thumbnail": "assets/datasets/ds_tum_rgbd-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://cvg.cit.tum.de/data/datasets/rgbd-dataset",
+    "sourceUrl": "https://cvg.cit.tum.de/_media/data/datasets/rgbd-dataset/mocap.jpg",
+    "paperUrl": "https://doi.org/10.1109/IROS.2012.6385773",
+    "sourceTitle": "TUM RGB-D official dataset preview",
+    "caption": {
+      "en": "Kinect with motion-capture markers in the TUM RGB-D capture environment.",
+      "zh": "TUM RGB-D 采集环境中带动作捕捉标记的 Kinect。"
+    },
+    "credit": {
+      "en": "Source: TUM RGB-D authors, official project preview.",
+      "zh": "来源：TUM RGB-D 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: TUM RGB-D authors, official project preview.",
+      "zh": "来源：TUM RGB-D 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      800,
+      533
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "a606db1f8c112008ee9ab94e6284c27befd7436336fdd162dd2fd9b3e05ca5e6"
+  },
+  "ds_tum_vi": {
+    "image": "assets/datasets/ds_tum_vi.webp",
+    "thumbnail": "assets/datasets/ds_tum_vi-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset",
+    "sourceUrl": "https://cvg.cit.tum.de/_media/data/datasets/vi-dataset/thumbs.png",
+    "paperUrl": "https://arxiv.org/abs/1804.06120",
+    "sourceTitle": "TUM VI official dataset preview",
+    "caption": {
+      "en": "Official montage of fisheye image samples across TUM VI environments.",
+      "zh": "TUM VI 官方鱼眼图像样例拼图，覆盖不同采集环境。"
+    },
+    "credit": {
+      "en": "Source: TUM VI authors, official project preview.",
+      "zh": "来源：TUM VI 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: TUM VI authors, official project preview.",
+      "zh": "来源：TUM VI 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      825
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "430bf200a57dbf3d331edcb7a48a46ae1408fe1850591f6ee3bf620f9d1d4a56"
+  },
+  "ds_kitti_odom": {
+    "image": "assets/datasets/ds_kitti_odom.webp",
+    "thumbnail": "assets/datasets/ds_kitti_odom-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://www.cvlibs.net/datasets/kitti/eval_odometry.php",
+    "sourceUrl": "https://www.cvlibs.net/datasets/kitti/images/header_odometry.jpg",
+    "paperUrl": "https://doi.org/10.1109/CVPR.2012.6248074",
+    "sourceTitle": "KITTI Odometry official dataset preview",
+    "caption": {
+      "en": "Official KITTI odometry route overview; these are trajectories, not image-depth labels.",
+      "zh": "KITTI 里程计官方路线总览；展示轨迹，而非图像深度标签。"
+    },
+    "credit": {
+      "en": "Source: KITTI Odometry authors, official project preview.",
+      "zh": "来源：KITTI Odometry 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: KITTI Odometry authors, official project preview.",
+      "zh": "来源：KITTI Odometry 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      935,
+      140
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "5fa2124a2673efcf5694a9f632f36df76248d4ce21693c0ba7b6b24e4e163297"
+  },
+  "ds_kitti360": {
+    "image": "assets/datasets/ds_kitti360.webp",
+    "thumbnail": "assets/datasets/ds_kitti360-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://www.cvlibs.net/datasets/kitti-360/",
+    "sourceUrl": "https://www.cvlibs.net/datasets/kitti-360/images/example/2d/semantic/0000002161.jpg",
+    "paperUrl": "https://arxiv.org/abs/2109.13410",
+    "sourceTitle": "KITTI-360 official dataset preview",
+    "caption": {
+      "en": "KITTI-360 urban street example with semantic annotation overlay.",
+      "zh": "KITTI-360 城市道路样例及语义标注叠加。"
+    },
+    "credit": {
+      "en": "Source: KITTI-360 authors, official project preview.",
+      "zh": "来源：KITTI-360 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: KITTI-360 authors, official project preview.",
+      "zh": "来源：KITTI-360 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      294
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "05ccc44ccabea342cc1355b9b3a171a91c34ff087fc71248ea58b1f55d25738c"
+  },
+  "ds_tartanair": {
+    "image": "assets/datasets/ds_tartanair.webp",
+    "thumbnail": "assets/datasets/ds_tartanair-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://tartanair.org/modalities.html",
+    "sourceUrl": "https://tartanair.org/_images/cameras2.png",
+    "paperUrl": "https://arxiv.org/abs/2003.14338",
+    "sourceTitle": "TartanAir V2 official dataset preview",
+    "caption": {
+      "en": "V2 camera layout, six-face source imagery and derived ERP/fisheye projections.",
+      "zh": "V2 相机布局、六面源图像及由其重采样的 ERP／鱼眼表示。"
+    },
+    "credit": {
+      "en": "Source: TartanAir V2 authors, official project preview.",
+      "zh": "来源：TartanAir V2 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: TartanAir V2 authors, official project preview.",
+      "zh": "来源：TartanAir V2 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      496
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "dd72d274cdc91536620446349f788e6c356d24c4adae9075ceb029030c6d0528"
+  },
+  "ds_hilti2021": {
+    "image": "assets/datasets/ds_hilti2021.webp",
+    "thumbnail": "assets/datasets/ds_hilti2021-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://hilti-challenge.com/dataset-2021",
+    "sourceUrl": "https://hilti-challenge.com/assets/2021/sequences/IC_OFFICE.jpg",
+    "paperUrl": "https://arxiv.org/abs/2109.11316",
+    "sourceTitle": "Hilti SLAM 2021 official dataset preview",
+    "caption": {
+      "en": "Office recording environment shown on the official Hilti 2021 sequence page.",
+      "zh": "Hilti 2021 官方序列页展示的办公室采集环境。"
+    },
+    "credit": {
+      "en": "Source: Hilti SLAM 2021 authors, official project preview.",
+      "zh": "来源：Hilti SLAM 2021 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: Hilti SLAM 2021 authors, official project preview.",
+      "zh": "来源：Hilti SLAM 2021 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      873,
+      655
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "e4f14e280ba1aebb7bc12250e58660a35c9d03e2696a48868925f5cb85ac249c"
+  },
+  "ds_hilti2022": {
+    "image": "assets/datasets/ds_hilti2022.webp",
+    "thumbnail": "assets/datasets/ds_hilti2022-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://hilti-challenge.com/dataset-2022",
+    "sourceUrl": "https://hilti-challenge.com/assets/2022/construction_sheldonian.jpg",
+    "paperUrl": "https://arxiv.org/abs/2208.09825",
+    "sourceTitle": "Hilti-Oxford 2022 official dataset preview",
+    "caption": {
+      "en": "Construction-site and Sheldonian environments shown by Hilti-Oxford 2022.",
+      "zh": "Hilti-Oxford 2022 展示的施工场地与 Sheldonian 采集环境。"
+    },
+    "credit": {
+      "en": "Source: Hilti-Oxford 2022 authors, official project preview.",
+      "zh": "来源：Hilti-Oxford 2022 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: Hilti-Oxford 2022 authors, official project preview.",
+      "zh": "来源：Hilti-Oxford 2022 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1000,
+      500
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "595b1f4ebd730c61337055ea5070fab9bef5aa4309cb23856365c05354363178"
+  },
+  "ds_hilti2026": {
+    "image": "assets/datasets/ds_hilti2026.webp",
+    "thumbnail": "assets/datasets/ds_hilti2026-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026",
+    "sourceUrl": "https://raw.githubusercontent.com/Hilti-Research/hilti-trimble-slam-challenge-2026/main/media/indoor_1.jpeg",
+    "paperUrl": "https://arxiv.org/abs/2607.06464",
+    "sourceTitle": "Hilti–Trimble–Oxford 2026 · Indoor official dataset preview",
+    "caption": {
+      "en": "Official Hilti 2026 indoor construction-site preview; not a decoded sensor frame.",
+      "zh": "Hilti 2026 官方室内施工场景预览，并非解码后的传感器帧。"
+    },
+    "credit": {
+      "en": "Source: Hilti–Trimble–Oxford 2026 · Indoor authors, official project preview.",
+      "zh": "来源：Hilti–Trimble–Oxford 2026 · Indoor 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: Hilti–Trimble–Oxford 2026 · Indoor authors, official project preview.",
+      "zh": "来源：Hilti–Trimble–Oxford 2026 · Indoor 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      768,
+      1024
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "f6336b86470b796fea9ddd76d35c0b865e376ae9486960af8c6ad03241f9cf9d"
+  },
+  "ds_newer_college": {
+    "image": "assets/datasets/ds_newer_college.webp",
+    "thumbnail": "assets/datasets/ds_newer_college-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://ori-drs.github.io/newer-college-dataset/",
+    "sourceUrl": "https://ori-drs.github.io/newer-college-dataset/assets/figures/new_college_small.jpg",
+    "paperUrl": "https://doi.org/10.1109/IROS45743.2020.9340849",
+    "sourceTitle": "Newer College official dataset preview",
+    "caption": {
+      "en": "New College courtyard environment photographed for the Newer College dataset page.",
+      "zh": "Newer College 数据集官网展示的新学院庭院环境。"
+    },
+    "credit": {
+      "en": "Source: Newer College authors, official project preview.",
+      "zh": "来源：Newer College 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: Newer College authors, official project preview.",
+      "zh": "来源：Newer College 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1000,
+      568
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "f5922438c37de172748cc3cb0597be911be5c60330b09b7b228d18f6a8d85f9c"
+  },
+  "ds_robotcar": {
+    "image": "assets/datasets/ds_robotcar.webp",
+    "thumbnail": "assets/datasets/ds_robotcar-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://robotcar-dataset.robots.ox.ac.uk/",
+    "sourceUrl": "https://robotcar-dataset.robots.ox.ac.uk/images/broad_st.png",
+    "paperUrl": "https://doi.org/10.1177/0278364916679498",
+    "sourceTitle": "Oxford RobotCar official dataset preview",
+    "caption": {
+      "en": "Broad Street driving image from the Oxford RobotCar project page.",
+      "zh": "Oxford RobotCar 官网展示的 Broad Street 行驶图像。"
+    },
+    "credit": {
+      "en": "Source: Oxford RobotCar authors, official project preview.",
+      "zh": "来源：Oxford RobotCar 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: Oxford RobotCar authors, official project preview.",
+      "zh": "来源：Oxford RobotCar 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      400,
+      300
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "eff5e63d84793d6e7ff9e69faeb90805aa968974c9fe210bf0f1716109b4b710"
+  },
+  "ds_360loc": {
+    "image": "assets/datasets/ds_360loc.webp",
+    "thumbnail": "assets/datasets/ds_360loc-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://huajianup.github.io/research/360Loc/",
+    "sourceUrl": "https://huajianup.github.io/thumbnails/360Loc.png",
+    "paperUrl": "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html",
+    "sourceTitle": "360Loc official dataset preview",
+    "caption": {
+      "en": "360Loc capture, panoramic reference/query imagery and reference-generation overview.",
+      "zh": "360Loc 采集、全景参考／查询图像及参考数据生成总览。"
+    },
+    "credit": {
+      "en": "Source: 360Loc authors, official project preview.",
+      "zh": "来源：360Loc 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: 360Loc authors, official project preview.",
+      "zh": "来源：360Loc 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      517
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "85460188d1cdb55b45b73d971dcbc283a7b3f40db7913168f601bbf4b7ed0ed2"
+  },
+  "ds_omniscenes": {
+    "image": "assets/datasets/ds_omniscenes.webp",
+    "thumbnail": "assets/datasets/ds_omniscenes-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://github.com/82magnolia/piccolo#downloading-omniscenes-update-new-scenes-added",
+    "sourceUrl": "https://raw.githubusercontent.com/82magnolia/piccolo/main/omniscenes.png",
+    "paperUrl": "https://openaccess.thecvf.com/content/ICCV2021/html/Kim_PICCOLO_Point_Cloud-Centric_Omnidirectional_Localization_ICCV_2021_paper.html",
+    "sourceTitle": "OmniScenes official dataset preview",
+    "caption": {
+      "en": "Official OmniScenes examples: handheld, robot-mounted and scene-change recordings.",
+      "zh": "OmniScenes 官方样例：手持、机器人搭载及场景变化录制。"
+    },
+    "credit": {
+      "en": "Source: OmniScenes authors, official project preview.",
+      "zh": "来源：OmniScenes 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: OmniScenes authors, official project preview.",
+      "zh": "来源：OmniScenes 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      234
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "eb16bfa34ecdc052fe9112fe3a1c703650ef637bc59f4ae47ed234aaa532cd8b"
+  },
+  "ds_panoair": {
+    "image": "assets/datasets/ds_panoair.webp",
+    "thumbnail": "assets/datasets/ds_panoair-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://github.com/YYWumm/PanoAir",
+    "sourceUrl": "https://raw.githubusercontent.com/YYWumm/PanoAir/main/assets/overview_pdf-1.png",
+    "paperUrl": "https://arxiv.org/abs/2604.00852",
+    "sourceTitle": "PanoAir official dataset preview",
+    "caption": {
+      "en": "PanoAir dataset overview with acquisition platform, trajectory distribution and panoramic observations.",
+      "zh": "PanoAir 数据集总览，包含采集平台、轨迹分布和全景观测。"
+    },
+    "credit": {
+      "en": "Source: PanoAir authors, official project preview.",
+      "zh": "来源：PanoAir 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: PanoAir authors, official project preview.",
+      "zh": "来源：PanoAir 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      825
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "97953400065222a3a0771acae8dceb2c8aea48cb96ec5b120f5b237c7cb3f2f3"
+  },
+  "ds_adt": {
+    "image": "assets/datasets/ds_adt.webp",
+    "thumbnail": "assets/datasets/ds_adt-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/visualizers",
+    "sourceUrl": "https://facebookresearch.github.io/projectaria_tools/assets/images/AdtViewer-b0ad6de9956ec3ec4f34423238fcbc3d.png",
+    "paperUrl": "https://openaccess.thecvf.com/content/ICCV2023/html/Pan_Aria_Digital_Twin_A_New_Benchmark_Dataset_for_Egocentric_3D_ICCV_2023_paper.html",
+    "sourceTitle": "Aria Digital Twin official dataset preview",
+    "caption": {
+      "en": "Official Aria Digital Twin viewer example with camera images and annotation visualizations.",
+      "zh": "Aria Digital Twin 官方查看器样例，展示相机图像及标注可视化。"
+    },
+    "credit": {
+      "en": "Source: Aria Digital Twin authors, official project preview.",
+      "zh": "来源：Aria Digital Twin 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: Aria Digital Twin authors, official project preview.",
+      "zh": "来源：Aria Digital Twin 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      958,
+      1100
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "5c1ae27d30d268ea868cc110ef5d8da7213b18815e1dc76385a705d67ce270cf"
+  },
+  "ds_lafida": {
+    "image": "assets/datasets/ds_lafida.webp",
+    "thumbnail": "assets/datasets/ds_lafida-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://www.ipf.kit.edu/lafida.php",
+    "sourceUrl": "https://www.ipf.kit.edu/img/ProjektCV2015/impression_outdoor_1_rdax_1200x674s.JPG",
+    "paperUrl": "https://doi.org/10.3390/jimaging3010005",
+    "sourceTitle": "LaFiDa official dataset preview",
+    "caption": {
+      "en": "Outdoor multi-camera capture session photographed on the official LaFiDa project page.",
+      "zh": "LaFiDa 官方项目页展示的室外多相机采集现场。"
+    },
+    "credit": {
+      "en": "Source: LaFiDa authors, official project preview.",
+      "zh": "来源：LaFiDa 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: LaFiDa authors, official project preview.",
+      "zh": "来源：LaFiDa 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      618
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "6a9432c645244d71c9f03cd6b9740f5240f820e51f8704803b6bea53ddc22188"
+  },
+  "ds_oxford_spires": {
+    "image": "assets/datasets/ds_oxford_spires.webp",
+    "thumbnail": "assets/datasets/ds_oxford_spires-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://dynamic.robots.ox.ac.uk/datasets/oxford-spires/",
+    "sourceUrl": "https://dynamic.robots.ox.ac.uk/projects/images/oxford-spires/hero_fig.png",
+    "paperUrl": "https://arxiv.org/abs/2411.10546",
+    "sourceTitle": "Oxford Spires official dataset preview",
+    "caption": {
+      "en": "Official Oxford Spires overview of reconstructed college environments.",
+      "zh": "Oxford Spires 官方学院环境重建总览。"
+    },
+    "credit": {
+      "en": "Source: Oxford Spires authors, official project preview.",
+      "zh": "来源：Oxford Spires 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: Oxford Spires authors, official project preview.",
+      "zh": "来源：Oxford Spires 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      942
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "893906bd20653176422c548682177b1e0feac70624fee4bdfe95a1f0336ff755"
+  },
+  "ds_360dvo": {
+    "image": "assets/datasets/ds_360dvo.webp",
+    "thumbnail": "assets/datasets/ds_360dvo-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://chris1004336379.github.io/360DVO-homepage/",
+    "sourceUrl": "https://chris1004336379.github.io/360DVO-homepage/static/images/dataset/easy-00.PNG",
+    "paperUrl": "https://arxiv.org/abs/2601.02309",
+    "sourceTitle": "360DVO Dataset official dataset preview",
+    "caption": {
+      "en": "Official easy-00 dataset preview with example panoramas and reference trajectory.",
+      "zh": "360DVO 数据集 easy-00 官方预览，展示全景样例与参考轨迹。"
+    },
+    "credit": {
+      "en": "Source: 360DVO Dataset authors, official project preview.",
+      "zh": "来源：360DVO Dataset 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: 360DVO Dataset authors, official project preview.",
+      "zh": "来源：360DVO Dataset 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      373
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "9e3a69796ea5d72702099a2d3c73728f4f49da8c796c956694e1fb84d1647402"
+  },
+  "ds_odgs_slam": {
+    "image": "assets/datasets/ds_odgs_slam.webp",
+    "thumbnail": "assets/datasets/ds_odgs_slam-thumb.webp",
+    "sourceType": "paper-pdf",
+    "sourcePageUrl": "https://odgs-slam.github.io/",
+    "sourceUrl": "https://odgs-slam.github.io/data/ODGS-SLAM_CVPR26_supplement.pdf",
+    "paperUrl": "https://openaccess.thecvf.com/content/CVPR2026/html/Spiss_ODGS-SLAM_Omnidirectional_Gaussian_Splatting_SLAM_CVPR_2026_paper.html",
+    "sourceTitle": "ODGS-SLAM Dataset official dataset preview",
+    "caption": {
+      "en": "Real Insta360 Pro panorama from the ODGS-SLAM dataset; RGB input panel from supplementary Figure S3.",
+      "zh": "ODGS-SLAM 数据集的真实 Insta360 Pro 全景；截自补充材料图 S3 的 RGB 输入子图。"
+    },
+    "credit": {
+      "en": "Source: Spiss et al., ODGS-SLAM supplementary material, Figure S3 (RGB panel).",
+      "zh": "来源：Spiss 等，ODGS-SLAM 补充材料图 S3（RGB 子图）。"
+    },
+    "attribution": {
+      "en": "Source: Spiss et al., ODGS-SLAM supplementary material, Figure S3 (RGB panel).",
+      "zh": "来源：Spiss 等，ODGS-SLAM 补充材料图 S3（RGB 子图）。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      987,
+      496
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "pdfSha256": "d99cb0a93bcf75e5e6fdd205112867cc3076a4b93ff8296a9dc37cf06dccb343",
+    "page": 4,
+    "figureLabel": "Figure S3, top RGB panorama panel",
+    "cropBox": [
+      317,
+      72,
+      554,
+      191
+    ],
+    "originalCaption": "Figure S3. Example images from the Insta360 Pro sequences."
+  },
+  "ds_panocarla_static2026": {
+    "image": "assets/datasets/ds_panocarla_static2026.webp",
+    "thumbnail": "assets/datasets/ds_panocarla_static2026-thumb.webp",
+    "sourceType": "author-video-frame",
+    "sourcePageUrl": "https://huggingface.co/datasets/Soon122/PanoCARLA-Static",
+    "sourceUrl": "https://huggingface.co/datasets/Soon122/PanoCARLA-Static/resolve/main/vis_mp4/town06_path6_rz_dynamic_2.0_20.0_fov120_no_car_PanoVideo.mp4",
+    "paperUrl": "https://proceedings.mlr.press/v306/song26u.html",
+    "sourceTitle": "PanoCARLA-Static official dataset preview",
+    "caption": {
+      "en": "Town06 path6 official static-scene preview at 1.00 s: RGB panorama above the depth visualization. Preview frames are not HDF5 frame indices.",
+      "zh": "Town06 path6 官方静态场景预览视频第 1.00 秒：上方为 RGB 全景，下方为深度可视化；预览帧号不等于 HDF5 索引。"
+    },
+    "credit": {
+      "en": "Source: Chuanxin Song / Soon122, PanoCARLA-Static official preview video, Town06 path6, 1.00 s.",
+      "zh": "来源：Chuanxin Song / Soon122，PanoCARLA-Static 官方 Town06 path6 预览视频，第 1.00 秒。"
+    },
+    "attribution": {
+      "en": "Source: Chuanxin Song / Soon122, PanoCARLA-Static official preview video, Town06 path6, 1.00 s.",
+      "zh": "来源：Chuanxin Song / Soon122，PanoCARLA-Static 官方 Town06 path6 预览视频，第 1.00 秒。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1024,
+      1024
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "7a92e3a1f8d48b42cda9a5189ba968fd3e870f8fbb7448fb8a278a067deafb28",
+    "frameSeconds": 1.0
+  },
+  "ds_mild2026": {
+    "image": "assets/datasets/ds_mild2026.webp",
+    "thumbnail": "assets/datasets/ds_mild2026-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://mild-web.github.io/",
+    "sourceUrl": "https://mild-web.github.io/assets/videos/supplementary/hero-v8-poster.jpg",
+    "paperUrl": "https://arxiv.org/abs/2610.09857",
+    "sourceTitle": "MILD / MILD-Sim official dataset preview",
+    "caption": {
+      "en": "Official MILD video-poster montage of 20 X5 recording excerpts; a preview subset, not the full dataset count or a data-release confirmation.",
+      "zh": "MILD 官方视频封面，拼合 20 段 X5 录制片段；仅为展示子集，不能据此推断完整数据量或数据已发布。"
+    },
+    "credit": {
+      "en": "Source: MILD / MILD-Sim authors, official project preview.",
+      "zh": "来源：MILD / MILD-Sim 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: MILD / MILD-Sim authors, official project preview.",
+      "zh": "来源：MILD / MILD-Sim 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      1100,
+      619
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "e6038804470b87340532d78d3bdaa4d9eaa1fba4a5efefbf114df1cba62d1368"
+  },
+  "ds_rpg_fov": {
+    "image": "assets/datasets/ds_rpg_fov.webp",
+    "thumbnail": "assets/datasets/ds_rpg_fov-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://rpg.ifi.uzh.ch/fov.html",
+    "sourceUrl": "https://rpg.ifi.uzh.ch/img/projects/benefit_fov_vo/urban_canyon_fisheye.png",
+    "paperUrl": "https://rpg.ifi.uzh.ch/docs/ICRA16_Zhang.pdf",
+    "sourceTitle": "RPG Multi-FoV official dataset preview",
+    "caption": {
+      "en": "Official Urban Canyon fisheye rendering from the RPG Multi-FoV release.",
+      "zh": "RPG Multi-FoV 官方 Urban Canyon 鱼眼渲染样例。"
+    },
+    "credit": {
+      "en": "Source: RPG Multi-FoV authors, official project preview.",
+      "zh": "来源：RPG Multi-FoV 作者，官方项目预览。"
+    },
+    "attribution": {
+      "en": "Source: RPG Multi-FoV authors, official project preview.",
+      "zh": "来源：RPG Multi-FoV 作者，官方项目预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-10-20",
+    "imageSize": [
+      640,
+      480
+    ],
+    "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
+    "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
+    "sourceSha256": "7e3466e302a313c53b67cde07b8e8687f3f972bc94e4cf0f5086ecbab235eabc"
+  }
+}

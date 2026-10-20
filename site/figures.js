@@ -12,18 +12,18 @@
     return item;
   };
   const language = value => value === 'en' || (!value && document.documentElement.lang === 'en') ? 'en' : 'zh';
-  const localImage = value => typeof value === 'string' && /^assets\/papers\/[a-zA-Z0-9_-]+\.(?:webp|png|jpg|jpeg)$/.test(value) ? './' + value : '';
+  const localImage = value => typeof value === 'string' && /^assets\/(?:papers|datasets)\/[a-zA-Z0-9_-]+\.(?:webp|png|jpg|jpeg)$/.test(value) ? './' + value : '';
   const publicUrl = value => { try { const url = new URL(value); return ['http:', 'https:'].includes(url.protocol) ? url.href : ''; } catch { return ''; } };
   const localized = (value, lang) => typeof value === 'object' && value ? value[lang] || value.en || value.zh || '' : String(value || '');
   const validFigure = record => Boolean(record.figure && record.figure.verified === true && localImage(record.figure.image) && localImage(record.figure.thumbnail));
   const label = (figure, lang) => {
-    if (figure.sourceType === 'author-project-image') return strings[lang].author;
+    if (['author-project-image','author-video-frame'].includes(figure.sourceType)) return figure.kind==='dataset-preview' ? (lang==='zh'?'官方数据示例':'Official dataset preview') : strings[lang].author;
     const figureLabel = String(figure.figureLabel || '');
     const number = figureLabel.match(/(?:figure|fig\.?)\s*([\dA-Za-z.]+)/i);
     return [lang === 'zh' && number ? `图 ${number[1]}` : figureLabel, figure.page ? strings[lang].page(figure.page) : ''].filter(Boolean).join(' · ');
   };
   const source = (figure, lang) => {
-    const authorImage = figure.sourceType === 'author-project-image';
+    const authorImage = ['author-project-image','author-video-frame'].includes(figure.sourceType);
     const link = node('a', 'paper-figure-source', strings[lang][authorImage ? 'authorSource' : 'source'] + ' ↗');
     const href = publicUrl(authorImage ? figure.sourcePageUrl : figure.paperUrl);
     if (href) { link.href = href + (authorImage || href.includes('#') ? '' : `#page=${Number(figure.page) || 1}`); link.target = '_blank'; link.rel = 'noopener noreferrer'; }
@@ -73,8 +73,8 @@
     if (!validFigure(record)) return node('div', 'paper-preview-missing', strings[lang].missing);
     const button = node('button', 'paper-preview'); button.type = 'button';
     button.dataset.figureId = record.id;
-    button.setAttribute('aria-label', `${record.name}: ${strings[lang].expand}`);
-    button.title = strings[lang].expand;
+    button.setAttribute('aria-label', `${record.name}: ${record.collection==='datasets'?(lang==='zh'?'查看数据集示例':'View dataset preview'):strings[lang].expand}`);
+    button.title = record.collection==='datasets'?(lang==='zh'?'查看数据集示例':'View dataset preview'):strings[lang].expand;
     button.append(image(record, lang, true));
     const overlay = node('span', 'paper-preview-label');
     overlay.append(node('span', '', label(record.figure, lang)), node('span', '', '↗'));

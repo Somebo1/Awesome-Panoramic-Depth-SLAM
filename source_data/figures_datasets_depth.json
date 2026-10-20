@@ -1,0 +1,508 @@
+{
+  "ds_matterport3d": {
+    "image": "assets/datasets/ds_matterport3d.webp",
+    "thumbnail": "assets/datasets/ds_matterport3d-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://niessner.github.io/Matterport/",
+    "sourceTitle": "Matterport3D official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Textured building reconstruction, panoramic RGB-D and object annotations from the official Matterport3D overview.",
+      "zh": "官方 Matterport3D 总览：建筑纹理重建、全景 RGB-D 与物体标注。"
+    },
+    "attribution": {
+      "en": "Source: Matterport3D project authors, official dataset preview.",
+      "zh": "来源：Matterport3D 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: Matterport3D project authors, official dataset preview.",
+      "zh": "来源：Matterport3D 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "c2a65c6740e6418d254ac633e7dea432bbd8d4078cc522546de019761c9734c5",
+    "thumbnailSha256": "6fbaf654e538d8eb5b5c47908330c8e20ba6dbb1b7ba4e46f36cedbc15af5e0c",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://niessner.github.io/Matterport/teaser.png",
+    "sourceSha256": "c6490a56dd712fecc932bb2ba4bf639e5c46c5ddb59244a1b03fc7c2cbf0d59e",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_stanford2d3ds": {
+    "image": "assets/datasets/ds_stanford2d3ds.webp",
+    "thumbnail": "assets/datasets/ds_stanford2d3ds-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://github.com/alexsax/2D-3D-Semantics",
+    "sourceTitle": "Stanford2D3D / 2D-3D-S official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Aligned panoramic RGB, depth, semantic labels, mesh and normals from the official 2D-3D-S release.",
+      "zh": "官方 2D-3D-S 发布展示的配准全景 RGB、深度、语义、网格及法向。"
+    },
+    "attribution": {
+      "en": "Source: Stanford2D3D / 2D-3D-S project authors, official dataset preview.",
+      "zh": "来源：Stanford2D3D / 2D-3D-S 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: Stanford2D3D / 2D-3D-S project authors, official dataset preview.",
+      "zh": "来源：Stanford2D3D / 2D-3D-S 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "eab91ab75507fcf4f3eb6fdd64cca917601306f038bf389a63333c7e1ee0518c",
+    "thumbnailSha256": "9e2094957287b5f35c02cce6d36450901ff49b68adf1dae77299d4bd6f8e1413",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://raw.githubusercontent.com/alexsax/2D-3D-Semantics/master/assets/figure_1.jpg",
+    "sourceSha256": "2fc6cd759b59e3cd3df7109cceefb1f52cb3588c9cfc40d203c8064c8d13c919",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_structured3d": {
+    "image": "assets/datasets/ds_structured3d.webp",
+    "thumbnail": "assets/datasets/ds_structured3d-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://structured3d-dataset.org/",
+    "sourceTitle": "Structured3D official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "House designs, structure annotations and photorealistic indoor renders in the official Structured3D overview.",
+      "zh": "官方 Structured3D 总览中的房屋设计、结构标注及照片级室内渲染。"
+    },
+    "attribution": {
+      "en": "Source: Structured3D project authors, official dataset preview.",
+      "zh": "来源：Structured3D 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: Structured3D project authors, official dataset preview.",
+      "zh": "来源：Structured3D 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "f37b2ff6d1058185b67c574e19333d32f25a4726315ba760a5d38eba98abd099",
+    "thumbnailSha256": "2966eb84d31466d529aafc8d89edc6e7e5c4b7f09db2c7dab6c16d224f855386",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://structured3d-dataset.org/static/img/teaser.png",
+    "sourceSha256": "0ae1993ab87e345326425104ab313568901de922b0c68d0efb91e243ca8955f9",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_replica": {
+    "image": "assets/datasets/ds_replica.webp",
+    "thumbnail": "assets/datasets/ds_replica-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://github.com/facebookresearch/Replica-Dataset",
+    "sourceTitle": "Replica official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Official Replica scene visualization showing textured geometry and semantic/instance annotations.",
+      "zh": "官方 Replica 场景可视化：纹理几何及语义、实例标注。"
+    },
+    "attribution": {
+      "en": "Source: Replica project authors, official dataset preview.",
+      "zh": "来源：Replica 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: Replica project authors, official dataset preview.",
+      "zh": "来源：Replica 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "76348b8bf7140ec669fa5300ce3c3553b20bf4ec17c11f8ac07313dbbcb9b92d",
+    "thumbnailSha256": "a40b29fbf100594bd6101f5f78826a34364fa6abfe26d958b83dc93b31fa8d35",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://raw.githubusercontent.com/facebookresearch/Replica-Dataset/main/assets/ReplicaModalities.png",
+    "sourceSha256": "00fddd82efb47e679eb39636585817a3331433169a09c47a9e7db0c031f7b51d",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_hypersim": {
+    "image": "assets/datasets/ds_hypersim.webp",
+    "thumbnail": "assets/datasets/ds_hypersim-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://github.com/apple-aiml-research/ml-hypersim",
+    "sourceTitle": "Hypersim official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Photorealistic RGB, geometry/semantic annotations and rendering components from the official Hypersim teaser.",
+      "zh": "官方 Hypersim 示例中的照片级 RGB、几何与语义标注及渲染分量。"
+    },
+    "attribution": {
+      "en": "Source: Hypersim project authors, official dataset preview.",
+      "zh": "来源：Hypersim 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: Hypersim project authors, official dataset preview.",
+      "zh": "来源：Hypersim 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "585567c6810240c6eccd939d17a27ea0f44cc33ca147c12445ea28eb03d000ce",
+    "thumbnailSha256": "1cd470bcb310396691ee18ec4037196c22ffa87778332c8f22bd2b04d693ccc4",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://raw.githubusercontent.com/apple-aiml-research/ml-hypersim/main/docs/teaser_web.jpg",
+    "sourceSha256": "c4ba0d6d6e8ce168a5c2020431e33f85b21c60e6ae8879d3aafc6a70e651abab",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_3d60": {
+    "image": "assets/datasets/ds_3d60.webp",
+    "thumbnail": "assets/datasets/ds_3d60-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://vcl3d.github.io/3D60/",
+    "sourceTitle": "3D60 official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Spherical RGB, depth and normals at the three stereo viewpoints in the official 3D60 modality overview.",
+      "zh": "官方 3D60 模态总览：三个立体视点的球面 RGB、深度与法向。"
+    },
+    "attribution": {
+      "en": "Source: 3D60 project authors, official dataset preview.",
+      "zh": "来源：3D60 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: 3D60 project authors, official dataset preview.",
+      "zh": "来源：3D60 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "342177447f156e3037b9be3ed2167c77d24af5972230e4dbedca26ee7d16a656",
+    "thumbnailSha256": "9b1205114c4b0e883fa6a4f1b026363697b5b3ea0df03bcdc914941dc05fea90",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://vcl3d.github.io/3D60/assets/img/Modalities.png",
+    "sourceSha256": "ac21872a0bf97ce6a3b4adfcd9433a28d00f26e6dfd9bf6f889a9e83ff9319bd",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_pano3d": {
+    "image": "assets/datasets/ds_pano3d.webp",
+    "thumbnail": "assets/datasets/ds_pano3d-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://vcl3d.github.io/Pano3D/",
+    "sourceTitle": "Pano3D official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "A Matterport3D-derived equirectangular example displayed by the official Pano3D dataset page.",
+      "zh": "官方 Pano3D 数据集页面展示的 Matterport3D 派生 ERP 全景示例。"
+    },
+    "attribution": {
+      "en": "Source: Pano3D project authors, official dataset preview.",
+      "zh": "来源：Pano3D 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: Pano3D project authors, official dataset preview.",
+      "zh": "来源：Pano3D 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "831d930dc01edbe257807b0aec6af63f29c8d548da7fd897a1a665d184344e55",
+    "thumbnailSha256": "607b242061fc4b466937fa06fa4e24c6043bbff31fb495fc42ac41d31fc4a2ce",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://vcl3d.github.io/Pano3D/images/dataset/pano3d.png",
+    "sourceSha256": "56eb3ab3fdf8b77ec03d14a2584287dd2accae0e1a93fd7c8ec2c814a150e1eb",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_gibson": {
+    "image": "assets/datasets/ds_gibson.webp",
+    "thumbnail": "assets/datasets/ds_gibson-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://gibsonenv.github.io/",
+    "sourceTitle": "Gibson / GibsonV2 official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Scanned indoor environments and rendered visual modalities in the official Gibson overview.",
+      "zh": "官方 Gibson 总览中的扫描室内环境与渲染视觉模态。"
+    },
+    "attribution": {
+      "en": "Source: Gibson / GibsonV2 project authors, official dataset preview.",
+      "zh": "来源：Gibson / GibsonV2 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: Gibson / GibsonV2 project authors, official dataset preview.",
+      "zh": "来源：Gibson / GibsonV2 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "7b5b6ae5cc3556394c1b48dad83699be32c52b1885f851aa31cdf32a19c49ee4",
+    "thumbnailSha256": "c3ff6d6a6a1d7f37c9b17f164a84376423dce9e5596381729673ae4eb0e8ad00",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://gibsonenv.github.io/public/img/figure0.png",
+    "sourceSha256": "5714051c6c6642e8aa44ea1c4d5266640d9a5427ab2051ef3895438b94239c33",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_hm3d": {
+    "image": "assets/datasets/ds_hm3d.webp",
+    "thumbnail": "assets/datasets/ds_hm3d-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://aihabitat.org/datasets/hm3d/",
+    "sourceTitle": "HM3D official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Dollhouse visualization of HM3D scene 00000-kfPV7w3FaU5 from the official scene explorer.",
+      "zh": "官方 HM3D 场景浏览器中 00000-kfPV7w3FaU5 的娃娃屋视图。"
+    },
+    "attribution": {
+      "en": "Source: HM3D project authors, official dataset preview.",
+      "zh": "来源：HM3D 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: HM3D project authors, official dataset preview.",
+      "zh": "来源：HM3D 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "3f81a5d8776813551027bb112104496f1a30f9a6ca0dcd926ce1c17c0c525c9e",
+    "thumbnailSha256": "4710c92b16be3eb85b8846f85d00d5614e88f5bc98ebf49091c97824c0c23027",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://habitatwebsite.s3.amazonaws.com/website-visualization/00000-kfPV7w3FaU5/dollhouse.jpg",
+    "sourceSha256": "649d25985d9602fd45672d11b5efcdf82c7c874fbb41b37ecb1347e6901f9859",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_diode": {
+    "image": "assets/datasets/ds_diode.webp",
+    "thumbnail": "assets/datasets/ds_diode-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://diode-dataset.org/",
+    "sourceTitle": "DIODE official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "An indoor RGB image and its corresponding depth visualization from the official DIODE gallery.",
+      "zh": "官方 DIODE 图库中的一幅室内 RGB 及对应深度可视化。"
+    },
+    "attribution": {
+      "en": "Source: DIODE project authors, official dataset preview.",
+      "zh": "来源：DIODE 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: DIODE project authors, official dataset preview.",
+      "zh": "来源：DIODE 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "8765002cce14bbca84143eb22565fe56463e33f261552d5b5abca579f8bd2696",
+    "thumbnailSha256": "8765002cce14bbca84143eb22565fe56463e33f261552d5b5abca579f8bd2696",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://diode-dataset.org/images/thumbnails/thumbnail_00004_00034_indoors_150_000.jpg",
+    "sourceSha256": "4dfce1e4c9b83910a9b90818b037b9733bae1c302d27ab260ceb9fdf5aca6883",
+    "selectionNotes": "Official gallery RGB thumbnail and matching depth thumbnail placed side by side, RGB left and depth right; no image synthesis or depth estimation applied.",
+    "additionalSources": [
+      {
+        "url": "https://diode-dataset.org/images/thumbnails/thumbnail_00004_00034_indoors_150_000_depth.jpg",
+        "sha256": "1fcf70c650195d968f90d6be6dcd396f552577c15cfdfae1263e59a71f929be1"
+      }
+    ]
+  },
+  "ds_nyuv2": {
+    "image": "assets/datasets/ds_nyuv2.webp",
+    "thumbnail": "assets/datasets/ds_nyuv2-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+    "sourceTitle": "NYU Depth V2 official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Official NYU Depth V2 overview of indoor RGB, depth and semantic annotations.",
+      "zh": "官方 NYU Depth V2 总览中的室内 RGB、深度及语义标注。"
+    },
+    "attribution": {
+      "en": "Source: NYU Depth V2 project authors, official dataset preview.",
+      "zh": "来源：NYU Depth V2 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: NYU Depth V2 project authors, official dataset preview.",
+      "zh": "来源：NYU Depth V2 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "5e21e07a69fa093a9e1bfb0f2159f94774ffcf14746d732e98aeb9a537d1caef",
+    "thumbnailSha256": "c4b7c433493b854065546f3eec5034595305d38dd0f2a8e60655fda5f9afc0c1",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2_web.jpg",
+    "sourceSha256": "16011a4615e0d1de0c84c0b1ac5e78fb07ff7df318c7692f0debe00dad44735c",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_kitti_depth": {
+    "image": "assets/datasets/ds_kitti_depth.webp",
+    "thumbnail": "assets/datasets/ds_kitti_depth-thumb.webp",
+    "sourceType": "paper-pdf",
+    "sourcePageUrl": "https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction",
+    "sourceTitle": "KITTI Depth official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "KITTI depth dataset construction: generated depth annotations compared with raw/accumulated LiDAR and stereo; bottom row includes RGB and error maps.",
+      "zh": "KITTI 深度数据构建：生成标注与原始、累积激光及立体匹配对比，底行含 RGB 与误差图。"
+    },
+    "attribution": {
+      "en": "Source: Jonas Uhrig et al., Sparsity Invariant CNNs, Figure 3.",
+      "zh": "来源：Jonas Uhrig 等，Sparsity Invariant CNNs 原论文图 3。"
+    },
+    "credit": {
+      "en": "Source: Jonas Uhrig et al., Sparsity Invariant CNNs, Figure 3.",
+      "zh": "来源：Jonas Uhrig 等，Sparsity Invariant CNNs 原论文图 3。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "a1b85af1e86504087a7a7ea259f25559524baa5d13449acab98721945af134a5",
+    "thumbnailSha256": "a0b9a7fa7d9060904c17ec9ba0d8daf7830f82137ddd3146aae4d9a1ea861cbb",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "paperUrl": "https://arxiv.org/pdf/1708.06500",
+    "sourceUrl": "https://arxiv.org/pdf/1708.06500",
+    "pdfSha256": "41dffacbe74db184ac14d3ba9feb839d2d6040e887b7b0a7e86df99a3b23860e",
+    "page": 5,
+    "figureLabel": "Figure 3",
+    "cropBox": [
+      51,
+      70,
+      546,
+      211
+    ],
+    "selectionNotes": "Original PDF page and final crop visually checked; crop excludes the caption, which is described bilingually in this manifest.",
+    "originalCaption": "Figure 3: Large-scale Dataset. Qualitative results of our depth annotated dataset. From left to right we compare: depth maps of the manually curated KITTI 2015 dataset, our automatically generated data, raw and accumulated LiDaR scans, and SGM [26] results. Differences to the KITTI 2015 depth maps are shown in the last row from 0 (green) to 2 (red) meters."
+  },
+  "ds_woodscape": {
+    "image": "assets/datasets/ds_woodscape.webp",
+    "thumbnail": "assets/datasets/ds_woodscape-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://github.com/valeoai/WoodScape",
+    "sourceTitle": "WoodScape official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Official WoodScape overview showing the surround fisheye camera views, LiDAR and semantic annotations.",
+      "zh": "官方 WoodScape 总览：环车鱼眼视图、激光与语义标注。"
+    },
+    "attribution": {
+      "en": "Source: WoodScape project authors, official dataset preview.",
+      "zh": "来源：WoodScape 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: WoodScape project authors, official dataset preview.",
+      "zh": "来源：WoodScape 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "1414e9c21af1ad5264bba15515253fab7135d4f47793672303552de848091a7e",
+    "thumbnailSha256": "5362ea5495e093a69befe9419ec74eadd8fee38736868d82aa71eb3aeeb58c58",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://raw.githubusercontent.com/valeoai/WoodScape/master/teaser.png",
+    "sourceSha256": "8c1660414553012a8ec5d37dca262939539b68ba772849a5b6e6327a29ca2c3e",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_deep360": {
+    "image": "assets/datasets/ds_deep360.webp",
+    "thumbnail": "assets/datasets/ds_deep360-thumb.webp",
+    "sourceType": "paper-pdf",
+    "sourcePageUrl": "https://github.com/nju-ee/MODE-2022",
+    "sourceTitle": "Deep360 official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Deep360 outdoor synthetic examples: four panoramic camera views, two disparity maps and a ground-truth omnidirectional depth map.",
+      "zh": "Deep360 室外合成示例：四幅全景相机图、两幅视差图与全向深度真值。"
+    },
+    "attribution": {
+      "en": "Source: Ming Li et al., MODE, Figure 7.",
+      "zh": "来源：Ming Li 等，MODE 原论文图 7。"
+    },
+    "credit": {
+      "en": "Source: Ming Li et al., MODE, Figure 7.",
+      "zh": "来源：Ming Li 等，MODE 原论文图 7。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "7d489a13349a60b0f075de8f6a4fc0eb44661c737fd0fb6175c467b4878d259e",
+    "thumbnailSha256": "3a3214c9c171f590a287885e1721c491faf5d45440a8a60cc49197673530fd56",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "paperUrl": "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf",
+    "sourceUrl": "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf",
+    "pdfSha256": "2251f9c91c93ed0dee6b68a15b3207ecf220727c3898b7719cd035fb2ee8d569",
+    "page": 10,
+    "figureLabel": "Figure 7",
+    "cropBox": [
+      170,
+      321,
+      445,
+      478
+    ],
+    "selectionNotes": "Original PDF page and final crop visually checked; crop excludes the caption, which is described bilingually in this manifest.",
+    "originalCaption": "Fig. 7. Examples of the proposed Deep360 dataset. Each row shows an outdoor road scene. From left: four panoramas captured by 360° cameras, two disparity maps of 1-2 and 3-4 camera pairs, and one ground truth omnidirectional depth map"
+  },
+  "ds_tof360": {
+    "image": "assets/datasets/ds_tof360.webp",
+    "thumbnail": "assets/datasets/ds_tof360-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://huggingface.co/datasets/COLE-Ricoh/ToF-360",
+    "sourceTitle": "ToF-360 official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Official ToF-360 overview with panoramic RGB, measured depth, instances, semantics, point cloud and room layout.",
+      "zh": "官方 ToF-360 总览：全景 RGB、实测深度、实例、语义、点云及房间布局。"
+    },
+    "attribution": {
+      "en": "Source: ToF-360 project authors, official dataset preview.",
+      "zh": "来源：ToF-360 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: ToF-360 project authors, official dataset preview.",
+      "zh": "来源：ToF-360 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "665b78c848eceee40f1e455510f08c07bcf39e31b7c75041836813d44013638f",
+    "thumbnailSha256": "2863bf203d17f5ad38193943a756915a395862ae8de6a08c1162135d14c59cd5",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://huggingface.co/datasets/COLE-Ricoh/ToF-360/resolve/main/assets/figure/figure_1.png",
+    "sourceSha256": "dddb6e0a2fa37e0a76fa0615021ffc5ea5f75ff79a71c19324daad87478551f0",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_holo360d": {
+    "image": "assets/datasets/ds_holo360d.webp",
+    "thumbnail": "assets/datasets/ds_holo360d-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://jou719.github.io/Holo360D_homepage/",
+    "sourceTitle": "Holo360D official dataset preview",
+    "sourceChecked": "2026-10-20",
+    "caption": {
+      "en": "Official Holo360D overview of reconstructed scenes, continuous trajectories and panoramic depth examples.",
+      "zh": "官方 Holo360D 总览中的重建场景、连续轨迹及全景深度示例。"
+    },
+    "attribution": {
+      "en": "Source: Holo360D project authors, official dataset preview.",
+      "zh": "来源：Holo360D 项目作者，官方数据集预览。"
+    },
+    "credit": {
+      "en": "Source: Holo360D project authors, official dataset preview.",
+      "zh": "来源：Holo360D 项目作者，官方数据集预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "reviewedAt": "2026-10-20",
+    "imageSha256": "7960e66e4e9eb3c0fd191434e6447d67a6a623afce470565e7b7e7c9e265c021",
+    "thumbnailSha256": "e1acdc3694f77c55cf778190a10c26e3b000999baa088dc3918170db466bc083",
+    "sourceLicense": "Original preview copyright belongs to the dataset/project authors or publisher. Dataset terms do not independently establish the preview image reuse license.",
+    "verification": "Official source identity and the final image were visually inspected; the preview depicts this dataset. Labels describe source imagery rather than model predictions unless explicitly stated.",
+    "sourceUrl": "https://jou719.github.io/Holo360D_homepage/assets/images/eccv_coverfigure.jpg",
+    "sourceSha256": "1bbe0024dbd5972d3917b0d5e4970171703715a8ed9a3c569c5eb8a00799b2e5",
+    "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  }
+}

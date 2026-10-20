@@ -290,8 +290,9 @@
     reality:'数据来源',allRealities:'全部来源',real:'真实采集',synthetic:'合成渲染',mixedReality:'真实与合成',
     access:'获取方式',allAccess:'全部获取方式',openAccess:'公开下载',registrationAccess:'需注册或同意条款',requestAccess:'需申请访问',restrictedAccess:'受限访问',unknownAccess:'获取状态待核实',
     sensors:'传感器与模态',groundTruth:'真值与标注',homepage:'官方主页',download:'获取数据',datasetDetails:'数据集详情',closeDataset:'关闭数据集详情',datasetSummary:'数据集摘要',datasetOverview:'数据概览',datasetSpecs:'几何、真值与评测协议',accessLicense:'获取方式与许可',
+    recommended:'阅读优先：成熟基准',tier_established:'经典基准',tier_common:'常用资源',tier_specialized:'专项资源',tier_pending:'待发布或待核实',curationGuide:'排序与标注说明',curationTitle:'阅读优先级',curationScope:'适用范围',curationReason:'排序依据',curationReviewed:'标注核查日期',curationEvidence:'逐项排序依据 ↗',curationNote:'默认先展示在相应任务中协议较成熟、便于建立对照的基准，再列常用和专项资源；待发布或获取待核实的条目靠后。分级是按任务和版本作出的编辑判断，不是引用量、下载量或性能排名。可切换年份或名称排序。',
     datasetDescription:'按相机类型、任务、采集环境和获取方式检索，核查深度、位姿与地图真值的来源和定义。',
-    datasetFootnote:'区分原生采集、渲染深度和估计轨迹；相关派生集可能复用相同场景。标定、有效掩码、数据划分和访问条款以对应版本的官方说明为准。',
+    datasetFootnote:'配图为官方数据示例或论文中的数据集图，点击查看大图与出处，并非本站复现结果。区分原生采集、渲染深度和估计轨迹；相关派生集可能复用相同场景。标定、有效掩码、数据划分和访问条款以对应版本的官方说明为准。',
     datasetCompareHint:'勾选数据集，比较传感器、真值与评测协议',datasetCompareTitle:'数据集对比',datasetCompareIntro:'比较同一口径的数据来源与真值，核查任务适用性和访问条件。',exportDatasets:'导出数据集'
   });
   Object.assign(ui.en,{
@@ -304,8 +305,9 @@
     reality:'Data source',allRealities:'All sources',real:'Real captures',synthetic:'Synthetic renders',mixedReality:'Real & synthetic',
     access:'Access',allAccess:'All access types',openAccess:'Public download',registrationAccess:'Registration / terms',requestAccess:'Access request',restrictedAccess:'Restricted access',unknownAccess:'Access unverified',
     sensors:'Sensors & modalities',groundTruth:'Ground truth & labels',homepage:'Homepage',download:'Get data',datasetDetails:'Dataset details',closeDataset:'Close dataset details',datasetSummary:'Dataset summary',datasetOverview:'Dataset overview',datasetSpecs:'Geometry, ground truth & evaluation',accessLicense:'Access & licensing',
+    recommended:'Reading priority: established first',tier_established:'Established benchmark',tier_common:'Widely used resource',tier_specialized:'Specialized resource',tier_pending:'Awaiting release / verification',curationGuide:'Ordering & labels',curationTitle:'Reading priority',curationScope:'Scope',curationReason:'Why this order',curationReviewed:'Labels reviewed',curationEvidence:'Itemized ordering evidence ↗',curationNote:'Default order starts with established protocols and useful controls in each stated task, followed by other common and specialized resources. Awaiting-release or unverified-access items follow. Tiers are editorial, scoped to tasks and versions; they are not measured citation, download or performance rankings. Year and name sorting remain available.',
     datasetDescription:'Filter camera geometry, tasks, environment and access. Check how depth, poses and maps were measured or derived.',
-    datasetFootnote:'Distinguish native captures, rendered depth and estimated trajectories. Derivative datasets may share scenes. Check the cited version for calibration, valid masks, splits and access terms.',
+    datasetFootnote:'Images are official dataset examples or paper excerpts; click for sources. They are not results reproduced by this website. Distinguish native captures, rendered depth and estimated trajectories. Derivative datasets may share scenes. Check the cited version for calibration, valid masks, splits and access terms.',
     datasetCompareHint:'Select datasets to compare sensors, ground truth & evaluation',datasetCompareTitle:'Dataset comparison',datasetCompareIntro:'Compare data provenance, ground truth, task suitability and access using consistent definitions.',exportDatasets:'Export datasets'
   });
   // Reviewed panoramic VO, mapping and loop-closure additions (2026-10-17).

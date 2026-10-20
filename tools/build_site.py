@@ -216,8 +216,12 @@ def build():
         path=ROOT/'source_data'/filename
         if path.exists():datasets.extend(json.loads(path.read_text(encoding='utf-8')))
     records.extend(normalize_dataset(e) for e in datasets)
+    curation=json.loads((ROOT/'source_data/dataset_curation.json').read_text(encoding='utf-8'))
+    if set(curation)!={e['id'] for e in datasets}:raise ValueError('Dataset curation coverage differs from catalog')
+    for record in records:
+        if record['collection']=='datasets':record['curation']=curation[record['id']]
     figures={}
-    for filename in ['figures_depth.json','figures_slam.json']:
+    for filename in ['figures_depth.json','figures_slam.json','figures_datasets_depth.json','figures_datasets_slam.json']:
         path=ROOT/'source_data'/filename
         if path.exists():
             entries=json.loads(path.read_text(encoding='utf-8'))
@@ -226,18 +230,21 @@ def build():
                 if eid in figures:raise ValueError('Duplicate figure ID: '+eid)
                 figures[eid]=figure
     for record in records:
-        if record['id'] in figures:record['figure']=figures[record['id']]
+        if record['id'] in figures:
+            record['figure']=figures[record['id']].copy()
+            if record['collection']=='datasets':record['figure']['kind']='dataset-preview'
     ids=[e['id'] for e in records]
     if len(ids)!=len(set(ids)):raise ValueError('Duplicate catalog ID')
     records.sort(key=lambda e:(e['collection']!='depth',-int(str(e.get('year',0))[:4]) if str(e.get('year',0))[:4].isdigit() else 0,e['name']))
     catalog=dict(updated=UPDATED,repoUrl=REPO_URL,title='Panoramic Depth Atlas',
         description='Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.',
-        schemaVersion='1.2',records=records,
+        schemaVersion='1.3',interfaceUpdated='2026-10-20',records=records,
         stats={'depth':len(depth)+len(added),'slam':len(slam),
                'datasets':len(datasets),
                'panoramicDepth':sum(e['collection']=='depth' and 'panoramic' in e['cameras'] for e in records),
                'panoramicSLAM':sum(e['collection']=='slam' and 'panoramic' in e['cameras'] for e in records),
-               'paperFigures':sum(bool(e.get('figure',{}).get('verified')) for e in records)})
+               'paperFigures':sum(e['collection']!='datasets' and bool(e.get('figure',{}).get('verified')) for e in records),
+               'datasetFigures':sum(e['collection']=='datasets' and bool(e.get('figure',{}).get('verified')) for e in records)})
     data=ROOT/'site/data';data.mkdir(parents=True,exist_ok=True)
     serialized=json.dumps(catalog,ensure_ascii=False,indent=2)
     # Classic script loading supports both file:// previews and static hosting.
@@ -245,7 +252,7 @@ def build():
     (data/'catalog.json').write_text(serialized+'\n',encoding='utf-8',newline='\n')
     cols=['id','collection','name','title','year','venue','cameras','scale','metricStatus','scaleNote','depthType','pose',
           'nativePanoramic','codeStatus','paperUrl','projectUrl','codeUrl','weightsUrl','inputSummary','outputSummary','license','evidence','notes','sourceChecked']
-    cols += ['tasks','environment','reality','sensors','groundTruth','access','homepageUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes']
+    cols += ['tasks','environment','reality','sensors','groundTruth','access','homepageUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes','curation','figure']
     with (data/'catalog.csv').open('w',encoding='utf-8-sig',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=cols);writer.writeheader()
         for e in records:writer.writerow({k:txt(e.get(k,'')) for k in cols})
@@ -262,6 +269,7 @@ def build():
     (ROOT/'references/sources.md').write_text('# Official-source index\n\nChecked '+UPDATED+'. Bibliographic and interface evidence; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
     figure_sources=['# Paper and author project figures\n\nFigures support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed. Original author image files are kept locally; attributed web-sized copies are published. PDF page numbers count from 1; author webpage images do not claim PDF pages or PDF hashes.\n']
     for e in records:
+        if e['collection']=='datasets':continue
         f=e.get('figure')
         if not f:continue
         caption=f.get('caption',{})
@@ -271,6 +279,20 @@ def build():
         else:
             figure_sources.append(f"## {e['name']}\n\n{f.get('figureLabel','Figure')}, PDF page {f.get('page','?')}. {caption}\n\n- PDF: {f.get('paperUrl','')}\n- Screenshot: [{f.get('image','')}](../site/{f.get('image','')})\n- Local PDF SHA-256: `{f.get('pdfSha256',f.get('sha256','unknown'))}`\n")
     (ROOT/'references/figure_sources.md').write_text('\n'.join(figure_sources),encoding='utf-8',newline='\n')
+    tiers={'established':'经典基准 / Established benchmark','common':'常用资源 / Widely used resource','specialized':'专项资源 / Specialized resource','pending':'待发布或待核实 / Awaiting release or verification'}
+    priority=['# Dataset reading priority / 数据集阅读优先级\n\nReviewed 2026-10-20. Editorial ordering reflects task relevance, documented protocols and usable references, not measured citation/download counts or a performance ranking. Tags apply to the stated scope and version, not every derivative release.\n\n按任务和版本评估协议成熟度与参考资料，不以年代、新颖性或名称自动推断。待发布和获取待核实的资源保留在末尾。\n']
+    for tier in tiers:
+        priority.append('## '+tiers[tier]+'\n')
+        for eid,c in sorted(curation.items(),key=lambda item:item[1]['rank']):
+            if c['tier']!=tier:continue
+            priority.append(f"### {next(r['name'] for r in datasets if r['id']==eid)}\n\n{c['scope']['zh']} / {c['scope']['en']}\n\n{c['reason']['zh']}\n\n{c['reason']['en']}\n\n"+'\n'.join('- '+s['url'] for s in c['evidence'])+'\n')
+    (ROOT/'references/dataset_curation.md').write_text('\n'.join(priority),encoding='utf-8',newline='\n')
+    previews=['# Dataset preview sources\n\nOfficial dataset examples, scene overviews and paper excerpts, reviewed 2026-10-20. Copyright remains with the original authors. Preview images illustrate dataset content, not results reproduced by this website.\n']
+    for e in records:
+        if e['collection']!='datasets' or not e.get('figure'):continue
+        f=e['figure']
+        previews.append(f"## {e['name']}\n\n{f.get('caption',{}).get('en','')}\n\n- Source type: {f.get('sourceType','')}\n- Page: {f.get('sourcePageUrl',f.get('paperUrl',''))}\n- Original: {f.get('sourceUrl',f.get('paperUrl',''))}\n- Identity: {f.get('figureLabel','Official sample')}; PDF page: {f.get('page','Not a PDF excerpt')}\n- Source SHA-256: `{f.get('sourceSha256',f.get('pdfSha256',''))}`\n- Preview: [image](../site/{f.get('image','')})\n- Credit: {f.get('credit',f.get('attribution',{})).get('en','')}\n")
+    (ROOT/'references/dataset_figure_sources.md').write_text('\n'.join(previews),encoding='utf-8',newline='\n')
     if (ROOT/'library/pdfs').is_dir():
         local_index=['# Local paper library\n\nFull PDFs and original author webpage images are kept on this computer only. This directory is excluded from Git and GitHub Pages. Published images and attribution are indexed in ../references/figure_sources.md.\n\n| Method | Local source | Original source | Selected figure |\n|---|---|---|---|']
         for e in records:

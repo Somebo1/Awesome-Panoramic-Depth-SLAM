@@ -801,3 +801,26 @@ dialog::backdrop{background:#00000070}
 .dataset-facts dl{grid-template-columns:78px minmax(0,1fr);gap:5px 9px}
 .dataset-facts dd{margin-bottom:0}
 }
+
+/* Dataset gallery and scoped reading priorities. */
+.dataset-art{height:190px;border-bottom:1px solid #e8e8e8;background:#fafafa}
+.dataset-art .paper-preview{background:#fafafa;padding:10px 10px 24px}
+.dataset-card .card-body{padding-top:15px}
+.dataset-priority{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:0 0 11px}
+.dataset-priority .badge{font-size:10px;white-space:normal;line-height:1.4}
+.dataset-scope{font-size:10px;color:#777;line-height:1.5}
+.dataset-priority .maturity-established{background:#edf1f8;border-color:#dbe3f0;color:#394e70}
+.dataset-priority .maturity-common{background:#f1f1f1;border-color:#e0e0e0;color:#494949}
+.dataset-priority .maturity-specialized{background:#f5f4ef;border-color:#e6e3d8;color:#71694e}
+.dataset-priority .maturity-pending{background:#fff7ea;border-color:#eddfc2;color:#886229}
+.dataset-card .card-summary{min-height:0;-webkit-line-clamp:3;margin-bottom:14px}
+.dataset-card .paper-full-title{min-height:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dataset-guide{margin:0 0 14px;padding:11px 14px;border:1px solid #e4e4e4;border-radius:6px;background:#fafafa;font-size:11px;color:#666;line-height:1.8}
+.dataset-guide summary{cursor:pointer;color:#333;font-size:12px;font-weight:600}
+.dataset-guide p{max-width:1050px;margin:9px 0}
+.curation-legend{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.curation-legend span{border:1px solid #ddd;border-radius:4px;background:#fff;padding:2px 7px;color:#555;font-size:10px}
+.dataset-guide a{font-size:11px;text-decoration:underline;text-underline-offset:3px}
+.results-table .dataset-priority{margin:7px 0}
+@media(max-width:640px){.dataset-art{height:140px}.dataset-priority{gap:5px;margin-bottom:8px}.dataset-priority .badge,.dataset-scope{font-size:8px}.dataset-guide{padding:10px;font-size:10px}.dataset-guide summary{font-size:11px}}
+@media(max-width:390px){.dataset-art{height:180px}.dataset-priority .badge,.dataset-scope{font-size:10px}}

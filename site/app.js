@@ -74,6 +74,16 @@
   const datasetTasks = record => asList(record.tasks).map(task => t(task === 'depth' ? 'taskDepth' : 'taskSlam')).join(' · ');
   const accessKey = value => ({open:'openAccess',registration:'registrationAccess',request:'requestAccess',restricted:'restrictedAccess',unknown:'unknownAccess'})[value] || 'unknownAccess';
   const realityKey = value => value === 'mixed' ? 'mixedReality' : value;
+  const tierOrder = {established:0,common:1,specialized:2,pending:3};
+  const tierKey = record => Object.hasOwn(tierOrder,record.curation?.tier) ? record.curation.tier : 'pending';
+  const tierLabel = record => t('tier_'+tierKey(record));
+  function datasetPriority(record) {
+    const row=el('div','dataset-priority');
+    const tag=badge(tierLabel(record),'maturity-'+tierKey(record));
+    tag.title=local(record.curation?.reason)||t('curationNote');
+    row.append(tag,el('span','dataset-scope',local(record.curation?.scope)));
+    return row;
+  }
   let stored = {};
   try { stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { /* Storage is optional. */ }
   if (!stored || typeof stored !== 'object') stored = {};
@@ -97,7 +107,8 @@
     if (!['all', ...Object.keys(scales)].includes(result.scale)) result.scale = 'all';
     if (!['all', ...Object.keys(codes)].includes(result.code)) result.code = 'all';
     if (!['cards', 'table'].includes(result.view)) result.view = 'cards';
-    if (!['newest', 'oldest', 'name'].includes(result.sort)) result.sort = 'newest';
+    if (!['recommended','newest', 'oldest', 'name'].includes(result.sort)) result.sort = 'newest';
+    if (result.collection!=='datasets' && result.sort==='recommended') result.sort='newest';
     result.q = typeof result.q === 'string' ? result.q.slice(0, 500) : '';
     result.year = /^\d{4}$/.test(String(result.year)) ? String(result.year) : 'all';
     result.favorites = result.favorites === true || result.favorites === '1' || result.favorites === 'true';
@@ -114,6 +125,7 @@
     const params = new URLSearchParams(location.search);
     const next = { ...defaults, lang: state?.lang || stored.state?.lang || 'zh' };
     Object.keys(defaults).forEach(key => { if (params.has(key)) next[key] = params.get(key); });
+    if (next.collection==='datasets' && !params.has('sort')) next.sort='recommended';
     return normalizeState(next);
   }
 
@@ -135,6 +147,7 @@
     if (key === 'collection' && value !== state.collection) {
       if ((state.collection === 'datasets') !== (value === 'datasets')) selected.clear();
       state = {...defaults,category:state.category,view:state.view,sort:state.sort,lang:state.lang};
+      if (value==='datasets') state.sort='recommended';
     }
     state = normalizeState({ ...state, [key]: value });
     syncUrl(replace);
@@ -165,6 +178,7 @@
       return words.every(word => (/^[a-z0-9]{1,2}$/.test(word) ? shortSearchIndex : searchIndex).get(String(record.id)).includes(word));
     });
     result.sort((a, b) => {
+      if (state.sort==='recommended') return (tierOrder[tierKey(a)]-tierOrder[tierKey(b)]) || (Number(a.curation?.rank||999)-Number(b.curation?.rank||999)) || methodName(a).localeCompare(methodName(b),'en');
       if (state.sort === 'name') return methodName(a).localeCompare(methodName(b), 'en');
       const yearDifference = (Number(a.year) || 0) - (Number(b.year) || 0);
       return (state.sort === 'oldest' ? yearDifference : -yearDifference) || methodName(a).localeCompare(methodName(b), 'en');
@@ -246,7 +260,8 @@
     const options = (id, labels) => [...$(id).options].forEach(option => { option.textContent = labels[option.value] ?? option.textContent; });
     options('scale-filter', { all:t('allScales'), ...labelTables[state.lang].scales });
     options('code-filter', { all:t('allCodes'), released:t('released'), partial:t('partial'), unverified:t('unverified'), none:t('none') });
-    options('sort-select', { newest:t('newest'), oldest:t('oldest'), name:t('byName') });
+    const sortOptions={...(state.collection==='datasets'?{recommended:t('recommended')}:{}),newest:t('newest'),oldest:t('oldest'),name:t('byName')};
+    $('sort-select').replaceChildren(...Object.entries(sortOptions).map(([value,label])=>{const option=el('option','',label);option.value=value;return option}));
     options('task-filter',{all:t('allTasks'),depth:t('taskDepth'),slam:t('taskSlam')});
     options('environment-filter',{all:t('allEnvironments'),indoor:t('indoor'),outdoor:t('outdoor')});
     options('reality-filter',{all:t('allRealities'),real:t('real'),synthetic:t('synthetic'),mixed:t('mixedReality')});
@@ -257,6 +272,7 @@
     document.querySelector('label[for="year-filter"]').textContent=t(datasets?'datasetYear':'year');
     $('method-filters').hidden=datasets;
     $('dataset-filters').hidden=!datasets;
+    $('dataset-guide').hidden=!datasets;
     document.querySelector('[data-i18n="papers"]').textContent=t(datasets?'datasetUnit':'papers');
     document.querySelector('[data-i18n="footnote"]').textContent=t(datasets?'datasetFootnote':'footnote');
     document.querySelector('[data-i18n="compareHint"]').textContent=t(datasets?'datasetCompareHint':'compareHint');
@@ -451,8 +467,11 @@
 
   function renderDatasetCard(record) {
     const article=el('article',`paper-card dataset-card${selected.has(record.id)?' selected':''}`);article.dataset.recordId=record.id;
+    const art=el('div','card-art dataset-art');
+    if(window.AtlasFigures) art.append(window.AtlasFigures.card(record,state.lang));
+    art.append(makeFavorite(record,'favorite-button'));
     const body=el('div','card-body');
-    body.append(el('div','dataset-kicker',t('datasetRecord')+' / '+t(realityKey(record.reality))),makeFavorite(record,'favorite-button'));
+    body.append(datasetPriority(record));
     const meta=el('div','card-meta');meta.append(el('span','year-badge',record.year),el('span','venue-label',asList(record.environment).map(e=>t(e)).join(' · ')));
     const heading=el('h3','card-heading'),button=el('button','paper-title-button',record.name);button.type='button';button.addEventListener('click',()=>openRecord(record.id));heading.append(button);
     body.append(meta,heading,el('p','paper-full-title',record.title),el('p','card-summary',local(record.localizedSummary)));
@@ -462,7 +481,7 @@
     const tags=el('div','dataset-tags');tags.append(...cameras(record).map(c=>badge(cameraLabels[c]||c)),...asList(record.tasks).map(task=>badge(t(task==='depth'?'taskDepth':'taskSlam'),'task-'+task)));body.append(tags);
     const footer=el('div','card-footer'),links=el('div','card-links');links.append(sourceLink(t('homepage')+' ↗',record.homepageUrl),sourceLink(t('download')+' ↗',record.downloadUrl));footer.append(links,compareCheckbox(record));body.append(footer);
     const status=el('div','code-status');status.append(el('span','',t(accessKey(record.access))));const details=el('button','card-detail-trigger',t('datasetDetails')+' ↗');details.type='button';details.addEventListener('click',()=>openRecord(record.id));status.append(details);
-    article.append(body,status);return article;
+    article.append(art,body,status);return article;
   }
 
   function renderDatasetTable(items) {
@@ -471,7 +490,7 @@
     const body=el('tbody');
     for(const record of items){
       const tr=el('tr',selected.has(record.id)?'selected':'');tr.dataset.recordId=record.id;
-      const title=el('td'),button=el('button','table-title',record.name);button.type='button';button.addEventListener('click',()=>openRecord(record.id));title.append(button,el('span','table-subtitle',local(record.localizedSummary)));
+      const title=el('td'),button=el('button','table-title',record.name);button.type='button';button.addEventListener('click',()=>openRecord(record.id));title.append(button,datasetPriority(record),el('span','table-subtitle',local(record.localizedSummary)));
       const actions=el('td'),wrap=el('div','table-actions');wrap.append(makeFavorite(record,'table-favorite'),compareCheckbox(record));actions.append(wrap);
       tr.append(title,el('td','table-year',record.year),el('td','',cameras(record).map(c=>cameraLabels[c]||c).join(' · ')),el('td','',datasetTasks(record)),el('td','',datasetTruth(record)),el('td','',t(accessKey(record.access))),actions);body.append(tr);
     }
@@ -485,6 +504,8 @@
     const close=el('button','dialog-close','×');close.type='button';close.setAttribute('aria-label',t('closeDataset'));close.addEventListener('click',()=>closeDialog('detail-dialog'));header.append(heading,close);
     const body=el('div','dialog-body'),meta=el('div','detail-meta');meta.append(...cameras(record).map(c=>badge(cameraLabels[c]||c)),badge(t(realityKey(record.reality))),...asList(record.tasks).map(task=>badge(t(task==='depth'?'taskDepth':'taskSlam'))));
     body.append(meta,el('p','detail-summary',local(record.localizedSummary)));
+    body.append(datasetPriority(record),detailSection(t('curationTitle'),local(record.curation?.reason),{[t('curationScope')]:local(record.curation?.scope),[t('curationReviewed')]:record.curation?.checked}));
+    if(window.AtlasFigures) body.append(window.AtlasFigures.detail(record,state.lang));
     const links=el('div','detail-sources');links.append(sourceLink(t('homepage')+' ↗',record.homepageUrl,'source-link'),sourceLink(t('download')+' ↗',record.downloadUrl,'source-link'),sourceLink(t('paper')+' ↗',record.paperUrl,'source-link'));body.append(links);
     body.append(detailSection(t('datasetOverview'),'',{[t('task')]:datasetTasks(record),[t('environmentType')]:asList(record.environment).map(e=>t(e)).join(' · '),[t('reality')]:t(realityKey(record.reality)),[t('sensors')]:datasetSensors(record),[t('groundTruth')]:datasetTruth(record)}));
     body.append(detailSection(t('datasetSpecs'),'',local(record.datasetDetails)));
@@ -675,6 +696,8 @@
     const tbody = el('tbody');
     const rows = isDataset(items[0]) ? [
       [t('year'),r=>r.year],
+      [t('curationTitle'),r=>tierLabel(r)+' · '+local(r.curation?.scope)],
+      [t('curationReason'),r=>local(r.curation?.reason)],
       [t('datasetSummary'),r=>r.summary],
       [t('camera'),r=>cameras(r).map(c=>cameraLabels[c]||c).join(' · ')],
       [t('task'),datasetTasks],
@@ -713,7 +736,7 @@
   }
 
   function resetFilters() {
-    state = { ...defaults, collection: state.collection, category: 'all', view: state.view, lang: state.lang };
+    state = { ...defaults, collection: state.collection, category: 'all', view: state.view, lang: state.lang, sort:state.collection==='datasets'?'recommended':'newest' };
     syncUrl(); persist(); render();
   }
 
@@ -732,7 +755,7 @@
       content = JSON.stringify({ title: 'Panoramic Depth Atlas', updated: catalog.updated, exported: new Date().toISOString(), filters: state, records: items }, null, 2);
       type = 'application/json;charset=utf-8'; extension = 'json';
     } else if (format === 'csv') {
-      const fields = state.collection==='datasets' ? ['id','name','title','year','cameras','tasks','environment','reality','sensors','groundTruth','access','homepageUrl','paperUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes','sourceChecked','evidence'] : ['id', 'collection', 'name', 'title', 'year', 'venue', 'authors', 'institutions', 'cameras', 'scale', 'scaleNote', 'metricStatus', 'depthType', 'inputSummary', 'outputSummary', 'inputs', 'outputDetails', 'pose', 'nativePanoramic', 'family', 'imu', 'loopClosure', 'codeStatus', 'license', 'paperUrl', 'codeUrl', 'projectUrl', 'weightsUrl', 'verificationLevel', 'sourceChecked', 'evidence', 'notes'];
+      const fields = state.collection==='datasets' ? ['id','name','title','year','cameras','tasks','environment','reality','sensors','groundTruth','access','homepageUrl','paperUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes','curation','figure','sourceChecked','evidence'] : ['id', 'collection', 'name', 'title', 'year', 'venue', 'authors', 'institutions', 'cameras', 'scale', 'scaleNote', 'metricStatus', 'depthType', 'inputSummary', 'outputSummary', 'inputs', 'outputDetails', 'pose', 'nativePanoramic', 'family', 'imu', 'loopClosure', 'codeStatus', 'license', 'paperUrl', 'codeUrl', 'projectUrl', 'weightsUrl', 'verificationLevel', 'sourceChecked', 'evidence', 'notes'];
       const cell = value => { let string = sourceText(value); if (/^[=+\-@\t\r]/.test(string)) string = `'${string}`; return `"${string.replace(/"/g, '""')}"`; };
       content = '\uFEFF' + [fields.join(','), ...items.map(record => fields.map(field => cell(record[field])).join(','))].join('\r\n');
       type = 'text/csv;charset=utf-8'; extension = 'csv';
