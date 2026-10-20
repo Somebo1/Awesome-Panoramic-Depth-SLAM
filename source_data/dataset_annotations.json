@@ -1,0 +1,1058 @@
+{
+  "ds_matterport3d": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Native RGB-D depth is measured; zero denotes missing returns. Rendered ERP derivatives have their own definitions and masks.",
+        "zh": "原始 RGB-D 深度来自测量，零值为缺失；渲染 ERP 派生集采用各自的定义与掩码。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "Registered camera-to-world poses are provided for static scan views, not a continuous tracked motion sequence.",
+        "zh": "提供静态扫描视图的配准相机位姿，并非连续运动的独立跟踪轨迹。"
+      }
+    },
+    "evidence": [
+      "https://niessner.github.io/Matterport/",
+      "https://github.com/niessner/Matterport/blob/master/data_organization.md",
+      "https://github.com/niessner/Matterport"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_stanford2d3ds": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Perspective and panoramic depths are rendered from real scanned geometry; preserve projection-specific depth definitions and invalid masks.",
+        "zh": "透视与全景深度由实扫几何渲染；需保留不同投影的深度定义及无效掩码。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "Per-view registered camera metadata is released; these scan viewpoints do not constitute a continuous motion trajectory.",
+        "zh": "提供逐视图配准相机元数据；这些扫描视点并不构成连续运动轨迹。"
+      }
+    },
+    "evidence": [
+      "https://github.com/alexsax/2D-3D-Semantics",
+      "https://arxiv.org/abs/1702.01105"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_structured3d": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Synthetic scenes provide rendered depth with camera metadata and geometric validity constraints.",
+        "zh": "合成场景提供渲染深度、相机元数据及几何有效性约束。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Camera positions and orientations accompany rendered views; the release is a scene/view benchmark rather than a continuous odometry sequence.",
+        "zh": "渲染视图附有相机位置与方向；该发布以场景和视图为单位，并非连续里程计序列。"
+      }
+    },
+    "evidence": [
+      "https://structured3d-dataset.org/",
+      "https://github.com/bertjiazheng/Structured3D",
+      "https://github.com/bertjiazheng/Structured3D/blob/master/data_organization.md",
+      "https://arxiv.org/abs/1908.00222"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_replica": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Depth can be rendered from the released reconstructed meshes. The chosen renderer/export determines scale, clipping and validity.",
+        "zh": "可由发布的重建网格渲染深度；尺度、截断及有效性由所用渲染器和导出协议决定。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Simulator camera poses are known for generated trajectories. The asset release does not prescribe one fixed trajectory set.",
+        "zh": "生成轨迹的仿真相机位姿已知；原始资产发布不规定统一的固定轨迹集。"
+      }
+    },
+    "evidence": [
+      "https://github.com/facebookresearch/Replica-Dataset",
+      "https://github.com/facebookresearch/Replica-Dataset/blob/main/LICENSE",
+      "https://arxiv.org/abs/1906.05797"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_hypersim": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Rendered depth_meters stores Euclidean ray distance in metres; use finite geometry masks.",
+        "zh": "渲染的 depth_meters 存储米制射线距离，需使用有限值与几何有效掩码。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Rendered camera trajectories and intrinsics are provided; convert asset coordinates using meters_per_asset_unit.",
+        "zh": "提供渲染相机轨迹与内参；资产坐标需通过 meters_per_asset_unit 转换为米。"
+      }
+    },
+    "evidence": [
+      "https://github.com/apple-aiml-research/ml-hypersim",
+      "https://arxiv.org/abs/2011.02523"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_3d60": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Rendered panoramic depth is supplied; infinite values denote holes and source-scene geometry can be incomplete.",
+        "zh": "提供渲染全景深度；无穷值表示空洞，源场景几何也可能不完整。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Controlled centre/right/up stereo viewpoint offsets are available, rather than a continuous physical motion trajectory.",
+        "zh": "提供受控的中心、右侧和上方立体视点偏移，并非连续的物理运动轨迹。"
+      }
+    },
+    "evidence": [
+      "https://vcl3d.github.io/3D60/",
+      "https://arxiv.org/abs/1807.09620"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_pano3d": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "ERP depth and normals are rendered from Matterport3D/GibsonV2 geometry; preserve the renderer masks.",
+        "zh": "ERP 深度与法线由 Matterport3D/GibsonV2 几何渲染，需保留渲染器掩码。"
+      }
+    },
+    "trajectory": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The documented benchmark provides independent rendered panoramas, depth and normals, not a released continuous trajectory benchmark.",
+        "zh": "已记录的基准提供独立渲染全景、深度和法线，并未发布连续轨迹评测序列。"
+      }
+    },
+    "evidence": [
+      "https://vcl3d.github.io/Pano3D/",
+      "https://arxiv.org/abs/2109.02749",
+      "https://github.com/VCL3D/Pano3D"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_gibson": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Simulator depth can be rendered from reconstructed geometry; format and masks depend on the selected simulator or derivative.",
+        "zh": "可由重建几何渲染仿真深度；格式与掩码取决于所用仿真器或派生版本。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Generated simulator trajectories have known poses; the static scene assets alone do not define a fixed recorded trajectory set.",
+        "zh": "生成的仿真轨迹位姿已知；静态场景资产本身不定义固定的记录轨迹集。"
+      }
+    },
+    "evidence": [
+      "https://gibsonenv.github.io/",
+      "https://stanfordvl.github.io/iGibson/dataset.html",
+      "https://vcl3d.github.io/Pano3D/"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_hm3d": {
+    "depth": {
+      "status": "partial",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "The release contains scene scans, not fixed image/depth pairs. Depth supervision requires an explicitly specified simulator export.",
+        "zh": "发布内容是场景扫描而非固定图像—深度对；深度监督需要明确指定仿真器导出协议。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "A generated simulator sequence can have known poses, but continuous trajectory files are not an intrinsic product of this asset release.",
+        "zh": "生成的仿真序列可具有已知位姿，但连续轨迹文件并非该资产发布的固有产品。"
+      }
+    },
+    "evidence": [
+      "https://aihabitat.org/datasets/hm3d/",
+      "https://arxiv.org/abs/2109.08238"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_diode": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Laser-derived image depth and validity masks are released; valid return masks remain necessary.",
+        "zh": "发布激光测量生成的图像深度及有效掩码，评测仍须使用有效回波掩码。"
+      }
+    },
+    "trajectory": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The release is a static RGB/depth benchmark with scanner-derived views, not a continuous trajectory benchmark.",
+        "zh": "该发布是由扫描仪视图构成的静态 RGB/深度基准，并非连续轨迹基准。"
+      }
+    },
+    "evidence": [
+      "https://diode-dataset.org/",
+      "https://github.com/diode-dataset/diode-devkit",
+      "https://arxiv.org/html/1908.00463v1"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_nyuv2": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured",
+        "estimated"
+      ],
+      "note": {
+        "en": "Raw measured Kinect depth and inpainted depth are both provided. Filled pixels are processed supervision, not extra measurements.",
+        "zh": "同时提供 Kinect 原始实测深度与填补深度；填补像素属于处理后的监督，并非新增测量。"
+      }
+    },
+    "trajectory": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The documented release does not supply an independent camera trajectory reference; accelerometer readings alone are not pose truth.",
+        "zh": "已记录的发布不提供独立相机轨迹参考；仅有加速度计读数不等于位姿真值。"
+      }
+    },
+    "evidence": [
+      "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+      "https://cs.nyu.edu/~fergus/datasets/indoor_seg_support.pdf"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_kitti_depth": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Accumulated LiDAR depth targets and sparse input depth are provided. Targets remain sparse and require official masks.",
+        "zh": "提供累积 LiDAR 深度目标与稀疏输入深度；目标仍然稀疏，需使用官方掩码。"
+      }
+    },
+    "trajectory": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "This depth challenge release does not itself provide an odometry trajectory benchmark; related KITTI raw/odometry products are separate.",
+        "zh": "该深度挑战发布本身不提供里程计轨迹基准；相关 KITTI raw/odometry 产品另行提供。"
+      }
+    },
+    "evidence": [
+      "https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction",
+      "https://arxiv.org/abs/1708.06500"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_woodscape": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The current release inventory lists semantic/motion labels, not supervised image-depth targets; LiDAR/dGPS material remains planned.",
+        "zh": "当前发布目录列出语义、运动等标签，未提供图像深度监督目标；LiDAR/dGPS 材料仍属计划内容。"
+      }
+    },
+    "trajectory": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The released previous images, calibration and CAN data do not include a verified independent trajectory ground-truth product.",
+        "zh": "已发布的前帧、标定和 CAN 数据不包含经确认的独立轨迹真值产品。"
+      }
+    },
+    "evidence": [
+      "https://github.com/valeoai/WoodScape",
+      "https://arxiv.org/abs/1905.01489"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_deep360": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "CARLA-generated panoramic depth and stereo disparity targets are released; they are different target quantities.",
+        "zh": "发布 CARLA 生成的全景深度与立体视差目标，两者是不同的监督量。"
+      }
+    },
+    "trajectory": {
+      "status": "unknown",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Synthetic camera placement and stereo baselines are documented; a downloadable continuous trajectory annotation product was not established.",
+        "zh": "已记录仿真相机布置与立体基线，但尚未确认可下载的连续轨迹标注产品。"
+      }
+    },
+    "evidence": [
+      "https://github.com/nju-ee/MODE-2022",
+      "https://link.springer.com/chapter/10.1007/978-3-031-19827-4_12",
+      "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_tof360": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "ToF radial depth is released with zero marking missing pixels; bottom blind regions require masking.",
+        "zh": "发布 ToF 径向深度，零值表示缺失像素；底部盲区需遮罩。"
+      }
+    },
+    "trajectory": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The released static panoramic depth collection does not include an independent continuous camera trajectory reference.",
+        "zh": "该静态全景深度集合不包含独立连续相机轨迹参考。"
+      }
+    },
+    "evidence": [
+      "https://huggingface.co/datasets/COLE-Ricoh/ToF-360",
+      "https://openaccess.thecvf.com/content/CVPR2025W/PBVS/papers/Kanayama_ToF-360_-_A_Panoramic_Time-of-flight_RGB-D_Dataset_for_Single_Capture_CVPRW_2025_paper.pdf",
+      "https://www.dfki.de/en/web/research/projects-and-publications/publication/15783"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_holo360d": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured",
+        "rendered",
+        "estimated"
+      ],
+      "note": {
+        "en": "Both point-cloud depth and mesh depth are released. LiDAR-supported pixels differ from reconstructed or hole-filled mesh supervision.",
+        "zh": "同时发布点云深度与网格深度；LiDAR 支撑像素与重建、补洞网格监督须区分。"
+      }
+    },
+    "trajectory": {
+      "status": "reference",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "Continuous camera references are refined through LiDAR/SLAM and bundle adjustment, not independently measured by motion capture.",
+        "zh": "连续相机参考通过 LiDAR/SLAM 与束调整细化，并非独立动作捕捉测量。"
+      }
+    },
+    "evidence": [
+      "https://github.com/Jou719/Holo360D",
+      "https://arxiv.org/html/2604.22482v2",
+      "https://huggingface.co/datasets/ouou123/Holo360D",
+      "https://jou719.github.io/Holo360D_homepage/"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_euroc": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The release provides a surveyed structure scan, not per-frame image-depth annotations; stereo images alone are not depth truth.",
+        "zh": "发布中有测绘结构扫描，但无逐帧图像深度标注；双目图像本身不等于深度真值。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Vicon 6DoF poses or Leica 3D positions provide measured references, depending on sequence; do not infer every orientation from laser positions.",
+        "zh": "按序列提供 Vicon 六自由度位姿或 Leica 三维位置测量；不可从激光位置推断每个方向量均被独立观测。"
+      }
+    },
+    "evidence": [
+      "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+      "https://doi.org/10.1177/0278364915620033"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_tum_rgbd": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Registered Kinect depth images are measured, noisy and incomplete; zero is invalid.",
+        "zh": "配准后的 Kinect 深度来自测量，具有噪声与空洞；零值无效。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Motion-capture pose trajectories are provided with timestamps; associate RGB/depth/pose streams explicitly.",
+        "zh": "提供带时间戳的动作捕捉位姿轨迹，需明确关联 RGB、深度与位姿流。"
+      }
+    },
+    "evidence": [
+      "https://cvg.cit.tum.de/data/datasets/rgbd-dataset",
+      "https://cvg.cit.tum.de/data/datasets/rgbd-dataset/file_formats"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_tum_vi": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The official VIO release provides cameras and IMU without image-depth ground-truth targets.",
+        "zh": "官方 VIO 发布提供相机与 IMU，不提供图像深度真值目标。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Room sequences have full mocap coverage; corridor, magistrale, outdoors and slides sequences have start/end references only.",
+        "zh": "Room 序列具有完整动捕；corridor、magistrale、outdoors 和 slides 序列仅覆盖起止片段。"
+      }
+    },
+    "evidence": [
+      "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset",
+      "https://arxiv.org/abs/1804.06120"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_kitti_odom": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Raw Velodyne ranges and sensor calibration allow sparse image-depth projection; these are not native dense depth maps.",
+        "zh": "原始 Velodyne 测距与传感器标定可生成稀疏图像深度投影，并非原生稠密深度图。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Metric GPS/OXTS-based trajectories are public for 00–10; 11–21 references are withheld for server evaluation.",
+        "zh": "00–10 公开基于 GPS/OXTS 的米制轨迹；11–21 的参考轨迹由服务器保留评测。"
+      }
+    },
+    "evidence": [
+      "https://www.cvlibs.net/datasets/kitti/eval_odometry.php",
+      "https://www.cvlibs.net/datasets/kitti/"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_kitti360": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Calibrated LiDAR scans provide sparse measured depth after projection; occlusion and scan timing must be handled.",
+        "zh": "标定后的 LiDAR 扫描经投影可提供稀疏实测深度，需处理遮挡与扫描时序。"
+      }
+    },
+    "trajectory": {
+      "status": "reference",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "Georegistered metric poses are optimized with SfM, GPS and LiDAR constraints; some slow-motion frames lack poses.",
+        "zh": "地理配准米制位姿由 SfM、GPS 和 LiDAR 约束优化获得；部分慢速运动帧缺少位姿。"
+      }
+    },
+    "evidence": [
+      "https://www.cvlibs.net/datasets/kitti-360/",
+      "https://www.cvlibs.net/datasets/kitti-360/documentation.php"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_tartanair": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Simulator depth and resampled range are supplied; raw pinhole Z and customized ray-distance products must be distinguished.",
+        "zh": "提供仿真深度与重采样距离；须区分原始针孔 Z 深度和自定义射线距离产品。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Simulator camera-to-world pose trajectories are available; transformed camera views share the same underlying motion.",
+        "zh": "提供仿真相机到世界位姿轨迹；变换后的相机视图共享底层运动。"
+      }
+    },
+    "evidence": [
+      "https://tartanair.org/",
+      "https://tartanair.org/modalities.html",
+      "https://tartanair.org/examples.html",
+      "https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/reader.py#L112-L153",
+      "https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/customizer.py#L126-L130",
+      "https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/customizer.py#L232-L259",
+      "https://github.com/castacks/tartanair_tools/blob/master/data_type.md#pose-file",
+      "https://theairlab.org/tartanair-dataset/"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_hilti2021": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Calibrated LiDAR scans provide sparse measured ranges for projection, not complete dense image-depth targets.",
+        "zh": "标定后的 LiDAR 扫描提供可投影的稀疏实测距离，并非完整稠密图像深度目标。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Most sequences have sparse surveyed 3DoF positions; selected lab/arena recordings have OptiTrack 6DoF coverage.",
+        "zh": "多数序列具有稀疏测绘三自由度位置；部分实验室、场地记录具有 OptiTrack 六自由度覆盖。"
+      }
+    },
+    "evidence": [
+      "https://hilti-challenge.com/dataset-2021",
+      "https://arxiv.org/abs/2109.11316"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_hilti2022": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Calibrated Hesai LiDAR supplies sparse measured ranges that can be projected; no native dense depth target is implied.",
+        "zh": "标定后的 Hesai LiDAR 提供可投影稀疏实测距离，不代表具有原生稠密深度目标。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Challenge references are sparse surveyed positions; selected additional sequences supply denser 6DoF references.",
+        "zh": "挑战参考主要是稀疏测绘位置；部分附加序列提供较稠密六自由度参考。"
+      }
+    },
+    "evidence": [
+      "https://hilti-challenge.com/dataset-2022",
+      "https://arxiv.org/abs/2208.09825"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_hilti2026": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The released bags contain dual-fisheye images and IMU, without reference LiDAR or image-depth targets.",
+        "zh": "发布的包包含双鱼眼图像与 IMU，不包含参考 LiDAR 或图像深度目标。"
+      }
+    },
+    "trajectory": {
+      "status": "reference",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "LiDAR-inertial SLAM yields cam0-in-map reference poses. These are estimates rather than independent mocap/total-station truth; the first five seconds lack coverage.",
+        "zh": "LiDAR 惯性 SLAM 生成 cam0 在地图中的参考位姿；属于估计参考而非独立动捕、全站仪真值，前约五秒缺少覆盖。"
+      }
+    },
+    "evidence": [
+      "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/dataset.md",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/sensors.md",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/ground-truth.md",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/challenge-tools.md",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/floorplans.md",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/challenge-evaluation.md",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/config/hilti_openvins/rs_config.yaml",
+      "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/camera_calibration/kalibr_imucam_chain.yaml",
+      "https://arxiv.org/abs/2607.06464",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026",
+      "https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_newer_college": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Released LiDAR ranges support sparse depth projection with the version-specific calibration; they are not dense per-pixel targets.",
+        "zh": "发布的 LiDAR 距离结合对应版本标定可生成稀疏深度投影，并非稠密逐像素目标。"
+      }
+    },
+    "trajectory": {
+      "status": "reference",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "ICP registration to a surveyed Leica map supplies map-derived pose references, not independent motion capture.",
+        "zh": "通过 ICP 对齐 Leica 测绘地图获得地图派生位姿参考，并非独立动作捕捉。"
+      }
+    },
+    "evidence": [
+      "https://ori-drs.github.io/newer-college-dataset/",
+      "https://ori-drs.github.io/newer-college-dataset/ground-truth/",
+      "https://ori-drs.github.io/newer-college-dataset/download/",
+      "https://arxiv.org/abs/2112.08854",
+      "https://ori-drs.github.io/newer-college-dataset/multi-cam/calibration-multi/"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_robotcar": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "LiDAR measurements and calibration support sparse image-depth projection; they do not provide native dense depth maps.",
+        "zh": "LiDAR 测量与标定可用于稀疏图像深度投影，不提供原生稠密深度图。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Use the separate RTK release and its validity flags; original GPS/INS quality varies, while vo.csv is an estimated drifting reference, not pose truth.",
+        "zh": "应使用单独 RTK 发布及其有效标记；原始 GPS/INS 质量不一，而 vo.csv 是会漂移的估计参考，并非位姿真值。"
+      }
+    },
+    "evidence": [
+      "https://robotcar-dataset.robots.ox.ac.uk/",
+      "https://robotcar-dataset.robots.ox.ac.uk/documentation/",
+      "https://arxiv.org/abs/2002.10152"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_360loc": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The released localization products document images and pose references, not an image-depth annotation benchmark; mapping LiDAR alone is insufficient evidence.",
+        "zh": "发布的定位产品记录图像和位姿参考，并非图像深度标注基准；仅有建图 LiDAR 不能证明提供深度标签。"
+      }
+    },
+    "trajectory": {
+      "status": "reference",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "Image/LiDAR mapping generates metric 6DoF reference poses for localization queries; independent continuous motion tracking is not established.",
+        "zh": "图像与 LiDAR 建图生成定位查询的米制六自由度参考位姿，未建立独立连续运动跟踪真值。"
+      }
+    },
+    "evidence": [
+      "https://huajianup.github.io/research/360Loc/",
+      "https://github.com/HuajianUP/360Loc",
+      "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_omniscenes": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "Official products are panoramas, query poses and scene point clouds. A complete image-depth annotation release is not listed.",
+        "zh": "官方产品为全景、查询位姿和场景点云，未列出完整图像深度标注发布。"
+      }
+    },
+    "trajectory": {
+      "status": "reference",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "COLMAP/OpenMVG SfM poses are manually aligned to Matterport scans, with invalid estimates manually removed. These are estimated localization references, not independent motion tracking.",
+        "zh": "COLMAP/OpenMVG SfM 位姿手动对齐到 Matterport 扫描，并人工剔除无效估计；属于估计定位参考，而非独立运动跟踪。"
+      }
+    },
+    "evidence": [
+      "https://github.com/82magnolia/piccolo",
+      "https://github.com/82magnolia/panoramic-localization",
+      "https://openaccess.thecvf.com/content/ICCV2021/supplemental/Kim_PICCOLO_Point_Cloud-Centric_ICCV_2021_supplemental.pdf"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_panoair": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The documented release inventory lists camera streams, IMU, calibration and RTK trajectories, without image-depth targets.",
+        "zh": "已记录发布目录列出相机流、IMU、标定及 RTK 轨迹，不含图像深度目标。"
+      }
+    },
+    "trajectory": {
+      "status": "unknown",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Official README announces 5 Hz RTK trajectories, but linked archive contents, position/orientation coverage and frame transforms have not been validated.",
+        "zh": "官方 README 声明有 5 Hz RTK 轨迹，但链接归档内容、位置与方向覆盖及坐标变换尚未验证。"
+      }
+    },
+    "evidence": [
+      "https://github.com/YYWumm/PanoAir",
+      "https://arxiv.org/abs/2604.00852"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_adt": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Digital-twin-rendered Z-depth is provided in millimetres; choose the matching body-occlusion variant. It is not a physical depth-sensor measurement.",
+        "zh": "提供数字孪生渲染的毫米制 Z 深度；应选取匹配的人体遮挡版本，并非物理深度传感器测量。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "The ADT ground-truth system supplies aria_trajectory.csv. MPS open/closed-loop trajectories remain separate estimates and must not replace that reference.",
+        "zh": "ADT 真值系统提供 aria_trajectory.csv；MPS 开闭环轨迹仍是独立估计，不可替代该参考。"
+      }
+    },
+    "evidence": [
+      "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset",
+      "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/data_format",
+      "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/dataset_download",
+      "https://openaccess.thecvf.com/content/ICCV2023/html/Pan_Aria_Digital_Twin_A_New_Benchmark_Dataset_for_Egocentric_3D_ICCV_2023_paper.html"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_lafida": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "Laser scans and extrinsic calibration allow sparse depth supervision after projection; they are not complete image-depth targets.",
+        "zh": "激光扫描及外参标定经投影可提供稀疏深度监督，并非完整图像深度目标。"
+      }
+    },
+    "trajectory": {
+      "status": "partial",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "OptiTrack tracks a rigid marker body with calibrated sensor transforms. The outdoor large loop leaves the mocap volume, so full-route coverage is absent.",
+        "zh": "OptiTrack 跟踪带传感器外参的刚性标记体；室外大回环离开动捕空间，因而缺少全程覆盖。"
+      }
+    },
+    "evidence": [
+      "https://www.ipf.kit.edu/english/code_1842.php",
+      "https://www.ipf.kit.edu/lafida.php",
+      "https://www.ipf.kit.edu/lafida_datasets.php"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_oxford_spires": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "measured"
+      ],
+      "note": {
+        "en": "An official script projects calibrated LiDAR into cameras to form sparse depth; millimetre-accuracy TLS maps are a separate geometry reference.",
+        "zh": "官方脚本将标定 LiDAR 投影为相机稀疏深度；毫米精度 TLS 地图是另一类几何参考。"
+      }
+    },
+    "trajectory": {
+      "status": "reference",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "Core-sequence LiDAR poses are registered to the surveyed map; references are map-derived and not available for every sequence.",
+        "zh": "核心序列 LiDAR 位姿配准至测绘地图；参考由地图派生，并非每个序列均提供。"
+      }
+    },
+    "evidence": [
+      "https://dynamic.robots.ox.ac.uk/datasets/oxford-spires/",
+      "https://github.com/ori-drs/oxford_spires_dataset",
+      "https://arxiv.org/abs/2411.10546"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_360dvo": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The dataset releases RGB sequences and pose references, not dense image-depth truth. The method internal patch depths are predictions.",
+        "zh": "数据集发布 RGB 序列和位姿参考，不提供稠密图像深度真值；方法内部图像块深度属于预测。"
+      }
+    },
+    "trajectory": {
+      "status": "reference",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "Agisoft Metashape SfM supplies pseudo-reference trajectories; independent measured metric scale is not established and evaluation uses Sim(3) alignment.",
+        "zh": "Agisoft Metashape SfM 提供伪参考轨迹；未建立独立实测米制尺度，评测采用 Sim(3) 对齐。"
+      }
+    },
+    "evidence": [
+      "https://huggingface.co/datasets/chris1004336379/360DVO",
+      "https://huggingface.co/api/datasets/chris1004336379/360DVO",
+      "https://arxiv.org/html/2601.02309v1",
+      "https://chris1004336379.github.io/360DVO-homepage/"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_odgs_slam": {
+    "depth": {
+      "status": "partial",
+      "provenance": [
+        "rendered",
+        "estimated"
+      ],
+      "note": {
+        "en": "Synthetic subsets have rendered depth. Real Pro depth is stereo-estimated, while the real X4 listing has no depth; real estimates are not measured depth truth.",
+        "zh": "合成子集有渲染深度；真实 Pro 深度来自立体估计，真实 X4 目录不含深度；真实估计不属于实测深度真值。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "rendered",
+        "measured"
+      ],
+      "note": {
+        "en": "Synthetic trajectories and real OptiTrack reference poses are supplied. Real camera/mocap alignment is manual and uses mount-specific transforms.",
+        "zh": "提供合成轨迹与真实 OptiTrack 参考位姿；真实相机与动捕手动对齐，且需按安装方式应用变换。"
+      }
+    },
+    "evidence": [
+      "https://researchdata.uibk.ac.at/records/z6f6r-sjc65",
+      "https://researchdata.uibk.ac.at/api/records/z6f6r-sjc65",
+      "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1",
+      "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_room_synthetic_README.md?download=1",
+      "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/outdoor_synthetic_README.md?download=1"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_panocarla_static2026": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Rendered ERP radial distance is supplied in metres with synthetic semantic labels; sky and far-plane masks remain task-specific.",
+        "zh": "提供米制渲染 ERP 径向距离及合成语义标签；天空和远平面掩码须按任务确定。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Simulator position and yaw are released per frame; pitch and roll are fixed to zero, so the motion is not arbitrary 6DoF.",
+        "zh": "逐帧发布仿真位置与偏航，俯仰、滚转固定为零，因此并非任意六自由度运动。"
+      }
+    },
+    "evidence": [
+      "https://huggingface.co/datasets/Soon122/PanoCARLA-Static",
+      "https://huggingface.co/api/datasets/Soon122/PanoCARLA-Static",
+      "https://github.com/ChuanxinSong/PanoCARLA",
+      "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py",
+      "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/record_2stage.py",
+      "https://proceedings.mlr.press/v306/song26u.html"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_mild2026": {
+    "depth": {
+      "status": "unknown",
+      "provenance": [],
+      "note": {
+        "en": "Public descriptions do not establish downloadable dense depth labels, formats or masks. RGB-D hardware or simulator naming alone is not proof of released depth truth.",
+        "zh": "公开描述尚未建立可下载的稠密深度标签、格式及掩码；RGB-D 硬件或仿真器名称不能证明已发布深度真值。"
+      }
+    },
+    "trajectory": {
+      "status": "unknown",
+      "provenance": [
+        "kinematic",
+        "rendered"
+      ],
+      "note": {
+        "en": "Real TCP references from logged robot kinematics and simulation states are announced; dataset and manifests remain pending release, so availability is unconfirmed.",
+        "zh": "已声明由机器人运动学日志生成真实 TCP 参考及仿真状态，但数据与清单仍待发布，可获取性尚未确认。"
+      }
+    },
+    "evidence": [
+      "https://mild-web.github.io/",
+      "https://arxiv.org/abs/2610.09857"
+    ],
+    "checked": "2026-10-20"
+  },
+  "ds_rpg_fov": {
+    "depth": {
+      "status": "partial",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Room depth associations are confirmed for all three optics. Urban info archives list one depth association each; full urban frame coverage was not verified.",
+        "zh": "Room 三种成像模型的深度关联已确认；Urban 信息归档每种仅列一条深度关联，尚未验证完整城市逐帧覆盖。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Simulator camera-to-world poses are supplied per image; associate frame IDs with image timestamps rather than reading IDs as seconds.",
+        "zh": "逐图像提供仿真相机到世界位姿；须将帧 ID 关联至图像时间戳，不可将 ID 当作秒。"
+      }
+    },
+    "evidence": [
+      "https://rpg.ifi.uzh.ch/fov.html",
+      "https://rpg.ifi.uzh.ch/docs/ICRA16_Zhang.pdf",
+      "https://rpg.ifi.uzh.ch/datasets/rpg_urban_pinhole_info.tar.gz",
+      "https://rpg.ifi.uzh.ch/datasets/rpg_urban_fisheye_info.tar.gz",
+      "https://rpg.ifi.uzh.ch/datasets/rpg_urban_cata_info.tar.gz",
+      "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_pinhole_info.tar.gz",
+      "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_fisheye_info.tar.gz",
+      "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_cata_info.tar.gz",
+      "https://github.com/zhangzichao/omni_cam",
+      "https://github.com/uzh-rpg/rpg_blender_omni_camera"
+    ],
+    "checked": "2026-10-20"
+  }
+}

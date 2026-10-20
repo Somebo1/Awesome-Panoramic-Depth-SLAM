@@ -1,6 +1,6 @@
 # Official-source index
 
-Checked 2026-10-19. Bibliographic and interface evidence; no local reproduction is claimed.
+Literature search cutoff 2026-10-19. Targeted camera, pinhole and annotation checks: 2026-10-20. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
 
 ## DA² (2026)
 
@@ -44,6 +44,17 @@ MCPDepth: Omnidirectional Depth Estimation via Stereo Matching from Multi-Cylind
 - https://arxiv.org/abs/2408.01653
 - https://github.com/Qjizhi/MCPDepth
 - https://github.com/Qjizhi/MCPDepth/tree/main/pretrained_model
+
+## MoGe-3 (2026)
+
+MoGe-3: Fine-Detail Monocular Geometry Estimation with Self-Guided Sparse Volumetric Refinement
+
+- https://arxiv.org/abs/2607.17967
+- https://qft-333.github.io/moge3page/
+- https://github.com/microsoft/MoGe
+- https://github.com/microsoft/MoGe/blob/main/moge/model/v3.py
+- https://github.com/microsoft/MoGe/blob/main/moge/scripts/infer_panorama.py
+- https://huggingface.co/Ruicheng/moge-3-vitl
 
 ## PaGeR (2026)
 
@@ -137,6 +148,17 @@ DreamCube: 3D Panorama Generation via Multi-plane Synchronization
 - https://yukun-huang.github.io/DreamCube/
 - https://github.com/Yukun-Huang/DreamCube
 - https://huggingface.co/KevinHuang/DreamCube
+
+## MoGe-2 (2025)
+
+MoGe-2: Accurate Monocular Geometry with Metric Scale and Sharp Details
+
+- https://arxiv.org/abs/2507.02546
+- https://wangrc.site/MoGe2Page/
+- https://github.com/microsoft/MoGe
+- https://github.com/microsoft/MoGe/blob/main/moge/model/v2.py
+- https://github.com/microsoft/MoGe/blob/main/moge/scripts/infer_panorama.py
+- https://huggingface.co/Ruicheng/moge-2-vitl-normal
 
 ## PanDA (2025)
 
@@ -235,6 +257,17 @@ Elite360D: Towards Efficient 360 Depth Estimation via Semantic- and Distance-Awa
 - https://arxiv.org/abs/2403.16376
 - https://github.com/haoai-1997/Elite360D
 - https://github.com/haoai-1997/Elite360D/tree/main/checkpoints
+
+## Marigold (2024)
+
+Marigold: Repurposing Diffusion-Based Image Generators for Monocular Depth Estimation
+
+- https://arxiv.org/abs/2312.02145
+- https://openaccess.thecvf.com/content/CVPR2024/html/Ke_Repurposing_Diffusion-Based_Image_Generators_for_Monocular_Depth_Estimation_CVPR_2024_paper.html
+- https://marigoldmonodepth.github.io/
+- https://github.com/prs-eth/Marigold
+- https://github.com/prs-eth/Marigold/blob/main/marigold/marigold_depth_pipeline.py
+- https://huggingface.co/prs-eth/marigold-depth-v1-1
 
 ## Metric3Dv2 (2024)
 
@@ -414,14 +447,16 @@ P2U-SLAM: A Monocular Wide-FoV SLAM System Based on Point Uncertainty and Pose U
 - arXiv v2 confirms T-ITS acceptance; III explicitly Taylor/KB models; official repository tree lacks implementation.
 - https://arxiv.org/abs/2409.10143
 - https://github.com/BambValley/P2U-SLAM
+- https://arxiv.org/html/2409.10143v1
 
 ## PanoAir (2026)
 
 PanoAir: A Panoramic Visual-Inertial SLAM with Cross-Time Real-World UAV Dataset
 
-- IV model is ERP; abstract links release; V-C specifies embedded 10Hz setting.
+- Paper IV uses ERP; V-C specifies the embedded 10 Hz setting. Official repository README checked 2026-10-20 separates the advertised dataset/calibration download from the still-pending source-code release. No archive execution or local estimator reproduction.
 - https://arxiv.org/abs/2604.00852
 - https://arxiv.org/html/2604.00852v1
+- https://github.com/YYWumm/PanoAir
 - https://drive.google.com/file/d/1lG1Upn6yi-N6tYpEHAt6dfR1uhzNtWbT/view
 
 ## PanoAir (2026)
@@ -501,6 +536,8 @@ ToF-360: A Panoramic Time-of-flight RGB-D Dataset for Single Capture Indoor Sema
 - https://huggingface.co/datasets/COLE-Ricoh/ToF-360
 - https://openaccess.thecvf.com/content/CVPR2025W/PBVS/papers/Kanayama_ToF-360_-_A_Panoramic_Time-of-flight_RGB-D_Dataset_for_Single_Capture_CVPRW_2025_paper.pdf
 - https://www.dfki.de/en/web/research/projects-and-publications/publication/15783
+- https://huggingface.co/datasets/COLE-Ricoh/ToF-360/tree/main/Hospital
+- https://huggingface.co/datasets/COLE-Ricoh/ToF-360/tree/main/Office_Room_1
 
 ## 360-VIO (2024)
 
@@ -595,6 +632,7 @@ LF-VISLAM: A SLAM Framework for Large Field-of-View Cameras With Negative Imagin
 - Official paper defines unit-vector features/loops; README gives Scaramuzza PAL config and pending-loop note.
 - https://arxiv.org/abs/2209.05167
 - https://github.com/flysoaryun/LF-VISLAM
+- https://arxiv.org/html/2209.05167v3
 
 ## 360VO (2022)
 
@@ -626,6 +664,7 @@ KITTI-360: A Novel Dataset and Benchmarks for Urban Scene Understanding in 2D an
 
 - https://www.cvlibs.net/datasets/kitti-360/
 - https://www.cvlibs.net/datasets/kitti-360/documentation.php
+- https://arxiv.org/abs/2109.13410
 
 ## OKVIS2 (2022)
 
@@ -674,6 +713,8 @@ The Hilti SLAM Challenge Dataset
 
 - https://hilti-challenge.com/dataset-2021
 - https://arxiv.org/abs/2109.11316
+- https://huggingface.co/datasets/Hilti-Research/hilti-slam-challenge-2021/blob/main/calibration.yaml
+- https://arxiv.org/html/2109.11316
 
 ## Hypersim (2021)
 
@@ -696,6 +737,8 @@ OmniScenes (PICCOLO panoramic localisation dataset)
 
 - https://github.com/82magnolia/piccolo
 - https://github.com/82magnolia/panoramic-localization
+- https://openaccess.thecvf.com/content/ICCV2021/supplemental/Kim_PICCOLO_Point_Cloud-Centric_ICCV_2021_supplemental.pdf
+- https://github.com/82magnolia/piccolo#downloading-omniscenes-update-new-scenes-added
 
 ## Pano3D (2021)
 
@@ -908,6 +951,7 @@ KITTI Visual Odometry / SLAM Evaluation
 
 - https://www.cvlibs.net/datasets/kitti/eval_odometry.php
 - https://www.cvlibs.net/datasets/kitti/
+- https://doi.org/10.1109/CVPR.2012.6248074
 
 ## NYU Depth V2 (2012)
 
@@ -922,3 +966,4 @@ A Benchmark for the Evaluation of RGB-D SLAM Systems
 
 - https://cvg.cit.tum.de/data/datasets/rgbd-dataset
 - https://cvg.cit.tum.de/data/datasets/rgbd-dataset/file_formats
+- https://doi.org/10.1109/IROS.2012.6385773

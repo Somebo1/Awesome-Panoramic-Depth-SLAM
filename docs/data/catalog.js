@@ -3,7 +3,7 @@ window.ATLAS_DATA = {
   "repoUrl": "https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM",
   "title": "Panoramic Depth Atlas",
   "description": "Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.",
-  "schemaVersion": "1.3",
+  "schemaVersion": "1.4",
   "interfaceUpdated": "2026-10-20",
   "records": [
     {
@@ -112,6 +112,25 @@ window.ATLAS_DATA = {
         "configs/eval.json"
       ],
       "environment": "Official tested Ubuntu20.04 Python3.12 CUDA12.2 RTX3090; xformers0.0.28.post2",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://raw.githubusercontent.com/EnVision-Research/DA-2/main/infer.py",
+            "https://openreview.net/pdf?id=323ximYcsk",
+            "https://arxiv.org/abs/2509.26618"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/da2_panorama-thumb.webp",
         "image": "assets/papers/da2_panorama.webp",
@@ -254,6 +273,23 @@ window.ATLAS_DATA = {
         "depth2point.py"
       ],
       "environment": "Official Python3.12, tested torch2.7.1 torchvision0.22.1; torch>2; DINOv3-L backbone",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented panoramic depth model; raw fisheye requires a separate calibrated conversion and is not tagged as native input.",
+            "zh": "已记录的全景深度模型；原始鱼眼需外部标定转换，不标成原生输入。"
+          },
+          "evidence": [
+            "https://insta360-research-team.github.io/DAP_website/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/dap-thumb.webp",
         "image": "assets/papers/dap.webp",
@@ -391,6 +427,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "L2_original_paper_method_review_no_implementation_verified",
       "codeEntry": [],
       "environment": "No installable official inference environment verified; paper uses DINOv2 and pi-cubed initialization.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.21297",
+            "https://arxiv.org/html/2610.21297v1",
+            "https://arxiv.org/pdf/2610.21297"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/geopano2026-thumb.webp",
         "image": "assets/papers/geopano2026.webp",
@@ -521,6 +576,25 @@ window.ATLAS_DATA = {
         "pretrained_model/"
       ],
       "environment": "Unknown; official requirements must be checked for the selected version.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2408.01653",
+            "https://github.com/Qjizhi/MCPDepth",
+            "https://github.com/Qjizhi/MCPDepth/tree/main/pretrained_model"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/mcpdepth-thumb.webp",
         "image": "assets/papers/mcpdepth.webp",
@@ -549,6 +623,165 @@ window.ATLAS_DATA = {
         "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
         "pdfSha256": "87e122fedde076d5430349e4d8b327275ced54c625c7fe51f2499c5dc834d2a8",
         "imageSha256": "a0f02d3c44ee4744ccfe48387f3126e10af6b63a7e740eba584e8f04ae8d0d6c",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
+    },
+    {
+      "id": "moge3",
+      "collection": "depth",
+      "name": "MoGe-3",
+      "title": "MoGe-3: Fine-Detail Monocular Geometry Estimation with Self-Guided Sparse Volumetric Refinement",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "NeurIPS 2026 accepted per official project; arXiv 2607.17967",
+      "authors": [
+        "Lingyu Kong",
+        "Ruicheng Li",
+        "Ruicheng Wang",
+        "Sicheng Xu",
+        "Chengtang Yao",
+        "Jianfeng Xiang",
+        "Jiaolong Yang"
+      ],
+      "institutions": [
+        "Tsinghua University",
+        "University of Science and Technology of China",
+        "Microsoft Research"
+      ],
+      "summary": "以 MoGe-2 为基础，将点图提升到稀疏三维体素壳中反复细化，恢复细结构；原始接口属于针孔相机的公制 Z 深度与点图模型。",
+      "cameras": [
+        "perspective"
+      ],
+      "scale": "metric",
+      "scaleNote": "Learned metric scale for released MoGe-3 checkpoints, not externally measured scale or a guarantee of scene-specific accuracy.",
+      "aliases": [],
+      "metricStatus": "metric_learned",
+      "depthType": "z",
+      "outputs": [
+        "z_depth",
+        "point_map",
+        "normal",
+        "intrinsics"
+      ],
+      "pose": false,
+      "inputSummary": "Single RGB tensor (3,H,W) or (B,3,H,W), values [0,1]",
+      "outputSummary": "Metric Z-depth (H,W), metric camera-space point map (H,W,3), valid mask and normalized K; normals when the checkpoint supplies them",
+      "inputs": {
+        "frames": "Single RGB tensor (3,H,W) or (B,3,H,W), values [0,1]",
+        "projection": "Pinhole perspective geometry; centered principal point and focal/axial-shift recovery",
+        "intrinsics": "Optional horizontal field of view fov_x in degrees; otherwise inferred. Output K is normalized, with principal point (0.5,0.5).",
+        "resolution": "Output maps match input H,W; resolution_level 0-9 or num_tokens controls base ViT compute, not output dimensions",
+        "extrinsics": "Not required",
+        "imu": "No",
+        "gravity": "No measured gravity input in the public interface",
+        "synchronization": "Single-image inference; no temporal or multi-sensor synchronization input"
+      },
+      "outputDetails": {
+        "primary": "Metric Z-depth (H,W), metric camera-space point map (H,W,3), valid mask and normalized K; normals when the checkpoint supplies them",
+        "point_map": "Direct affine point prediction with sparse 3D refinement; infer() aligns it to the camera and applies learned metric scale",
+        "normal": "Optional normal map (H,W,3), OpenCV camera coordinates",
+        "confidence": "Predicted valid-pixel mask; not a calibrated depth uncertainty",
+        "camera_parameters": "Normalized pinhole intrinsics; known fov_x can constrain recovery; no extrinsics",
+        "depth_convention": "infer() sets depth=points[...,2], then multiplies points and depth by the learned metric scale. OpenCV coordinates: x right, y down, z forward. Euclidean range is norm(points), not the depth field. force_projection=True recomputes points from depth and K.",
+        "metric_status": "metric_learned",
+        "pose_output": "No camera pose or trajectory output",
+        "runtime": "No local runtime or peak-memory measurement; do not treat repository-wide timings as version-specific benchmarks."
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/microsoft/MoGe",
+      "paperUrl": "https://arxiv.org/abs/2607.17967",
+      "projectUrl": "https://qft-333.github.io/moge3page/",
+      "weightsUrl": "https://huggingface.co/Ruicheng/moge-3-vitl",
+      "license": {
+        "code": "MIT; bundled DINOv2 component Apache-2.0; other dependencies retain their terms",
+        "weights": "Official Ruicheng/moge-3-vitl model metadata declares MIT; model card prose is empty"
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2607.17967",
+        "https://qft-333.github.io/moge3page/",
+        "https://github.com/microsoft/MoGe",
+        "https://github.com/microsoft/MoGe/blob/main/moge/model/v3.py",
+        "https://github.com/microsoft/MoGe/blob/main/moge/scripts/infer_panorama.py",
+        "https://huggingface.co/Ruicheng/moge-3-vitl"
+      ],
+      "notes": [
+        "Official project states NeurIPS 2026 acceptance; official repository announced code and MoGe-3 checkpoints on 2026-08-18.",
+        "No verified raw fisheye or complete ERP interface for v3. The repository experimental infer_panorama.py imports moge.model.v1 and defaults to MoGe-1; it does not establish v3 panorama support.",
+        "Masking may store invalid depths/points as infinity; apply the valid mask before geometry processing.",
+        "This is independent single-image geometry inference; fine detail does not establish temporal consistency, VIO accuracy or SLAM pose output.",
+        "code_and_weights_released"
+      ],
+      "tags": [
+        "monocular",
+        "pinhole",
+        "metric",
+        "point-map",
+        "sparse-3d-refinement",
+        "z_depth",
+        "point_map",
+        "normal",
+        "intrinsics"
+      ],
+      "family": "depth_and_geometry",
+      "imu": "No",
+      "loopClosure": "Not applicable",
+      "nativePanoramic": false,
+      "sourceChecked": "2026-10-20",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_paper_and_L3_interface_code_review",
+      "codeEntry": [
+        "moge/model/v3.py::MoGeModel.infer",
+        "moge/scripts/infer.py --version v3 --pretrained ... --refine_steps 3",
+        "moge/train/train_moge3.py"
+      ],
+      "environment": "Official package requires Python >=3.10 and PyTorch; v3 sparse refinement depends on FlexGEMM/Triton. Official installation notes do not support macOS. Platform compatibility was not tested locally.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Single pinhole RGB input. No verified raw fisheye or full-ERP entrance for this model version.",
+            "zh": "单张针孔 RGB 输入；未核实此模型版本的原始鱼眼或完整 ERP 入口。"
+          },
+          "evidence": [
+            "https://qft-333.github.io/moge3page/",
+            "https://github.com/microsoft/MoGe"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
+      "figure": {
+        "thumbnail": "assets/papers/moge3-thumb.webp",
+        "image": "assets/papers/moge3.webp",
+        "paperUrl": "https://arxiv.org/pdf/2607.17967",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "MoGe-3 的基础点图模型、自引导稀疏三维细化及稀疏 U-Net。",
+          "en": "MoGe-3 base point-map model, self-guided sparse 3D refinement and sparse U-Net."
+        },
+        "credit": {
+          "zh": "来源：Lingyu Kong et al.，原论文 Figure 2。",
+          "en": "Source: Lingyu Kong et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          108,
+          72,
+          505,
+          261
+        ],
+        "originalCaption": "Figure 2: Method overview. (a) The Base model provides an initial point map and 2D features.",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-20",
+        "selectionNotes": "Method diagram cropped from downloaded original paper; original page and final crop visually inspected. Caption stored separately.",
+        "pdfSha256": "85beceed1e2ffc91db541f21f5ec07c6d596d7e90c62458ce8462bc20b4741c1",
+        "imageSha256": "c2788da98fedbcfd886b853193d1391413035508f8de27afcc3951e64a7b6d49",
         "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
       }
     },
@@ -664,6 +897,37 @@ window.ATLAS_DATA = {
         "evaluation/depth_evaluation.py"
       ],
       "environment": "Official tested Linux, Python 3.10, PyTorch ≥2.0, CUDA ≥12.1.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP is the released panorama inference entrance; the six cube faces are internal shared-center views.",
+            "zh": "已发布全景推理以 ERP 为入口；六个立方体面为内部共心视图。"
+          },
+          "evidence": [
+            "https://pager360.github.io/",
+            "https://github.com/prs-eth/PaGeR"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "The paper explicitly includes perspective-image geometry prediction; the current public CLI is centered on ERP panoramas.",
+            "zh": "论文明示同时预测透视图像几何；当前公开命令行主要面向 ERP 全景。"
+          },
+          "evidence": [
+            "https://pager360.github.io/",
+            "https://github.com/prs-eth/PaGeR"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/pager-thumb.webp",
         "image": "assets/papers/pager.webp",
@@ -794,6 +1058,25 @@ window.ATLAS_DATA = {
         "util/ecc_loss.py"
       ],
       "environment": "Official setup uses Python 3.9 and requirements.txt.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2603.05999",
+            "https://github.com/munimo/RePer360",
+            "https://huggingface.co/ZSBD/RePer-360"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/reper360-thumb.webp",
         "image": "assets/papers/reper360.webp",
@@ -931,6 +1214,47 @@ window.ATLAS_DATA = {
         "configs/test/"
       ],
       "environment": "Python3.10.18, torch2.7.0/torchvision0.22.0, cu118 official; DINOv3 ViT-L16",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Accepts ERP panoramas in its canonical ERP representation.",
+            "zh": "以规范 ERP 表示接收 ERP 全景。"
+          },
+          "evidence": [
+            "https://girish1511.github.io/UniDAC/"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "reprojected",
+          "availability": "documented",
+          "note": {
+            "en": "The calibrated input is mapped to ERP before prediction; an ERP model entrance does not mean uncalibrated raw-lens support.",
+            "zh": "标定输入先映射至 ERP 再预测；ERP 模型入口不意味着免标定处理原始镜头图像。"
+          },
+          "evidence": [
+            "https://girish1511.github.io/UniDAC/"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "reprojected",
+          "availability": "documented",
+          "note": {
+            "en": "The calibrated input is mapped to ERP before prediction; an ERP model entrance does not mean uncalibrated raw-lens support.",
+            "zh": "标定输入先映射至 ERP 再预测；ERP 模型入口不意味着免标定处理原始镜头图像。"
+          },
+          "evidence": [
+            "https://girish1511.github.io/UniDAC/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/unidac-thumb.webp",
         "image": "assets/papers/unidac.webp",
@@ -1054,7 +1378,7 @@ window.ATLAS_DATA = {
       "family": "depth_and_geometry",
       "imu": "No",
       "loopClosure": "Not applicable",
-      "nativePanoramic": "unknown",
+      "nativePanoramic": false,
       "sourceChecked": "2026-10-17",
       "publiclyVerified": true,
       "verificationLevel": "L2_partial",
@@ -1064,6 +1388,25 @@ window.ATLAS_DATA = {
         "demo_gradio.py"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented pinhole/perspective inference; an any-view/universal name or trying a 360 image does not validate native fisheye/ERP support.",
+            "zh": "已记录针孔/透视推理；any-view、universal 名称或尝试输入360图不构成原生鱼眼/ERP支持证据。"
+          },
+          "evidence": [
+            "https://raw.githubusercontent.com/facebookresearch/vggt-omega/main/README.md",
+            "https://arxiv.org/abs/2605.15195",
+            "https://vggt-omega.github.io/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/vggt_omega-thumb.webp",
         "image": "assets/papers/vggt_omega.webp",
@@ -1199,6 +1542,47 @@ window.ATLAS_DATA = {
         "configs/"
       ],
       "environment": "Official conda Python3.9 torch1.13.1+cu116; custom CUDA operators; Docker alternative",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Accepts ERP panoramas in its canonical ERP representation.",
+            "zh": "以规范 ERP 表示接收 ERP 全景。"
+          },
+          "evidence": [
+            "https://yuliangguo.github.io/depth-any-camera/"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "reprojected",
+          "availability": "documented",
+          "note": {
+            "en": "The calibrated input is mapped to ERP before prediction; an ERP model entrance does not mean uncalibrated raw-lens support.",
+            "zh": "标定输入先映射至 ERP 再预测；ERP 模型入口不意味着免标定处理原始镜头图像。"
+          },
+          "evidence": [
+            "https://yuliangguo.github.io/depth-any-camera/"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "reprojected",
+          "availability": "documented",
+          "note": {
+            "en": "The calibrated input is mapped to ERP before prediction; an ERP model entrance does not mean uncalibrated raw-lens support.",
+            "zh": "标定输入先映射至 ERP 再预测；ERP 模型入口不意味着免标定处理原始镜头图像。"
+          },
+          "evidence": [
+            "https://yuliangguo.github.io/depth-any-camera/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/dac-thumb.webp",
         "image": "assets/papers/dac.webp",
@@ -1334,6 +1718,25 @@ window.ATLAS_DATA = {
         "src/depth_anything_3/utils/alignment.py"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented pinhole/perspective inference; an any-view/universal name or trying a 360 image does not validate native fisheye/ERP support.",
+            "zh": "已记录针孔/透视推理；any-view、universal 名称或尝试输入360图不构成原生鱼眼/ERP支持证据。"
+          },
+          "evidence": [
+            "https://raw.githubusercontent.com/ByteDance-Seed/Depth-Anything-3/main/src/depth_anything_3/specs.py",
+            "https://raw.githubusercontent.com/ByteDance-Seed/Depth-Anything-3/main/src/depth_anything_3/utils/alignment.py",
+            "https://arxiv.org/abs/2511.10647"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/depth_anything_3-thumb.webp",
         "image": "assets/papers/depth_anything_3.webp",
@@ -1464,6 +1867,25 @@ window.ATLAS_DATA = {
         "app.py"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://raw.githubusercontent.com/antigravity-tech/DA360/main/test.py",
+            "https://arxiv.org/abs/2512.22819",
+            "https://antigravity-tech.github.io/DA360/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/da360-thumb.webp",
         "image": "assets/papers/da360.webp",
@@ -1592,6 +2014,25 @@ window.ATLAS_DATA = {
         "src/depth_pro/cli/run.py"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented pinhole/perspective inference; an any-view/universal name or trying a 360 image does not validate native fisheye/ERP support.",
+            "zh": "已记录针孔/透视推理；any-view、universal 名称或尝试输入360图不构成原生鱼眼/ERP支持证据。"
+          },
+          "evidence": [
+            "https://openreview.net/pdf?id=aueXfY0Clv",
+            "https://github.com/apple-aiml-research/ml-depth-pro/blob/main/LICENSE",
+            "https://raw.githubusercontent.com/apple-aiml-research/ml-depth-pro/main/src/depth_pro/depth_pro.py (infer1536 square, canonical inverse-depth times W/f then reciprocal)"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/depth_pro-thumb.webp",
         "image": "assets/papers/depth_pro.webp",
@@ -1646,8 +2087,7 @@ window.ATLAS_DATA = {
       ],
       "summary": "生成式相关方向：把二维扩散操作同步到立方体六面，支持RGB-D全景生成和深度模型适配；生成几何不能直接当米制测量。",
       "cameras": [
-        "panoramic",
-        "perspective"
+        "panoramic"
       ],
       "scale": "unknown",
       "scaleNote": "Do not treat diffusion-generated geometry as measured metric depth. Marigold-style adaptation inherits relative/affine ambiguity unless separately calibrated.",
@@ -1727,6 +2167,24 @@ window.ATLAS_DATA = {
         "notebooks/"
       ],
       "environment": "Official setup uses Python 3.11 and requirements.txt.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The surveyed depth-estimation application synchronizes panorama cubemap faces. A perspective RGB-D condition belongs to its panorama-generation task, not a separate pinhole depth-estimation interface.",
+            "zh": "此处调研的深度估计应用同步全景 cubemap 各面；透视 RGB-D 条件属于全景生成任务，不是独立针孔深度估计入口。"
+          },
+          "evidence": [
+            "https://yukun-huang.github.io/DreamCube/",
+            "https://github.com/Yukun-Huang/DreamCube"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/dreamcube-thumb.webp",
         "image": "assets/papers/dreamcube.webp",
@@ -1755,6 +2213,167 @@ window.ATLAS_DATA = {
         "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
         "pdfSha256": "a20072f9ff0578bd2a553af7dd48336bce89911dd8fd3f886bb9bc2921b27e77",
         "imageSha256": "43d3bafd6acb2a7c932e638e7834f31b7c225608847b7b8035df8939feb2ad5d",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
+    },
+    {
+      "id": "moge2",
+      "collection": "depth",
+      "name": "MoGe-2",
+      "title": "MoGe-2: Accurate Monocular Geometry with Metric Scale and Sharp Details",
+      "year": 2025,
+      "firstYear": 2025,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "NeurIPS 2025 per official project; arXiv 2507.02546",
+      "authors": [
+        "Ruicheng Wang",
+        "Sicheng Xu",
+        "Yue Dong",
+        "Yu Deng",
+        "Jianfeng Xiang",
+        "Zelong Lv",
+        "Guangzhong Sun",
+        "Xin Tong",
+        "Jiaolong Yang"
+      ],
+      "institutions": [
+        "University of Science and Technology of China",
+        "Microsoft Research",
+        "Tsinghua University"
+      ],
+      "summary": "将仿射不变点图与公制尺度预测解耦，利用合成标签细化真实训练几何；作为针孔公制点图、Z 深度及可选法线基线。",
+      "cameras": [
+        "perspective"
+      ],
+      "scale": "metric",
+      "scaleNote": "Learned metric scale, decoupled from affine-invariant relative geometry; metric accuracy remains dependent on scene domain and camera recovery.",
+      "aliases": [],
+      "metricStatus": "metric_learned",
+      "depthType": "z",
+      "outputs": [
+        "z_depth",
+        "point_map",
+        "normal",
+        "intrinsics"
+      ],
+      "pose": false,
+      "inputSummary": "Single RGB tensor (3,H,W) or (B,3,H,W), values [0,1]",
+      "outputSummary": "Metric Z-depth, metric point map, normalized pinhole intrinsics and valid mask; normal map only for normal checkpoints",
+      "inputs": {
+        "frames": "Single RGB tensor (3,H,W) or (B,3,H,W), values [0,1]",
+        "projection": "Pinhole perspective geometry; centered principal point and focal/axial-shift recovery",
+        "intrinsics": "Optional fov_x in degrees; otherwise inferred. Returned K is normalized with principal point (0.5,0.5).",
+        "resolution": "Adaptive num_tokens / resolution_level; public interface returns maps at input H,W",
+        "extrinsics": "Not required",
+        "imu": "No",
+        "gravity": "No measured gravity input in the public interface",
+        "synchronization": "Single image; no temporal fusion"
+      },
+      "outputDetails": {
+        "primary": "Metric Z-depth, metric point map, normalized pinhole intrinsics and valid mask; normal map only for normal checkpoints",
+        "point_map": "Affine-invariant point-map branch aligned to a perspective camera and multiplied by the learned metric scale",
+        "normal": "Available in -normal checkpoints; plain moge-2-vitl is listed without normals",
+        "confidence": "Valid mask, not a calibrated depth uncertainty",
+        "camera_parameters": "Normalized K; estimated focal or optional known horizontal FOV; no camera pose",
+        "depth_convention": "v2 infer() recovers focal and axial shift, sets depth=points[...,2], optionally projects points using K, and applies metric_scale. Returned depth is camera Z; radial range is the norm of the 3D points.",
+        "metric_status": "metric_learned",
+        "pose_output": "No camera pose or trajectory output",
+        "runtime": "No local runtime or peak-memory measurement; do not treat repository-wide timings as version-specific benchmarks."
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/microsoft/MoGe",
+      "paperUrl": "https://arxiv.org/abs/2507.02546",
+      "projectUrl": "https://wangrc.site/MoGe2Page/",
+      "weightsUrl": "https://huggingface.co/Ruicheng/moge-2-vitl-normal",
+      "license": {
+        "code": "MIT; bundled DINOv2 component Apache-2.0; other dependencies retain their terms",
+        "weights": "Official Ruicheng/moge-2-vitl-normal model metadata declares MIT; model card prose is empty"
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2507.02546",
+        "https://wangrc.site/MoGe2Page/",
+        "https://github.com/microsoft/MoGe",
+        "https://github.com/microsoft/MoGe/blob/main/moge/model/v2.py",
+        "https://github.com/microsoft/MoGe/blob/main/moge/scripts/infer_panorama.py",
+        "https://huggingface.co/Ruicheng/moge-2-vitl-normal"
+      ],
+      "notes": [
+        "Distinct NeurIPS 2025 publication preceding MoGe-3; retain this baseline when evaluating sparse 3D refinement.",
+        "Plain and -normal checkpoints expose different normal capabilities; do not infer all model variants output normals.",
+        "No verified v2 native ERP/fisheye path. The repository experimental panorama wrapper imports v1, so it is not evidence of v2 panorama support.",
+        "Single-image geometry and learned metric scale do not provide a measured trajectory or temporal consistency.",
+        "code_and_weights_released"
+      ],
+      "tags": [
+        "monocular",
+        "pinhole",
+        "metric",
+        "point-map",
+        "data-refinement",
+        "z_depth",
+        "point_map",
+        "normal",
+        "intrinsics"
+      ],
+      "family": "depth_and_geometry",
+      "imu": "No",
+      "loopClosure": "Not applicable",
+      "nativePanoramic": false,
+      "sourceChecked": "2026-10-20",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_paper_and_L3_interface_code_review",
+      "codeEntry": [
+        "moge/model/v2.py::MoGeModel.infer",
+        "moge/scripts/infer.py --version v2",
+        "moge/train/train_moge12.py"
+      ],
+      "environment": "Official shared package uses Python >=3.10 and PyTorch; verify the selected v2 checkpoint and current dependency versions before reproduction. No local platform or inference test.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Single pinhole RGB input. No verified raw fisheye or full-ERP entrance for this model version.",
+            "zh": "单张针孔 RGB 输入；未核实此模型版本的原始鱼眼或完整 ERP 入口。"
+          },
+          "evidence": [
+            "https://wangrc.site/MoGe2Page/",
+            "https://github.com/microsoft/MoGe"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
+      "figure": {
+        "thumbnail": "assets/papers/moge2-thumb.webp",
+        "image": "assets/papers/moge2.webp",
+        "paperUrl": "https://arxiv.org/pdf/2507.02546",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "MoGe-2 将仿射点图与 CLS 标记驱动的公制尺度预测分离。",
+          "en": "MoGe-2 separates affine point maps from CLS-token-driven metric scale prediction."
+        },
+        "credit": {
+          "zh": "来源：Ruicheng Wang et al.，原论文 Figure 2。",
+          "en": "Source: Ruicheng Wang et al., Figure 2 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          108,
+          73,
+          506,
+          161
+        ],
+        "originalCaption": "Figure 2: Overview of our model architecture.",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-20",
+        "selectionNotes": "Method diagram cropped from downloaded original paper; original page and final crop visually inspected. Caption stored separately.",
+        "pdfSha256": "346b3028857dff55f50b25d625d99a2afe0fb9ad6e1de5d08889fcd1ddadd13a",
+        "imageSha256": "2c037e6936220aed81353197c06a2a235b302eef913bf1aef0558ec871f950f0",
         "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
       }
     },
@@ -1860,6 +2479,23 @@ window.ATLAS_DATA = {
         "train_metric_depth/"
       ],
       "environment": "Python3.10 torch2.0.0 CUDA11.7 cuDNN8.5 official",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented panoramic depth model; raw fisheye requires a separate calibrated conversion and is not tagged as native input.",
+            "zh": "已记录的全景深度模型；原始鱼眼需外部标定转换，不标成原生输入。"
+          },
+          "evidence": [
+            "https://caozidong.github.io/PanDA_Depth/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/panda-thumb.webp",
         "image": "assets/papers/panda.webp",
@@ -1989,6 +2625,25 @@ window.ATLAS_DATA = {
         "configs/"
       ],
       "environment": "Unknown; official requirements must be checked for the selected version.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/html/2509.23991",
+            "https://github.com/jdk9405/RPG360",
+            "https://papers.nips.cc/paper_files/paper/2025/file/fb1ea28c42fcd32bd49e68769b26028f-Paper-Conference.pdf"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/rpg360-thumb.webp",
         "image": "assets/papers/rpg360.webp",
@@ -2116,6 +2771,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "L2_partial_paper_and_official_release_metadata",
       "codeEntry": [],
       "environment": "Unknown; official requirements must be checked for the selected version.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://caozidong.github.io/ST2360D_Depth/",
+            "https://openreview.net/pdf?id=d0bm4upnQ8",
+            "https://haoai-1997.github.io/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/st2_360d-thumb.webp",
         "image": "assets/papers/st2_360d.webp",
@@ -2246,6 +2920,25 @@ window.ATLAS_DATA = {
         "unidepth/models/unidepthv2/README.md"
       ],
       "environment": "Linux Python3.10+ CUDA11.8+ official",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented pinhole/perspective inference; an any-view/universal name or trying a 360 image does not validate native fisheye/ERP support.",
+            "zh": "已记录针孔/透视推理；any-view、universal 名称或尝试输入360图不构成原生鱼眼/ERP支持证据。"
+          },
+          "evidence": [
+            "https://raw.githubusercontent.com/lpiccinelli-eth/UniDepth/main/unidepth/models/unidepthv2/unidepthv2.py",
+            "https://arxiv.org/abs/2502.20110",
+            "https://github.com/lpiccinelli-eth/UniDepth#unidepthv2"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/unidepth_v2-thumb.webp",
         "image": "assets/papers/unidepth_v2.webp",
@@ -2381,6 +3074,50 @@ window.ATLAS_DATA = {
         "unik3d/utils/camera.py"
       ],
       "environment": "Linux Python3.10+ CUDA11.8+; pip install -e with cu121 official",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Direct image inference predicts a camera-independent ray representation and metric points; explicit fisheye, panoramic and pinhole evaluation supports the overlap.",
+            "zh": "直接从图像预测通用射线表示与公制点；论文明确评测鱼眼、全景与针孔，故允许多类别重叠。"
+          },
+          "evidence": [
+            "https://lpiccinelli-eth.github.io/pub/unik3d/",
+            "https://github.com/lpiccinelli-eth/UniK3D"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Direct image inference predicts a camera-independent ray representation and metric points; explicit fisheye, panoramic and pinhole evaluation supports the overlap.",
+            "zh": "直接从图像预测通用射线表示与公制点；论文明确评测鱼眼、全景与针孔，故允许多类别重叠。"
+          },
+          "evidence": [
+            "https://lpiccinelli-eth.github.io/pub/unik3d/",
+            "https://github.com/lpiccinelli-eth/UniK3D"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Direct image inference predicts a camera-independent ray representation and metric points; explicit fisheye, panoramic and pinhole evaluation supports the overlap.",
+            "zh": "直接从图像预测通用射线表示与公制点；论文明确评测鱼眼、全景与针孔，故允许多类别重叠。"
+          },
+          "evidence": [
+            "https://lpiccinelli-eth.github.io/pub/unik3d/",
+            "https://github.com/lpiccinelli-eth/UniK3D"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/unik3d-thumb.webp",
         "image": "assets/papers/unik3d.webp",
@@ -2511,6 +3248,25 @@ window.ATLAS_DATA = {
         "demo_colmap.py"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented pinhole/perspective inference; an any-view/universal name or trying a 360 image does not validate native fisheye/ERP support.",
+            "zh": "已记录针孔/透视推理；any-view、universal 名称或尝试输入360图不构成原生鱼眼/ERP支持证据。"
+          },
+          "evidence": [
+            "https://raw.githubusercontent.com/facebookresearch/vggt/main/vggt/models/vggt.py",
+            "https://raw.githubusercontent.com/facebookresearch/vggt/main/LICENSE.txt",
+            "https://arxiv.org/abs/2503.11651"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/vggt-thumb.webp",
         "image": "assets/papers/vggt.webp",
@@ -2643,6 +3399,25 @@ window.ATLAS_DATA = {
         "loss/"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented pinhole/perspective inference; an any-view/universal name or trying a 360 image does not validate native fisheye/ERP support.",
+            "zh": "已记录针孔/透视推理；any-view、universal 名称或尝试输入360图不构成原生鱼眼/ERP支持证据。"
+          },
+          "evidence": [
+            "https://raw.githubusercontent.com/DepthAnything/Video-Depth-Anything/main/README.md",
+            "https://arxiv.org/abs/2501.12375",
+            "https://videodepthanything.github.io/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/video_depth_anything-thumb.webp",
         "image": "assets/papers/video_depth_anything.webp",
@@ -2777,6 +3552,25 @@ window.ATLAS_DATA = {
         "metric_depth/run.py"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented pinhole/perspective inference; an any-view/universal name or trying a 360 image does not validate native fisheye/ERP support.",
+            "zh": "已记录针孔/透视推理；any-view、universal 名称或尝试输入360图不构成原生鱼眼/ERP支持证据。"
+          },
+          "evidence": [
+            "https://github.com/DepthAnything/Depth-Anything-V2/blob/main/depth_anything_v2/dpt.py",
+            "https://arxiv.org/abs/2406.09414",
+            "https://depth-anything-v2.github.io/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/depth_anything_v2-thumb.webp",
         "image": "assets/papers/depth_anything_v2.webp",
@@ -2903,6 +3697,25 @@ window.ATLAS_DATA = {
         "checkpoints/README.md"
       ],
       "environment": "Official simplified environment uses Python 3.8 plus requirements.txt; teacher/student dependencies differ.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2406.12849",
+            "https://albert100121.github.io/Depth-Anywhere/",
+            "https://github.com/albert100121/Depth-Anywhere"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/depth_anywhere-thumb.webp",
         "image": "assets/papers/depth_anywhere.webp",
@@ -3025,6 +3838,25 @@ window.ATLAS_DATA = {
         "network/"
       ],
       "environment": "Official setup: Python 3.10, PyTorch ≥1.12.0, CUDA ≥11.3.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2403.16376",
+            "https://github.com/haoai-1997/Elite360D",
+            "https://github.com/haoai-1997/Elite360D/tree/main/checkpoints"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/elite360d-thumb.webp",
         "image": "assets/papers/elite360d.webp",
@@ -3053,6 +3885,156 @@ window.ATLAS_DATA = {
         "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
         "pdfSha256": "856ebeb10679120ee6bed207d3f090e62862310f57f983bb511cb171253bb3fb",
         "imageSha256": "c7a2aae8a6c69f23af24f2865dee5436f2235d315ca8c14c2095d33e4986fd20",
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
+    },
+    {
+      "id": "marigold",
+      "collection": "depth",
+      "name": "Marigold",
+      "title": "Marigold: Repurposing Diffusion-Based Image Generators for Monocular Depth Estimation",
+      "year": 2024,
+      "firstYear": 2024,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "CVPR 2024 (Oral); original preprint December 2023",
+      "authors": [
+        "Bingxin Ke",
+        "Anton Obukhov",
+        "Shengyu Huang",
+        "Nando Metzger",
+        "Rodrigo Caye Daudt",
+        "Konrad Schindler"
+      ],
+      "institutions": [
+        "ETH Zurich"
+      ],
+      "summary": "将 Stable Diffusion 改作单图深度预测，以合成数据微调并可集成多次采样；输出保留尺度与偏移歧义，是扩散式针孔深度的重要对照。",
+      "cameras": [
+        "perspective"
+      ],
+      "scale": "relative",
+      "scaleNote": "Scale-and-shift ambiguous monocular depth. RGB-only inference supplies no metric scale.",
+      "aliases": [],
+      "metricStatus": "scale_shift_invariant",
+      "depthType": "affine",
+      "outputs": [
+        "relative_depth"
+      ],
+      "pose": false,
+      "inputSummary": "Single RGB image; PIL image or tensor according to pipeline",
+      "outputSummary": "Affine-invariant H,W depth in [0,1]; normalized values are not meters",
+      "inputs": {
+        "frames": "Single RGB image; PIL image or tensor according to pipeline",
+        "projection": "Perspective/pinhole-image depth baseline; no verified native fisheye or ERP interface",
+        "intrinsics": "No intrinsics needed for affine-invariant depth inference; metric unprojection requires resolving scale/shift and calibration",
+        "resolution": "Official depth-v1-1 card recommends resizing the long edge to 768 pixels for effective model resolution; supports other image sizes",
+        "extrinsics": "Not required",
+        "imu": "No",
+        "gravity": "No measured gravity input in the public interface",
+        "synchronization": "Single-image inference; no temporal state"
+      },
+      "outputDetails": {
+        "primary": "Affine-invariant H,W depth in [0,1]; normalized values are not meters",
+        "point_map": "No direct point-map head; unprojection needs valid intrinsics and resolved depth scale/shift",
+        "normal": "Not from this original depth checkpoint; later separate normal models belong to the expanded Marigold family",
+        "confidence": "Optional uncalibrated median-absolute-deviation uncertainty from ensembling; absent for a single prediction",
+        "camera_parameters": "No camera intrinsics or poses predicted",
+        "depth_convention": "Affine-invariant depth, not an inverse-depth prediction: an unknown positive scale and additive shift remain. Values in [0,1] span predicted near/far planes and are not physical Z or radial distances until aligned.",
+        "metric_status": "scale_shift_invariant",
+        "pose_output": "No camera pose or trajectory output",
+        "runtime": "No local runtime or peak-memory measurement; do not treat repository-wide timings as version-specific benchmarks."
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/prs-eth/Marigold",
+      "paperUrl": "https://arxiv.org/abs/2312.02145",
+      "projectUrl": "https://marigoldmonodepth.github.io/",
+      "weightsUrl": "https://huggingface.co/prs-eth/marigold-depth-v1-1",
+      "license": {
+        "code": "Apache-2.0",
+        "weights": "CreativeML Open RAIL++-M; code and weight licenses differ"
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2312.02145",
+        "https://openaccess.thecvf.com/content/CVPR2024/html/Ke_Repurposing_Diffusion-Based_Image_Generators_for_Monocular_Depth_Estimation_CVPR_2024_paper.html",
+        "https://marigoldmonodepth.github.io/",
+        "https://github.com/prs-eth/Marigold",
+        "https://github.com/prs-eth/Marigold/blob/main/marigold/marigold_depth_pipeline.py",
+        "https://huggingface.co/prs-eth/marigold-depth-v1-1"
+      ],
+      "notes": [
+        "The entry is anchored to the original CVPR 2024 depth paper. The current official repository also contains the 2025 journal extension; the linked v1-1 checkpoint is a later same-family depth update.",
+        "Denoising steps and ensemble size trade runtime for output quality. The optional uncertainty is not a calibrated metric error bound.",
+        "Do not confuse normalized affine-invariant depth with inverse depth or a metric depth sensor.",
+        "The original RGB-depth model has no temporal, pose, fisheye or full-panorama inference guarantee.",
+        "code_and_weights_released"
+      ],
+      "tags": [
+        "monocular",
+        "pinhole",
+        "relative",
+        "affine-invariant-depth",
+        "diffusion",
+        "relative_depth"
+      ],
+      "family": "monocular_depth",
+      "imu": "No",
+      "loopClosure": "Not applicable",
+      "nativePanoramic": false,
+      "sourceChecked": "2026-10-20",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_paper_and_L3_interface_code_review",
+      "codeEntry": [
+        "marigold/marigold_depth_pipeline.py::MarigoldDepthPipeline",
+        "run.py",
+        "Diffusers MarigoldDepthPipeline"
+      ],
+      "environment": "Official PyTorch/Diffusers implementation; separate DDIM/LCM checkpoints and scheduler settings must match. Exact dependency versions and local performance were not audited.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Single pinhole RGB input. No verified raw fisheye or full-ERP entrance for this model version.",
+            "zh": "单张针孔 RGB 输入；未核实此模型版本的原始鱼眼或完整 ERP 入口。"
+          },
+          "evidence": [
+            "https://marigoldmonodepth.github.io/",
+            "https://github.com/prs-eth/Marigold"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
+      "figure": {
+        "thumbnail": "assets/papers/marigold-thumb.webp",
+        "image": "assets/papers/marigold.webp",
+        "paperUrl": "https://openaccess.thecvf.com/content/CVPR2024/papers/Ke_Repurposing_Diffusion-Based_Image_Generators_for_Monocular_Depth_Estimation_CVPR_2024_paper.pdf",
+        "page": 5,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "zh": "Marigold 将图像编码为潜变量，条件去噪后解码深度。",
+          "en": "Marigold encodes the image, conditions latent denoising, and decodes depth."
+        },
+        "credit": {
+          "zh": "来源：Bingxin Ke et al.，原论文 Figure 3。",
+          "en": "Source: Bingxin Ke et al., Figure 3 of the paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          49,
+          70,
+          294,
+          184
+        ],
+        "originalCaption": "Figure 3. Overview of the Marigold inference scheme.",
+        "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+        "reviewedAt": "2026-10-20",
+        "selectionNotes": "Method diagram cropped from downloaded original paper; original page and final crop visually inspected. Caption stored separately.",
+        "pdfSha256": "ea7d878018e2aa87efdf7116b31ed1e6568877f94cfc5486f77a1f12fa7f9522",
+        "imageSha256": "52b09446c29b3abf4b4f522fa3c0c241621e871e9b13b3f9966524a2dac02cd7",
         "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
       }
     },
@@ -3167,6 +4149,25 @@ window.ATLAS_DATA = {
         "mono/utils/do_test.py"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Documented pinhole/perspective inference; an any-view/universal name or trying a 360 image does not validate native fisheye/ERP support.",
+            "zh": "已记录针孔/透视推理；any-view、universal 名称或尝试输入360图不构成原生鱼眼/ERP支持证据。"
+          },
+          "evidence": [
+            "https://raw.githubusercontent.com/YvanYin/Metric3D/main/LICENSE",
+            "https://arxiv.org/html/2404.15506v1 (Method III and Applications IV-B inspected)",
+            "https://arxiv.org/abs/2404.15506"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/metric3d_v2-thumb.webp",
         "image": "assets/papers/metric3d_v2.webp",
@@ -3291,6 +4292,25 @@ window.ATLAS_DATA = {
         "BasePhotometric.py"
       ],
       "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/pdf/2209.02952 (paper Fig1 confirms 3-frame PoseNet during training)",
+            "https://arxiv.org/abs/2209.02952",
+            "https://github.com/fuenwang/BiFusev2"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/bifuse_pp-thumb.webp",
         "image": "assets/papers/bifuse_pp.webp",
@@ -3416,6 +4436,25 @@ window.ATLAS_DATA = {
         "model/"
       ],
       "environment": "Unknown; official requirements must be checked for the selected version.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2303.11616",
+            "https://openaccess.thecvf.com/content/CVPR2023/papers/Ai_HRDFuse_Monocular_360deg_Depth_Estimation_by_Collaboratively_Learning_Holistic-With-Regional_Depth_CVPR_2023_paper.pdf",
+            "https://github.com/haoai-1997/HRDFuse"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/hrdfuse-thumb.webp",
         "image": "assets/papers/hrdfuse.webp",
@@ -3543,6 +4582,25 @@ window.ATLAS_DATA = {
         "code/cpp/"
       ],
       "environment": "Official setup: Python ≥3.8 plus C++ Ceres/Eigen/OpenCV/pybind11; Docker recommended.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/html/2111.15669",
+            "https://github.com/manurare/360monodepth",
+            "https://raw.githubusercontent.com/manurare/360monodepth/main/code/python/src/main.py"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/360monodepth-thumb.webp",
         "image": "assets/papers/360monodepth.webp",
@@ -3675,6 +4733,25 @@ window.ATLAS_DATA = {
         "models/basic/spherical_conv/"
       ],
       "environment": "Official PyTorch ≥1.5.0, gcc/g++ ≤7.5.0 for spherical convolution.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf",
+            "https://github.com/nju-ee/MODE-2022",
+            "https://raw.githubusercontent.com/nju-ee/MODE-2022/main/README.md"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/mode-thumb.webp",
         "image": "assets/papers/mode.webp",
@@ -3802,6 +4879,25 @@ window.ATLAS_DATA = {
         "train_erp_depth_iterative.py"
       ],
       "environment": "Official tested Python 3.7.4, PyTorch 1.9.0, CUDA 11.6.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2203.00838",
+            "https://openaccess.thecvf.com/content/CVPR2022/papers/Li_OmniFusion_360_Monocular_Depth_Estimation_via_Geometry-Aware_Fusion_CVPR_2022_paper.pdf",
+            "https://github.com/yuliangguo/OmniFusion"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/omnifusion-thumb.webp",
         "image": "assets/papers/omnifusion.webp",
@@ -3925,6 +5021,24 @@ window.ATLAS_DATA = {
         "networks/; exact inference function Unknown"
       ],
       "environment": "Official PyTorch1.7.1 Python3.8 CUDA10.1 RTX3090",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2203.09283",
+            "https://github.com/zhijieshen-bjtu/PanoFormer"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/panoformer-thumb.webp",
         "image": "assets/papers/panoformer.webp",
@@ -4051,6 +5165,25 @@ window.ATLAS_DATA = {
         "PretrainedModels/"
       ],
       "environment": "Official legacyPython3.6 torch>=1.0 CUDA>=9; modern compatibility not tested",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "The external input is ERP; cubemap/tangent/icosahedron views are internally derived, not separately supported physical pinhole/fisheye inputs.",
+            "zh": "外部输入为 ERP；cubemap、切平面或二十面体视图是内部派生表示，不是额外支持的真实针孔/鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/pdf/2102.03550",
+            "https://raw.githubusercontent.com/alibaba/UniFuse-Unidirectional-Fusion/main/LICENSE",
+            "https://arxiv.org/abs/2102.03550"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/unifuse-thumb.webp",
         "image": "assets/papers/unifuse.webp",
@@ -4151,6 +5284,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper, author project, inference source and license read; no local reproduction",
       "codeEntry": "demo.py; environment.yml; README.md",
       "environment": "Official environment: Python 3.12, PyTorch 2.3.1, CUDA 12.2, custom CUDA/Eigen components. Paper Jetson Orin: default 2 FPS, fast 5 FPS; not local measurements.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://chris1004336379.github.io/360DVO-homepage/",
+            "https://arxiv.org/html/2601.02309v1",
+            "https://arxiv.org/pdf/2601.02309"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "paperUrl": "https://arxiv.org/pdf/2601.02309",
         "page": 1,
@@ -4315,6 +5467,67 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Released videos are standardized full-sphere ERP RGB.",
+            "zh": "发布视频为标准化整球ERP RGB。"
+          },
+          "evidence": [
+            "https://huggingface.co/datasets/chris1004336379/360DVO",
+            "https://huggingface.co/api/datasets/chris1004336379/360DVO",
+            "https://arxiv.org/html/2601.02309v1"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "reprojected",
+          "availability": "paper",
+          "note": {
+            "en": "The paper evaluates 90-degree virtual perspective reprojections, not additional physical camera streams.",
+            "zh": "论文评测90度虚拟透视重投影，并非额外物理相机流。"
+          },
+          "evidence": [
+            "https://huggingface.co/datasets/chris1004336379/360DVO",
+            "https://huggingface.co/api/datasets/chris1004336379/360DVO",
+            "https://arxiv.org/html/2601.02309v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": true,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The dataset releases RGB sequences and pose references, not dense image-depth truth. The method internal patch depths are predictions.",
+            "zh": "数据集发布 RGB 序列和位姿参考，不提供稠密图像深度真值；方法内部图像块深度属于预测。"
+          }
+        },
+        "trajectory": {
+          "status": "reference",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "Agisoft Metashape SfM supplies pseudo-reference trajectories; independent measured metric scale is not established and evaluation uses Sim(3) alignment.",
+            "zh": "Agisoft Metashape SfM 提供伪参考轨迹；未建立独立实测米制尺度，评测采用 Sim(3) 对齐。"
+          }
+        },
+        "evidence": [
+          "https://huggingface.co/datasets/chris1004336379/360DVO",
+          "https://huggingface.co/api/datasets/chris1004336379/360DVO",
+          "https://arxiv.org/html/2601.02309v1",
+          "https://chris1004336379.github.io/360DVO-homepage/"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 8,
@@ -4434,6 +5647,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper and public project reviewed; method figure visually inspected; estimator and data not locally reproduced",
       "codeEntry": "Unknown",
       "environment": "VINS-Fisheye sliding window plus AprilTag front end; installable implementation and dependency versions not released as verified artifacts",
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.09857",
+            "https://arxiv.org/html/2610.09857v1",
+            "https://arxiv.org/pdf/2610.09857"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/aprilvins2026-thumb.webp",
         "image": "assets/papers/aprilvins2026.webp",
@@ -4536,6 +5768,37 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper, publisher and repository README read; selected implementation details unverified; no local reproduction",
       "codeEntry": "slam.py --config configs/ERP/SynPano/example_scene.yaml; configs/ERP/OmniBlender/example_scene.yaml; scripts/build_extensions.sh",
       "environment": "Official README tested Ubuntu 22.04, Python 3.9, PyTorch 2.0.1, CUDA 11.8, RTX 3090. Paper uses RTX 4070 Ti SUPER and reports about 1.53 FPS; not local measurements.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Official ERP configurations consume panoramas and internally produce four shared-center virtual pinhole views. The separate PAL route is annular.",
+            "zh": "官方ERP配置接收全景，内部生成四个共心虚拟针孔视图；另有环形PAL路线。"
+          },
+          "evidence": [
+            "https://github.com/guoxf304/CubeSplat"
+          ]
+        }
+      ],
+      "projectionSubtypes": [
+        "annular"
+      ],
+      "additionalSupport": [
+        {
+          "geometry": "annular",
+          "route": "direct",
+          "note": {
+            "en": "ERP and PAL have separate official configurations; four virtual pinhole faces share a single pose and do not establish physical multicamera or general pinhole-video support.",
+            "zh": "ERP与PAL有独立官方配置；四个虚拟针孔面共享一个位姿，不构成物理多相机或通用针孔视频输入支持。"
+          },
+          "evidence": [
+            "https://github.com/guoxf304/CubeSplat"
+          ]
+        }
+      ],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "paperUrl": "https://arxiv.org/pdf/2609.21347",
         "page": 6,
@@ -4760,6 +6023,75 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Raw front/back fisheye streams are released; use the supplied EUCM or fitted equidistant calibration.",
+            "zh": "发布原始前后鱼眼流；使用配套EUCM或拟合等距标定。"
+          },
+          "evidence": [
+            "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026",
+            "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/dataset.md",
+            "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/sensors.md"
+          ]
+        },
+        {
+          "geometry": "panoramic",
+          "route": "stitched",
+          "availability": "derivable",
+          "note": {
+            "en": "Only raw fisheyes are downloaded. The official stitching tool derives ERP, using a large-sphere assumption with parallax limitations.",
+            "zh": "下载内容为原始鱼眼；官方拼接工具生成ERP，采用大球面假设并受视差限制。"
+          },
+          "evidence": [
+            "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026",
+            "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/dataset.md",
+            "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/sensors.md"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The released bags contain dual-fisheye images and IMU, without reference LiDAR or image-depth targets.",
+            "zh": "发布的包包含双鱼眼图像与 IMU，不包含参考 LiDAR 或图像深度目标。"
+          }
+        },
+        "trajectory": {
+          "status": "reference",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "LiDAR-inertial SLAM yields cam0-in-map reference poses. These are estimates rather than independent mocap/total-station truth; the first five seconds lack coverage.",
+            "zh": "LiDAR 惯性 SLAM 生成 cam0 在地图中的参考位姿；属于估计参考而非独立动捕、全站仪真值，前约五秒缺少覆盖。"
+          }
+        },
+        "evidence": [
+          "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026",
+          "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/dataset.md",
+          "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/sensors.md",
+          "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/ground-truth.md",
+          "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/challenge-tools.md",
+          "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/floorplans.md",
+          "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/docs/challenge-evaluation.md",
+          "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/config/hilti_openvins/rs_config.yaml",
+          "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/camera_calibration/kalibr_imucam_chain.yaml",
+          "https://arxiv.org/abs/2607.06464",
+          "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026",
+          "https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 7,
@@ -4951,6 +6283,57 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Released RGB archives contain panoramas; raw fisheye lens streams are not inferred from capture-camera hardware.",
+            "zh": "发布RGB压缩包包含全景；不依据采集相机硬件推断原始鱼眼流。"
+          },
+          "evidence": [
+            "https://github.com/Jou719/Holo360D",
+            "https://arxiv.org/html/2604.22482v2",
+            "https://huggingface.co/datasets/ouou123/Holo360D"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": true,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured",
+            "rendered",
+            "estimated"
+          ],
+          "note": {
+            "en": "Both point-cloud depth and mesh depth are released. LiDAR-supported pixels differ from reconstructed or hole-filled mesh supervision.",
+            "zh": "同时发布点云深度与网格深度；LiDAR 支撑像素与重建、补洞网格监督须区分。"
+          }
+        },
+        "trajectory": {
+          "status": "reference",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "Continuous camera references are refined through LiDAR/SLAM and bundle adjustment, not independently measured by motion capture.",
+            "zh": "连续相机参考通过 LiDAR/SLAM 与束调整细化，并非独立动作捕捉测量。"
+          }
+        },
+        "evidence": [
+          "https://github.com/Jou719/Holo360D",
+          "https://arxiv.org/html/2604.22482v2",
+          "https://huggingface.co/datasets/ouou123/Holo360D",
+          "https://jou719.github.io/Holo360D_homepage/"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 5,
@@ -5154,6 +6537,51 @@ window.ATLAS_DATA = {
         "zh": "公开项目页与论文尚未明确数据集再利用许可。数据、代码与评测清单计划于论文录用后发布；论文的 arXiv 许可不能视为数据集许可。"
       },
       "sourceChecked": "2026-10-19",
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "announced",
+          "note": {
+            "en": "Real X5 and simulated fisheye routes are described, but the dataset release is announced for acceptance; no raw ERP release is established.",
+            "zh": "描述真实X5和仿真鱼眼路线，但数据仍计划录用后发布；未确立原始ERP发布。"
+          },
+          "evidence": [
+            "https://mild-web.github.io/",
+            "https://arxiv.org/abs/2610.09857"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "unknown",
+          "provenance": [],
+          "note": {
+            "en": "Public descriptions do not establish downloadable dense depth labels, formats or masks. RGB-D hardware or simulator naming alone is not proof of released depth truth.",
+            "zh": "公开描述尚未建立可下载的稠密深度标签、格式及掩码；RGB-D 硬件或仿真器名称不能证明已发布深度真值。"
+          }
+        },
+        "trajectory": {
+          "status": "unknown",
+          "provenance": [
+            "kinematic",
+            "rendered"
+          ],
+          "note": {
+            "en": "Real TCP references from logged robot kinematics and simulation states are announced; dataset and manifests remain pending release, so availability is unconfirmed.",
+            "zh": "已声明由机器人运动学日志生成真实 TCP 参考及仿真状态，但数据与清单仍待发布，可获取性尚未确认。"
+          }
+        },
+        "evidence": [
+          "https://mild-web.github.io/",
+          "https://arxiv.org/abs/2610.09857"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "pending",
         "rank": 1,
@@ -5271,6 +6699,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CUDA omnidirectional rasterizer; graph-based keyframe removal reduces memory; no local benchmark.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://openaccess.thecvf.com/content/CVPR2026/html/Spiss_ODGS-SLAM_Omnidirectional_Gaussian_Splatting_SLAM_CVPR_2026_paper.html",
+            "https://odgs-slam.github.io/",
+            "https://github.com/odgs-slam/odgs-slam"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/odgsslam2026-thumb.webp",
         "image": "assets/papers/odgsslam2026.webp",
@@ -5466,6 +6913,86 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "stitched",
+          "availability": "released",
+          "note": {
+            "en": "Real Pro/X4 sequences provide stitched ERP; synthetic ERP renders form separate subsets.",
+            "zh": "真实Pro/X4序列提供拼接ERP；另有合成ERP渲染子集。"
+          },
+          "evidence": [
+            "https://researchdata.uibk.ac.at/records/z6f6r-sjc65",
+            "https://researchdata.uibk.ac.at/api/records/z6f6r-sjc65",
+            "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Real Pro supplies six lens streams, while X4 release is ERP-only; synthetic versions simulate the rig.",
+            "zh": "真实Pro提供六路镜头流，X4发布仅ERP；合成版本模拟相机装置。"
+          },
+          "evidence": [
+            "https://researchdata.uibk.ac.at/records/z6f6r-sjc65",
+            "https://researchdata.uibk.ac.at/api/records/z6f6r-sjc65",
+            "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "The synthetic subset additionally provides a 113-degree perspective camera; it is a separate synthetic protocol.",
+            "zh": "合成子集另提供113度透视相机，属于独立合成协议。"
+          },
+          "evidence": [
+            "https://researchdata.uibk.ac.at/records/z6f6r-sjc65",
+            "https://researchdata.uibk.ac.at/api/records/z6f6r-sjc65",
+            "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "partial",
+          "provenance": [
+            "rendered",
+            "estimated"
+          ],
+          "note": {
+            "en": "Synthetic subsets have rendered depth. Real Pro depth is stereo-estimated, while the real X4 listing has no depth; real estimates are not measured depth truth.",
+            "zh": "合成子集有渲染深度；真实 Pro 深度来自立体估计，真实 X4 目录不含深度；真实估计不属于实测深度真值。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "rendered",
+            "measured"
+          ],
+          "note": {
+            "en": "Synthetic trajectories and real OptiTrack reference poses are supplied. Real camera/mocap alignment is manual and uses mount-specific transforms.",
+            "zh": "提供合成轨迹与真实 OptiTrack 参考位姿；真实相机与动捕手动对齐，且需按安装方式应用变换。"
+          }
+        },
+        "evidence": [
+          "https://researchdata.uibk.ac.at/records/z6f6r-sjc65",
+          "https://researchdata.uibk.ac.at/api/records/z6f6r-sjc65",
+          "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1",
+          "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_room_synthetic_README.md?download=1",
+          "https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/outdoor_synthetic_README.md?download=1"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 9,
@@ -5574,7 +7101,8 @@ window.ATLAS_DATA = {
       "evidence": [
         "arXiv v2 confirms T-ITS acceptance; III explicitly Taylor/KB models; official repository tree lacks implementation.",
         "https://arxiv.org/abs/2409.10143",
-        "https://github.com/BambValley/P2U-SLAM"
+        "https://github.com/BambValley/P2U-SLAM",
+        "https://arxiv.org/html/2409.10143v1"
       ],
       "notes": [
         "Official repo contains README/figures only. Taylor/KB support is not native ERP.",
@@ -5590,6 +7118,38 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CPU feature-based architecture; full source unavailable for profiling.",
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2409.10143",
+            "https://github.com/BambValley/P2U-SLAM"
+          ]
+        }
+      ],
+      "projectionSubtypes": [
+        "annular"
+      ],
+      "additionalSupport": [
+        {
+          "geometry": "annular",
+          "route": "direct",
+          "note": {
+            "en": "Taylor/PAL annular images and Kannala-Brandt fisheyes are supported; PAL coverage is not a full-sphere ERP image.",
+            "zh": "支持 Taylor/PAL 环形成像与 Kannala-Brandt 鱼眼；PAL 覆盖不等于整球 ERP 图。"
+          },
+          "evidence": [
+            "https://arxiv.org/html/2409.10143v1"
+          ]
+        }
+      ],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/p2uslam2026-thumb.webp",
         "image": "assets/papers/p2uslam2026.webp",
@@ -5660,32 +7220,52 @@ window.ATLAS_DATA = {
         "pose_output": "Yes: estimated 6DoF trajectory; wrist/TCP additionally needs extrinsics",
         "runtime": "Unknown: no comparable local measurement"
       },
-      "codeStatus": "unverified",
-      "codeUrl": "https://drive.google.com/file/d/1lG1Upn6yi-N6tYpEHAt6dfR1uhzNtWbT/view",
+      "codeStatus": "none",
+      "codeUrl": "https://github.com/YYWumm/PanoAir",
       "paperUrl": "https://arxiv.org/abs/2604.00852",
-      "projectUrl": "https://arxiv.org/html/2604.00852v1",
+      "projectUrl": "https://github.com/YYWumm/PanoAir",
       "weightsUrl": "",
-      "license": "Unknown: author-linked archive not unpacked/inspected",
+      "license": "Official repository declares GPL-3.0; estimator source remains pending. A separate dataset licence was not verified.",
       "evidence": [
-        "IV model is ERP; abstract links release; V-C specifies embedded 10Hz setting.",
+        "Paper IV uses ERP; V-C specifies the embedded 10 Hz setting. Official repository README checked 2026-10-20 separates the advertised dataset/calibration download from the still-pending source-code release. No archive execution or local estimator reproduction.",
         "https://arxiv.org/abs/2604.00852",
         "https://arxiv.org/html/2604.00852v1",
+        "https://github.com/YYWumm/PanoAir",
         "https://drive.google.com/file/d/1lG1Upn6yi-N6tYpEHAt6dfR1uhzNtWbT/view"
       ],
       "notes": [
-        "Drive release is advertised but archive/code/license/checkpoint completeness not audited. UAV evidence is not wrist precision validation.",
-        "Authors advertise source+dataset on Drive; archive not executed/audited"
+        "The official README advertises dataset/calibration on Drive but estimator source is still being prepared for release in the coming months. Dataset archive contents, a separate data licence and checkpoints were not audited. UAV evidence is not wrist precision validation.",
+        "Dataset and calibration are linked on Drive; official README says estimator code is being prepared and expected in the coming months (checked 2026-10-20)"
       ],
       "tags": [],
       "family": "panoramic hybrid-feature visual-inertial SLAM",
       "imu": true,
       "loopClosure": true,
       "nativePanoramic": true,
-      "sourceChecked": "2026-10-17",
+      "sourceChecked": "2026-10-20",
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Paper: C++/ONNX; Jetson Orin NX TensorRT 10Hz with stride 3; no local result.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2604.00852",
+            "https://arxiv.org/html/2604.00852v1",
+            "https://drive.google.com/file/d/1lG1Upn6yi-N6tYpEHAt6dfR1uhzNtWbT/view"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/panoair2026-thumb.webp",
         "image": "assets/papers/panoair2026.webp",
@@ -5755,14 +7335,14 @@ window.ATLAS_DATA = {
         ]
       },
       "groundTruth": [
-        "RTK trajectory"
+        "Announced RTK trajectory reference"
       ],
       "groundTruthLabels": {
         "en": [
-          "RTK trajectory"
+          "Announced RTK trajectory reference"
         ],
         "zh": [
-          "RTK 轨迹"
+          "已声明的 RTK 轨迹参考"
         ]
       },
       "access": "unknown",
@@ -5779,14 +7359,14 @@ window.ATLAS_DATA = {
           "Inputs": "30 Hz stitched ERP; dual-fisheye ROS1 recordings and virtual pinhole sequences; 1000 Hz IMU.",
           "Reference": "README lists 5 Hz RTK trajectories. Inspect files/paper for position versus orientation coverage and antenna/body transforms before 6DoF evaluation.",
           "Calibration": "Camera intrinsics, IMU intrinsics, camera–IMU extrinsics and virtual-pinhole parameters are listed.",
-          "Release status": "README says data/calibrations are on Google Drive; repository source-code release is still stated as after acceptance.",
+          "Release status": "The official README checked on 2026-10-20 states that data and calibration are available on Google Drive; estimator source code is still being prepared and is expected in the coming months. The linked data archive was not downloaded or unpacked in this audit.",
           "Evidence limit": "No dense depth GT, complete-download check, or measured synchronization-error bound is asserted here."
         },
         "zh": {
           "输入": "30 Hz 拼接 ERP、双鱼眼 ROS1 记录、虚拟透视序列，以及 1000 Hz IMU。",
           "参考": "README 列出 5 Hz RTK 轨迹；六自由度评测前需检查文件/论文，核对位置与姿态覆盖及天线/机体变换。",
           "标定": "列出相机内参、IMU 内参、相机–IMU 外参及虚拟透视参数。",
-          "发布状态": "README 声称数据/标定可从 Google Drive 下载；代码仍写明接收后发布。",
+          "发布状态": "2026-10-20 核查的官方 README 声称数据与标定可从 Google Drive 下载；估计器源码仍在整理，预计未来数月发布。本次未下载或解包链接的数据归档。",
           "证据限制": "本条目不宣称稠密深度真值、完整下载验证或已测同步误差界限。"
         }
       },
@@ -5810,7 +7390,7 @@ window.ATLAS_DATA = {
           "title": "PanoAir 2026 preprint"
         }
       ],
-      "checked": "2026-10-17",
+      "checked": "2026-10-20",
       "collection": "datasets",
       "localizedSummary": {
         "en": "Real UAV panoramic-inertial sequences across illumination and flight conditions; the official Drive release is linked but archive access remains unverified.",
@@ -5821,14 +7401,14 @@ window.ATLAS_DATA = {
           "Inputs": "30 Hz stitched ERP; dual-fisheye ROS1 recordings and virtual pinhole sequences; 1000 Hz IMU.",
           "Reference": "README lists 5 Hz RTK trajectories. Inspect files/paper for position versus orientation coverage and antenna/body transforms before 6DoF evaluation.",
           "Calibration": "Camera intrinsics, IMU intrinsics, camera–IMU extrinsics and virtual-pinhole parameters are listed.",
-          "Release status": "README says data/calibrations are on Google Drive; repository source-code release is still stated as after acceptance.",
+          "Release status": "The official README checked on 2026-10-20 states that data and calibration are available on Google Drive; estimator source code is still being prepared and is expected in the coming months. The linked data archive was not downloaded or unpacked in this audit.",
           "Evidence limit": "No dense depth GT, complete-download check, or measured synchronization-error bound is asserted here."
         },
         "zh": {
           "输入": "30 Hz 拼接 ERP、双鱼眼 ROS1 记录、虚拟透视序列，以及 1000 Hz IMU。",
           "参考": "README 列出 5 Hz RTK 轨迹；六自由度评测前需检查文件/论文，核对位置与姿态覆盖及天线/机体变换。",
           "标定": "列出相机内参、IMU 内参、相机–IMU 外参及虚拟透视参数。",
-          "发布状态": "README 声称数据/标定可从 Google Drive 下载；代码仍写明接收后发布。",
+          "发布状态": "2026-10-20 核查的官方 README 声称数据与标定可从 Google Drive 下载；估计器源码仍在整理，预计未来数月发布。本次未下载或解包链接的数据归档。",
           "证据限制": "本条目不宣称稠密深度真值、完整下载验证或已测同步误差界限。"
         }
       },
@@ -5846,10 +7426,80 @@ window.ATLAS_DATA = {
         "en": "Repository is GPL-3.0; a separate dataset licence was not verified. Do not infer data rights from the code licence.",
         "zh": "仓库标为 GPL-3.0；未核验单独数据许可，不根据代码许可推断数据权利。"
       },
-      "sourceChecked": "2026-10-17",
+      "sourceChecked": "2026-10-20",
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "stitched",
+          "availability": "released",
+          "note": {
+            "en": "The documented ERP stream is stitched from a dual-fisheye camera.",
+            "zh": "所记录ERP流由双鱼眼相机拼接。"
+          },
+          "evidence": [
+            "https://github.com/YYWumm/PanoAir",
+            "https://arxiv.org/abs/2604.00852"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Dual-fisheye ROS recordings are separately documented.",
+            "zh": "文档另列双鱼眼ROS录制。"
+          },
+          "evidence": [
+            "https://github.com/YYWumm/PanoAir",
+            "https://arxiv.org/abs/2604.00852"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "reprojected",
+          "availability": "released",
+          "note": {
+            "en": "Virtual pinhole streams are derived from the panoramic capture.",
+            "zh": "虚拟针孔流由全景采集派生。"
+          },
+          "evidence": [
+            "https://github.com/YYWumm/PanoAir",
+            "https://arxiv.org/abs/2604.00852"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The documented release inventory lists camera streams, IMU, calibration and RTK trajectories, without image-depth targets.",
+            "zh": "已记录发布目录列出相机流、IMU、标定及 RTK 轨迹，不含图像深度目标。"
+          }
+        },
+        "trajectory": {
+          "status": "unknown",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Official README announces 5 Hz RTK trajectories, but linked archive contents, position/orientation coverage and frame transforms have not been validated.",
+            "zh": "官方 README 声明有 5 Hz RTK 轨迹，但链接归档内容、位置与方向覆盖及坐标变换尚未验证。"
+          }
+        },
+        "evidence": [
+          "https://github.com/YYWumm/PanoAir",
+          "https://arxiv.org/abs/2604.00852"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "pending",
         "rank": 2,
@@ -6054,6 +7704,57 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "Six synchronized virtual views are combined into ERP; the delivered depth is radial range.",
+            "zh": "六个同步虚拟视图组合为ERP，提供径向距离深度。"
+          },
+          "evidence": [
+            "https://huggingface.co/datasets/Soon122/PanoCARLA-Static",
+            "https://huggingface.co/api/datasets/Soon122/PanoCARLA-Static",
+            "https://github.com/ChuanxinSong/PanoCARLA"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Rendered ERP radial distance is supplied in metres with synthetic semantic labels; sky and far-plane masks remain task-specific.",
+            "zh": "提供米制渲染 ERP 径向距离及合成语义标签；天空和远平面掩码须按任务确定。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Simulator position and yaw are released per frame; pitch and roll are fixed to zero, so the motion is not arbitrary 6DoF.",
+            "zh": "逐帧发布仿真位置与偏航，俯仰、滚转固定为零，因此并非任意六自由度运动。"
+          }
+        },
+        "evidence": [
+          "https://huggingface.co/datasets/Soon122/PanoCARLA-Static",
+          "https://huggingface.co/api/datasets/Soon122/PanoCARLA-Static",
+          "https://github.com/ChuanxinSong/PanoCARLA",
+          "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py",
+          "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/record_2stage.py",
+          "https://proceedings.mlr.press/v306/song26u.html"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 10,
@@ -6171,6 +7872,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Paper RTX 4090; runtime not locally reproduced.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2609.17387",
+            "https://arxiv.org/html/2609.17387v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/panogsslam2026-thumb.webp",
         "image": "assets/papers/panogsslam2026.webp",
@@ -6269,6 +7988,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official publisher metadata and full paper read; implementation and checkpoints unverified; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Paper reports median 0.60 FPS on one RTX 4090, offline whole-sequence loop retrieval; not real time or a local measurement.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://doi.org/10.1111/cgf.70607",
+            "https://diglib7.eg.org/items/288b7b5d-7f87-4f03-b700-fc683d0c60e2",
+            "https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "paperUrl": "https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download",
         "page": 4,
@@ -6365,6 +8103,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CUDA; paper RTX 4090 result is not local measurement.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/pdf/2412.12392",
+            "https://edexheim.github.io/mast3r-slam/",
+            "https://github.com/rmurai0610/MASt3R-SLAM"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/mast3rslam2025-thumb.webp",
         "image": "assets/papers/mast3rslam2025.webp",
@@ -6462,6 +8219,37 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Ubuntu C++/CMake; neural stereo/MVS and dense mapping add compute.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2510.04612",
+            "https://github.com/ethz-mrl/OKVIS2-X"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2510.04612",
+            "https://github.com/ethz-mrl/OKVIS2-X"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/okvis2x2025-thumb.webp",
         "image": "assets/papers/okvis2x2025.webp",
@@ -6643,6 +8431,54 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://dynamic.robots.ox.ac.uk/datasets/oxford-spires/",
+            "https://github.com/ori-drs/oxford_spires_dataset",
+            "https://arxiv.org/abs/2411.10546"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "An official script projects calibrated LiDAR into cameras to form sparse depth; millimetre-accuracy TLS maps are a separate geometry reference.",
+            "zh": "官方脚本将标定 LiDAR 投影为相机稀疏深度；毫米精度 TLS 地图是另一类几何参考。"
+          }
+        },
+        "trajectory": {
+          "status": "reference",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "Core-sequence LiDAR poses are registered to the surveyed map; references are map-derived and not available for every sequence.",
+            "zh": "核心序列 LiDAR 位姿配准至测绘地图；参考由地图派生，并非每个序列均提供。"
+          }
+        },
+        "evidence": [
+          "https://dynamic.robots.ox.ac.uk/datasets/oxford-spires/",
+          "https://github.com/ori-drs/oxford_spires_dataset",
+          "https://arxiv.org/abs/2411.10546"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 6,
@@ -6759,6 +8595,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Gaussian optimization plus panoptic vision models; runtime unverified.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Panoptic scene reconstruction consumes perspective RGB-D; Pano in the name does not denote panoramic ERP input.",
+            "zh": "全景语义场景重建使用透视RGB-D；名称Pano不代表全景ERP输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2501.00352",
+            "https://github.com/runnanchen/PanoSLAM"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/panoslam2025-thumb.webp",
         "image": "assets/papers/panoslam2025.webp",
@@ -6797,8 +8651,7 @@ window.ATLAS_DATA = {
       "title": "ToF-360: A Panoramic Time-of-flight RGB-D Dataset for Single Capture Indoor Semantic 3D Reconstruction",
       "year": 2025,
       "cameras": [
-        "panoramic",
-        "fisheye"
+        "panoramic"
       ],
       "tasks": [
         "depth"
@@ -6843,7 +8696,7 @@ window.ATLAS_DATA = {
         "en": "CC BY-NC-SA 4.0 according to the official Hugging Face card.",
         "zh": "官方 Hugging Face 数据卡标注 CC BY-NC-SA 4.0。"
       },
-      "summary": "真实全景 ToF RGB-D 测量，包含双鱼眼来源与 ERP 标注；深度逐次拍摄获得，不由全局网格渲染。",
+      "summary": "真实全景 ToF RGB-D 测量，以双鱼眼采集转换的 ERP 产品发布；尚未核实可下载的原始鱼眼模态。深度来自每次测量，而非全局网格渲染。",
       "details": {
         "en": {
           "Projection and inputs": "Paper describes 5792×2896 ERP color/depth/XYZ products and raw fisheye capture. Bottom blind regions require masking.",
@@ -6880,13 +8733,23 @@ window.ATLAS_DATA = {
         {
           "url": "https://www.dfki.de/en/web/research/projects-and-publications/publication/15783",
           "title": "Authors' publication and DOI"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://huggingface.co/datasets/COLE-Ricoh/ToF-360/tree/main/Hospital",
+          "checked": "2026-10-20"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://huggingface.co/datasets/COLE-Ricoh/ToF-360/tree/main/Office_Room_1",
+          "checked": "2026-10-20"
         }
       ],
-      "checked": "2026-10-17",
+      "checked": "2026-10-20",
       "collection": "datasets",
       "localizedSummary": {
-        "en": "Real panoramic ToF RGB-D measurements, with dual-fisheye source data and ERP annotations; depth is measured per capture rather than rendered from a global mesh.",
-        "zh": "真实全景 ToF RGB-D 测量，包含双鱼眼来源与 ERP 标注；深度逐次拍摄获得，不由全局网格渲染。"
+        "en": "Real panoramic ToF RGB-D measurements released as ERP products derived from dual-fisheye capture; a downloadable raw fisheye modality is not verified. Depth is measured per capture rather than rendered from a global mesh.",
+        "zh": "真实全景 ToF RGB-D 测量，以双鱼眼采集转换的 ERP 产品发布；尚未核实可下载的原始鱼眼模态。深度来自每次测量，而非全局网格渲染。"
       },
       "datasetDetails": {
         "en": {
@@ -6916,10 +8779,56 @@ window.ATLAS_DATA = {
         "en": "CC BY-NC-SA 4.0 according to the official Hugging Face card.",
         "zh": "官方 Hugging Face 数据卡标注 CC BY-NC-SA 4.0。"
       },
-      "sourceChecked": "2026-10-17",
+      "sourceChecked": "2026-10-20",
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "stitched",
+          "availability": "released",
+          "note": {
+            "en": "The released RGB-D products are ERP converted from dual-fisheye capture. A downloadable raw-fisheye modality was not established by the current card/directories.",
+            "zh": "已发布RGB-D产品由双鱼眼采集转换为ERP；当前数据卡和目录未确立可下载的原始鱼眼模态。"
+          },
+          "evidence": [
+            "https://huggingface.co/datasets/COLE-Ricoh/ToF-360",
+            "https://huggingface.co/datasets/COLE-Ricoh/ToF-360/tree/main/Hospital",
+            "https://huggingface.co/datasets/COLE-Ricoh/ToF-360/tree/main/Office_Room_1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "ToF radial depth is released with zero marking missing pixels; bottom blind regions require masking.",
+            "zh": "发布 ToF 径向深度，零值表示缺失像素；底部盲区需遮罩。"
+          }
+        },
+        "trajectory": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The released static panoramic depth collection does not include an independent continuous camera trajectory reference.",
+            "zh": "该静态全景深度集合不包含独立连续相机轨迹参考。"
+          }
+        },
+        "evidence": [
+          "https://huggingface.co/datasets/COLE-Ricoh/ToF-360",
+          "https://openaccess.thecvf.com/content/CVPR2025W/PBVS/papers/Kanayama_ToF-360_-_A_Panoramic_Time-of-flight_RGB-D_Dataset_for_Single_Capture_CVPRW_2025_paper.pdf",
+          "https://www.dfki.de/en/web/research/projects-and-publications/publication/15783"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 4,
@@ -7035,6 +8944,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Author paper and primary publication metadata reviewed; official code unavailable; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "HybVIO-based EKF; paper extends Kalibr for the panoramic optical center; no local runtime test",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://ieeexplore.ieee.org/document/10373205/",
+            "https://shengyang93.github.io/publication/2023-360-vio/",
+            "https://chen-xieyuanli.github.io/_pages/includes/pub/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/vio360_2024-thumb.webp",
         "image": "assets/papers/vio360_2024.webp",
@@ -7195,6 +9123,80 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Original panoramic reference/query images are provided.",
+            "zh": "提供原始全景参考/查询图。"
+          },
+          "evidence": [
+            "https://huajianup.github.io/research/360Loc/",
+            "https://github.com/HuajianUP/360Loc",
+            "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "reprojected",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye queries are lower-FoV virtual views generated from original panoramas.",
+            "zh": "鱼眼查询是由原始全景生成的较小视场虚拟视图。"
+          },
+          "evidence": [
+            "https://huajianup.github.io/research/360Loc/",
+            "https://github.com/HuajianUP/360Loc",
+            "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "reprojected",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole queries are virtual crops/reprojections of original panoramas, not extra physical cameras.",
+            "zh": "针孔查询为原全景的虚拟裁剪/重投影，不是额外物理相机。"
+          },
+          "evidence": [
+            "https://huajianup.github.io/research/360Loc/",
+            "https://github.com/HuajianUP/360Loc",
+            "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": true,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The released localization products document images and pose references, not an image-depth annotation benchmark; mapping LiDAR alone is insufficient evidence.",
+            "zh": "发布的定位产品记录图像和位姿参考，并非图像深度标注基准；仅有建图 LiDAR 不能证明提供深度标签。"
+          }
+        },
+        "trajectory": {
+          "status": "reference",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "Image/LiDAR mapping generates metric 6DoF reference poses for localization queries; independent continuous motion tracking is not established.",
+            "zh": "图像与 LiDAR 建图生成定位查询的米制六自由度参考位姿，未建立独立连续运动跟踪真值。"
+          }
+        },
+        "evidence": [
+          "https://huajianup.github.io/research/360Loc/",
+          "https://github.com/HuajianUP/360Loc",
+          "https://openaccess.thecvf.com/content/CVPR2024/html/Huang_360Loc_A_Dataset_and_Benchmark_for_Omnidirectional_Visual_Localization_with_CVPR_2024_paper.html"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 12,
@@ -7309,6 +9311,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "ORB-SLAM2-style threads plus depth network; CARLA evaluation.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2401.10560",
+            "https://arxiv.org/html/2401.10560v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/360orbslam2024-thumb.webp",
         "image": "assets/papers/360orbslam2024.webp",
@@ -7405,6 +9425,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CUDA/PyTorch plus optimization backend.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/pdf/2403.13714",
+            "https://github.com/GREAT-WHU/DBA-Fusion"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/dbafusion2024-thumb.webp",
         "image": "assets/papers/dbafusion2024.webp",
@@ -7500,6 +9538,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Single CUDA GPU; paper reports 5-7GB VRAM configurations, not local measurement.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2408.01654",
+            "https://github.com/princeton-vl/DPVO"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/dpvslam2024-thumb.webp",
         "image": "assets/papers/dpvslam2024.webp",
@@ -7599,6 +9655,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Authors use RTX 4090; speed-up branch and CUDA rasterizer.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2312.06741",
+            "https://rmurai.co.uk/projects/GaussianSplattingSLAM/",
+            "https://github.com/muskie82/MonoGS"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/monogs2024-thumb.webp",
         "image": "assets/papers/monogs2024.webp",
@@ -7697,6 +9772,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "PyTorch/CUDA Gaussian rasterizer; scene-dependent optimization.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://spla-tam.github.io/assets/SplaTAM.pdf",
+            "https://spla-tam.github.io/",
+            "https://github.com/spla-tam/SplaTAM"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/splatam2024-thumb.webp",
         "image": "assets/papers/splatam2024.webp",
@@ -7880,6 +9974,55 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset",
+            "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/data_format",
+            "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/dataset_download"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Digital-twin-rendered Z-depth is provided in millimetres; choose the matching body-occlusion variant. It is not a physical depth-sensor measurement.",
+            "zh": "提供数字孪生渲染的毫米制 Z 深度；应选取匹配的人体遮挡版本，并非物理深度传感器测量。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "The ADT ground-truth system supplies aria_trajectory.csv. MPS open/closed-loop trajectories remain separate estimates and must not replace that reference.",
+            "zh": "ADT 真值系统提供 aria_trajectory.csv；MPS 开闭环轨迹仍是独立估计，不可替代该参考。"
+          }
+        },
+        "evidence": [
+          "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset",
+          "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/data_format",
+          "https://facebookresearch.github.io/projectaria_tools/docs/open_datasets/aria_digital_twin_dataset/dataset_download",
+          "https://openaccess.thecvf.com/content/ICCV2023/html/Pan_Aria_Digital_Twin_A_New_Benchmark_Dataset_for_Egocentric_3D_ICCV_2023_paper.html"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 14,
@@ -7994,6 +10137,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CUDA/PyTorch; official Ubuntu 20/22 and CUDA 11/12 setup.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2208.04726",
+            "https://github.com/princeton-vl/DPVO"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/dpvo2023-thumb.webp",
         "image": "assets/papers/dpvo2023.webp",
@@ -8091,6 +10252,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CUDA/PyTorch plus tiny-cuda-nn; parallel tracking/backend/mapper.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2309.02436",
+            "https://youmi-zym.github.io/projects/GO-SLAM/",
+            "https://github.com/youmi-zym/GO-SLAM"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/goslam2023-thumb.webp",
         "image": "assets/papers/goslam2023.webp",
@@ -8171,7 +10351,8 @@ window.ATLAS_DATA = {
       "evidence": [
         "Official paper defines unit-vector features/loops; README gives Scaramuzza PAL config and pending-loop note.",
         "https://arxiv.org/abs/2209.05167",
-        "https://github.com/flysoaryun/LF-VISLAM"
+        "https://github.com/flysoaryun/LF-VISLAM",
+        "https://arxiv.org/html/2209.05167v3"
       ],
       "notes": [
         "PAL annular images are not ERP. README says loop closure will be updated later: paper capability differs from code completeness.",
@@ -8187,6 +10368,38 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "ROS1/C++ VINS-derived system with PAL calibration.",
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2209.05167",
+            "https://github.com/flysoaryun/LF-VISLAM"
+          ]
+        }
+      ],
+      "projectionSubtypes": [
+        "annular"
+      ],
+      "additionalSupport": [
+        {
+          "geometry": "annular",
+          "route": "direct",
+          "note": {
+            "en": "PALVIO uses 360-degree azimuth with a limited vertical band; public fisheye evaluation is distinct from that annular camera.",
+            "zh": "PALVIO为360度方位但有限垂直带；公共鱼眼评测与该环形相机是不同模式。"
+          },
+          "evidence": [
+            "https://arxiv.org/html/2209.05167v3"
+          ]
+        }
+      ],
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
       "figure": {
         "thumbnail": "assets/papers/lfvislam2023-thumb.webp",
         "image": "assets/papers/lfvislam2023.webp",
@@ -8283,6 +10496,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper and author project reviewed; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Photometric local-window optimization; no verified installable official code or local benchmark",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://huajianup.github.io/research/360VO/360VO_ICRA2022.pdf",
+            "https://huajianup.github.io/research/360VO/",
+            "https://researchportal.hkust.edu.hk/en/publications/360vo-visual-odometry-using-a-single-360-camera/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "paperUrl": "https://huajianup.github.io/research/360VO/360VO_ICRA2022.pdf",
         "page": 2,
@@ -8441,6 +10673,54 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "CARLA renders provide several physically separated virtual panoramic viewpoints.",
+            "zh": "CARLA渲染提供多个具有空间基线的虚拟全景视点。"
+          },
+          "evidence": [
+            "https://github.com/nju-ee/MODE-2022",
+            "https://link.springer.com/chapter/10.1007/978-3-031-19827-4_12",
+            "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "CARLA-generated panoramic depth and stereo disparity targets are released; they are different target quantities.",
+            "zh": "发布 CARLA 生成的全景深度与立体视差目标，两者是不同的监督量。"
+          }
+        },
+        "trajectory": {
+          "status": "unknown",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Synthetic camera placement and stereo baselines are documented; a downloadable continuous trajectory annotation product was not established.",
+            "zh": "已记录仿真相机布置与立体基线，但尚未确认可下载的连续轨迹标注产品。"
+          }
+        },
+        "evidence": [
+          "https://github.com/nju-ee/MODE-2022",
+          "https://link.springer.com/chapter/10.1007/978-3-031-19827-4_12",
+          "https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136930192.pdf"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 1,
@@ -8638,6 +10918,52 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://hilti-challenge.com/dataset-2022",
+            "https://arxiv.org/abs/2208.09825"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Calibrated Hesai LiDAR supplies sparse measured ranges that can be projected; no native dense depth target is implied.",
+            "zh": "标定后的 Hesai LiDAR 提供可投影稀疏实测距离，不代表具有原生稠密深度目标。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Challenge references are sparse surveyed positions; selected additional sequences supply denser 6DoF references.",
+            "zh": "挑战参考主要是稀疏测绘位置；部分附加序列提供较稠密六自由度参考。"
+          }
+        },
+        "evidence": [
+          "https://hilti-challenge.com/dataset-2022",
+          "https://arxiv.org/abs/2208.09825"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 10,
@@ -8788,6 +11114,11 @@ window.ATLAS_DATA = {
         {
           "url": "https://www.cvlibs.net/datasets/kitti-360/documentation.php",
           "title": "KITTI-360 optimized poses and calibration conventions"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://arxiv.org/abs/2109.13410",
+          "checked": "2026-10-17"
         }
       ],
       "checked": "2026-10-17",
@@ -8830,6 +11161,67 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://www.cvlibs.net/datasets/kitti-360/",
+            "https://www.cvlibs.net/datasets/kitti-360/documentation.php",
+            "https://arxiv.org/abs/2109.13410"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://www.cvlibs.net/datasets/kitti-360/",
+            "https://www.cvlibs.net/datasets/kitti-360/documentation.php",
+            "https://arxiv.org/abs/2109.13410"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Calibrated LiDAR scans provide sparse measured depth after projection; occlusion and scan timing must be handled.",
+            "zh": "标定后的 LiDAR 扫描经投影可提供稀疏实测深度，需处理遮挡与扫描时序。"
+          }
+        },
+        "trajectory": {
+          "status": "reference",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "Georegistered metric poses are optimized with SfM, GPS and LiDAR constraints; some slow-motion frames lack poses.",
+            "zh": "地理配准米制位姿由 SfM、GPS 和 LiDAR 约束优化获得；部分慢速运动帧缺少位姿。"
+          }
+        },
+        "evidence": [
+          "https://www.cvlibs.net/datasets/kitti-360/",
+          "https://www.cvlibs.net/datasets/kitti-360/documentation.php"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 7,
@@ -8946,6 +11338,37 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "C++/CMake; optional LibTorch segmentation and ROS2.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2202.09199",
+            "https://github.com/ethz-mrl/okvis2"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2202.09199",
+            "https://github.com/ethz-mrl/okvis2"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/okvis2_2022-thumb.webp",
         "image": "assets/papers/okvis2_2022.webp",
@@ -9044,6 +11467,25 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper, repository and license reviewed; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "C++/CUDA with NVIDIA Container Toolkit and Docker examples; official demo configuration and video available",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2211.16266",
+            "https://github.com/RoblabWh/PatchMatch",
+            "https://github.com/RoblabWh/PatchMatch/blob/main/LICENSE"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "paperUrl": "https://arxiv.org/pdf/2211.16266",
         "page": 4,
@@ -9138,6 +11580,23 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Learned decoder plus VIO; complete official release not established.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/pdf/2012.10133"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/codevio2021-thumb.webp",
         "image": "assets/papers/codevio2021.webp",
@@ -9234,6 +11693,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CUDA; official README documents substantial GPU memory needs.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2108.10869",
+            "https://github.com/princeton-vl/DROID-SLAM"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/droidslam2021-thumb.webp",
         "image": "assets/papers/droidslam2021.webp",
@@ -9391,6 +11868,52 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "derivable",
+          "note": {
+            "en": "Real scanned meshes support perspective observations rendered under an explicit Habitat camera protocol; fixed image sequences are not the source release.",
+            "zh": "真实扫描网格可依明确Habitat相机协议渲染透视观测；源发布并非固定图像序列。"
+          },
+          "evidence": [
+            "https://aihabitat.org/datasets/hm3d/",
+            "https://arxiv.org/abs/2109.08238"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "partial",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "The release contains scene scans, not fixed image/depth pairs. Depth supervision requires an explicitly specified simulator export.",
+            "zh": "发布内容是场景扫描而非固定图像—深度对；深度监督需要明确指定仿真器导出协议。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "A generated simulator sequence can have known poses, but continuous trajectory files are not an intrinsic product of this asset release.",
+            "zh": "生成的仿真序列可具有已知位姿，但连续轨迹文件并非该资产发布的固有产品。"
+          }
+        },
+        "evidence": [
+          "https://aihabitat.org/datasets/hm3d/",
+          "https://arxiv.org/abs/2109.08238"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 4,
@@ -9447,6 +11970,7 @@ window.ATLAS_DATA = {
       "title": "The Hilti SLAM Challenge Dataset",
       "year": 2021,
       "cameras": [
+        "fisheye",
         "wide",
         "multi"
       ],
@@ -9538,9 +12062,19 @@ window.ATLAS_DATA = {
         {
           "url": "https://arxiv.org/abs/2109.11316",
           "title": "Hilti SLAM sensor and calibration paper"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://huggingface.co/datasets/Hilti-Research/hilti-slam-challenge-2021/blob/main/calibration.yaml",
+          "checked": "2026-10-20"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://arxiv.org/html/2109.11316",
+          "checked": "2026-10-20"
         }
       ],
-      "checked": "2026-10-17",
+      "checked": "2026-10-20",
       "collection": "datasets",
       "localizedSummary": {
         "en": "Wide-FoV multicamera, dual-LiDAR and inertial construction benchmark; sparse surveyed positions must be distinguished from full pose trajectories.",
@@ -9576,10 +12110,56 @@ window.ATLAS_DATA = {
         "en": "CC BY-NC-SA 3.0 dataset and benchmark.",
         "zh": "数据与基准采用 CC BY-NC-SA 3.0。"
       },
-      "sourceChecked": "2026-10-17",
+      "sourceChecked": "2026-10-20",
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "The official calibration declares all five raw cameras as KannalaBrandt, 1440x1080. The rig has about 270-degree combined coverage, without stitched ERP.",
+            "zh": "官方标定将五路原始相机均声明为KannalaBrandt，1440×1080；装置总覆盖约270度，没有拼接ERP。"
+          },
+          "evidence": [
+            "https://huggingface.co/datasets/Hilti-Research/hilti-slam-challenge-2021/blob/main/calibration.yaml",
+            "https://arxiv.org/html/2109.11316"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "focused_primary_source_recheck_2026-10-20",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Calibrated LiDAR scans provide sparse measured ranges for projection, not complete dense image-depth targets.",
+            "zh": "标定后的 LiDAR 扫描提供可投影的稀疏实测距离，并非完整稠密图像深度目标。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Most sequences have sparse surveyed 3DoF positions; selected lab/arena recordings have OptiTrack 6DoF coverage.",
+            "zh": "多数序列具有稀疏测绘三自由度位置；部分实验室、场地记录具有 OptiTrack 六自由度覆盖。"
+          }
+        },
+        "evidence": [
+          "https://hilti-challenge.com/dataset-2021",
+          "https://arxiv.org/abs/2109.11316"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 9,
@@ -9755,6 +12335,52 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "Synthetic perspective RGB-D products are rendered, with supplied camera metadata.",
+            "zh": "提供合成透视RGB-D渲染产品及相机元数据。"
+          },
+          "evidence": [
+            "https://github.com/apple-aiml-research/ml-hypersim",
+            "https://arxiv.org/abs/2011.02523"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Rendered depth_meters stores Euclidean ray distance in metres; use finite geometry masks.",
+            "zh": "渲染的 depth_meters 存储米制射线距离，需使用有限值与几何有效掩码。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Rendered camera trajectories and intrinsics are provided; convert asset coordinates using meters_per_asset_unit.",
+            "zh": "提供渲染相机轨迹与内参；资产坐标需通过 meters_per_asset_unit 转换为米。"
+          }
+        },
+        "evidence": [
+          "https://github.com/apple-aiml-research/ml-hypersim",
+          "https://arxiv.org/abs/2011.02523"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 2,
@@ -9870,6 +12496,37 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CPU C++; IMU optional by sensor mode.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2007.11898",
+            "https://github.com/UZ-SLAMLab/ORB_SLAM3"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2007.11898",
+            "https://github.com/UZ-SLAMLab/ORB_SLAM3"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/orbslam3_2021-thumb.webp",
         "image": "assets/papers/orbslam3_2021.webp",
@@ -9932,16 +12589,16 @@ window.ATLAS_DATA = {
         ]
       },
       "groundTruth": [
-        "Query 6DoF poses",
+        "SfM-aligned query poses",
         "Reference point clouds"
       ],
       "groundTruthLabels": {
         "en": [
-          "Query 6DoF poses",
+          "SfM-aligned query poses",
           "Reference point clouds"
         ],
         "zh": [
-          "查询六自由度位姿",
+          "SfM 对齐查询位姿",
           "参考点云"
         ]
       },
@@ -9953,31 +12610,33 @@ window.ATLAS_DATA = {
         "en": "Official code is GPL-3.0; a separate explicit dataset licence was not located in the inspected README.",
         "zh": "官方代码为 GPL-3.0；查看的 README 未找到单独明确的数据许可。"
       },
-      "summary": "室内查询全景、点云地图及参考位姿，用于手持/机器人采集和场景变化条件下的定位。",
+      "summary": "室内查询全景与点云地图，附经场景配准的 SfM 位姿参考，用于手持、机器人及场景变化条件下的定位。",
       "details": {
         "en": {
           "Versions": "Official repository links an original release and a newer expanded release; the consolidated localisation library explicitly uses the older version.",
           "Geometry": "Panoramic images and scene point clouds; not a synchronized multi-sensor VIO benchmark.",
           "Pose convention": "The current README gives the point transformation X_camera = R(X_world − t). Match parser to release version.",
-          "Ground truth": "Per-query reference poses are supplied. The inspected README does not establish an independent motion-capture accuracy bound.",
+          "Ground truth": "PICCOLO supplement Section C describes COLMAP/OpenMVG SfM reconstructions manually aligned to Matterport scans, followed by manual removal of invalid poses. Released per-query poses are estimated localization references, not independently measured motion-capture trajectories.",
           "Depth use": "Projecting the point cloud produces map-derived depths with holes/occlusions; no complete measured depth GT is assumed."
         },
         "zh": {
           "版本": "官方仓库同时链接原始和扩展发布；综合定位库明确使用旧版，比较时需统一版本。",
           "成像模型": "全景图像与场景点云，不是同步多传感器 VIO 基准。",
           "位姿约定": "当前 README 给出 X_camera = R(X_world − t)；解析器需匹配版本。",
-          "真值": "提供逐查询参考位姿；所查看的 README 未建立独立动作捕捉精度界限。",
+          "真值": "PICCOLO 补充材料 C 节说明：先用 COLMAP/OpenMVG 建立 SfM 重建，再手动对齐 Matterport 扫描，并人工剔除无效位姿。发布的逐查询位姿属于估计定位参考，并非独立动作捕捉测量轨迹。",
           "深度使用": "投影点云得到的是带空洞/遮挡的地图推导深度，不假设完整实测深度真值。"
         }
       },
       "notes": {
         "en": [
           "Keep original/new scene splits separate in reported results.",
-          "Download links are present; full cloud archives were not downloaded in this audit."
+          "Download links are present; full cloud archives were not downloaded in this audit.",
+          "SfM alignment to a scanned map establishes a scene reference; it does not establish an independent motion-tracking accuracy bound."
         ],
         "zh": [
           "报告结果时区分原始/新增场景划分。",
-          "官方提供下载链接，本次未下载完整点云归档。"
+          "官方提供下载链接，本次未下载完整点云归档。",
+          "SfM 对齐扫描地图建立的是场景参考，并不建立独立运动跟踪精度界限。"
         ]
       },
       "evidence": [
@@ -9988,48 +12647,105 @@ window.ATLAS_DATA = {
         {
           "url": "https://github.com/82magnolia/panoramic-localization",
           "title": "Consolidated library: old OmniScenes version warning"
+        },
+        {
+          "url": "https://openaccess.thecvf.com/content/ICCV2021/supplemental/Kim_PICCOLO_Point_Cloud-Centric_ICCV_2021_supplemental.pdf",
+          "title": "PICCOLO official supplement Section C: COLMAP/OpenMVG SfM, manual alignment to Matterport scans and pose inspection"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://github.com/82magnolia/piccolo#downloading-omniscenes-update-new-scenes-added",
+          "checked": "2026-10-17"
         }
       ],
-      "checked": "2026-10-17",
+      "checked": "2026-10-20",
       "collection": "datasets",
       "localizedSummary": {
-        "en": "Indoor query panoramas with point-cloud maps and reference poses, designed for localisation under handheld/robot capture and scene changes.",
-        "zh": "室内查询全景、点云地图及参考位姿，用于手持/机器人采集和场景变化条件下的定位。"
+        "en": "Indoor query panoramas and point-cloud maps with scene-registered SfM pose references, for handheld/robot localisation under scene changes.",
+        "zh": "室内查询全景与点云地图，附经场景配准的 SfM 位姿参考，用于手持、机器人及场景变化条件下的定位。"
       },
       "datasetDetails": {
         "en": {
           "Versions": "Official repository links an original release and a newer expanded release; the consolidated localisation library explicitly uses the older version.",
           "Geometry": "Panoramic images and scene point clouds; not a synchronized multi-sensor VIO benchmark.",
           "Pose convention": "The current README gives the point transformation X_camera = R(X_world − t). Match parser to release version.",
-          "Ground truth": "Per-query reference poses are supplied. The inspected README does not establish an independent motion-capture accuracy bound.",
+          "Ground truth": "PICCOLO supplement Section C describes COLMAP/OpenMVG SfM reconstructions manually aligned to Matterport scans, followed by manual removal of invalid poses. Released per-query poses are estimated localization references, not independently measured motion-capture trajectories.",
           "Depth use": "Projecting the point cloud produces map-derived depths with holes/occlusions; no complete measured depth GT is assumed."
         },
         "zh": {
           "版本": "官方仓库同时链接原始和扩展发布；综合定位库明确使用旧版，比较时需统一版本。",
           "成像模型": "全景图像与场景点云，不是同步多传感器 VIO 基准。",
           "位姿约定": "当前 README 给出 X_camera = R(X_world − t)；解析器需匹配版本。",
-          "真值": "提供逐查询参考位姿；所查看的 README 未建立独立动作捕捉精度界限。",
+          "真值": "PICCOLO 补充材料 C 节说明：先用 COLMAP/OpenMVG 建立 SfM 重建，再手动对齐 Matterport 扫描，并人工剔除无效位姿。发布的逐查询位姿属于估计定位参考，并非独立动作捕捉测量轨迹。",
           "深度使用": "投影点云得到的是带空洞/遮挡的地图推导深度，不假设完整实测深度真值。"
         }
       },
       "datasetNotes": {
         "en": [
           "Keep original/new scene splits separate in reported results.",
-          "Download links are present; full cloud archives were not downloaded in this audit."
+          "Download links are present; full cloud archives were not downloaded in this audit.",
+          "SfM alignment to a scanned map establishes a scene reference; it does not establish an independent motion-tracking accuracy bound."
         ],
         "zh": [
           "报告结果时区分原始/新增场景划分。",
-          "官方提供下载链接，本次未下载完整点云归档。"
+          "官方提供下载链接，本次未下载完整点云归档。",
+          "SfM 对齐扫描地图建立的是场景参考，并不建立独立运动跟踪精度界限。"
         ]
       },
       "datasetLicense": {
         "en": "Official code is GPL-3.0; a separate explicit dataset licence was not located in the inspected README.",
         "zh": "官方代码为 GPL-3.0；查看的 README 未找到单独明确的数据许可。"
       },
-      "sourceChecked": "2026-10-17",
+      "sourceChecked": "2026-10-20",
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://github.com/82magnolia/piccolo",
+            "https://github.com/82magnolia/panoramic-localization",
+            "https://github.com/82magnolia/piccolo#downloading-omniscenes-update-new-scenes-added"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": true,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "Official products are panoramas, query poses and scene point clouds. A complete image-depth annotation release is not listed.",
+            "zh": "官方产品为全景、查询位姿和场景点云，未列出完整图像深度标注发布。"
+          }
+        },
+        "trajectory": {
+          "status": "reference",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "COLMAP/OpenMVG SfM poses are manually aligned to Matterport scans, with invalid estimates manually removed. These are estimated localization references, not independent motion tracking.",
+            "zh": "COLMAP/OpenMVG SfM 位姿手动对齐到 Matterport 扫描，并人工剔除无效估计；属于估计定位参考，而非独立运动跟踪。"
+          }
+        },
+        "evidence": [
+          "https://github.com/82magnolia/piccolo",
+          "https://github.com/82magnolia/panoramic-localization",
+          "https://openaccess.thecvf.com/content/ICCV2021/supplemental/Kim_PICCOLO_Point_Cloud-Centric_ICCV_2021_supplemental.pdf"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 13,
@@ -10209,6 +12925,52 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "The released ERP benchmark re-renders Matterport3D/GibsonV2 geometry.",
+            "zh": "已发布ERP基准重新渲染Matterport3D/GibsonV2几何。"
+          },
+          "evidence": [
+            "https://vcl3d.github.io/Pano3D/",
+            "https://arxiv.org/abs/2109.02749",
+            "https://github.com/VCL3D/Pano3D"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "ERP depth and normals are rendered from Matterport3D/GibsonV2 geometry; preserve the renderer masks.",
+            "zh": "ERP 深度与法线由 Matterport3D/GibsonV2 几何渲染，需保留渲染器掩码。"
+          }
+        },
+        "trajectory": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The documented benchmark provides independent rendered panoramas, depth and normals, not a released continuous trajectory benchmark.",
+            "zh": "已记录的基准提供独立渲染全景、深度和法线，并未发布连续轨迹评测序列。"
+          }
+        },
+        "evidence": [
+          "https://vcl3d.github.io/Pano3D/",
+          "https://arxiv.org/abs/2109.02749",
+          "https://github.com/VCL3D/Pano3D"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 1,
@@ -10326,6 +13088,39 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CPU C++; current official installation has CMake and binary routes.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/1904.06504",
+            "https://cvg.cit.tum.de/research/vslam/basalt",
+            "https://gitlab.com/VladyslavUsenko/basalt"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/1904.06504",
+            "https://cvg.cit.tum.de/research/vslam/basalt",
+            "https://gitlab.com/VladyslavUsenko/basalt"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/basalt2020-thumb.webp",
         "image": "assets/papers/basalt2020.webp",
@@ -10421,6 +13216,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Learned inference plus direct optimizer; no local runtime benchmark.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/pdf/2003.01060",
+            "https://cvg.cit.tum.de/research/vslam/d3vo"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/d3vo2020-thumb.webp",
         "image": "assets/papers/d3vo2020.webp",
@@ -10603,6 +13416,70 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://ori-drs.github.io/newer-college-dataset/",
+            "https://ori-drs.github.io/newer-college-dataset/ground-truth/",
+            "https://ori-drs.github.io/newer-college-dataset/download/"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://ori-drs.github.io/newer-college-dataset/",
+            "https://ori-drs.github.io/newer-college-dataset/ground-truth/",
+            "https://ori-drs.github.io/newer-college-dataset/download/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Released LiDAR ranges support sparse depth projection with the version-specific calibration; they are not dense per-pixel targets.",
+            "zh": "发布的 LiDAR 距离结合对应版本标定可生成稀疏深度投影，并非稠密逐像素目标。"
+          }
+        },
+        "trajectory": {
+          "status": "reference",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "ICP registration to a surveyed Leica map supplies map-derived pose references, not independent motion capture.",
+            "zh": "通过 ICP 对齐 Leica 测绘地图获得地图派生位姿参考，并非独立动作捕捉。"
+          }
+        },
+        "evidence": [
+          "https://ori-drs.github.io/newer-college-dataset/",
+          "https://ori-drs.github.io/newer-college-dataset/ground-truth/",
+          "https://ori-drs.github.io/newer-college-dataset/download/",
+          "https://arxiv.org/abs/2112.08854",
+          "https://ori-drs.github.io/newer-college-dataset/multi-cam/calibration-multi/"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 11,
@@ -10719,6 +13596,24 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Multiple synchronized cameras plus learned omnidirectional stereo; not locally tested.",
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "A wide-baseline physical fisheye rig yields surrounding coverage; this is not a single stitched ERP input.",
+            "zh": "广基线物理鱼眼装置提供环视覆盖，不是单张拼接ERP输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2003.08056",
+            "https://sites.google.com/view/chwon"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/omnislam2020-thumb.webp",
         "image": "assets/papers/omnislam2020.webp",
@@ -10818,6 +13713,39 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CPU; camera/IMU synchronization and calibration required.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://pgeneva.com/downloads/papers/Geneva2020ICRA.pdf",
+            "https://docs.openvins.com/",
+            "https://github.com/rpng/open_vins"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://pgeneva.com/downloads/papers/Geneva2020ICRA.pdf",
+            "https://docs.openvins.com/",
+            "https://github.com/rpng/open_vins"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/openvins2020-thumb.webp",
         "image": "assets/papers/openvins2020.webp",
@@ -10983,6 +13911,69 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "Released synthetic ERP images are rendered from designed indoor geometry.",
+            "zh": "已发布合成ERP图由设计的室内几何渲染。"
+          },
+          "evidence": [
+            "https://structured3d-dataset.org/",
+            "https://github.com/bertjiazheng/Structured3D",
+            "https://github.com/bertjiazheng/Structured3D/blob/master/data_organization.md"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "Separate perspective renders are released; they are not just virtual patches created inside a depth model.",
+            "zh": "另发布独立透视渲染，并非深度模型内部生成的虚拟patch。"
+          },
+          "evidence": [
+            "https://structured3d-dataset.org/",
+            "https://github.com/bertjiazheng/Structured3D",
+            "https://github.com/bertjiazheng/Structured3D/blob/master/data_organization.md"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Synthetic scenes provide rendered depth with camera metadata and geometric validity constraints.",
+            "zh": "合成场景提供渲染深度、相机元数据及几何有效性约束。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Camera positions and orientations accompany rendered views; the release is a scene/view benchmark rather than a continuous odometry sequence.",
+            "zh": "渲染视图附有相机位置与方向；该发布以场景和视图为单位，并非连续里程计序列。"
+          }
+        },
+        "evidence": [
+          "https://structured3d-dataset.org/",
+          "https://github.com/bertjiazheng/Structured3D",
+          "https://github.com/bertjiazheng/Structured3D/blob/master/data_organization.md",
+          "https://arxiv.org/abs/1908.00222"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 4,
@@ -11224,6 +14215,87 @@ window.ATLAS_DATA = {
       },
       "sourceChecked": "2026-10-19",
       "authors": "Unknown",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "reprojected",
+          "availability": "released",
+          "note": {
+            "en": "Official equirect products/custom ERP outputs are resampled from pinhole cube faces; record the archive/generation convention.",
+            "zh": "官方equirect产品及自定义ERP输出由针孔立方体面重采样，需固定压缩包与生成约定。"
+          },
+          "evidence": [
+            "https://tartanair.org/",
+            "https://tartanair.org/modalities.html",
+            "https://tartanair.org/examples.html"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "reprojected",
+          "availability": "released",
+          "note": {
+            "en": "Official fish products/custom cameras are resampled from pinhole cube faces; they are not independent physical fisheye captures.",
+            "zh": "官方fish产品及自定义相机由针孔立方体面重采样，并非独立物理鱼眼采集。"
+          },
+          "evidence": [
+            "https://tartanair.org/",
+            "https://tartanair.org/modalities.html",
+            "https://tartanair.org/examples.html"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "Raw data are rendered pinhole cube faces at two stereo centers.",
+            "zh": "原始数据是在两个立体中心渲染的针孔立方体面。"
+          },
+          "evidence": [
+            "https://tartanair.org/",
+            "https://tartanair.org/modalities.html",
+            "https://tartanair.org/examples.html"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Simulator depth and resampled range are supplied; raw pinhole Z and customized ray-distance products must be distinguished.",
+            "zh": "提供仿真深度与重采样距离；须区分原始针孔 Z 深度和自定义射线距离产品。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Simulator camera-to-world pose trajectories are available; transformed camera views share the same underlying motion.",
+            "zh": "提供仿真相机到世界位姿轨迹；变换后的相机视图共享底层运动。"
+          }
+        },
+        "evidence": [
+          "https://tartanair.org/",
+          "https://tartanair.org/modalities.html",
+          "https://tartanair.org/examples.html",
+          "https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/reader.py#L112-L153",
+          "https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/customizer.py#L126-L130",
+          "https://github.com/castacks/tartanairpy/blob/158a6844d782942110967325ca3082f50ab2bfc7/tartanair/customizer.py#L232-L259",
+          "https://github.com/castacks/tartanair_tools/blob/master/data_type.md#pose-file",
+          "https://theairlab.org/tartanair-dataset/"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 6,
@@ -11407,6 +14479,52 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://diode-dataset.org/",
+            "https://github.com/diode-dataset/diode-devkit",
+            "https://arxiv.org/html/1908.00463v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Laser-derived image depth and validity masks are released; valid return masks remain necessary.",
+            "zh": "发布激光测量生成的图像深度及有效掩码，评测仍须使用有效回波掩码。"
+          }
+        },
+        "trajectory": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The release is a static RGB/depth benchmark with scanner-derived views, not a continuous trajectory benchmark.",
+            "zh": "该发布是由扫描仪视图构成的静态 RGB/深度基准，并非连续轨迹基准。"
+          }
+        },
+        "evidence": [
+          "https://diode-dataset.org/",
+          "https://github.com/diode-dataset/diode-devkit",
+          "https://arxiv.org/html/1908.00463v1"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 5,
@@ -11595,6 +14713,54 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "derivable",
+          "note": {
+            "en": "The source asset is a reconstructed scene mesh; perspective RGB-D sequences depend on a chosen renderer/export protocol.",
+            "zh": "源资产是重建场景网格；透视RGB-D序列依赖所选渲染和导出协议。"
+          },
+          "evidence": [
+            "https://github.com/facebookresearch/Replica-Dataset",
+            "https://github.com/facebookresearch/Replica-Dataset/blob/main/LICENSE",
+            "https://arxiv.org/abs/1906.05797"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Depth can be rendered from the released reconstructed meshes. The chosen renderer/export determines scale, clipping and validity.",
+            "zh": "可由发布的重建网格渲染深度；尺度、截断及有效性由所用渲染器和导出协议决定。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Simulator camera poses are known for generated trajectories. The asset release does not prescribe one fixed trajectory set.",
+            "zh": "生成轨迹的仿真相机位姿已知；原始资产发布不规定统一的固定轨迹集。"
+          }
+        },
+        "evidence": [
+          "https://github.com/facebookresearch/Replica-Dataset",
+          "https://github.com/facebookresearch/Replica-Dataset/blob/main/LICENSE",
+          "https://arxiv.org/abs/1906.05797"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 11,
@@ -11771,6 +14937,48 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://github.com/valeoai/WoodScape",
+            "https://arxiv.org/abs/1905.01489"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The current release inventory lists semantic/motion labels, not supervised image-depth targets; LiDAR/dGPS material remains planned.",
+            "zh": "当前发布目录列出语义、运动等标签，未提供图像深度监督目标；LiDAR/dGPS 材料仍属计划内容。"
+          }
+        },
+        "trajectory": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The released previous images, calibration and CAN data do not include a verified independent trajectory ground-truth product.",
+            "zh": "已发布的前帧、标定和 CAN 数据不包含经确认的独立轨迹真值产品。"
+          }
+        },
+        "evidence": [
+          "https://github.com/valeoai/WoodScape",
+          "https://arxiv.org/abs/1905.01489"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 12,
@@ -11888,6 +15096,53 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "CPU C++; Docker and ROS wrappers documented.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/1910.01122",
+            "https://stella-cv.readthedocs.io/en/latest/",
+            "https://github.com/stella-cv/stella_vslam"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/1910.01122",
+            "https://stella-cv.readthedocs.io/en/latest/",
+            "https://github.com/stella-cv/stella_vslam"
+          ]
+        },
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "ERP/panoramic input is documented; internal virtual views do not add another input-camera category.",
+            "zh": "文档明确包含全景输入；内部虚拟视图不构成另一种外部相机输入类别。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/1910.01122",
+            "https://stella-cv.readthedocs.io/en/latest/",
+            "https://github.com/stella-cv/stella_vslam"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/stella_vslam-thumb.webp",
         "image": "assets/papers/stella_vslam.webp",
@@ -12045,6 +15300,52 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "ERP center/right/up products are rendered from scanned or synthetic interiors; the stereo offsets are virtual camera positions.",
+            "zh": "ERP中心、右侧、上方产品由扫描或合成室内场景渲染；立体偏移为虚拟相机位置。"
+          },
+          "evidence": [
+            "https://vcl3d.github.io/3D60/",
+            "https://arxiv.org/abs/1807.09620"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Rendered panoramic depth is supplied; infinite values denote holes and source-scene geometry can be incomplete.",
+            "zh": "提供渲染全景深度；无穷值表示空洞，源场景几何也可能不完整。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Controlled centre/right/up stereo viewpoint offsets are available, rather than a continuous physical motion trajectory.",
+            "zh": "提供受控的中心、右侧和上方立体视点偏移，并非连续的物理运动轨迹。"
+          }
+        },
+        "evidence": [
+          "https://vcl3d.github.io/3D60/",
+          "https://arxiv.org/abs/1807.09620"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 3,
@@ -12229,6 +15530,68 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "derivable",
+          "note": {
+            "en": "Panoramic support denotes the documented Pano3D/GV2 derivative, not all original Gibson archives.",
+            "zh": "全景指已记录的Pano3D/GV2派生版，不代表全部原始Gibson压缩包。"
+          },
+          "evidence": [
+            "https://gibsonenv.github.io/",
+            "https://stanfordvl.github.io/iGibson/dataset.html",
+            "https://vcl3d.github.io/Pano3D/"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "derivable",
+          "note": {
+            "en": "Perspective observations are generated through the Gibson/iGibson simulator.",
+            "zh": "透视观测由Gibson/iGibson仿真器生成。"
+          },
+          "evidence": [
+            "https://gibsonenv.github.io/",
+            "https://stanfordvl.github.io/iGibson/dataset.html",
+            "https://vcl3d.github.io/Pano3D/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Simulator depth can be rendered from reconstructed geometry; format and masks depend on the selected simulator or derivative.",
+            "zh": "可由重建几何渲染仿真深度；格式与掩码取决于所用仿真器或派生版本。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Generated simulator trajectories have known poses; the static scene assets alone do not define a fixed recorded trajectory set.",
+            "zh": "生成的仿真轨迹位姿已知；静态场景资产本身不定义固定的记录轨迹集。"
+          }
+        },
+        "evidence": [
+          "https://gibsonenv.github.io/",
+          "https://stanfordvl.github.io/iGibson/dataset.html",
+          "https://vcl3d.github.io/Pano3D/"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 3,
@@ -12413,6 +15776,50 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset",
+            "https://arxiv.org/abs/1804.06120"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The official VIO release provides cameras and IMU without image-depth ground-truth targets.",
+            "zh": "官方 VIO 发布提供相机与 IMU，不提供图像深度真值目标。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Room sequences have full mocap coverage; corridor, magistrale, outdoors and slides sequences have start/end references only.",
+            "zh": "Room 序列具有完整动捕；corridor、magistrale、outdoors 和 slides 序列仅覆盖起止片段。"
+          }
+        },
+        "evidence": [
+          "https://cvg.cit.tum.de/data/datasets/visual-inertial-dataset",
+          "https://arxiv.org/abs/1804.06120"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 6,
@@ -12529,6 +15936,37 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "Official ROS1/Ceres implementation; authors recommend hardware sync and global shutter.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/1708.03852",
+            "https://github.com/HKUST-Aerial-Robotics/VINS-Fusion"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/1708.03852",
+            "https://github.com/HKUST-Aerial-Robotics/VINS-Fusion"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/vinsfusion2019-thumb.webp",
         "image": "assets/papers/vinsfusion2019.webp",
@@ -12685,6 +16123,50 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction",
+            "https://arxiv.org/abs/1708.06500"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Accumulated LiDAR depth targets and sparse input depth are provided. Targets remain sparse and require official masks.",
+            "zh": "提供累积 LiDAR 深度目标与稀疏输入深度；目标仍然稀疏，需使用官方掩码。"
+          }
+        },
+        "trajectory": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "This depth challenge release does not itself provide an odometry trajectory benchmark; related KITTI raw/odometry products are separate.",
+            "zh": "该深度挑战发布本身不提供里程计轨迹基准；相关 KITTI raw/odometry 产品另行提供。"
+          }
+        },
+        "evidence": [
+          "https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction",
+          "https://arxiv.org/abs/1708.06500"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 10,
@@ -12883,6 +16365,54 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://www.ipf.kit.edu/english/code_1842.php",
+            "https://www.ipf.kit.edu/lafida.php",
+            "https://www.ipf.kit.edu/lafida_datasets.php"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Laser scans and extrinsic calibration allow sparse depth supervision after projection; they are not complete image-depth targets.",
+            "zh": "激光扫描及外参标定经投影可提供稀疏深度监督，并非完整图像深度目标。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "OptiTrack tracks a rigid marker body with calibrated sensor transforms. The outdoor large loop leaves the mocap volume, so full-route coverage is absent.",
+            "zh": "OptiTrack 跟踪带传感器外参的刚性标记体；室外大回环离开动捕空间，因而缺少全程覆盖。"
+          }
+        },
+        "evidence": [
+          "https://www.ipf.kit.edu/english/code_1842.php",
+          "https://www.ipf.kit.edu/lafida.php",
+          "https://www.ipf.kit.edu/lafida_datasets.php"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 3,
@@ -13064,6 +16594,68 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "derivable",
+          "note": {
+            "en": "Panoramic depth uses a declared derivative such as 3D60/Pano3D; native calibrated perspective RGB-D/skyboxes should not be confused with every ERP export.",
+            "zh": "全景深度依赖3D60/Pano3D等明确派生协议；原始标定透视RGB-D/skybox不等于任意ERP导出。"
+          },
+          "evidence": [
+            "https://niessner.github.io/Matterport/",
+            "https://github.com/niessner/Matterport/blob/master/data_organization.md",
+            "https://github.com/niessner/Matterport"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://niessner.github.io/Matterport/",
+            "https://github.com/niessner/Matterport/blob/master/data_organization.md",
+            "https://github.com/niessner/Matterport"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Native RGB-D depth is measured; zero denotes missing returns. Rendered ERP derivatives have their own definitions and masks.",
+            "zh": "原始 RGB-D 深度来自测量，零值为缺失；渲染 ERP 派生集采用各自的定义与掩码。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "Registered camera-to-world poses are provided for static scan views, not a continuous tracked motion sequence.",
+            "zh": "提供静态扫描视图的配准相机位姿，并非连续运动的独立跟踪轨迹。"
+          }
+        },
+        "evidence": [
+          "https://niessner.github.io/Matterport/",
+          "https://github.com/niessner/Matterport/blob/master/data_organization.md",
+          "https://github.com/niessner/Matterport"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 1,
@@ -13259,6 +16851,68 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://robotcar-dataset.robots.ox.ac.uk/",
+            "https://robotcar-dataset.robots.ox.ac.uk/documentation/",
+            "https://arxiv.org/abs/2002.10152"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://robotcar-dataset.robots.ox.ac.uk/",
+            "https://robotcar-dataset.robots.ox.ac.uk/documentation/",
+            "https://arxiv.org/abs/2002.10152"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "LiDAR measurements and calibration support sparse image-depth projection; they do not provide native dense depth maps.",
+            "zh": "LiDAR 测量与标定可用于稀疏图像深度投影，不提供原生稠密深度图。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Use the separate RTK release and its validity flags; original GPS/INS quality varies, while vo.csv is an estimated drifting reference, not pose truth.",
+            "zh": "应使用单独 RTK 发布及其有效标记；原始 GPS/INS 质量不一，而 vo.csv 是会漂移的估计参考，并非位姿真值。"
+          }
+        },
+        "evidence": [
+          "https://robotcar-dataset.robots.ox.ac.uk/",
+          "https://robotcar-dataset.robots.ox.ac.uk/documentation/",
+          "https://arxiv.org/abs/2002.10152"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "common",
         "rank": 8,
@@ -13375,6 +17029,51 @@ window.ATLAS_DATA = {
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
       "environment": "C++ ROS1; window backend, iSAM2 and DBoW2 dependencies.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://rpg.ifi.uzh.ch/svo_pro.html",
+            "https://github.com/uzh-rpg/rpg_svo_pro_open"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "documented",
+          "note": {
+            "en": "Fisheye observations are documented; camera-specific calibration and valid image domains still apply.",
+            "zh": "文档明确包含鱼眼观测，仍需使用对应标定与有效成像区域。"
+          },
+          "evidence": [
+            "https://rpg.ifi.uzh.ch/svo_pro.html",
+            "https://github.com/uzh-rpg/rpg_svo_pro_open"
+          ]
+        }
+      ],
+      "projectionSubtypes": [
+        "annular"
+      ],
+      "additionalSupport": [
+        {
+          "geometry": "annular",
+          "route": "direct",
+          "note": {
+            "en": "Catadioptric cameras are an additional calibrated mode; they are not implicitly a full-sphere ERP panorama.",
+            "zh": "折反射相机为另一种标定模式，不能据此推断整球ERP全景。"
+          },
+          "evidence": [
+            "https://rpg.ifi.uzh.ch/svo_pro.html"
+          ]
+        }
+      ],
+      "cameraReview": "carried_forward_from_existing_source_review",
       "figure": {
         "thumbnail": "assets/papers/svo_pro-thumb.webp",
         "image": "assets/papers/svo_pro.webp",
@@ -13532,6 +17231,65 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "The official pano modality provides ERP products alongside separate perspective products.",
+            "zh": "官方pano模态提供ERP产品，同时有独立透视产品。"
+          },
+          "evidence": [
+            "https://github.com/alexsax/2D-3D-Semantics",
+            "https://arxiv.org/abs/1702.01105"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://github.com/alexsax/2D-3D-Semantics",
+            "https://arxiv.org/abs/1702.01105"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": true,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Perspective and panoramic depths are rendered from real scanned geometry; preserve projection-specific depth definitions and invalid masks.",
+            "zh": "透视与全景深度由实扫几何渲染；需保留不同投影的深度定义及无效掩码。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "Per-view registered camera metadata is released; these scan viewpoints do not constitute a continuous motion trajectory.",
+            "zh": "提供逐视图配准相机元数据；这些扫描视点并不构成连续运动轨迹。"
+          }
+        },
+        "evidence": [
+          "https://github.com/alexsax/2D-3D-Semantics",
+          "https://arxiv.org/abs/1702.01105"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 2,
@@ -13721,6 +17479,50 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+            "https://doi.org/10.1177/0278364915620033"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The release provides a surveyed structure scan, not per-frame image-depth annotations; stereo images alone are not depth truth.",
+            "zh": "发布中有测绘结构扫描，但无逐帧图像深度标注；双目图像本身不等于深度真值。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Vicon 6DoF poses or Leica 3D positions provide measured references, depending on sequence; do not infer every orientation from laser positions.",
+            "zh": "按序列提供 Vicon 六自由度位姿或 Leica 三维位置测量；不可从激光位置推断每个方向量均被独立观测。"
+          }
+        },
+        "evidence": [
+          "https://projects.asl.ethz.ch/datasets/euroc-mav/",
+          "https://doi.org/10.1177/0278364915620033"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 5,
@@ -13962,6 +17764,89 @@ window.ATLAS_DATA = {
         "zh": "数据集及 Blender 补丁采用 CC BY-NC-SA 3.0，须署名、限非商业用途并遵守相同方式共享条件。"
       },
       "sourceChecked": "2026-10-19",
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "A rendered 180-degree fisheye run is separate from perspective and catadioptric optics.",
+            "zh": "180度鱼眼渲染运行与透视、折反射光学运行独立。"
+          },
+          "evidence": [
+            "https://rpg.ifi.uzh.ch/fov.html",
+            "https://rpg.ifi.uzh.ch/docs/ICRA16_Zhang.pdf",
+            "https://rpg.ifi.uzh.ch/datasets/rpg_urban_pinhole_info.tar.gz"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "A rendered 90-degree perspective run is separately released with calibration, poses and optical-ray depth.",
+            "zh": "另发布90度透视渲染运行，配套标定、位姿及沿光线深度。"
+          },
+          "evidence": [
+            "https://rpg.ifi.uzh.ch/fov.html",
+            "https://rpg.ifi.uzh.ch/docs/ICRA16_Zhang.pdf",
+            "https://rpg.ifi.uzh.ch/datasets/rpg_urban_pinhole_info.tar.gz"
+          ]
+        }
+      ],
+      "projectionSubtypes": [
+        "annular"
+      ],
+      "additionalSupport": [
+        {
+          "geometry": "annular",
+          "route": "direct",
+          "note": {
+            "en": "The 360-degree catadioptric release is annular with limited elevation, distinct from the 180-degree fisheye and 90-degree perspective runs.",
+            "zh": "360度折反射发布为有限俯仰的环形图，与180度鱼眼和90度透视运行不同。"
+          },
+          "evidence": [
+            "https://rpg.ifi.uzh.ch/fov.html"
+          ]
+        }
+      ],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "partial",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Room depth associations are confirmed for all three optics. Urban info archives list one depth association each; full urban frame coverage was not verified.",
+            "zh": "Room 三种成像模型的深度关联已确认；Urban 信息归档每种仅列一条深度关联，尚未验证完整城市逐帧覆盖。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Simulator camera-to-world poses are supplied per image; associate frame IDs with image timestamps rather than reading IDs as seconds.",
+            "zh": "逐图像提供仿真相机到世界位姿；须将帧 ID 关联至图像时间戳，不可将 ID 当作秒。"
+          }
+        },
+        "evidence": [
+          "https://rpg.ifi.uzh.ch/fov.html",
+          "https://rpg.ifi.uzh.ch/docs/ICRA16_Zhang.pdf",
+          "https://rpg.ifi.uzh.ch/datasets/rpg_urban_pinhole_info.tar.gz",
+          "https://rpg.ifi.uzh.ch/datasets/rpg_urban_fisheye_info.tar.gz",
+          "https://rpg.ifi.uzh.ch/datasets/rpg_urban_cata_info.tar.gz",
+          "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_pinhole_info.tar.gz",
+          "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_fisheye_info.tar.gz",
+          "https://rpg.ifi.uzh.ch/datasets/rpg_vfr_cata_info.tar.gz",
+          "https://github.com/zhangzichao/omni_cam",
+          "https://github.com/uzh-rpg/rpg_blender_omni_camera"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "specialized",
         "rank": 2,
@@ -14103,6 +17988,11 @@ window.ATLAS_DATA = {
         {
           "url": "https://www.cvlibs.net/datasets/kitti/",
           "title": "KITTI official dataset suite"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://doi.org/10.1109/CVPR.2012.6248074",
+          "checked": "2026-10-17"
         }
       ],
       "checked": "2026-10-17",
@@ -14145,6 +18035,53 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://www.cvlibs.net/datasets/kitti/eval_odometry.php",
+            "https://www.cvlibs.net/datasets/kitti/",
+            "https://doi.org/10.1109/CVPR.2012.6248074"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Raw Velodyne ranges and sensor calibration allow sparse image-depth projection; these are not native dense depth maps.",
+            "zh": "原始 Velodyne 测距与传感器标定可生成稀疏图像深度投影，并非原生稠密深度图。"
+          }
+        },
+        "trajectory": {
+          "status": "partial",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Metric GPS/OXTS-based trajectories are public for 00–10; 11–21 references are withheld for server evaluation.",
+            "zh": "00–10 公开基于 GPS/OXTS 的米制轨迹；11–21 的参考轨迹由服务器保留评测。"
+          }
+        },
+        "evidence": [
+          "https://www.cvlibs.net/datasets/kitti/eval_odometry.php",
+          "https://www.cvlibs.net/datasets/kitti/"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 8,
@@ -14320,6 +18257,51 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+            "https://cs.nyu.edu/~fergus/datasets/indoor_seg_support.pdf"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured",
+            "estimated"
+          ],
+          "note": {
+            "en": "Raw measured Kinect depth and inpainted depth are both provided. Filled pixels are processed supervision, not extra measurements.",
+            "zh": "同时提供 Kinect 原始实测深度与填补深度；填补像素属于处理后的监督，并非新增测量。"
+          }
+        },
+        "trajectory": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The documented release does not supply an independent camera trajectory reference; accelerometer readings alone are not pose truth.",
+            "zh": "已记录的发布不提供独立相机轨迹参考；仅有加速度计读数不等于位姿真值。"
+          }
+        },
+        "evidence": [
+          "https://cs.nyu.edu/~fergus/datasets/nyu_depth_v2.html",
+          "https://cs.nyu.edu/~fergus/datasets/indoor_seg_support.pdf"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 9,
@@ -14460,6 +18442,11 @@ window.ATLAS_DATA = {
         {
           "url": "https://cvg.cit.tum.de/data/datasets/rgbd-dataset/file_formats",
           "title": "TUM RGB-D image, depth and pose formats"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://doi.org/10.1109/IROS.2012.6385773",
+          "checked": "2026-10-17"
         }
       ],
       "checked": "2026-10-17",
@@ -14502,6 +18489,53 @@ window.ATLAS_DATA = {
       "authors": "Unknown",
       "venue": "Dataset / benchmark",
       "aliases": [],
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Pinhole/perspective observations are documented; this does not establish raw fisheye or ERP support.",
+            "zh": "文档明确包含针孔/透视观测；这不等于支持原始鱼眼或 ERP。"
+          },
+          "evidence": [
+            "https://cvg.cit.tum.de/data/datasets/rgbd-dataset",
+            "https://cvg.cit.tum.de/data/datasets/rgbd-dataset/file_formats",
+            "https://doi.org/10.1109/IROS.2012.6385773"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "carried_forward_from_existing_source_review",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Registered Kinect depth images are measured, noisy and incomplete; zero is invalid.",
+            "zh": "配准后的 Kinect 深度来自测量，具有噪声与空洞；零值无效。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "measured"
+          ],
+          "note": {
+            "en": "Motion-capture pose trajectories are provided with timestamps; associate RGB/depth/pose streams explicitly.",
+            "zh": "提供带时间戳的动作捕捉位姿轨迹，需明确关联 RGB、深度与位姿流。"
+          }
+        },
+        "evidence": [
+          "https://cvg.cit.tum.de/data/datasets/rgbd-dataset",
+          "https://cvg.cit.tum.de/data/datasets/rgbd-dataset/file_formats"
+        ],
+        "checked": "2026-10-20"
+      },
       "curation": {
         "tier": "established",
         "rank": 7,
@@ -14555,12 +18589,12 @@ window.ATLAS_DATA = {
     }
   ],
   "stats": {
-    "depth": 31,
+    "depth": 34,
     "slam": 33,
     "datasets": 38,
     "panoramicDepth": 23,
     "panoramicSLAM": 11,
-    "paperFigures": 64,
+    "paperFigures": 67,
     "datasetFigures": 38
   }
 };

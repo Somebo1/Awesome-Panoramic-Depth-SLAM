@@ -33,6 +33,9 @@ DEPTH={
  'bifuse_pp':('BiFuse++',['panoramic'],'mixed','unknown','融合 ERP 与 cubemap 表征，包含监督与自监督方案；不同训练配置的尺度来源应分别记录。')
 }
 DEPTH['geopano2026']=('GeoPano',['panoramic'],'relative','points','单张 ERP 拆为十个共心虚拟视图，利用球面重叠注意力融合点图；训练显式对齐尺度，不提供已核实的真实轨迹或公制输出。')
+DEPTH['moge3']=('MoGe-3', ['perspective'], 'metric', 'z', '以 MoGe-2 为基础，将点图提升到稀疏三维体素壳中反复细化，恢复细结构；原始接口属于针孔相机的公制 Z 深度与点图模型。')
+DEPTH['moge2']=('MoGe-2', ['perspective'], 'metric', 'z', '将仿射不变点图与公制尺度预测解耦，利用合成标签细化真实训练几何；作为针孔公制点图、Z 深度及可选法线基线。')
+DEPTH['marigold']=('Marigold', ['perspective'], 'relative', 'affine', '将 Stable Diffusion 改作单图深度预测，以合成数据微调并可集成多次采样；输出保留尺度与偏移歧义，是扩散式针孔深度的重要对照。')
 CAMERAS={'panoramic_erp':'panoramic','erp':'panoramic','panoramic':'panoramic',
  'fisheye':'fisheye','wide_fov':'wide','wide-angle':'wide','wide-fov':'wide',
  'perspective':'perspective','pinhole':'perspective','multi-camera':'multi','multi_camera':'multi'}
@@ -40,7 +43,7 @@ SCALE_OVERRIDES={'p2uslam2026':'relative','odgsslam2026':'mixed','goslam2023':'m
                  'monogs2024':'mixed','svo_pro':'mixed','360orbslam2024':'unknown'}
 SCALE_OVERRIDES['aprilvins2026']='metric'
 CODE_OVERRIDES={'p2uslam2026':'none','panogsslam2026':'none','panoslam2025':'none',
-                'panoair2026':'unverified','lfvislam2023':'partial','dreamcube':'partial'}
+                'panoair2026':'none','lfvislam2023':'partial','dreamcube':'partial'}
 CODE_OVERRIDES['aprilvins2026']='none'
 SLAM_DEPTH={'dbafusion2024':'inverse','droidslam2021':'inverse','goslam2023':'inverse',
             'mast3rslam2025':'points','splatam2024':'z','monogs2024':'z',
@@ -216,6 +219,25 @@ def build():
         path=ROOT/'source_data'/filename
         if path.exists():datasets.extend(json.loads(path.read_text(encoding='utf-8')))
     records.extend(normalize_dataset(e) for e in datasets)
+    taxonomy=json.loads((ROOT/'source_data/camera_taxonomy.json').read_text(encoding='utf-8'))
+    if set(taxonomy)!={e['id'] for e in records}:raise ValueError('Camera taxonomy coverage differs from catalog')
+    annotations=json.loads((ROOT/'source_data/dataset_annotations.json').read_text(encoding='utf-8'))
+    if set(annotations)!={e['id'] for e in datasets}:raise ValueError('Dataset annotation coverage differs from catalog')
+    for record in records:
+        camera=taxonomy[record['id']]
+        record['cameras']=camera['cameras']
+        record['cameraSupport']=camera['cameraSupport']
+        record['projectionSubtypes']=camera.get('projectionSubtypes',[])
+        record['additionalSupport']=camera.get('additionalSupport',[])
+        record['nativePanoramic']=any(s['geometry']=='panoramic' and s['route']=='direct' for s in camera['cameraSupport'])
+        record['cameraReview']=camera.get('reviewScope','')
+        if record['collection']=='datasets':record['annotations']=annotations[record['id']]
+        # Keep new capability judgments traceable from the record's evidence panel.
+        reviewed_urls=[u for support in camera['cameraSupport']+camera.get('additionalSupport',[]) for u in support['evidence']]
+        if record['collection']=='datasets':reviewed_urls+=record['annotations']['evidence']
+        existing={e if isinstance(e,str) else e.get('url','') for e in record['evidence']}
+        additions=list(dict.fromkeys(u for u in reviewed_urls if u not in existing))
+        record['evidence']=record['evidence']+([{'title':'Camera / annotation source','url':u,'checked':record['annotations']['checked'] if u in record['annotations']['evidence'] else camera.get('sourceChecked',UPDATED)} for u in additions] if record['collection']=='datasets' else additions)
     curation=json.loads((ROOT/'source_data/dataset_curation.json').read_text(encoding='utf-8'))
     if set(curation)!={e['id'] for e in datasets}:raise ValueError('Dataset curation coverage differs from catalog')
     for record in records:
@@ -238,7 +260,7 @@ def build():
     records.sort(key=lambda e:(e['collection']!='depth',-int(str(e.get('year',0))[:4]) if str(e.get('year',0))[:4].isdigit() else 0,e['name']))
     catalog=dict(updated=UPDATED,repoUrl=REPO_URL,title='Panoramic Depth Atlas',
         description='Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.',
-        schemaVersion='1.3',interfaceUpdated='2026-10-20',records=records,
+        schemaVersion='1.4',interfaceUpdated='2026-10-20',records=records,
         stats={'depth':len(depth)+len(added),'slam':len(slam),
                'datasets':len(datasets),
                'panoramicDepth':sum(e['collection']=='depth' and 'panoramic' in e['cameras'] for e in records),
@@ -252,7 +274,7 @@ def build():
     (data/'catalog.json').write_text(serialized+'\n',encoding='utf-8',newline='\n')
     cols=['id','collection','name','title','year','venue','cameras','scale','metricStatus','scaleNote','depthType','pose',
           'nativePanoramic','codeStatus','paperUrl','projectUrl','codeUrl','weightsUrl','inputSummary','outputSummary','license','evidence','notes','sourceChecked']
-    cols += ['tasks','environment','reality','sensors','groundTruth','access','homepageUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes','curation','figure']
+    cols += ['cameraSupport','projectionSubtypes','additionalSupport','cameraReview','tasks','environment','reality','sensors','groundTruth','annotations','access','homepageUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes','curation','figure']
     with (data/'catalog.csv').open('w',encoding='utf-8-sig',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=cols);writer.writeheader()
         for e in records:writer.writerow({k:txt(e.get(k,'')) for k in cols})
@@ -266,7 +288,14 @@ def build():
     for e in records:
         evidence=[v if isinstance(v,str) else v.get('url','') for v in e['evidence']]
         sources.append(f"## {e['name']} ({e['year']})\n\n{e['title']}\n\n"+'\n'.join('- '+v for v in evidence if v)+'\n')
-    (ROOT/'references/sources.md').write_text('# Official-source index\n\nChecked '+UPDATED+'. Bibliographic and interface evidence; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
+    (ROOT/'references/sources.md').write_text('# Official-source index\n\nLiterature search cutoff '+UPDATED+'. Targeted camera, pinhole and annotation checks: 2026-10-20. Per-record dates and ledgers describe review scope; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
+    camera_lines=['# Camera taxonomy / 相机分类\n\nReviewed 2026-10-20. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.\n\nPinhole 指针孔透视输入；Wide-FOV 不作为独立投影分类。名称、广角和内部切片均不能替代输入接口证据。保留既有 perspective enum 与旧链接，新 pinhole 链接为别名。\n']
+    for record in records:
+        camera_lines.append('## '+record['name']+'\n\n'+', '.join(record['cameras'])+'\n')
+        for support in record['cameraSupport']:
+            camera_lines.append(f"- {support['geometry']} / {support['route']}: {support['note']['en']} {support['note']['zh']}\n"+'\n'.join('  - '+s for s in support['evidence']))
+        camera_lines.append('\nReview scope: '+str(record['cameraReview'])+'\n')
+    (ROOT/'references/camera_taxonomy.md').write_text('\n'.join(camera_lines),encoding='utf-8',newline='\n')
     figure_sources=['# Paper and author project figures\n\nFigures support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed. Original author image files are kept locally; attributed web-sized copies are published. PDF page numbers count from 1; author webpage images do not claim PDF pages or PDF hashes.\n']
     for e in records:
         if e['collection']=='datasets':continue

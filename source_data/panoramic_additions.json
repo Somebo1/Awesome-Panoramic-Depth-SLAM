@@ -1014,8 +1014,7 @@
     "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
     "camera_support": [
       "panoramic_erp",
-      "cubemap",
-      "perspective"
+      "cubemap"
     ],
     "task_family": "generative_rgbd_and_depth_adaptation",
     "native_panoramic": true,

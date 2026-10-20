@@ -928,5 +928,95 @@
     "pdfSha256": "cf64e0e5fb5c7406151dd40ba6b563e55062660b9df573b2779dea3879924cf7",
     "imageSha256": "bf7323e86a5b5ebe5285af7ca7769c543d5efbbb31d32d9daf1f6527e5592d65",
     "verification": "Original PDF page 5 and both final WebP crops visually inspected; Figure 3 identity, stage labels, full artwork boundaries and readability checked. Page caption excluded and attribution/CC BY 4.0 retained in metadata."
+  },
+  "moge3": {
+    "thumbnail": "assets/papers/moge3-thumb.webp",
+    "image": "assets/papers/moge3.webp",
+    "paperUrl": "https://arxiv.org/pdf/2607.17967",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "MoGe-3 的基础点图模型、自引导稀疏三维细化及稀疏 U-Net。",
+      "en": "MoGe-3 base point-map model, self-guided sparse 3D refinement and sparse U-Net."
+    },
+    "credit": {
+      "zh": "来源：Lingyu Kong et al.，原论文 Figure 2。",
+      "en": "Source: Lingyu Kong et al., Figure 2 of the paper."
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      108,
+      72,
+      505,
+      261
+    ],
+    "originalCaption": "Figure 2: Method overview. (a) The Base model provides an initial point map and 2D features.",
+    "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+    "reviewedAt": "2026-10-20",
+    "selectionNotes": "Method diagram cropped from downloaded original paper; original page and final crop visually inspected. Caption stored separately.",
+    "pdfSha256": "85beceed1e2ffc91db541f21f5ec07c6d596d7e90c62458ce8462bc20b4741c1",
+    "imageSha256": "c2788da98fedbcfd886b853193d1391413035508f8de27afcc3951e64a7b6d49",
+    "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+  },
+  "moge2": {
+    "thumbnail": "assets/papers/moge2-thumb.webp",
+    "image": "assets/papers/moge2.webp",
+    "paperUrl": "https://arxiv.org/pdf/2507.02546",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "MoGe-2 将仿射点图与 CLS 标记驱动的公制尺度预测分离。",
+      "en": "MoGe-2 separates affine point maps from CLS-token-driven metric scale prediction."
+    },
+    "credit": {
+      "zh": "来源：Ruicheng Wang et al.，原论文 Figure 2。",
+      "en": "Source: Ruicheng Wang et al., Figure 2 of the paper."
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      108,
+      73,
+      506,
+      161
+    ],
+    "originalCaption": "Figure 2: Overview of our model architecture.",
+    "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+    "reviewedAt": "2026-10-20",
+    "selectionNotes": "Method diagram cropped from downloaded original paper; original page and final crop visually inspected. Caption stored separately.",
+    "pdfSha256": "346b3028857dff55f50b25d625d99a2afe0fb9ad6e1de5d08889fcd1ddadd13a",
+    "imageSha256": "2c037e6936220aed81353197c06a2a235b302eef913bf1aef0558ec871f950f0",
+    "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+  },
+  "marigold": {
+    "thumbnail": "assets/papers/marigold-thumb.webp",
+    "image": "assets/papers/marigold.webp",
+    "paperUrl": "https://openaccess.thecvf.com/content/CVPR2024/papers/Ke_Repurposing_Diffusion-Based_Image_Generators_for_Monocular_Depth_Estimation_CVPR_2024_paper.pdf",
+    "page": 5,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "zh": "Marigold 将图像编码为潜变量，条件去噪后解码深度。",
+      "en": "Marigold encodes the image, conditions latent denoising, and decodes depth."
+    },
+    "credit": {
+      "zh": "来源：Bingxin Ke et al.，原论文 Figure 3。",
+      "en": "Source: Bingxin Ke et al., Figure 3 of the paper."
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      49,
+      70,
+      294,
+      184
+    ],
+    "originalCaption": "Figure 3. Overview of the Marigold inference scheme.",
+    "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. Source PDF figure reuse license not independently verified.",
+    "reviewedAt": "2026-10-20",
+    "selectionNotes": "Method diagram cropped from downloaded original paper; original page and final crop visually inspected. Caption stored separately.",
+    "pdfSha256": "ea7d878018e2aa87efdf7116b31ed1e6568877f94cfc5486f77a1f12fa7f9522",
+    "imageSha256": "52b09446c29b3abf4b4f522fa3c0c241621e871e9b13b3f9966524a2dac02cd7",
+    "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
   }
 }

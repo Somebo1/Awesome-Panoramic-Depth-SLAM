@@ -654,6 +654,7 @@
     "title": "The Hilti SLAM Challenge Dataset",
     "year": 2021,
     "cameras": [
+      "fisheye",
       "wide",
       "multi"
     ],
@@ -750,7 +751,7 @@
         "title": "Hilti SLAM sensor and calibration paper"
       }
     ],
-    "checked": "2026-10-17"
+    "checked": "2026-10-20"
   },
   {
     "id": "ds_hilti2022",
@@ -1348,16 +1349,16 @@
       ]
     },
     "groundTruth": [
-      "Query 6DoF poses",
+      "SfM-aligned query poses",
       "Reference point clouds"
     ],
     "groundTruthLabels": {
       "en": [
-        "Query 6DoF poses",
+        "SfM-aligned query poses",
         "Reference point clouds"
       ],
       "zh": [
-        "查询六自由度位姿",
+        "SfM 对齐查询位姿",
         "参考点云"
       ]
     },
@@ -1370,33 +1371,35 @@
       "zh": "官方代码为 GPL-3.0；查看的 README 未找到单独明确的数据许可。"
     },
     "summary": {
-      "en": "Indoor query panoramas with point-cloud maps and reference poses, designed for localisation under handheld/robot capture and scene changes.",
-      "zh": "室内查询全景、点云地图及参考位姿，用于手持/机器人采集和场景变化条件下的定位。"
+      "en": "Indoor query panoramas and point-cloud maps with scene-registered SfM pose references, for handheld/robot localisation under scene changes.",
+      "zh": "室内查询全景与点云地图，附经场景配准的 SfM 位姿参考，用于手持、机器人及场景变化条件下的定位。"
     },
     "details": {
       "en": {
         "Versions": "Official repository links an original release and a newer expanded release; the consolidated localisation library explicitly uses the older version.",
         "Geometry": "Panoramic images and scene point clouds; not a synchronized multi-sensor VIO benchmark.",
         "Pose convention": "The current README gives the point transformation X_camera = R(X_world − t). Match parser to release version.",
-        "Ground truth": "Per-query reference poses are supplied. The inspected README does not establish an independent motion-capture accuracy bound.",
+        "Ground truth": "PICCOLO supplement Section C describes COLMAP/OpenMVG SfM reconstructions manually aligned to Matterport scans, followed by manual removal of invalid poses. Released per-query poses are estimated localization references, not independently measured motion-capture trajectories.",
         "Depth use": "Projecting the point cloud produces map-derived depths with holes/occlusions; no complete measured depth GT is assumed."
       },
       "zh": {
         "版本": "官方仓库同时链接原始和扩展发布；综合定位库明确使用旧版，比较时需统一版本。",
         "成像模型": "全景图像与场景点云，不是同步多传感器 VIO 基准。",
         "位姿约定": "当前 README 给出 X_camera = R(X_world − t)；解析器需匹配版本。",
-        "真值": "提供逐查询参考位姿；所查看的 README 未建立独立动作捕捉精度界限。",
+        "真值": "PICCOLO 补充材料 C 节说明：先用 COLMAP/OpenMVG 建立 SfM 重建，再手动对齐 Matterport 扫描，并人工剔除无效位姿。发布的逐查询位姿属于估计定位参考，并非独立动作捕捉测量轨迹。",
         "深度使用": "投影点云得到的是带空洞/遮挡的地图推导深度，不假设完整实测深度真值。"
       }
     },
     "notes": {
       "en": [
         "Keep original/new scene splits separate in reported results.",
-        "Download links are present; full cloud archives were not downloaded in this audit."
+        "Download links are present; full cloud archives were not downloaded in this audit.",
+        "SfM alignment to a scanned map establishes a scene reference; it does not establish an independent motion-tracking accuracy bound."
       ],
       "zh": [
         "报告结果时区分原始/新增场景划分。",
-        "官方提供下载链接，本次未下载完整点云归档。"
+        "官方提供下载链接，本次未下载完整点云归档。",
+        "SfM 对齐扫描地图建立的是场景参考，并不建立独立运动跟踪精度界限。"
       ]
     },
     "evidence": [
@@ -1407,9 +1410,13 @@
       {
         "url": "https://github.com/82magnolia/panoramic-localization",
         "title": "Consolidated library: old OmniScenes version warning"
+      },
+      {
+        "url": "https://openaccess.thecvf.com/content/ICCV2021/supplemental/Kim_PICCOLO_Point_Cloud-Centric_ICCV_2021_supplemental.pdf",
+        "title": "PICCOLO official supplement Section C: COLMAP/OpenMVG SfM, manual alignment to Matterport scans and pose inspection"
       }
     ],
-    "checked": "2026-10-17"
+    "checked": "2026-10-20"
   },
   {
     "id": "ds_panoair",
@@ -1448,14 +1455,14 @@
       ]
     },
     "groundTruth": [
-      "RTK trajectory"
+      "Announced RTK trajectory reference"
     ],
     "groundTruthLabels": {
       "en": [
-        "RTK trajectory"
+        "Announced RTK trajectory reference"
       ],
       "zh": [
-        "RTK 轨迹"
+        "已声明的 RTK 轨迹参考"
       ]
     },
     "access": "unknown",
@@ -1475,14 +1482,14 @@
         "Inputs": "30 Hz stitched ERP; dual-fisheye ROS1 recordings and virtual pinhole sequences; 1000 Hz IMU.",
         "Reference": "README lists 5 Hz RTK trajectories. Inspect files/paper for position versus orientation coverage and antenna/body transforms before 6DoF evaluation.",
         "Calibration": "Camera intrinsics, IMU intrinsics, camera–IMU extrinsics and virtual-pinhole parameters are listed.",
-        "Release status": "README says data/calibrations are on Google Drive; repository source-code release is still stated as after acceptance.",
+        "Release status": "The official README checked on 2026-10-20 states that data and calibration are available on Google Drive; estimator source code is still being prepared and is expected in the coming months. The linked data archive was not downloaded or unpacked in this audit.",
         "Evidence limit": "No dense depth GT, complete-download check, or measured synchronization-error bound is asserted here."
       },
       "zh": {
         "输入": "30 Hz 拼接 ERP、双鱼眼 ROS1 记录、虚拟透视序列，以及 1000 Hz IMU。",
         "参考": "README 列出 5 Hz RTK 轨迹；六自由度评测前需检查文件/论文，核对位置与姿态覆盖及天线/机体变换。",
         "标定": "列出相机内参、IMU 内参、相机–IMU 外参及虚拟透视参数。",
-        "发布状态": "README 声称数据/标定可从 Google Drive 下载；代码仍写明接收后发布。",
+        "发布状态": "2026-10-20 核查的官方 README 声称数据与标定可从 Google Drive 下载；估计器源码仍在整理，预计未来数月发布。本次未下载或解包链接的数据归档。",
         "证据限制": "本条目不宣称稠密深度真值、完整下载验证或已测同步误差界限。"
       }
     },
@@ -1506,7 +1513,7 @@
         "title": "PanoAir 2026 preprint"
       }
     ],
-    "checked": "2026-10-17"
+    "checked": "2026-10-20"
   },
   {
     "id": "ds_adt",

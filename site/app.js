@@ -5,30 +5,28 @@
   const records = Array.isArray(catalog.records) ? catalog.records : [];
   const byId = new Map(records.map(record => [String(record.id), record]));
   const STORAGE_KEY = 'panoramic-depth-atlas:v1';
-  const defaults = { collection: 'depth', category: 'panoramic', q: '', year: 'all', scale: 'all', code: 'all', task:'all', environment:'all', reality:'all', access:'all', view: 'cards', sort: 'newest', favorites: false, lang: 'zh' };
+  const defaults = { collection: 'depth', category: 'panoramic', q: '', year: 'all', scale: 'all', code: 'all', fov:'all', rig:'all', support:'all', task:'all', environment:'all', reality:'all', depthGT:'all', trajectoryGT:'all', access:'all', view: 'cards', sort: 'newest', favorites: false, lang: 'zh' };
   const translations = window.ATLAS_I18N || { ui: { zh: {}, en: {} }, summaries: {}, zhRecords: {} };
   const t = (key, ...args) => { const value = translations.ui[state.lang][key] ?? key; return typeof value === 'function' ? value(...args) : value; };
   const categories = [
     { id: 'all', title: 'All geometries', zh: '全部相机模型', icon: '▦', depth: 'Depth estimation', slam: 'SLAM & odometry', description: '跨相机模型检索方法，比较投影假设、输入输出与复现条件。' },
     { id: 'panoramic', title: 'Panoramic', zh: '全景 · 360°', icon: '◎', depth: '全景深度', slam: '全景定位与建图', description: '以球面与等距柱状投影为核心，检索 360° 场景深度与空间感知研究。' },
     { id: 'fisheye', title: 'Fisheye', zh: '鱼眼相机', icon: '◉', depth: '鱼眼深度', slam: '鱼眼定位与建图', description: '关注鱼眼成像与畸变模型，查看原生鱼眼支持及可复现的输入输出。' },
-    { id: 'wide', title: 'Wide-FOV', zh: '广视场相机', icon: '◒', depth: '广视场深度', slam: '广视场定位与建图', description: '查找广视场与跨相机模型方法，区分视场覆盖和原生投影支持。' },
-    { id: 'perspective', title: 'Perspective', zh: '透视相机 · 基线', icon: '▱', depth: '透视深度基线', slam: '透视定位与建图', description: '收录有比较价值的透视方法与基础模型，为全景实验建立参照。' },
-    { id: 'multi', title: 'Multi-camera', zh: '多相机系统', icon: '◈', depth: '多相机深度', slam: '多相机定位与建图', description: '比较多相机输入、外参假设、融合方式及机器人系统接入条件。' }
+    { id: 'perspective', title: 'Pinhole', zh: '针孔 / 透视', icon: '▱', depth: '针孔深度', slam: '针孔定位与建图', description: '以针孔透视图像为输入的深度与几何模型；鱼眼去畸变、ERP 切分等适配路线单独说明。' }
   ];
   const categoryMap = new Map(categories.map(category => [category.id, category]));
   const labelTables = {
     zh: {
       scales: { metric:'度量尺度', relative:'相对尺度', mixed:'依配置而定', unknown:'尺度待核实' },
       codes: { released:'代码已发布', partial:'代码部分发布', unverified:'代码状态待核实', none:'未发现公开代码' },
-      depths: { range:'径向距离', z:'光轴深度', inverse:'逆深度', points:'三维点', mixed:'依任务或配置而定', unknown:'深度定义待核实', none:'不直接输出深度' },
-      cameras: { all:'全部相机模型', panoramic:'全景', fisheye:'鱼眼', wide:'广视场', perspective:'透视相机', multi:'多相机' }
+      depths: { range:'径向距离', z:'光轴深度', inverse:'逆深度', affine:'仿射不变深度', points:'三维点', mixed:'依任务或配置而定', unknown:'深度定义待核实', none:'不直接输出深度' },
+      cameras: { all:'全部投影类型', panoramic:'全景 / ERP', fisheye:'鱼眼', wide:'广视场', perspective:'针孔 / 透视', multi:'多相机' }
     },
     en: {
       scales: { metric:'Metric', relative:'Relative', mixed:'Mixed scale', unknown:'Scale unverified' },
       codes: { released:'Code released', partial:'Code partially released', unverified:'Code unverified', none:'No public source found' },
-      depths: { range:'Radial range', z:'Z-depth', inverse:'Inverse depth', points:'3D points', mixed:'Task/config dependent', unknown:'Depth convention unverified', none:'No direct depth output' },
-      cameras: { all:'All geometries', panoramic:'Panoramic', fisheye:'Fisheye', wide:'Wide-FOV', perspective:'Perspective', multi:'Multi-camera' }
+      depths: { range:'Radial range', z:'Z-depth', inverse:'Inverse depth', affine:'Affine-invariant depth', points:'3D points', mixed:'Task/config dependent', unknown:'Depth convention unverified', none:'No direct depth output' },
+      cameras: { all:'All projections', panoramic:'Panoramic / ERP', fisheye:'Fisheye', wide:'Wide-FOV', perspective:'Pinhole', multi:'Multi-camera' }
     }
   };
   const labelMap = name => new Proxy({}, { get: (_, key) => labelTables[state.lang][name][key], ownKeys: () => Object.keys(labelTables.zh[name]), getOwnPropertyDescriptor: (_, key) => Object.hasOwn(labelTables.zh[name], key) ? { enumerable: true, configurable: true } : undefined });
@@ -74,6 +72,30 @@
   const datasetTasks = record => asList(record.tasks).map(task => t(task === 'depth' ? 'taskDepth' : 'taskSlam')).join(' · ');
   const accessKey = value => ({open:'openAccess',registration:'registrationAccess',request:'requestAccess',restricted:'restrictedAccess',unknown:'unknownAccess'})[value] || 'unknownAccess';
   const realityKey = value => value === 'mixed' ? 'mixedReality' : value;
+  const annotationStatus = (record, kind) => record.annotations?.[kind]?.status || 'unknown';
+  const annotationText = (record, kind) => t('gt_'+annotationStatus(record,kind));
+  const cameraSupport = record => asList(record.cameraSupport);
+  const routeLabel = (record,item) => t('route_'+item.route+(isDataset(record)?'_dataset':''));
+  const selectedSupport = record => cameraSupport(record).filter(item => state.category==='all' || item.geometry===state.category);
+  const cameraSupportText = record => [...cameraSupport(record),...asList(record.additionalSupport)].length ? [...cameraSupport(record),...asList(record.additionalSupport)].map(item=>`${cameraLabels[item.geometry] || t(item.geometry)} · ${routeLabel(record,item)}${item.availability?' · '+t('availability_'+item.availability):''}: ${local(item.note)}`).join('\n') : t('unknown');
+  function annotationBadges(record) {
+    const row=el('div','annotation-badges');
+    for(const kind of ['depth','trajectory']) {
+      const node=badge(`${t(kind==='depth'?'depthGT':'trajectoryGT')}: ${annotationText(record,kind)}`,'gt-'+annotationStatus(record,kind));
+      node.title=local(record.annotations?.[kind]?.note)||t('unknown');row.append(node);
+    }
+    return row;
+  }
+  function supportBadges(record) {
+    const row=el('div','support-badges');
+    for(const item of selectedSupport(record)) {
+      const qualifier=['paper','announced','derivable'].includes(item.availability)?' · '+t('availability_'+item.availability):'';
+      const node=badge(`${cameraLabels[item.geometry]} · ${routeLabel(record,item)}${qualifier}`,'route-'+item.route);
+      node.title=local(item.note);row.append(node);
+    }
+    if(asList(record.projectionSubtypes).includes('annular')) row.append(badge(t('annular'),'route-annular'));
+    return row;
+  }
   const tierOrder = {established:0,common:1,specialized:2,pending:3};
   const tierKey = record => Object.hasOwn(tierOrder,record.curation?.tier) ? record.curation.tier : 'pending';
   const tierLabel = record => t('tier_'+tierKey(record));
@@ -91,7 +113,7 @@
   const selected = new Set();
   let state = normalizeState({ ...defaults, ...(stored.state || {}) });
   if ([...new URLSearchParams(location.search).keys()].some(key => Object.hasOwn(defaults, key))) state = stateFromUrl();
-  const searchIndex = new Map(records.map(record => [String(record.id), sourceText({ id: record.id, name: record.name, title: record.title, aliases: record.aliases, authors: record.authors, institutions: record.institutions, year: record.year, venue: record.venue, summary: record.summary, englishSummary: translations.summaries[record.id], chineseInterface: translations.zhRecords[record.id], cameras: record.cameras, tags: record.tags, family: record.family, scale: record.scale, scaleNote: record.scaleNote, license: record.license, input: record.inputs, output: record.outputDetails, datasets:record.datasetDetails, description:record.localizedSummary, sensors:record.sensorLabels,truth:record.groundTruthLabels,tasks:record.tasks }).toLocaleLowerCase()]));
+  const searchIndex = new Map(records.map(record => [String(record.id), sourceText({ id: record.id, name: record.name, title: record.title, aliases: record.aliases, authors: record.authors, institutions: record.institutions, year: record.year, venue: record.venue, summary: record.summary, englishSummary: translations.summaries[record.id], chineseInterface: translations.zhRecords[record.id], cameras: record.cameras, tags: record.tags, family: record.family, scale: record.scale, scaleNote: record.scaleNote, license: record.license, input: record.inputs, output: record.outputDetails, datasets:record.datasetDetails, description:record.localizedSummary, sensors:record.sensorLabels,truth:record.groundTruthLabels,tasks:record.tasks,cameraSupport:record.cameraSupport,annotations:record.annotations }).toLocaleLowerCase()]));
   // Short ASCII queries are usually method abbreviations (DA, GS, VO).
   // Avoid matching every entry merely because its evidence says "dataset".
   const shortSearchIndex = new Map(records.map(record => [String(record.id), text([record.id, record.name, record.aliases]).toLocaleLowerCase()]));
@@ -103,6 +125,9 @@
   function normalizeState(candidate) {
     const result = { ...defaults, ...candidate };
     if (!['depth', 'slam', 'datasets'].includes(result.collection)) result.collection = defaults.collection;
+    if (result.category==='pinhole') result.category='perspective';
+    if (result.category==='wide') { result.category='all';result.fov='wide'; }
+    if (result.category==='multi') { result.category='all';result.rig='multi'; }
     if (!categoryMap.has(result.category)) result.category = defaults.category;
     if (!['all', ...Object.keys(scales)].includes(result.scale)) result.scale = 'all';
     if (!['all', ...Object.keys(codes)].includes(result.code)) result.code = 'all';
@@ -113,11 +138,11 @@
     result.year = /^\d{4}$/.test(String(result.year)) ? String(result.year) : 'all';
     result.favorites = result.favorites === true || result.favorites === '1' || result.favorites === 'true';
     result.lang = result.lang === 'en' ? 'en' : 'zh';
-    for (const [key, values] of Object.entries({task:['all','depth','slam'],environment:['all','indoor','outdoor'],reality:['all','real','synthetic','mixed'],access:['all','open','registration','request','restricted','unknown']})) {
+    for (const [key, values] of Object.entries({fov:['all','wide'],rig:['all','multi'],support:['all','direct','converted'],task:['all','depth','slam'],environment:['all','indoor','outdoor','both'],reality:['all','real','synthetic','mixed'],depthGT:['all','yes','partial','reference','no','unknown'],trajectoryGT:['all','yes','partial','reference','no','unknown'],access:['all','open','registration','request','restricted','unknown']})) {
       if (!values.includes(result[key])) result[key]='all';
     }
     if (result.collection === 'datasets') { result.scale='all'; result.code='all'; }
-    else { result.task='all'; result.environment='all'; result.reality='all'; result.access='all'; }
+    else { result.task='all'; result.environment='all'; result.reality='all'; result.access='all'; result.depthGT='all';result.trajectoryGT='all'; }
     return result;
   }
 
@@ -146,7 +171,7 @@
     if (!Object.hasOwn(defaults, key)) return;
     if (key === 'collection' && value !== state.collection) {
       if ((state.collection === 'datasets') !== (value === 'datasets')) selected.clear();
-      state = {...defaults,category:state.category,view:state.view,sort:state.sort,lang:state.lang};
+      state = {...defaults,category:state.category,fov:state.fov,rig:state.rig,support:state.support,view:state.view,sort:state.sort,lang:state.lang};
       if (value==='datasets') state.sort='recommended';
     }
     state = normalizeState({ ...state, [key]: value });
@@ -165,13 +190,19 @@
     const result = records.filter(record => {
       if (record.collection !== state.collection) return false;
       if (state.category !== 'all' && !cameras(record).includes(state.category)) return false;
+      if (state.fov==='wide' && !cameras(record).includes('wide')) return false;
+      if (state.rig==='multi' && !cameras(record).includes('multi')) return false;
+      if (state.support!=='all' && !selectedSupport(record).some(item=>state.support==='direct'?item.route==='direct':item.route!=='direct')) return false;
       if (state.year !== 'all' && String(record.year) !== state.year) return false;
       if (state.scale !== 'all' && scaleValue(record) !== state.scale) return false;
       if (state.code !== 'all' && codeStatus(record) !== state.code) return false;
       if (isDataset(record)) {
         if (state.task !== 'all' && !asList(record.tasks).includes(state.task)) return false;
-        if (state.environment !== 'all' && !asList(record.environment).includes(state.environment)) return false;
+        if (state.environment==='both' && !['indoor','outdoor'].every(value=>asList(record.environment).includes(value))) return false;
+        if (!['all','both'].includes(state.environment) && !asList(record.environment).includes(state.environment)) return false;
         if (state.reality !== 'all' && record.reality !== state.reality) return false;
+        if (state.depthGT!=='all' && annotationStatus(record,'depth')!==state.depthGT) return false;
+        if (state.trajectoryGT!=='all' && annotationStatus(record,'trajectory')!==state.trajectoryGT) return false;
         if (state.access !== 'all' && record.access !== state.access) return false;
       }
       if (state.favorites && !favorites.has(String(record.id))) return false;
@@ -263,10 +294,16 @@
     const sortOptions={...(state.collection==='datasets'?{recommended:t('recommended')}:{}),newest:t('newest'),oldest:t('oldest'),name:t('byName')};
     $('sort-select').replaceChildren(...Object.entries(sortOptions).map(([value,label])=>{const option=el('option','',label);option.value=value;return option}));
     options('task-filter',{all:t('allTasks'),depth:t('taskDepth'),slam:t('taskSlam')});
-    options('environment-filter',{all:t('allEnvironments'),indoor:t('indoor'),outdoor:t('outdoor')});
+    options('environment-filter',{all:t('allEnvironments'),indoor:t('indoor'),outdoor:t('outdoor'),both:t('bothEnvironments')});
     options('reality-filter',{all:t('allRealities'),real:t('real'),synthetic:t('synthetic'),mixed:t('mixedReality')});
     options('access-filter',{all:t('allAccess'),...Object.fromEntries(['open','registration','request','restricted','unknown'].map(value=>[value,t(accessKey(value))]))});
+    options('fov-filter',{all:t('allFov'),wide:t('wideFov')});
+    options('rig-filter',{all:t('allRigs'),multi:t('multiRig')});
     const datasets=state.collection==='datasets';
+    options('support-filter',{all:t('allSupport'),direct:t(datasets?'directProduct':'directSupport'),converted:t(datasets?'derivedProduct':'convertedSupport')});
+    $('support-label').textContent=t(datasets?'imageProvenance':'cameraSupport');
+    $('camera-guide-text').textContent=t('taxonomyGuide')+(datasets?' '+t('datasetCameraGuide'):'');
+    for(const key of ['depthGT','trajectoryGT'])options(key+'-filter',{all:t('allAnnotations'),...Object.fromEntries(['yes','partial','reference','no','unknown'].map(value=>[value,t('gt_'+value)]))});
     $('search').placeholder=t(datasets?'datasetPlaceholder':'placeholder');
     document.querySelector('label[for="search"]').textContent=t(datasets?'datasetSearch':'search');
     document.querySelector('label[for="year-filter"]').textContent=t(datasets?'datasetYear':'year');
@@ -285,7 +322,7 @@
     if (state.collection==='datasets') return t('datasetDescription');
     if (state.collection === 'slam' && category.id === 'panoramic') return state.lang === 'zh' ? '关注全景视觉的位姿、轨迹与地图，核查尺度来源、IMU 和回环能力。' : 'Explore panoramic poses, trajectories and maps; check scale sources, inertial requirements and loop closure.';
     if (state.lang === 'zh') return category.description;
-    return ({all:'Browse methods across camera models and compare projection assumptions, interfaces and reproduction requirements.',panoramic:'Explore 360° depth and spatial perception based on spherical geometry and equirectangular projection.',fisheye:'Check fisheye imaging, distortion models, native support and reproducible model interfaces.',wide:'Explore wide-FOV and cross-camera methods; distinguish field-of-view coverage from native projection support.',perspective:'Perspective baselines and foundation models provide useful controls for panoramic experiments.',multi:'Compare physical multi-camera inputs, extrinsic calibration, fusion and robot integration requirements.'})[category.id];
+    return ({all:'Browse projection types and compare verified input interfaces, outputs and reproduction requirements.',panoramic:'Explore spherical / ERP inputs, with direct support distinguished from reprojection or view splitting.',fisheye:'Check fisheye inputs and calibration; converted panoramic support is labeled separately.',perspective:'Depth and geometry models for pinhole perspective images; fisheye rectification and ERP view-splitting wrappers are documented separately.'})[category.id];
   }
 
   function render() {
@@ -316,7 +353,7 @@
       button.setAttribute('aria-current', item.id === state.category ? 'true' : 'false');
       const label = el('span', 'category-label', cameraLabels[item.id]);
       if (item.id === 'panoramic') label.append(el('small', '', '360°'));
-      if (item.id === 'perspective') label.append(el('small', '', state.lang === 'zh' ? '对照基线' : 'Reference baselines'));
+      if (item.id === 'perspective') label.append(el('small', '', state.lang === 'zh' ? 'Pinhole' : 'Perspective projection'));
       label.dataset.focus = t('focus');
       button.append(el('span', 'category-icon', item.icon), label, el('span', 'category-count', count));
       button.addEventListener('click', () => setFilter('category', item.id));
@@ -328,7 +365,7 @@
     $('year-filter').value = state.year;
     $('scale-filter').value = state.scale;
     $('code-filter').value = state.code;
-    for (const key of ['task','environment','reality','access']) $(key+'-filter').value=state[key];
+    for (const key of ['fov','rig','support','task','environment','reality','depthGT','trajectoryGT','access']) $(key+'-filter').value=state[key];
     $('sort-select').value = state.sort;
     if ($('search').value !== state.q) $('search').value = state.q;
     $('favorites-filter').setAttribute('aria-pressed', String(state.favorites));
@@ -336,7 +373,7 @@
     $('result-count').textContent = String(filtered.length);
     $('result-description').textContent = t('resultTotal', collectionRecords.length);
     document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === state.view)));
-    const activeCount = Number(state.category !== 'all') + Number(Boolean(state.q)) + Number(state.year !== 'all') + Number(state.scale !== 'all') + Number(state.code !== 'all') + Number(state.favorites) + ['task','environment','reality','access'].filter(key=>state[key]!=='all').length;
+    const activeCount = Number(state.category !== 'all') + Number(Boolean(state.q)) + Number(state.year !== 'all') + Number(state.scale !== 'all') + Number(state.code !== 'all') + Number(state.favorites) + ['fov','rig','support','task','environment','reality','depthGT','trajectoryGT','access'].filter(key=>state[key]!=='all').length;
     $('mobile-filter-count').textContent = t('selected', activeCount);
     renderFilterChips();
     const container = $('results');
@@ -369,9 +406,13 @@
     if (state.code !== 'all') chip('code', codes[state.code], 'all');
     if (state.favorites) chip('favorites', t('favorites'), false);
     if(state.task!=='all')chip('task',t(state.task==='depth'?'taskDepth':'taskSlam'),'all');
-    if(state.environment!=='all')chip('environment',t(state.environment),'all');
+    if(state.environment!=='all')chip('environment',t(state.environment==='both'?'bothEnvironments':state.environment),'all');
     if(state.reality!=='all')chip('reality',t(realityKey(state.reality)),'all');
     if(state.access!=='all')chip('access',t(accessKey(state.access)),'all');
+    if(state.fov!=='all')chip('fov',t('wideFov'),'all');
+    if(state.rig!=='all')chip('rig',t('multiRig'),'all');
+    if(state.support!=='all')chip('support',t(state.collection==='datasets'?(state.support==='direct'?'directProduct':'derivedProduct'):(state.support==='direct'?'directSupport':'convertedSupport')),'all');
+    for(const key of ['depthGT','trajectoryGT'])if(state[key]!=='all')chip(key,t(key)+': '+t('gt_'+state[key]),'all');
     $('active-filters').replaceChildren(...chips);
   }
 
@@ -444,10 +485,9 @@
     titleHeading.append(title);
     body.append(meta, titleHeading, el('p', 'paper-full-title', record.title || record.name), el('p', 'card-summary', display.summary || t('summaryFallback')));
     const badges = el('div', 'badge-row');
-    const cameraTags = cameras(record).slice(0, 2).map(camera => badge(cameraLabels[camera] || camera));
-    badges.append(...cameraTags, badge(shortScales[scaleValue(record)], `scale-${scaleValue(record)}`));
+    badges.append(badge(shortScales[scaleValue(record)], `scale-${scaleValue(record)}`));
     if (record.depthType && !['none', 'unknown'].includes(record.depthType)) badges.append(badge(depthTypes[record.depthType] || record.depthType, 'depth-badge'));
-    body.append(badges);
+    body.append(supportBadges(record),badges);
     const footer = el('div', 'card-footer');
     const links = el('div', 'card-links');
     const codeLabel = t(codeStatus(record) === 'none' ? 'repo' : codeStatus(record) === 'unverified' ? 'source' : 'codeLink') + ' ↗';
@@ -477,7 +517,7 @@
     body.append(meta,heading,el('p','paper-full-title',record.title),el('p','card-summary',local(record.localizedSummary)));
     const facts=el('div','dataset-facts'),dl=el('dl');
     for(const [label,value] of [[t('sensors'),datasetSensors(record)],[t('groundTruth'),datasetTruth(record)]])dl.append(el('dt','',label),el('dd','',value||t('unknown')));
-    facts.append(dl);body.append(facts);
+    facts.append(dl);body.append(facts,annotationBadges(record));
     const tags=el('div','dataset-tags');tags.append(...cameras(record).map(c=>badge(cameraLabels[c]||c)),...asList(record.tasks).map(task=>badge(t(task==='depth'?'taskDepth':'taskSlam'),'task-'+task)));body.append(tags);
     const footer=el('div','card-footer'),links=el('div','card-links');links.append(sourceLink(t('homepage')+' ↗',record.homepageUrl),sourceLink(t('download')+' ↗',record.downloadUrl));footer.append(links,compareCheckbox(record));body.append(footer);
     const status=el('div','code-status');status.append(el('span','',t(accessKey(record.access))));const details=el('button','card-detail-trigger',t('datasetDetails')+' ↗');details.type='button';details.addEventListener('click',()=>openRecord(record.id));status.append(details);
@@ -492,7 +532,8 @@
       const tr=el('tr',selected.has(record.id)?'selected':'');tr.dataset.recordId=record.id;
       const title=el('td'),button=el('button','table-title',record.name);button.type='button';button.addEventListener('click',()=>openRecord(record.id));title.append(button,datasetPriority(record),el('span','table-subtitle',local(record.localizedSummary)));
       const actions=el('td'),wrap=el('div','table-actions');wrap.append(makeFavorite(record,'table-favorite'),compareCheckbox(record));actions.append(wrap);
-      tr.append(title,el('td','table-year',record.year),el('td','',cameras(record).map(c=>cameraLabels[c]||c).join(' · ')),el('td','',datasetTasks(record)),el('td','',datasetTruth(record)),el('td','',t(accessKey(record.access))),actions);body.append(tr);
+      const truth=el('td');truth.append(annotationBadges(record),el('span','table-subtitle',datasetTruth(record)));
+      tr.append(title,el('td','table-year',record.year),el('td','',cameras(record).map(c=>cameraLabels[c]||c).join(' · ')),el('td','',datasetTasks(record)),truth,el('td','',t(accessKey(record.access))),actions);body.append(tr);
     }
     table.append(head,body);return table;
   }
@@ -508,6 +549,8 @@
     if(window.AtlasFigures) body.append(window.AtlasFigures.detail(record,state.lang));
     const links=el('div','detail-sources');links.append(sourceLink(t('homepage')+' ↗',record.homepageUrl,'source-link'),sourceLink(t('download')+' ↗',record.downloadUrl,'source-link'),sourceLink(t('paper')+' ↗',record.paperUrl,'source-link'));body.append(links);
     body.append(detailSection(t('datasetOverview'),'',{[t('task')]:datasetTasks(record),[t('environmentType')]:asList(record.environment).map(e=>t(e)).join(' · '),[t('reality')]:t(realityKey(record.reality)),[t('sensors')]:datasetSensors(record),[t('groundTruth')]:datasetTruth(record)}));
+    body.append(detailSection(t('annotationTitle'),t('annotationGuide'),Object.fromEntries(['depth','trajectory'].map(kind=>[t(kind==='depth'?'depthGT':'trajectoryGT'),annotationText(record,kind)+' · '+local(record.annotations?.[kind]?.note)]))));
+    body.append(detailSection(t('imageProvenance'),t('datasetCameraGuide'),cameraSupportText(record)));
     body.append(detailSection(t('datasetSpecs'),'',local(record.datasetDetails)));
     body.append(detailSection(t('accessLicense'),'',{[t('access')]:t(accessKey(record.access)),[t('license')]:local(record.datasetLicense),[t('verifiedDate')]:record.sourceChecked}));
     const notes=asList(local(record.datasetNotes));if(notes.length){const section=detailSection(t('notes'),'',null);section.querySelector('p').remove();const ul=el('ul');notes.forEach(note=>ul.append(el('li','',note)));section.append(ul);body.append(section)}
@@ -610,6 +653,7 @@
     const releaseLabel = t(['none', 'unverified'].includes(codeStatus(record)) ? 'source' : 'codeLink');
     [[t('paper'), record.paperUrl], [releaseLabel, record.codeUrl], [t('project'), record.projectUrl], [t('weights'), record.weightsUrl]].forEach(([label, url]) => sources.append(sourceLink(label + (safeUrl(url) ? ' ↗' : ''), url, 'source-link')));
     body.append(sources);
+    body.append(detailSection(t('cameraSupport'),t('taxonomyGuide'),cameraSupportText(record)));
     const io = el('div', 'detail-two-column');
     const input = detailSection(t('input'), '', record.inputSummary, t('inputPending'));
     if (record.inputs && typeof record.inputs === 'object' && Object.keys(record.inputs).length) appendFields(input, record.inputs);
@@ -705,6 +749,8 @@
       [t('reality'),r=>t(realityKey(r.reality))],
       [t('sensors'),datasetSensors],
       [t('groundTruth'),datasetTruth],
+      [t('depthGT'),r=>annotationText(r,'depth')+' · '+local(r.annotations?.depth?.note)],
+      [t('trajectoryGT'),r=>annotationText(r,'trajectory')+' · '+local(r.annotations?.trajectory?.note)],
       [t('datasetSpecs'),r=>text(local(r.datasetDetails))],
       [t('access'),r=>t(accessKey(r.access))],
       [t('license'),r=>r.license],
@@ -713,6 +759,7 @@
     ] : [
       [t('yearVenue'), record => `${record.year || t('unknown')} · ${record.venue || t('unknown')}`],
       [t('camera'), record => cameras(record).map(camera => cameraLabels[camera] || camera).join(' · ')],
+      [t('cameraSupport'),cameraSupportText],
       [t('input'), record => record.inputSummary || t('unknown')],
       [t('inputSpecs'), record => Object.keys(record.inputs || {}).length ? text(record.inputs) : record.inputSummary || t('unknown')],
       [t('output'), record => record.outputSummary || text(record.outputs)],
@@ -755,7 +802,7 @@
       content = JSON.stringify({ title: 'Panoramic Depth Atlas', updated: catalog.updated, exported: new Date().toISOString(), filters: state, records: items }, null, 2);
       type = 'application/json;charset=utf-8'; extension = 'json';
     } else if (format === 'csv') {
-      const fields = state.collection==='datasets' ? ['id','name','title','year','cameras','tasks','environment','reality','sensors','groundTruth','access','homepageUrl','paperUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes','curation','figure','sourceChecked','evidence'] : ['id', 'collection', 'name', 'title', 'year', 'venue', 'authors', 'institutions', 'cameras', 'scale', 'scaleNote', 'metricStatus', 'depthType', 'inputSummary', 'outputSummary', 'inputs', 'outputDetails', 'pose', 'nativePanoramic', 'family', 'imu', 'loopClosure', 'codeStatus', 'license', 'paperUrl', 'codeUrl', 'projectUrl', 'weightsUrl', 'verificationLevel', 'sourceChecked', 'evidence', 'notes'];
+      const fields = state.collection==='datasets' ? ['id','name','title','year','cameras','cameraSupport','projectionSubtypes','additionalSupport','cameraReview','tasks','environment','reality','sensors','groundTruth','annotations','access','homepageUrl','paperUrl','downloadUrl','localizedSummary','datasetDetails','datasetLicense','datasetNotes','curation','figure','sourceChecked','evidence'] : ['id', 'collection', 'name', 'title', 'year', 'venue', 'authors', 'institutions', 'cameras', 'cameraSupport', 'projectionSubtypes', 'additionalSupport', 'cameraReview', 'scale', 'scaleNote', 'metricStatus', 'depthType', 'inputSummary', 'outputSummary', 'inputs', 'outputDetails', 'pose', 'nativePanoramic', 'family', 'imu', 'loopClosure', 'codeStatus', 'license', 'paperUrl', 'codeUrl', 'projectUrl', 'weightsUrl', 'verificationLevel', 'sourceChecked', 'evidence', 'notes'];
       const cell = value => { let string = sourceText(value); if (/^[=+\-@\t\r]/.test(string)) string = `'${string}`; return `"${string.replace(/"/g, '""')}"`; };
       content = '\uFEFF' + [fields.join(','), ...items.map(record => fields.map(field => cell(record[field])).join(','))].join('\r\n');
       type = 'text/csv;charset=utf-8'; extension = 'csv';
@@ -792,7 +839,7 @@
   });
   document.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => setFilter('lang', button.dataset.language)));
   $('search').addEventListener('input', event => setFilter('q', event.target.value, true));
-  [['year-filter', 'year'], ['scale-filter', 'scale'], ['code-filter', 'code'], ['sort-select', 'sort'],...['task','environment','reality','access'].map(key=>[key+'-filter',key])].forEach(([id, key]) => $(id).addEventListener('change', event => setFilter(key, event.target.value)));
+  [['year-filter', 'year'], ['scale-filter', 'scale'], ['code-filter', 'code'], ['sort-select', 'sort'],...['fov','rig','support','task','environment','reality','depthGT','trajectoryGT','access'].map(key=>[key+'-filter',key])].forEach(([id, key]) => $(id).addEventListener('change', event => setFilter(key, event.target.value)));
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => setFilter('view', button.dataset.view)));
   $('favorites-filter').addEventListener('click', () => setFilter('favorites', !state.favorites));
   $('reset-filters').addEventListener('click', resetFilters);

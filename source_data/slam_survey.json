@@ -941,9 +941,9 @@
     ]
   },
   {
-    "weights_url": "Unknown: learned-feature weights may be in author archive",
+    "weights_url": "Unknown: no verified estimator checkpoint release; official code release remains pending",
     "pose_output": "Yes: estimated 6DoF trajectory; wrist/TCP additionally needs extrinsics",
-    "accessed": "2026-10-17",
+    "accessed": "2026-10-20",
     "native_panoramic": true,
     "native_erp": true,
     "panoramic_representation": "Native full ERP with inertial fusion",
@@ -955,9 +955,9 @@
     "year": 2026,
     "venue": "arXiv preprint 2604.00852 (1 Apr 2026)",
     "paper_url": "https://arxiv.org/abs/2604.00852",
-    "project_url": "https://arxiv.org/html/2604.00852v1",
-    "code_url": "https://drive.google.com/file/d/1lG1Upn6yi-N6tYpEHAt6dfR1uhzNtWbT/view",
-    "license": "Unknown: author-linked archive not unpacked/inspected",
+    "project_url": "https://github.com/YYWumm/PanoAir",
+    "code_url": "https://github.com/YYWumm/PanoAir",
+    "license": "Official repository declares GPL-3.0; estimator source remains pending. A separate dataset licence was not verified.",
     "input": "Full ERP frames plus synchronized IMU; camera-IMU transform and timing calibration",
     "output": "Visual-inertial state, sparse map and panoramic loop-closed trajectory",
     "depth_convention": "Sparse spherical landmarks; no dense depth predictor",
@@ -971,14 +971,14 @@
     "loop_closure": true,
     "metric_status": "metric via inertial fusion",
     "hardware_notes": "Paper: C++/ONNX; Jetson Orin NX TensorRT 10Hz with stride 3; no local result.",
-    "limitations": "Drive release is advertised but archive/code/license/checkpoint completeness not audited. UAV evidence is not wrist precision validation.",
-    "official_release_status": "Authors advertise source+dataset on Drive; archive not executed/audited",
+    "limitations": "The official README advertises dataset/calibration on Drive but estimator source is still being prepared for release in the coming months. Dataset archive contents, a separate data licence and checkpoints were not audited. UAV evidence is not wrist precision validation.",
+    "official_release_status": "Dataset and calibration are linked on Drive; official README says estimator code is being prepared and expected in the coming months (checked 2026-10-20)",
     "summary_zh": "2026年原生ERP视觉惯性SLAM，结合混合特征与全景回环，提供跨时段无人机数据集线索。",
-    "evidence": "IV model is ERP; abstract links release; V-C specifies embedded 10Hz setting.",
+    "evidence": "Paper IV uses ERP; V-C specifies the embedded 10 Hz setting. Official repository README checked 2026-10-20 separates the advertised dataset/calibration download from the still-pending source-code release. No archive execution or local estimator reproduction.",
     "source_urls": [
       "https://arxiv.org/abs/2604.00852",
       "https://arxiv.org/html/2604.00852v1",
-      "https://drive.google.com/file/d/1lG1Upn6yi-N6tYpEHAt6dfR1uhzNtWbT/view"
+      "https://github.com/YYWumm/PanoAir"
     ]
   },
   {

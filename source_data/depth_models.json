@@ -1381,5 +1381,292 @@
     "evidence_level": "L2_paper_or_L3_code_as_specified",
     "schema_version": "1.0",
     "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+  },
+  {
+    "id": "moge3",
+    "short_name": "MoGe-3",
+    "title": "MoGe-3: Fine-Detail Monocular Geometry Estimation with Self-Guided Sparse Volumetric Refinement",
+    "authors": [
+      "Lingyu Kong",
+      "Ruicheng Li",
+      "Ruicheng Wang",
+      "Sicheng Xu",
+      "Chengtang Yao",
+      "Jianfeng Xiang",
+      "Jiaolong Yang"
+    ],
+    "institutions": [
+      "Tsinghua University",
+      "University of Science and Technology of China",
+      "Microsoft Research"
+    ],
+    "year": 2026,
+    "venue": "NeurIPS 2026 accepted per official project; arXiv 2607.17967",
+    "paper_url": "https://arxiv.org/abs/2607.17967",
+    "project_url": "https://qft-333.github.io/moge3page/",
+    "category": [
+      "monocular",
+      "pinhole",
+      "metric",
+      "point-map",
+      "sparse-3d-refinement"
+    ],
+    "camera_support": [
+      "perspective"
+    ],
+    "native_panoramic": false,
+    "task_family": "depth_and_geometry",
+    "accessed": "2026-10-20",
+    "pose_output": "No camera pose or trajectory output",
+    "runtime": "No local runtime or peak-memory measurement; do not treat repository-wide timings as version-specific benchmarks.",
+    "reproduction_status": "Official paper and inference code reviewed; weights and model inference not executed locally.",
+    "evidence_level": "L2_paper_and_L3_interface_code_review",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-20: official paper, project, repository, model cards and inference source inspected; no model weights downloaded.",
+    "code_url": "https://github.com/microsoft/MoGe",
+    "weights_url": "https://huggingface.co/Ruicheng/moge-3-vitl",
+    "license": {
+      "code": "MIT; bundled DINOv2 component Apache-2.0; other dependencies retain their terms",
+      "weights": "Official Ruicheng/moge-3-vitl model metadata declares MIT; model card prose is empty"
+    },
+    "input": {
+      "frames": "Single RGB tensor (3,H,W) or (B,3,H,W), values [0,1]",
+      "projection": "Pinhole perspective geometry; centered principal point and focal/axial-shift recovery",
+      "intrinsics": "Optional horizontal field of view fov_x in degrees; otherwise inferred. Output K is normalized, with principal point (0.5,0.5).",
+      "resolution": "Output maps match input H,W; resolution_level 0-9 or num_tokens controls base ViT compute, not output dimensions",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity input in the public interface",
+      "synchronization": "Single-image inference; no temporal or multi-sensor synchronization input"
+    },
+    "output": {
+      "primary": "Metric Z-depth (H,W), metric camera-space point map (H,W,3), valid mask and normalized K; normals when the checkpoint supplies them",
+      "point_map": "Direct affine point prediction with sparse 3D refinement; infer() aligns it to the camera and applies learned metric scale",
+      "normal": "Optional normal map (H,W,3), OpenCV camera coordinates",
+      "confidence": "Predicted valid-pixel mask; not a calibrated depth uncertainty",
+      "camera_parameters": "Normalized pinhole intrinsics; known fov_x can constrain recovery; no extrinsics"
+    },
+    "geometry_output": [
+      "z_depth",
+      "point_map",
+      "normal",
+      "intrinsics"
+    ],
+    "depth_convention": "infer() sets depth=points[...,2], then multiplies points and depth by the learned metric scale. OpenCV coordinates: x right, y down, z forward. Euclidean range is norm(points), not the depth field. force_projection=True recomputes points from depth and K.",
+    "scale": "Learned metric scale for released MoGe-3 checkpoints, not externally measured scale or a guarantee of scene-specific accuracy.",
+    "metric_status": "metric_learned",
+    "code_entry": [
+      "moge/model/v3.py::MoGeModel.infer",
+      "moge/scripts/infer.py --version v3 --pretrained ... --refine_steps 3",
+      "moge/train/train_moge3.py"
+    ],
+    "innovation": "Refines a MoGe-2-initialized point map in a sparse voxel shell; self-guided 3D neighborhoods reduce mixing across separate depth layers. The default public inference uses three refinement iterations.",
+    "summary_zh": "以 MoGe-2 为基础，将点图提升到稀疏三维体素壳中反复细化，恢复细结构；原始接口属于针孔相机的公制 Z 深度与点图模型。",
+    "engineering_notes": [
+      "Official project states NeurIPS 2026 acceptance; official repository announced code and MoGe-3 checkpoints on 2026-08-18.",
+      "No verified raw fisheye or complete ERP interface for v3. The repository experimental infer_panorama.py imports moge.model.v1 and defaults to MoGe-1; it does not establish v3 panorama support.",
+      "Masking may store invalid depths/points as infinity; apply the valid mask before geometry processing.",
+      "This is independent single-image geometry inference; fine detail does not establish temporal consistency, VIO accuracy or SLAM pose output."
+    ],
+    "environment": "Official package requires Python >=3.10 and PyTorch; v3 sparse refinement depends on FlexGEMM/Triton. Official installation notes do not support macOS. Platform compatibility was not tested locally.",
+    "official_release_status": "code_and_weights_released",
+    "evidence": [
+      "https://arxiv.org/abs/2607.17967",
+      "https://qft-333.github.io/moge3page/",
+      "https://github.com/microsoft/MoGe",
+      "https://github.com/microsoft/MoGe/blob/main/moge/model/v3.py",
+      "https://github.com/microsoft/MoGe/blob/main/moge/scripts/infer_panorama.py",
+      "https://huggingface.co/Ruicheng/moge-3-vitl"
+    ]
+  },
+  {
+    "id": "moge2",
+    "short_name": "MoGe-2",
+    "title": "MoGe-2: Accurate Monocular Geometry with Metric Scale and Sharp Details",
+    "authors": [
+      "Ruicheng Wang",
+      "Sicheng Xu",
+      "Yue Dong",
+      "Yu Deng",
+      "Jianfeng Xiang",
+      "Zelong Lv",
+      "Guangzhong Sun",
+      "Xin Tong",
+      "Jiaolong Yang"
+    ],
+    "institutions": [
+      "University of Science and Technology of China",
+      "Microsoft Research",
+      "Tsinghua University"
+    ],
+    "year": 2025,
+    "venue": "NeurIPS 2025 per official project; arXiv 2507.02546",
+    "paper_url": "https://arxiv.org/abs/2507.02546",
+    "project_url": "https://wangrc.site/MoGe2Page/",
+    "category": [
+      "monocular",
+      "pinhole",
+      "metric",
+      "point-map",
+      "data-refinement"
+    ],
+    "camera_support": [
+      "perspective"
+    ],
+    "native_panoramic": false,
+    "task_family": "depth_and_geometry",
+    "accessed": "2026-10-20",
+    "pose_output": "No camera pose or trajectory output",
+    "runtime": "No local runtime or peak-memory measurement; do not treat repository-wide timings as version-specific benchmarks.",
+    "reproduction_status": "Official paper and inference code reviewed; weights and model inference not executed locally.",
+    "evidence_level": "L2_paper_and_L3_interface_code_review",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-20: official paper, project, repository, model cards and inference source inspected; no model weights downloaded.",
+    "code_url": "https://github.com/microsoft/MoGe",
+    "weights_url": "https://huggingface.co/Ruicheng/moge-2-vitl-normal",
+    "license": {
+      "code": "MIT; bundled DINOv2 component Apache-2.0; other dependencies retain their terms",
+      "weights": "Official Ruicheng/moge-2-vitl-normal model metadata declares MIT; model card prose is empty"
+    },
+    "input": {
+      "frames": "Single RGB tensor (3,H,W) or (B,3,H,W), values [0,1]",
+      "projection": "Pinhole perspective geometry; centered principal point and focal/axial-shift recovery",
+      "intrinsics": "Optional fov_x in degrees; otherwise inferred. Returned K is normalized with principal point (0.5,0.5).",
+      "resolution": "Adaptive num_tokens / resolution_level; public interface returns maps at input H,W",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity input in the public interface",
+      "synchronization": "Single image; no temporal fusion"
+    },
+    "output": {
+      "primary": "Metric Z-depth, metric point map, normalized pinhole intrinsics and valid mask; normal map only for normal checkpoints",
+      "point_map": "Affine-invariant point-map branch aligned to a perspective camera and multiplied by the learned metric scale",
+      "normal": "Available in -normal checkpoints; plain moge-2-vitl is listed without normals",
+      "confidence": "Valid mask, not a calibrated depth uncertainty",
+      "camera_parameters": "Normalized K; estimated focal or optional known horizontal FOV; no camera pose"
+    },
+    "geometry_output": [
+      "z_depth",
+      "point_map",
+      "normal",
+      "intrinsics"
+    ],
+    "depth_convention": "v2 infer() recovers focal and axial shift, sets depth=points[...,2], optionally projects points using K, and applies metric_scale. Returned depth is camera Z; radial range is the norm of the 3D points.",
+    "scale": "Learned metric scale, decoupled from affine-invariant relative geometry; metric accuracy remains dependent on scene domain and camera recovery.",
+    "metric_status": "metric_learned",
+    "code_entry": [
+      "moge/model/v2.py::MoGeModel.infer",
+      "moge/scripts/infer.py --version v2",
+      "moge/train/train_moge12.py"
+    ],
+    "innovation": "Decouples metric scale prediction through a CLS-token MLP from affine-invariant geometry. A unified refinement process filters and completes real training geometry using sharp synthetic labels.",
+    "summary_zh": "将仿射不变点图与公制尺度预测解耦，利用合成标签细化真实训练几何；作为针孔公制点图、Z 深度及可选法线基线。",
+    "engineering_notes": [
+      "Distinct NeurIPS 2025 publication preceding MoGe-3; retain this baseline when evaluating sparse 3D refinement.",
+      "Plain and -normal checkpoints expose different normal capabilities; do not infer all model variants output normals.",
+      "No verified v2 native ERP/fisheye path. The repository experimental panorama wrapper imports v1, so it is not evidence of v2 panorama support.",
+      "Single-image geometry and learned metric scale do not provide a measured trajectory or temporal consistency."
+    ],
+    "environment": "Official shared package uses Python >=3.10 and PyTorch; verify the selected v2 checkpoint and current dependency versions before reproduction. No local platform or inference test.",
+    "official_release_status": "code_and_weights_released",
+    "evidence": [
+      "https://arxiv.org/abs/2507.02546",
+      "https://wangrc.site/MoGe2Page/",
+      "https://github.com/microsoft/MoGe",
+      "https://github.com/microsoft/MoGe/blob/main/moge/model/v2.py",
+      "https://github.com/microsoft/MoGe/blob/main/moge/scripts/infer_panorama.py",
+      "https://huggingface.co/Ruicheng/moge-2-vitl-normal"
+    ]
+  },
+  {
+    "id": "marigold",
+    "short_name": "Marigold",
+    "title": "Marigold: Repurposing Diffusion-Based Image Generators for Monocular Depth Estimation",
+    "authors": [
+      "Bingxin Ke",
+      "Anton Obukhov",
+      "Shengyu Huang",
+      "Nando Metzger",
+      "Rodrigo Caye Daudt",
+      "Konrad Schindler"
+    ],
+    "institutions": [
+      "ETH Zurich"
+    ],
+    "year": 2024,
+    "venue": "CVPR 2024 (Oral); original preprint December 2023",
+    "paper_url": "https://arxiv.org/abs/2312.02145",
+    "project_url": "https://marigoldmonodepth.github.io/",
+    "category": [
+      "monocular",
+      "pinhole",
+      "relative",
+      "affine-invariant-depth",
+      "diffusion"
+    ],
+    "camera_support": [
+      "perspective"
+    ],
+    "native_panoramic": false,
+    "task_family": "monocular_depth",
+    "accessed": "2026-10-20",
+    "pose_output": "No camera pose or trajectory output",
+    "runtime": "No local runtime or peak-memory measurement; do not treat repository-wide timings as version-specific benchmarks.",
+    "reproduction_status": "Official paper and inference code reviewed; weights and model inference not executed locally.",
+    "evidence_level": "L2_paper_and_L3_interface_code_review",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-20: official paper, project, repository, model cards and inference source inspected; no model weights downloaded.",
+    "code_url": "https://github.com/prs-eth/Marigold",
+    "weights_url": "https://huggingface.co/prs-eth/marigold-depth-v1-1",
+    "license": {
+      "code": "Apache-2.0",
+      "weights": "CreativeML Open RAIL++-M; code and weight licenses differ"
+    },
+    "input": {
+      "frames": "Single RGB image; PIL image or tensor according to pipeline",
+      "projection": "Perspective/pinhole-image depth baseline; no verified native fisheye or ERP interface",
+      "intrinsics": "No intrinsics needed for affine-invariant depth inference; metric unprojection requires resolving scale/shift and calibration",
+      "resolution": "Official depth-v1-1 card recommends resizing the long edge to 768 pixels for effective model resolution; supports other image sizes",
+      "extrinsics": "Not required",
+      "imu": "No",
+      "gravity": "No measured gravity input in the public interface",
+      "synchronization": "Single-image inference; no temporal state"
+    },
+    "output": {
+      "primary": "Affine-invariant H,W depth in [0,1]; normalized values are not meters",
+      "point_map": "No direct point-map head; unprojection needs valid intrinsics and resolved depth scale/shift",
+      "normal": "Not from this original depth checkpoint; later separate normal models belong to the expanded Marigold family",
+      "confidence": "Optional uncalibrated median-absolute-deviation uncertainty from ensembling; absent for a single prediction",
+      "camera_parameters": "No camera intrinsics or poses predicted"
+    },
+    "geometry_output": [
+      "relative_depth"
+    ],
+    "depth_convention": "Affine-invariant depth, not an inverse-depth prediction: an unknown positive scale and additive shift remain. Values in [0,1] span predicted near/far planes and are not physical Z or radial distances until aligned.",
+    "scale": "Scale-and-shift ambiguous monocular depth. RGB-only inference supplies no metric scale.",
+    "metric_status": "scale_shift_invariant",
+    "code_entry": [
+      "marigold/marigold_depth_pipeline.py::MarigoldDepthPipeline",
+      "run.py",
+      "Diffusers MarigoldDepthPipeline"
+    ],
+    "innovation": "Repurposes a pretrained Stable Diffusion latent denoiser for image-conditioned depth using synthetic-only fine-tuning; multiple predictions can be aligned and ensembled.",
+    "summary_zh": "将 Stable Diffusion 改作单图深度预测，以合成数据微调并可集成多次采样；输出保留尺度与偏移歧义，是扩散式针孔深度的重要对照。",
+    "engineering_notes": [
+      "The entry is anchored to the original CVPR 2024 depth paper. The current official repository also contains the 2025 journal extension; the linked v1-1 checkpoint is a later same-family depth update.",
+      "Denoising steps and ensemble size trade runtime for output quality. The optional uncertainty is not a calibrated metric error bound.",
+      "Do not confuse normalized affine-invariant depth with inverse depth or a metric depth sensor.",
+      "The original RGB-depth model has no temporal, pose, fisheye or full-panorama inference guarantee."
+    ],
+    "environment": "Official PyTorch/Diffusers implementation; separate DDIM/LCM checkpoints and scheduler settings must match. Exact dependency versions and local performance were not audited.",
+    "official_release_status": "code_and_weights_released",
+    "evidence": [
+      "https://arxiv.org/abs/2312.02145",
+      "https://openaccess.thecvf.com/content/CVPR2024/html/Ke_Repurposing_Diffusion-Based_Image_Generators_for_Monocular_Depth_Estimation_CVPR_2024_paper.html",
+      "https://marigoldmonodepth.github.io/",
+      "https://github.com/prs-eth/Marigold",
+      "https://github.com/prs-eth/Marigold/blob/main/marigold/marigold_depth_pipeline.py",
+      "https://huggingface.co/prs-eth/marigold-depth-v1-1"
+    ]
   }
 ]

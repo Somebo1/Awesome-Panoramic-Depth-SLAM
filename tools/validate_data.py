@@ -12,6 +12,30 @@ catalog=json.loads((ROOT/'site/data/catalog.json').read_text(encoding='utf-8'))
 records=catalog['records'];errors=[];figure_digests={}
 ids=[e['id'] for e in records]
 if len(ids)!=len(set(ids)):errors.append('Duplicate record IDs')
+taxonomy=json.loads((ROOT/'source_data/camera_taxonomy.json').read_text(encoding='utf-8'))
+annotations=json.loads((ROOT/'source_data/dataset_annotations.json').read_text(encoding='utf-8'))
+if set(taxonomy)!=set(ids):errors.append('Camera taxonomy IDs differ')
+if set(annotations)!={e['id'] for e in records if e['collection']=='datasets'}:errors.append('Dataset annotation IDs differ')
+for e in records:
+    camera=taxonomy.get(e['id'],{})
+    if camera.get('cameras')!=e.get('cameras') or camera.get('cameraSupport')!=e.get('cameraSupport'):errors.append(e['id']+': stale camera mapping')
+    projections=set(e.get('cameras',[]))&{'panoramic','fisheye','perspective'}
+    support=e.get('cameraSupport',[])
+    if projections!={s.get('geometry') for s in support}:errors.append(e['id']+': missing input support route')
+    for s in support:
+        if s.get('route') not in ['direct','reprojected','rendered','stitched']:errors.append(e['id']+': invalid camera route')
+        if not all(s.get('note',{}).get(lang) for lang in ['en','zh']):errors.append(e['id']+': missing camera explanation')
+        if not s.get('evidence') or not all(urlparse(u).scheme in ['http','https'] for u in s['evidence']):errors.append(e['id']+': missing camera evidence')
+    if e['collection']!='datasets':continue
+    annotation=annotations.get(e['id'],{})
+    if annotation!=e.get('annotations'):errors.append(e['id']+': stale GT annotation')
+    for kind in ['depth','trajectory']:
+        entry=annotation.get(kind,{})
+        if entry.get('status') not in ['yes','partial','reference','no','unknown']:errors.append(e['id']+': invalid '+kind+' GT status')
+        if not all(entry.get('note',{}).get(lang) for lang in ['en','zh']):errors.append(e['id']+': missing '+kind+' GT note')
+        if set(entry.get('provenance',[]))-{'measured','rendered','estimated','kinematic'}:errors.append(e['id']+': invalid '+kind+' provenance')
+        if entry.get('status')=='reference' and 'estimated' not in entry.get('provenance',[]):errors.append(e['id']+': reference without estimated provenance')
+    if not annotation.get('evidence') or not all(urlparse(u).scheme in ['http','https'] for u in annotation['evidence']):errors.append(e['id']+': missing annotation evidence')
 required='id collection name title year venue authors institutions summary cameras scale scaleNote metricStatus depthType inputSummary outputSummary inputs outputDetails codeStatus paperUrl license evidence sourceChecked'.split()
 for e in records:
     if e['collection']=='datasets':

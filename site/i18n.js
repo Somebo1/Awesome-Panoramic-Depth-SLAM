@@ -103,7 +103,7 @@
     unifuse:['单张 ERP RGB 及由同一图像确定性生成的立方体投影。','与 ERP 对齐的 B×1×H×W 深度；监督权重绑定数据集尺度和范围。','遵循监督数据集的深度定义；不能据此保证开放域公制精度。',['适合作为领域基线，开放域实验优先级低于基础模型。','同一场景图的两种投影不构成真实立体基线。']],
     odgsslam2026:['等距柱状 RGB 或 RGB-D 全景序列。','相机轨迹与可渲染的三维高斯地图。','单目 RGB 有尺度歧义；公制 RGB-D 输入可提供尺度。',['渲染效果不能证明全局回环或快速运动鲁棒性；需核对 ERP 拼接与 RGB-D 定义。','官方源码、数据集和 CVPR 论文已提供。']],
     p2uslam2026:['单目 PAL/Taylor 或 Kannala–Brandt 鱼眼序列。','轨迹、稀疏地图，以及考虑协方差的跟踪、局部 BA、回环与地图复用。','纯单目视觉尺度存在歧义；所提方法无 IMU。',['官方仓库仅含 README 和图片，没有完整源码。','Taylor 或 KB 模型支持不是原生 ERP 支持。']],
-    panoair2026:['完整 ERP 帧和同步 IMU；需要相机与 IMU 的外参、时间标定。','视觉惯性状态、稀疏地图，以及全景回环校正轨迹。','在可观测条件下由 IMU 融合提供公制尺度。',['作者通过 Drive 宣传源码与数据集，但未解包检查归档、许可或发布完整性。','无人机结果不是腕部高精度定位验证。']],
+    panoair2026:['完整 ERP 帧和同步 IMU；需要相机与 IMU 的外参、时间标定。','视觉惯性状态、稀疏地图，以及全景回环校正轨迹。','在可观测条件下由 IMU 融合提供公制尺度。',['官方 README 宣称数据与标定可从 Drive 下载；估计器源码仍在整理，预计未来数月发布。归档内容、单独数据许可与检查点未核验。','无人机结果不是腕部高精度定位验证。']],
     panogsslam2026:['单目 ERP 序列；使用预训练全景深度初始化地图，论文引用 BiFuse。','相机位姿与高斯地图。','论文采用轨迹对齐来处理尺度歧义；学习深度初始化不证明绝对公制尺度。',['预印本承诺后续公开代码，未明确验证回环。','重采样视场及 ATE 对齐方式会影响比较。']],
     mast3rslam2025:['单目 RGB 序列；标定可选，假定通用中心相机；先验原始训练以针孔图像为主。','H×W×3 配对点图、内部置信度与匹配特征，连续位姿、稠密地图、回环和重定位。','Sim(3) 优化处理图对之间的尺度不一致，轨迹评测使用尺度对齐；公制权重不保证全局轨迹公制。',['通用中心相机公式不代表完整 ERP 已可直接运行。','官方源码和骨干模型已提供。']],
     okvis2x2025:['已标定相机与 IMU；可选 RGB-D、学习立体或 MVS 深度、LiDAR、GNSS。','因果、最终和 BA 轨迹 CSV，以及体素子地图与 PLY 网格。','公制融合状态受已标定深度、LiDAR 或 GNSS 配置约束。',['标定融合不代表可以任意替换为单目预测深度。','ERP 载入与相机模型未核实；官方有数据集配置。']],
@@ -165,7 +165,7 @@
     unifuse:{code:'MIT（已检查官方 LICENSE）。',weights:'待核实'},
     odgsslam2026:'仅限非商业学术研究；适用 Imperial MonoGS 的 LICENSE.md。',
     p2uslam2026:'待核实；未确认完整源码或许可。',
-    panoair2026:'待核实；未解包检查作者链接的归档。',
+    panoair2026:'官方仓库声明 GPL-3.0；估计器源码仍待发布。单独数据许可未核实。',
     panogsslam2026:'待核实',
     mast3rslam2025:'代码为 CC BY-NC-SA 4.0；权重另受 naver/mast3r 的 CHECKPOINTS_NOTICE 约束。',
     okvis2x2025:'BSD-3-Clause；模型和依赖条款另计。',
@@ -587,5 +587,168 @@
   "single-panorama feed-forward point-map reconstruction": "单张全景前馈点图重建",
   "fiducial-assisted fisheye VIO": "标记辅助鱼眼视觉惯性里程计"
 });
+  Object.assign(ui.zh, {
+    geometry:'图像投影 / 输入表示',camera:'投影与配置',sidebarNote:'主分类按输入投影；广视场和真实多相机是辅助属性。支持可交叉，直接输入与转换流程分别标注。',
+    taxonomyTitle:'相机分类与输入支持',taxonomyEvidence:'逐项分类依据 ↗',
+    taxonomyGuide:'Pinhole 指针孔透视投影，Fisheye 指鱼眼成像，Panoramic 指完整球面 / ERP 表示。Wide-FOV 是视场属性，不是独立投影模型。类别可交叉，但须有输入证据；ERP 内部的 cubemap / 透视切片不会自动得到 Pinhole 标签，PAL / 环形图也不等于完整 ERP。直接输入表示不需外部跨投影转换，内部多视图计算仍会注明。',
+    fovAttribute:'视场属性',rigAttribute:'相机配置',cameraSupport:'输入支持方式',allFov:'全部视场',wideFov:'广视场（有明确证据）',allRigs:'全部相机配置',multiRig:'真实多相机 / 立体',allSupport:'全部支持方式',directSupport:'直接输入',convertedSupport:'转换 / 派生流程',
+    route_direct:'直接输入',route_reprojected:'重投影 / 切分',route_rendered:'渲染派生',route_stitched:'拼接派生',annular:'PAL / 环形像面',availability_documented:'已记录流程',availability_released:'已发布',availability_derivable:'需派生',availability_paper:'论文能力',availability_announced:'待发布',
+    bothEnvironments:'室内与室外均包含',mixedReality:'真实与合成均包含',depthGT:'深度真值',trajectoryGT:'轨迹 / 位姿真值',allAnnotations:'全部标注状态',
+    gt_yes:'已提供',gt_partial:'部分 / 有条件',gt_reference:'估计参考',gt_no:'未提供',gt_unknown:'待核实',annotationTitle:'真值覆盖与来源',
+    annotationGuide:'“已提供”包括实测或合成渲染真值；“部分 / 有条件”表示仅部分序列、位姿或需投影处理；“估计参考”来自 SfM / SLAM 等估计，不等同独立真值。稀疏 LiDAR 与稠密深度、静态相机位姿与连续轨迹均在详情中区分。未知不表示没有。'
+  });
+  Object.assign(ui.en, {
+    geometry:'Image projection / representation',camera:'Projection & rig',sidebarNote:'Main categories describe input projections. Wide FoV and physical camera rigs are separate attributes. Verified overlaps and conversion routes are labeled.',
+    taxonomyTitle:'Camera categories & input support',taxonomyEvidence:'Per-record classification evidence ↗',
+    taxonomyGuide:'Pinhole denotes perspective projection, Fisheye denotes lens imaging, and Panoramic denotes full spherical / ERP representation. Wide FoV is an angular attribute, not a separate projection. Categories may overlap with input evidence. Internal ERP cubemaps or perspective patches do not imply a standalone pinhole input; PAL / annular images are not full ERP. Direct input requires no external projection conversion; internal view processing is still documented.',
+    fovAttribute:'Field of view',rigAttribute:'Camera configuration',cameraSupport:'Input support route',allFov:'All fields of view',wideFov:'Wide FoV (documented)',allRigs:'All camera configurations',multiRig:'Physical multi-camera / stereo',allSupport:'All support routes',directSupport:'Direct input',convertedSupport:'Converted / derived',
+    route_direct:'Direct input',route_reprojected:'Reprojected / split',route_rendered:'Rendered derivative',route_stitched:'Stitched derivative',annular:'PAL / annular image',availability_documented:'Documented route',availability_released:'Released',availability_derivable:'Derivation required',availability_paper:'Paper capability',availability_announced:'Announced',
+    bothEnvironments:'Both indoor & outdoor',mixedReality:'Both real & synthetic',depthGT:'Depth ground truth',trajectoryGT:'Trajectory / pose ground truth',allAnnotations:'All annotation statuses',
+    gt_yes:'Provided',gt_partial:'Partial / conditional',gt_reference:'Estimated reference',gt_no:'Not provided',gt_unknown:'Unverified',annotationTitle:'Ground-truth coverage & provenance',
+    annotationGuide:'Provided includes measured or synthetic rendered ground truth. Partial / conditional covers limited sequences or poses, or required projection. Estimated references from SfM / SLAM are separate from independent ground truth. Details distinguish sparse LiDAR from dense depth and static camera poses from continuous trajectories. Unknown does not mean absent.'
+  });
+  Object.assign(summaries, {
+  "moge3": "Refines monocular point maps in a sparse 3D voxel shell to preserve thin structures. The released model predicts metric pinhole Z-depth and geometry; v3 full-panorama support is unverified.",
+  "moge2": "Separates affine-invariant geometry from learned metric scale, refining real training labels with synthetic geometry. A pinhole metric point-map, Z-depth and optional-normal baseline.",
+  "marigold": "Repurposes Stable Diffusion for synthetic-only affine-invariant monocular depth. Predictions retain scale and shift ambiguity, providing a diffusion-based pinhole depth reference."
+});
+  Object.assign(zhRecords, {
+  "moge3": [
+    "单张 RGB 张量，形状为 (3,H,W) 或 (B,3,H,W)，像素归一化到 [0,1]。",
+    "公制 Z 深度、相机坐标点图、有效掩码及归一化内参；所选权重支持时输出法线。",
+    "由学习得到的全局公制尺度因子恢复米制；不是外部测量尺度，也不保证特定场景精度。",
+    [
+      "官方项目标注 NeurIPS 2026 接收；仓库于 2026-08-18 宣布 MoGe-3 代码与权重发布。",
+      "默认执行三次稀疏三维细化；可选导出各迭代结果。",
+      "原始模型采用针孔投影。仓库的全景脚本当前导入 v1，不能作为 MoGe-3 支持完整 ERP 的证据。",
+      "无效深度和点可能置为无穷大；使用前必须应用有效掩码。",
+      "单图细节提升不等于时间一致性、VIO 精度或 SLAM 轨迹输出。"
+    ]
+  ],
+  "moge2": [
+    "单张 RGB 张量，形状为 (3,H,W) 或 (B,3,H,W)。",
+    "公制 Z 深度、公制点图、有效掩码及归一化针孔内参；仅 -normal 权重输出法线。",
+    "仿射不变相对几何与学习公制尺度分开预测；仍受场景域和焦距恢复误差影响。",
+    [
+      "作为 MoGe-3 之前的独立 NeurIPS 2025 基线，用于分析稀疏三维细化的增益。",
+      "普通 moge-2-vitl 与 -normal 权重的法线能力不同。",
+      "仓库全景脚本导入的是 v1；未核实 v2 原始鱼眼或完整 ERP 接口。",
+      "单图公制点图不提供真实运动轨迹或时间一致性。"
+    ]
+  ],
+  "marigold": [
+    "单张 RGB 图像；无需输入相机内参。",
+    "H×W 的 [0,1] 仿射不变深度；多次采样集成可产生未标定的不确定性。",
+    "深度存在未知的正比例尺度和加性偏移；归一化值不是米，也不是逆深度。",
+    [
+      "本条以 CVPR 2024 原始深度论文为准；当前仓库还包含 2025 期刊扩展，v1-1 是同一系列的后续深度权重。",
+      "去噪步数与集成次数影响速度和质量，集成偏差不能解释为公制误差界。",
+      "原始深度模型不提供相机、轨迹或直接法线输出；后续法线权重属于独立任务。",
+      "未核实原生鱼眼、完整 ERP 或时间一致性能力。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "moge3": {
+    "input": {
+      "frames": "单张 RGB，(3,H,W) 或 (B,3,H,W)，数值为 [0,1]。",
+      "projection": "针孔透视投影；以居中的主点及焦距/光轴偏移恢复相机几何。",
+      "intrinsics": "可选水平视场角 fov_x（度）；缺省从点图恢复。输出 K 归一化，主点为 (0.5,0.5)。",
+      "resolution": "resolution_level 或 num_tokens 控制编码计算量；输出分辨率与输入 H、W 相同。",
+      "extrinsics": "无需。",
+      "imu": "无需。",
+      "gravity": "公开接口无需实测重力。",
+      "synchronization": "单张图像；没有多帧或多传感器同步输入。"
+    },
+    "output": {
+      "primary": "公制相机 Z 深度、相机坐标点图、有效掩码、归一化内参及可选法线。",
+      "point_map": "预测仿射点图后恢复相机几何，并乘以学习公制尺度。稀疏三维细化默认迭代三次。",
+      "normal": "所选权重支持时输出相机坐标法线；MoGe-2 的普通与 -normal 权重需区分。",
+      "confidence": "有效像素掩码，不是已标定的深度不确定性。",
+      "camera_parameters": "归一化针孔内参；不输出相机外参。",
+      "depth_convention": "depth=points[...,2]，是相机 Z；径向距离需计算点范数。OpenCV 坐标为 x 右、y 下、z 前。force_projection 可用 Z 与 K 重新生成点图。",
+      "metric_status": "学习得到的公制尺度先验；实际误差仍受场景域和标定恢复影响。",
+      "pose_output": "不输出相机位姿或连续轨迹。",
+      "runtime": "未在本机测量运行时间与峰值显存；不混用系列其他版本的效率。"
+    }
+  },
+  "moge2": {
+    "input": {
+      "frames": "单张 RGB，(3,H,W) 或 (B,3,H,W)，数值为 [0,1]。",
+      "projection": "针孔透视投影；以居中的主点及焦距/光轴偏移恢复相机几何。",
+      "intrinsics": "可选水平视场角 fov_x（度）；缺省从点图恢复。输出 K 归一化，主点为 (0.5,0.5)。",
+      "resolution": "resolution_level 或 num_tokens 控制编码计算量；输出分辨率与输入 H、W 相同。",
+      "extrinsics": "无需。",
+      "imu": "无需。",
+      "gravity": "公开接口无需实测重力。",
+      "synchronization": "单张图像；没有多帧或多传感器同步输入。"
+    },
+    "output": {
+      "primary": "公制相机 Z 深度、相机坐标点图、有效掩码、归一化内参及可选法线。",
+      "point_map": "预测仿射点图后恢复相机几何，并乘以学习公制尺度。",
+      "normal": "所选权重支持时输出相机坐标法线；MoGe-2 的普通与 -normal 权重需区分。",
+      "confidence": "有效像素掩码，不是已标定的深度不确定性。",
+      "camera_parameters": "归一化针孔内参；不输出相机外参。",
+      "depth_convention": "depth=points[...,2]，是相机 Z；径向距离需计算点范数。OpenCV 坐标为 x 右、y 下、z 前。force_projection 可用 Z 与 K 重新生成点图。",
+      "metric_status": "学习得到的公制尺度先验；实际误差仍受场景域和标定恢复影响。",
+      "pose_output": "不输出相机位姿或连续轨迹。",
+      "runtime": "未在本机测量运行时间与峰值显存；不混用系列其他版本的效率。"
+    }
+  },
+  "marigold": {
+    "input": {
+      "frames": "单张 RGB 图像，接口支持 PIL 或张量。",
+      "projection": "针孔透视图像深度基线；未核实原生鱼眼或完整 ERP 接口。",
+      "intrinsics": "相对深度推理无需内参；公制反投影仍需解决深度尺度/偏移并提供正确标定。",
+      "resolution": "官方 v1-1 模型卡建议长边约 768 像素；也可处理其他尺寸。",
+      "extrinsics": "无需。",
+      "imu": "无需。",
+      "gravity": "公开接口无需实测重力。",
+      "synchronization": "单图推理，不维护时间状态。"
+    },
+    "output": {
+      "primary": "[0,1] 仿射不变深度，不是公制米。",
+      "point_map": "没有直接点图预测头；反投影需内参和已解决歧义的深度。",
+      "normal": "原始深度权重不输出法线；系列后续法线模型是独立任务。",
+      "confidence": "多次预测集成的未标定中位绝对偏差；单次预测时不存在。",
+      "camera_parameters": "不预测相机内参或外参。",
+      "depth_convention": "仿射不变深度而非逆深度，保留正比例尺度与加性偏移；未经对齐不能直接解释为物理 Z 或径向距离。",
+      "metric_status": "尺度与偏移均有歧义，无单图米制尺度。",
+      "pose_output": "不输出相机位姿或轨迹。",
+      "runtime": "未在本机测量；去噪与集成次数会影响效率。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "moge3": {
+    "code": "MIT；内含 DINOv2 代码采用 Apache-2.0，依赖保留各自条款。",
+    "weights": "官方 Ruicheng/moge-3-vitl 模型元数据标注 MIT，正文模型卡为空。"
+  },
+  "moge2": {
+    "code": "MIT；内含 DINOv2 代码采用 Apache-2.0，依赖保留各自条款。",
+    "weights": "官方 Ruicheng/moge-2-vitl-normal 模型元数据标注 MIT，正文模型卡为空。"
+  },
+  "marigold": {
+    "code": "Apache-2.0",
+    "weights": "CreativeML Open RAIL++-M；代码与权重许可不同。"
+  }
+});
+  Object.assign(environments, {
+  "moge3": "官方包要求 Python≥3.10 与 PyTorch；v3 稀疏细化依赖 FlexGEMM/Triton。官方不支持 macOS；未进行本机兼容性或推理测试。",
+  "moge2": "官方共享包要求 Python≥3.10 与 PyTorch；应核对具体 v2 权重和当前依赖。未在本机复现。",
+  "marigold": "官方 PyTorch/Diffusers 实现；DDIM/LCM 权重与调度器必须匹配，未完整审计精确版本或本机效率。"
+});
+  Object.assign(ui.zh, {
+    multiRig:'多相机 / 基线立体（含仿真）',
+    imageProvenance:'图像产品来源',directProduct:'直接相机观测',derivedProduct:'转换 / 渲染 / 拼接产品',
+    route_direct_dataset:'相机观测',route_reprojected_dataset:'重投影产品',route_rendered_dataset:'渲染产品',route_stitched_dataset:'拼接产品',
+    datasetCameraGuide:'数据集的支持路线按图像产品来源标注：渲染或拼接的 ERP 文件可能已经发布，不代表仍需用户转换。“已发布 / 需派生 / 待发布”另列；合成多相机可具有真实的虚拟基线，共心 cubemap 不属于该配置。'
+  });
+  Object.assign(ui.en, {
+    multiRig:'Multi-camera / stereo (incl. simulation)',
+    imageProvenance:'Image product provenance',directProduct:'Direct camera observations',derivedProduct:'Reprojected / rendered / stitched',
+    route_direct_dataset:'Camera observations',route_reprojected_dataset:'Reprojected product',route_rendered_dataset:'Rendered product',route_stitched_dataset:'Stitched product',
+    datasetCameraGuide:'Dataset routes describe image product provenance: rendered or stitched ERP files may already be released and need no user conversion. Released, derivable and announced availability is stated separately. Simulated stereo may have a virtual baseline; common-center cubemap faces do not form such a rig.'
+  });
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

@@ -286,6 +286,57 @@ check('third tab keyboard navigation and dataset deep links normalize correctly'
   const c=boot('?collection=datasets&category=all&task=invalid&access=unknown&scale=metric&lang=en');assert.equal(c.api.getState().task,'all');assert.equal(c.api.getState().scale,'all');assert(c.api.getFilteredRecords().every(r=>r.access==='unknown'));
   assert.equal(c.doc.querySelectorAll('.hero-visual').length,0);b.dom.window.close();c.dom.window.close();
 });
+check('projection categories separate wide FoV and physical rigs with compatible deep links',()=>{
+  const b=boot('?collection=depth&category=pinhole&lang=en');
+  assert.equal(b.api.getState().category,'perspective');
+  assert.equal(b.doc.querySelector('[data-category="perspective"] .category-label').firstChild.textContent,'Pinhole');
+  assert.equal(b.doc.querySelector('[data-category="wide"]'),null);
+  assert.equal(b.doc.querySelector('[data-category="multi"]'),null);
+  assert(b.api.getFilteredRecords().every(r=>r.cameras.includes('perspective')));
+  b.api.setFilter('fov','wide');assert(b.api.getFilteredRecords().every(r=>r.cameras.includes('wide')&&r.cameras.includes('perspective')));
+  b.api.setFilter('category','panoramic');b.api.setFilter('fov','all');b.api.setFilter('support','direct');
+  assert(b.api.getFilteredRecords().every(r=>r.cameraSupport.some(s=>s.geometry==='panoramic'&&s.route==='direct')));
+  const c=boot('?collection=slam&category=multi');assert.equal(c.api.getState().category,'all');assert.equal(c.api.getState().rig,'multi');assert(c.api.getFilteredRecords().every(r=>r.cameras.includes('multi')));
+  const d=boot('?collection=depth&category=wide');assert.equal(d.api.getState().category,'all');assert.equal(d.api.getState().fov,'wide');
+  b.dom.window.close();c.dom.window.close();d.dom.window.close();
+});
+check('GT filters preserve independent, partial and estimated references and both environment semantics',()=>{
+  const b=boot('?collection=datasets&category=all&lang=en');
+  b.api.setFilter('trajectoryGT','reference');
+  let result=b.api.getFilteredRecords();assert(result.length>0);assert(result.some(r=>r.id==='ds_hilti2026'));
+  assert(result.every(r=>r.annotations.trajectory.status==='reference'));
+  b.api.setFilter('trajectoryGT','yes');result=b.api.getFilteredRecords();assert(result.length>0);assert(!result.some(r=>r.id==='ds_hilti2026'));
+  b.api.setFilter('trajectoryGT','all');b.api.setFilter('depthGT','no');
+  assert(b.api.getFilteredRecords().some(r=>r.id==='ds_hilti2026'));
+  b.api.setFilter('depthGT','all');b.api.setFilter('environment','both');result=b.api.getFilteredRecords();assert(result.length>0);assert(result.every(r=>r.environment.includes('indoor')&&r.environment.includes('outdoor')));
+  b.api.setFilter('environment','all');b.api.setFilter('reality','mixed');assert(b.api.getFilteredRecords().length>0);assert(b.api.getFilteredRecords().every(r=>r.reality==='mixed'));
+  const saved=JSON.parse(b.api.exportRecords('json'));assert(saved.records.every(r=>r.annotations&&r.cameraSupport));assert(b.api.exportRecords('csv').includes('annotations'));
+  b.doc.getElementById('reset-filters').click();assert.equal(b.api.getState().depthGT,'all');assert.equal(b.api.getState().trajectoryGT,'all');
+  b.api.openRecord('ds_hilti2026');assert.match(b.doc.getElementById('detail-content').textContent,/Estimated reference/);b.doc.getElementById('detail-dialog').close();
+  b.api.setFilter('depthGT','yes');b.api.setFilter('collection','depth');assert.equal(b.api.getState().depthGT,'all');
+  b.dom.window.close();
+});
+check('camera evidence does not turn internal ERP patches or raw capture optics into input interfaces',()=>{
+  const byId=new Map(catalog.records.map(r=>[r.id,r]));
+  for(const id of ['dap','unifuse','panda','da360','dreamcube']){
+    const r=byId.get(id);assert(r,id);assert(!r.cameras.includes('perspective'),id+' internal pinhole patches');assert(!r.cameras.includes('fisheye'),id+' no raw fisheye interface');
+  }
+  const tof=byId.get('ds_tof360');assert(tof);assert(!tof.cameras.includes('fisheye'));
+  for(const id of ['dac','unidac','unik3d']){const r=byId.get(id);assert(r.cameras.includes('panoramic')&&r.cameras.includes('fisheye'),id+' verified overlap');assert(r.cameraSupport.every(s=>s.evidence.length));}
+});
+check('new pinhole models keep versioned camera interfaces, affine depth and paper provenance distinct',()=>{
+  const byId=new Map(catalog.records.map(r=>[r.id,r]));
+  for(const id of ['moge2','moge3','marigold']){
+    const r=byId.get(id);assert(r,id);assert.deepEqual(r.cameras,['perspective']);assert.equal(r.nativePanoramic,false);
+    assert.equal(r.pose,false);assert.equal(r.codeStatus,'released');assert.equal(r.figure.verified,true);assert.match(r.figure.pdfSha256,/^[a-f0-9]{64}$/);
+  }
+  for(const id of ['moge2','moge3']){const r=byId.get(id);assert.equal(r.depthType,'z');assert.equal(r.scale,'metric');assert.match(r.outputDetails.depth_convention,/points.*2|camera Z/i);}
+  assert.equal(byId.get('marigold').depthType,'affine');assert.equal(byId.get('marigold').metricStatus,'scale_shift_invariant');assert.equal(byId.get('marigold').scale,'relative');
+  const b=boot('?collection=datasets&category=all&lang=en');
+  assert.equal(b.doc.querySelector('label[for="support-filter"]').textContent,'Image product provenance');
+  assert.match(b.doc.querySelector('#support-filter option[value="converted"]').textContent,/rendered/);
+  b.api.setFilter('collection','depth');assert.equal(b.doc.querySelector('label[for="support-filter"]').textContent,'Input support route');b.dom.window.close();
+});
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};
 fs.mkdirSync(path.join(root,'tests/results'),{recursive:true});

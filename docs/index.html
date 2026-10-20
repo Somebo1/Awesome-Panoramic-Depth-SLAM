@@ -6,13 +6,13 @@
   <meta name="theme-color" content="#111111">
   <meta name="description" content="全景、鱼眼与广视场深度估计及定位建图文献图谱。">
   <title>全景深度与定位建图文献图谱</title>
-  <link rel="icon" href="./assets/favicon.svg?v=20261020-dataset-gallery" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=20261020-dataset-gallery">
-  <link rel="stylesheet" href="./figures.css?v=20261020-dataset-gallery">
-  <script src="./data/catalog.js?v=20261020-dataset-gallery" defer></script>
-  <script src="./i18n.js?v=20261020-dataset-gallery" defer></script>
-  <script src="./figures.js?v=20261020-dataset-gallery" defer></script>
-  <script src="./app.js?v=20261020-dataset-gallery" defer></script>
+  <link rel="icon" href="./assets/favicon.svg?v=20261020-projections-gt" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css?v=20261020-projections-gt">
+  <link rel="stylesheet" href="./figures.css?v=20261020-projections-gt">
+  <script src="./data/catalog.js?v=20261020-projections-gt" defer></script>
+  <script src="./i18n.js?v=20261020-projections-gt" defer></script>
+  <script src="./figures.js?v=20261020-projections-gt" defer></script>
+  <script src="./app.js?v=20261020-projections-gt" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">跳转到文献</a>
@@ -46,6 +46,11 @@
     <aside id="sidebar" class="sidebar" aria-label="文献筛选">
       <div class="sidebar-heading"><span data-i18n="geometry">相机模型</span></div>
       <nav id="category-nav" class="category-nav" aria-label="相机类型"></nav>
+      <div id="camera-attributes">
+        <label class="filter-label" for="fov-filter" data-i18n="fovAttribute">视场属性</label><select id="fov-filter"><option value="all">全部视场</option><option value="wide">广视场（已核实）</option></select>
+        <label class="filter-label" for="rig-filter" data-i18n="rigAttribute">相机配置</label><select id="rig-filter"><option value="all">全部配置</option><option value="multi">真实多相机 / 立体</option></select>
+        <label id="support-label" class="filter-label" for="support-filter" data-i18n="cameraSupport">输入支持方式</label><select id="support-filter"><option value="all">全部支持方式</option><option value="direct">直接输入</option><option value="converted">转换 / 派生流程</option></select>
+      </div>
       <div class="sidebar-divider"></div>
       <div class="sidebar-heading"><span data-i18n="refine">进一步筛选</span></div>
       <label class="filter-label" for="year-filter"><span data-i18n="year">发表年份</span></label><select id="year-filter"><option value="all">全部年份</option></select>
@@ -55,9 +60,11 @@
       </div>
       <div id="dataset-filters" hidden>
         <label class="filter-label" for="task-filter"><span data-i18n="task">任务</span></label><select id="task-filter"><option value="all" data-i18n="allTasks">全部任务</option><option value="depth" data-i18n="taskDepth">深度估计</option><option value="slam" data-i18n="taskSlam">定位与建图</option></select>
-        <label class="filter-label" for="environment-filter"><span data-i18n="environmentType">环境</span></label><select id="environment-filter"><option value="all" data-i18n="allEnvironments">全部环境</option><option value="indoor" data-i18n="indoor">室内</option><option value="outdoor" data-i18n="outdoor">室外</option></select>
+        <label class="filter-label" for="environment-filter"><span data-i18n="environmentType">环境</span></label><select id="environment-filter"><option value="all" data-i18n="allEnvironments">全部环境</option><option value="indoor" data-i18n="indoor">室内</option><option value="outdoor" data-i18n="outdoor">室外</option><option value="both" data-i18n="bothEnvironments">室内与室外均包含</option></select>
         <label class="filter-label" for="reality-filter"><span data-i18n="reality">数据类型</span></label><select id="reality-filter"><option value="all" data-i18n="allRealities">全部类型</option><option value="real" data-i18n="real">真实</option><option value="synthetic" data-i18n="synthetic">合成</option><option value="mixed" data-i18n="mixedReality">混合</option></select>
         <label class="filter-label" for="access-filter"><span data-i18n="access">访问方式</span></label><select id="access-filter"><option value="all" data-i18n="allAccess">全部访问方式</option><option value="open" data-i18n="openAccess">公开下载</option><option value="registration" data-i18n="registrationAccess">需注册</option><option value="request" data-i18n="requestAccess">申请获取</option><option value="restricted" data-i18n="restrictedAccess">受限</option><option value="unknown" data-i18n="unknownAccess">待核实</option></select>
+        <label class="filter-label" for="depthGT-filter" data-i18n="depthGT">深度真值</label><select id="depthGT-filter"><option value="all">全部标注状态</option><option value="yes">已提供</option><option value="partial">部分 / 有条件提供</option><option value="reference">估计参考</option><option value="no">未提供</option><option value="unknown">待核实</option></select>
+        <label class="filter-label" for="trajectoryGT-filter" data-i18n="trajectoryGT">轨迹 / 位姿真值</label><select id="trajectoryGT-filter"><option value="all">全部标注状态</option><option value="yes">已提供</option><option value="partial">部分 / 有条件提供</option><option value="reference">估计参考</option><option value="no">未提供</option><option value="unknown">待核实</option></select>
       </div>
       <button id="favorites-filter" class="favorites-filter" type="button" aria-pressed="false"><span>☆ <span data-i18n="favorites">我的阅读收藏</span></span><span id="favorites-count">0</span></button>
       <button id="reset-filters" class="reset-button" type="button">↺ <span data-i18n="reset">重置筛选</span></button>
@@ -68,7 +75,8 @@
     <main id="main" class="main-content" tabindex="-1">
       <div class="content-heading"><div><div class="eyebrow content-eyebrow" id="collection-kicker">DEPTH COLLECTION</div><h2 id="category-title">Panoramic <span>全景深度</span></h2><p id="category-description">以球面与等距柱状投影为核心，检索 360° 场景深度研究。</p></div><button id="export-button" type="button" class="button button-secondary" aria-expanded="false" aria-controls="export-menu"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M3 12v5h14v-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg> <span data-i18n="export">导出文献</span> <span aria-hidden="true">⌄</span></button><div id="export-menu" class="export-menu" hidden><p data-i18n="exportCurrent">导出当前筛选结果</p><button data-export="json" type="button">JSON<span data-i18n="json">完整结构化数据</span></button><button data-export="csv" type="button">CSV<span data-i18n="csv">表格与分析</span></button><button data-export="bib" type="button">BibTeX<span data-i18n="bib">阅读清单草稿</span></button></div></div>
       <div class="search-toolbar"><div class="search-box"><svg width="19" height="19" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5"/></svg><label class="sr-only" for="search" data-i18n="search">搜索文献</label><input id="search" type="search" placeholder="搜索方法、论文、输入输出、关键词…" autocomplete="off"><kbd>/</kbd></div><label class="sr-only" for="sort-select" data-i18n="sort">排序方式</label><select id="sort-select" class="sort-select"><option value="newest">年份：由新到旧</option><option value="oldest">年份：由旧到新</option><option value="name">名称：A → Z</option></select><div class="view-switch" role="group" aria-label="结果视图"><button type="button" data-view="cards" aria-label="卡片视图" aria-pressed="true"><svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="11" y="2" width="5" height="5" rx="1"/><rect x="2" y="11" width="5" height="5" rx="1"/><rect x="11" y="11" width="5" height="5" rx="1"/></svg></button><button type="button" data-view="table" aria-label="表格视图" aria-pressed="false"><svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true"><path d="M2 3h14M2 9h14M2 15h14" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button></div></div>
-      <details id="dataset-guide" class="dataset-guide" hidden><summary data-i18n="curationGuide">排序与标注说明</summary><p data-i18n="curationNote"></p><div class="curation-legend"><span data-i18n="tier_established"></span><span data-i18n="tier_common"></span><span data-i18n="tier_specialized"></span><span data-i18n="tier_pending"></span></div><a href="https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM/blob/main/references/dataset_curation.md" target="_blank" rel="noopener noreferrer" data-i18n="curationEvidence">逐项排序依据 ↗</a></details>
+      <details id="camera-guide" class="dataset-guide"><summary data-i18n="taxonomyTitle">相机分类与输入支持</summary><p id="camera-guide-text" data-i18n="taxonomyGuide"></p><a href="https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM/blob/main/references/camera_taxonomy.md" target="_blank" rel="noopener noreferrer" data-i18n="taxonomyEvidence">分类核验依据 ↗</a></details>
+      <details id="dataset-guide" class="dataset-guide" hidden><summary data-i18n="curationGuide">排序与标注说明</summary><p data-i18n="curationNote"></p><p data-i18n="annotationGuide"></p><div class="curation-legend"><span data-i18n="tier_established"></span><span data-i18n="tier_common"></span><span data-i18n="tier_specialized"></span><span data-i18n="tier_pending"></span></div><a href="https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM/blob/main/references/dataset_curation.md" target="_blank" rel="noopener noreferrer" data-i18n="curationEvidence">逐项排序依据 ↗</a></details>
       <div class="results-bar"><div><strong id="result-count">0</strong> <span data-i18n="papers">篇文献</span><span id="result-description"></span></div><span class="compare-hint"><span data-i18n="compareHint">勾选方法，比较输入、输出与尺度</span> <span aria-hidden="true">↘</span></span></div>
       <div id="active-filters" class="active-filters" aria-label="当前筛选条件"></div>
       <div id="results" class="results-grid" aria-live="polite" aria-busy="true"></div>

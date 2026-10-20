@@ -1327,8 +1327,7 @@
     "title": "ToF-360: A Panoramic Time-of-flight RGB-D Dataset for Single Capture Indoor Semantic 3D Reconstruction",
     "year": 2025,
     "cameras": [
-      "panoramic",
-      "fisheye"
+      "panoramic"
     ],
     "tasks": [
       "depth"
@@ -1374,8 +1373,8 @@
       "zh": "官方 Hugging Face 数据卡标注 CC BY-NC-SA 4.0。"
     },
     "summary": {
-      "en": "Real panoramic ToF RGB-D measurements, with dual-fisheye source data and ERP annotations; depth is measured per capture rather than rendered from a global mesh.",
-      "zh": "真实全景 ToF RGB-D 测量，包含双鱼眼来源与 ERP 标注；深度逐次拍摄获得，不由全局网格渲染。"
+      "en": "Real panoramic ToF RGB-D measurements released as ERP products derived from dual-fisheye capture; a downloadable raw fisheye modality is not verified. Depth is measured per capture rather than rendered from a global mesh.",
+      "zh": "真实全景 ToF RGB-D 测量，以双鱼眼采集转换的 ERP 产品发布；尚未核实可下载的原始鱼眼模态。深度来自每次测量，而非全局网格渲染。"
     },
     "details": {
       "en": {
@@ -1415,7 +1414,7 @@
         "title": "Authors' publication and DOI"
       }
     ],
-    "checked": "2026-10-17"
+    "checked": "2026-10-20"
   },
   {
     "id": "ds_holo360d",

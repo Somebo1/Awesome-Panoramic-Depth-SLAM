@@ -34,6 +34,14 @@ Figure 3, PDF page 5. Multicylindrical stereo matching, confidence prediction an
 - Screenshot: [assets/papers/mcpdepth.webp](../site/assets/papers/mcpdepth.webp)
 - Local PDF SHA-256: `87e122fedde076d5430349e4d8b327275ced54c625c7fe51f2499c5dc834d2a8`
 
+## MoGe-3
+
+Figure 2, PDF page 4. MoGe-3 base point-map model, self-guided sparse 3D refinement and sparse U-Net.
+
+- PDF: https://arxiv.org/pdf/2607.17967
+- Screenshot: [assets/papers/moge3.webp](../site/assets/papers/moge3.webp)
+- Local PDF SHA-256: `85beceed1e2ffc91db541f21f5ec07c6d596d7e90c62458ce8462bc20b4741c1`
+
 ## PaGeR
 
 Figure 2, PDF page 4. Shared geometry backbone with scale-invariant/metric depth, normals and sky prediction.
@@ -105,6 +113,14 @@ Figure 4, PDF page 5. Training and synchronized inference of an RGB-D cubemap di
 - PDF: https://arxiv.org/pdf/2506.17206
 - Screenshot: [assets/papers/dreamcube.webp](../site/assets/papers/dreamcube.webp)
 - Local PDF SHA-256: `a20072f9ff0578bd2a553af7dd48336bce89911dd8fd3f886bb9bc2921b27e77`
+
+## MoGe-2
+
+Figure 2, PDF page 4. MoGe-2 separates affine point maps from CLS-token-driven metric scale prediction.
+
+- PDF: https://arxiv.org/pdf/2507.02546
+- Screenshot: [assets/papers/moge2.webp](../site/assets/papers/moge2.webp)
+- Local PDF SHA-256: `346b3028857dff55f50b25d625d99a2afe0fb9ad6e1de5d08889fcd1ddadd13a`
 
 ## PanDA
 
@@ -185,6 +201,14 @@ Figure 3, PDF page 3. Bi-projection fusion of ERP features and icosahedral point
 - PDF: https://arxiv.org/pdf/2403.16376
 - Screenshot: [assets/papers/elite360d.webp](../site/assets/papers/elite360d.webp)
 - Local PDF SHA-256: `856ebeb10679120ee6bed207d3f090e62862310f57f983bb511cb171253bb3fb`
+
+## Marigold
+
+Figure 3, PDF page 5. Marigold encodes the image, conditions latent denoising, and decodes depth.
+
+- PDF: https://openaccess.thecvf.com/content/CVPR2024/papers/Ke_Repurposing_Diffusion-Based_Image_Generators_for_Monocular_Depth_Estimation_CVPR_2024_paper.pdf
+- Screenshot: [assets/papers/marigold.webp](../site/assets/papers/marigold.webp)
+- Local PDF SHA-256: `ea7d878018e2aa87efdf7116b31ed1e6568877f94cfc5486f77a1f12fa7f9522`
 
 ## Metric3Dv2
 
