@@ -1,0 +1,135 @@
+{
+  "id": "pager_vs_dap_table2",
+  "methodId": "pager",
+  "baselineId": "dap",
+  "verified": true,
+  "status": "author_reported_not_locally_reproduced",
+  "checked": "2026-10-20",
+  "paperVersion": "arXiv:2605.26368v2",
+  "table": "Table 2",
+  "pdfPage": 7,
+  "pdfSha256": "88cf2516fac672870f10dc364c14742a87f7501dae6ce2122507561725868193",
+  "task": "metric_depth",
+  "wins": 8,
+  "total": 9,
+  "ties": 0,
+  "rows": [
+    {
+      "dataset": "Matterport3D360",
+      "metric": "AbsRel",
+      "unit": "%",
+      "better": "lower",
+      "pager": 21.83,
+      "dap": 30.16,
+      "winner": "pager"
+    },
+    {
+      "dataset": "Matterport3D360",
+      "metric": "RMSE",
+      "unit": "cm",
+      "better": "lower",
+      "pager": 123.48,
+      "dap": 168.88,
+      "winner": "pager"
+    },
+    {
+      "dataset": "Matterport3D360",
+      "metric": "delta1",
+      "unit": "%",
+      "better": "higher",
+      "pager": 69.5,
+      "dap": 80.19,
+      "winner": "dap"
+    },
+    {
+      "dataset": "Stanford2D3DS",
+      "metric": "AbsRel",
+      "unit": "%",
+      "better": "lower",
+      "pager": 10.94,
+      "dap": 10.97,
+      "winner": "pager"
+    },
+    {
+      "dataset": "Stanford2D3DS",
+      "metric": "RMSE",
+      "unit": "cm",
+      "better": "lower",
+      "pager": 45.43,
+      "dap": 53.39,
+      "winner": "pager"
+    },
+    {
+      "dataset": "Stanford2D3DS",
+      "metric": "delta1",
+      "unit": "%",
+      "better": "higher",
+      "pager": 90.94,
+      "dap": 90.64,
+      "winner": "pager"
+    },
+    {
+      "dataset": "ZuriPano",
+      "metric": "AbsRel",
+      "unit": "%",
+      "better": "lower",
+      "pager": 31.97,
+      "dap": 47.0,
+      "winner": "pager"
+    },
+    {
+      "dataset": "ZuriPano",
+      "metric": "RMSE",
+      "unit": "cm",
+      "better": "lower",
+      "pager": 530.85,
+      "dap": 839.72,
+      "winner": "pager"
+    },
+    {
+      "dataset": "ZuriPano",
+      "metric": "delta1",
+      "unit": "%",
+      "better": "higher",
+      "pager": 39.3,
+      "dap": 24.02,
+      "winner": "pager"
+    }
+  ],
+  "title": {
+    "en": "PaGeR versus DAP: author metric-depth evaluation",
+    "zh": "PaGeR 与 DAP：作者公制深度评测"
+  },
+  "summary": {
+    "en": "Table 2 (arXiv v2, PDF p. 7) reports PaGeR ahead of DAP in 8 of 9 metric-depth dataset/metric cells; Matterport3D360 delta1 is the exception: 69.50% versus 80.19%. These are author-reported results, not local reproduction.",
+    "zh": "论文 v2 表 2（PDF 第 7 页）：PaGeR 在 9 个公制深度数据集/指标组合中有 8 项优于 DAP；唯一例外为 Matterport3D360 的 δ1，PaGeR 69.50%，DAP 80.19%。这是作者报告结果，未在本地复现。"
+  },
+  "protocol": {
+    "depthRangeM": [
+      0,
+      75
+    ],
+    "alignment": "none_for_metric_depth",
+    "heads": "dataset_forced_indoor_or_outdoor",
+    "modelVariant": "unified_PaGeR_SI_times_learned_metric_scale",
+    "laterAutoRouterIncluded": false,
+    "note": {
+      "en": "The paper evaluates metric predictions without GT alignment over [0,75] m. Both DAP and PaGeR have separate indoor/outdoor heads. The paper forces the domain per dataset; its numbers do not establish the accuracy of the later automatic CLIP router or superiority on a different evaluation protocol.",
+      "zh": "论文在 [0,75] 米范围直接评测公制预测，不做真值对齐。DAP 和 PaGeR 均有独立室内/室外预测头，论文按数据集指定域；不能把这些数值视为后加 CLIP 自动路由的实测结果，也不能跨评测协议推断全面领先。"
+    }
+  },
+  "sources": [
+    {
+      "url": "https://arxiv.org/pdf/2605.26368v2#page=7",
+      "label": "arXiv v2, Table 2 and Sec. 3.2, PDF page 7"
+    },
+    {
+      "url": "https://pager360.github.io/",
+      "label": "Official project, Metric Depth table and explicit units"
+    },
+    {
+      "url": "https://github.com/prs-eth/PaGeR#pretrained-models",
+      "label": "Official repository, checkpoint variants and post-submission CLIP routing note"
+    }
+  ]
+}

@@ -18,6 +18,14 @@ Figure 3, PDF page 5. DAP distortion-aware depth decoding and geometric training
 - Screenshot: [assets/papers/dap.webp](../site/assets/papers/dap.webp)
 - Local PDF SHA-256: `d8e8003a95388f671218d7a12e2f5666aaf538fca7fbaf5cd693d52a36ce66c0`
 
+## DepthMaster (2026)
+
+Figure 3, PDF page 4. DepthMaster unifies pinhole and ERP as perspective patches with virtual-camera conditioning, point/normal prediction, shared scale and correspondence-consistency training.
+
+- PDF: https://arxiv.org/pdf/2606.12368
+- Screenshot: [assets/papers/depthmaster2026.webp](../site/assets/papers/depthmaster2026.webp)
+- Local PDF SHA-256: `c435b22c372b556129b6029e2446d9ee86a2f29f5069ffbcd4adc8e894e8b92e`
+
 ## GeoPano
 
 Figure 3, PDF page 5. GeoPano view decomposition, panorama-aware attention, local point-map prediction and global point-cloud fusion.
@@ -41,6 +49,14 @@ Figure 2, PDF page 4. MoGe-3 base point-map model, self-guided sparse 3D refinem
 - PDF: https://arxiv.org/pdf/2607.17967
 - Screenshot: [assets/papers/moge3.webp](../site/assets/papers/moge3.webp)
 - Local PDF SHA-256: `85beceed1e2ffc91db541f21f5ec07c6d596d7e90c62458ce8462bc20b4741c1`
+
+## OmniPoint
+
+Figure 2, PDF page 6. OmniPoint combines image and optional intrinsic/sparse-depth conditions in DINOv2, with ray-distance, sky-mask and metric-scale heads.
+
+- PDF: https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf
+- Screenshot: [assets/papers/omnipoint2026.webp](../site/assets/papers/omnipoint2026.webp)
+- Local PDF SHA-256: `85ad75308f5f16bf48523e858d7a5f9329319e3214b6377a47fba2bf537b3a14`
 
 ## PaGeR
 

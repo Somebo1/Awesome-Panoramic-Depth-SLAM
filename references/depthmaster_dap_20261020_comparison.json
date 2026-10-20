@@ -1,0 +1,47 @@
+{
+  "modelId": "depthmaster2026",
+  "baselineId": "dap",
+  "identity": "DepthMaster 2026 unified perspective/panorama, arXiv 2606.12368",
+  "paperUrl": "https://arxiv.org/pdf/2606.12368",
+  "pdfPage": 7,
+  "table": "Table 1, Metric depth map",
+  "protocolPages": [
+    6,
+    16
+  ],
+  "metric": "AbsRel (lower is better)",
+  "numericConvention": "Numbers transcribed as printed in Table 1; percent-style values, not fractional AbsRel.",
+  "values": [
+    {
+      "dataset": "Stanford2D3D",
+      "depthmaster": 7.73,
+      "dap": 10.89
+    },
+    {
+      "dataset": "Matterport3D",
+      "depthmaster": 9.49,
+      "dap": 17.78
+    },
+    {
+      "dataset": "PanoSUNCG",
+      "depthmaster": 4.54,
+      "dap": 6.71
+    },
+    {
+      "dataset": "Unweighted mean as printed",
+      "depthmaster": 7.25,
+      "dap": 11.79
+    }
+  ],
+  "result": "Lower metric AbsRel on all three reported datasets",
+  "evidenceLevel": "author_reported_table_visually_verified_not_locally_reproduced",
+  "protocol": {
+    "en": "Single-model zero-shot full-ERP evaluation under the paper DA2 panorama protocol. Six 518x518 faces are reprojected to 512x1024 ERP; metric depth is evaluated without GT scale/shift alignment.",
+    "zh": "论文采用单模型零样本完整 ERP 评测，沿用 DA² 全景协议；六个 518×518 面重投影为 512×1024 ERP，米制深度不使用真值尺度/偏移对齐。"
+  },
+  "limitations": {
+    "en": "All three quantitative panorama datasets are indoor. This is an author-reported benchmark comparison, not proof of superiority on outdoor/robotic trajectories or temporal consistency. Released default config evaluates aligned modes; enable metric_depth_eval for raw metric evaluation.",
+    "zh": "三个全景定量基准均为室内。属于作者报告，不能推出室外、机器人轨迹或时间一致性全面优于 DAP。公开默认配置评测对齐模式；原始米制评测须启用 metric_depth_eval。"
+  },
+  "checked": "2026-10-20"
+}

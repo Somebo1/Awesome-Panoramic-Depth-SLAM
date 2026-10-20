@@ -337,6 +337,33 @@ check('new pinhole models keep versioned camera interfaces, affine depth and pap
   assert.match(b.doc.querySelector('#support-filter option[value="converted"]').textContent,/rendered/);
   b.api.setFilter('collection','depth');assert.equal(b.doc.querySelector('label[for="support-filter"]').textContent,'Input support route');b.dom.window.close();
 });
+check('DepthMaster and OmniPoint preserve camera interfaces, metric protocols and release uncertainty',()=>{
+  const byId=new Map(catalog.records.map(r=>[r.id,r]));
+  const dm=byId.get('depthmaster2026'),omni=byId.get('omnipoint2026');assert(dm&&omni);
+  assert.equal(catalog.records.filter(r=>r.id==='pager').length,1);
+  assert.match(dm.title,/Unified.*Perspective and Panoramic/);assert.equal(dm.scale,'metric');assert.equal(dm.depthType,'mixed');
+  assert(dm.cameras.includes('perspective')&&dm.cameras.includes('panoramic'));assert(!dm.cameras.includes('fisheye'));assert(!dm.cameras.includes('multi'));
+  assert.match(dm.notes.join(' '),/metric_depth_eval/);assert.match(dm.notes.join(' '),/metric_scale/);assert.equal(dm.codeStatus,'released');
+  assert(omni.cameras.includes('perspective')&&omni.cameras.includes('fisheye')&&omni.cameras.includes('panoramic'));
+  assert.equal(omni.depthType,'points');assert.equal(omni.scale,'metric');assert.equal(omni.codeStatus,'unverified');assert(!omni.codeUrl&&!omni.weightsUrl);
+  assert(omni.inputs.sparse_depth);assert.match(omni.notes.join(' '),/No direct DAP comparison/);
+  assert.match(omni.outputDetails.depth_convention,/radial/);assert.equal(omni.pose,false);
+  const b=boot('?collection=depth&category=panoramic&q=OmniPoint&lang=en');
+  assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord('omnipoint2026');
+  assert.match(b.doc.getElementById('detail-content').textContent,/Sparse depth prior/);assert(!/[\u3400-\u9fff]/.test(b.doc.getElementById('detail-content').textContent));
+  b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord('omnipoint2026');assert.match(b.doc.getElementById('detail-content').textContent,/稀疏深度条件/);b.dom.window.close();
+});
+check('DAP comparison claims remain tied to the original tables and retain losing cases',()=>{
+  const evidence=JSON.parse(fs.readFileSync(path.join(root,'references/pager_dap_20261020_comparison.json'),'utf8'));
+  const wins=evidence.rows.filter(row=>row.better==='lower'?row.pager<row.dap:row.pager>row.dap);
+  assert.equal(wins.length,8);assert.equal(evidence.rows.length,9);
+  const exception=evidence.rows.find(row=>row.dataset==='Matterport3D360'&&row.metric==='delta1');assert(exception.pager<exception.dap);
+  const dm=JSON.parse(fs.readFileSync(path.join(root,'references/depthmaster_dap_20261020_comparison.json'),'utf8'));
+  assert.equal(dm.values.filter(row=>!row.dataset.includes('mean')).length,3);assert(dm.values.every(row=>row.depthmaster<row.dap));
+  const omni=JSON.parse(fs.readFileSync(path.join(root,'references/omnipoint_dap_20261020_comparison.json'),'utf8'));
+  assert.equal(omni.dapDirectComparison,'not_found_in_reviewed_primary_sources');assert.match(omni.relativePanorama.baseline,/DA²/);
+  assert(omni.metricConditions.withSparseDepth>omni.metricConditions.imageOnly);
+});
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};
 fs.mkdirSync(path.join(root,'tests/results'),{recursive:true});

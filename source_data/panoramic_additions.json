@@ -796,7 +796,7 @@
       "synchronization": "Single panorama; real multi-camera stitching synchronization remains a system concern"
     },
     "output": {
-      "primary": "ERP scale-invariant depth, metric depth and sky mask (unified checkpoint)",
+      "primary": "ERP scale-invariant depth, metric depth, surface normals and sky mask from the unified checkpoint",
       "point_map": "Derived geometry only; no direct point-map head verified",
       "normal": "Surface normals; dedicated normals-only checkpoint also released",
       "confidence": "Aleatoric depth confidence heads in paper; physically calibrated uncertainty not established",
@@ -816,20 +816,26 @@
       "https://pager360.github.io/",
       "https://github.com/prs-eth/PaGeR",
       "https://huggingface.co/prs-eth/PaGeR",
-      "https://huggingface.co/prs-eth/PaGeR-metric-depth"
+      "https://huggingface.co/prs-eth/PaGeR-metric-depth",
+      "https://arxiv.org/pdf/2605.26368v2#page=7",
+      "https://arxiv.org/abs/2605.26368v2",
+      "https://github.com/prs-eth/PaGeR#pretrained-models"
     ],
     "engineering_notes": [
       "Reported paper metric results force indoor/outdoor scale head per dataset; default automatic router is a later release behavior.",
-      "High-resolution ERP output does not increase the fixed six-face network input detail."
+      "High-resolution ERP output does not increase the fixed six-face network input detail.",
+      "Table 2 (arXiv v2, PDF p. 7) reports PaGeR ahead of DAP in 8 of 9 metric-depth dataset/metric cells; Matterport3D360 delta1 is the exception: 69.50% versus 80.19%. These are author-reported results, not local reproduction.",
+      "Table 2, AbsRel (%)/RMSE (cm)/delta1 (%), PaGeR versus DAP: Matterport3D360 21.83/123.48/69.50 versus 30.16/168.88/80.19; Stanford2D3DS 10.94/45.43/90.94 versus 10.97/53.39/90.64; ZuriPano 31.97/530.85/39.30 versus 47.00/839.72/24.02.",
+      "The paper evaluates metric predictions without GT alignment over [0,75] m. Both DAP and PaGeR have separate indoor/outdoor heads. The paper forces the domain per dataset; its numbers do not establish the accuracy of the later automatic CLIP router or superiority on a different evaluation protocol."
     ],
-    "accessed": "2026-10-17",
+    "accessed": "2026-10-20",
     "pose_output": "No online SLAM trajectory output verified",
     "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
     "environment": "Official tested Linux, Python 3.10, PyTorch ≥2.0, CUDA ≥12.1.",
     "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
     "evidence_level": "L2_partial_paper_and_official_release_metadata",
     "schema_version": "1.1",
-    "url_verification": "2026-10-17: official paper/project/repository sources opened; weight links checked only to the extent explicitly stated.",
+    "url_verification": "2026-10-20: arXiv v2 abstract and Table 2 (PDF p. 7) rechecked against the official project; official checkpoint/routing/release documentation reviewed. No newer arXiv version found on the abstract page (v2 dated 2026-05-27).",
     "camera_support": [
       "panoramic_erp",
       "perspective",

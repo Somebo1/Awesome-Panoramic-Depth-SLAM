@@ -220,7 +220,7 @@
   function fieldLabel(key) {
     if (key === 'requirements') return state.lang === 'zh' ? '输入与传感器' : 'Input & sensors';
     const labels = {
-      frames:['图像与帧','Images / frames'], projection:['投影模型','Projection'], intrinsics:['相机内参','Intrinsics'], resolution:['分辨率','Resolution'], extrinsics:['相机外参','Extrinsics'], imu:['惯性信息','IMU'], gravity:['重力信息','Gravity'], synchronization:['同步条件','Synchronization'], primary:['主要输出','Primary output'], point_map:['点图','Point map'], normal:['法线','Normals'], confidence:['置信度','Confidence'], camera_parameters:['相机参数','Camera parameters'], depth_convention:['深度定义','Depth convention'], metric_status:['尺度状态','Scale status'], pose_output:['位姿输出','Pose output'], runtime:['运行效率','Runtime'], code:['代码','Code'], weights:['权重','Weights'], input:['模型输入','Input'], output:['模型输出','Output'], notes:['研究笔记','Notes']
+      frames:['图像与帧','Images / frames'], projection:['投影模型','Projection'], intrinsics:['相机内参','Intrinsics'], resolution:['分辨率','Resolution'], extrinsics:['相机外参','Extrinsics'], imu:['惯性信息','IMU'], gravity:['重力信息','Gravity'], sparse_depth:['稀疏深度条件','Sparse depth prior'], synchronization:['同步条件','Synchronization'], primary:['主要输出','Primary output'], point_map:['点图','Point map'], normal:['法线','Normals'], confidence:['置信度','Confidence'], camera_parameters:['相机参数','Camera parameters'], depth_convention:['深度定义','Depth convention'], metric_status:['尺度状态','Scale status'], pose_output:['位姿输出','Pose output'], runtime:['运行效率','Runtime'], code:['代码','Code'], weights:['权重','Weights'], input:['模型输入','Input'], output:['模型输出','Output'], notes:['研究笔记','Notes']
     };
     return labels[key]?.[state.lang === 'zh' ? 0 : 1] || key;
   }

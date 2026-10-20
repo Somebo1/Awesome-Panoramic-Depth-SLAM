@@ -1,6 +1,6 @@
 # Official-source index
 
-Literature search cutoff 2026-10-19. Targeted camera, pinhole and annotation checks: 2026-10-20. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
+Literature search cutoff 2026-10-19. Targeted pinhole, cross-camera, benchmark and annotation checks: 2026-10-20. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
 
 ## DA² (2026)
 
@@ -27,6 +27,19 @@ Depth Any Panoramas: A Foundation Model for Panoramic Depth Estimation
 - https://arxiv.org/abs/2512.16913
 - https://insta360-research-team.github.io/DAP_website/
 - https://github.com/Insta360-Research-Team/DAP
+
+## DepthMaster (2026) (2026)
+
+DepthMaster: Unified Monocular Depth Estimation for Perspective and Panoramic Images
+
+- https://arxiv.org/abs/2606.12368
+- https://polyu-vclab.github.io/DepthMaster-page/
+- https://github.com/PolyU-VCLab/DepthMaster
+- https://github.com/PolyU-VCLab/DepthMaster/blob/main/depthmaster/model/model.py
+- https://github.com/PolyU-VCLab/DepthMaster/blob/main/eval_panorama/eval.py
+- https://github.com/PolyU-VCLab/DepthMaster/blob/main/eval_panorama/configs/eval_panorama.json
+- https://github.com/PolyU-VCLab/DepthMaster/blob/main/eval_panorama/eval/utils/infer.py
+- https://huggingface.co/VCLab-PolyU/DepthMaster
 
 ## GeoPano (2026)
 
@@ -56,6 +69,16 @@ MoGe-3: Fine-Detail Monocular Geometry Estimation with Self-Guided Sparse Volume
 - https://github.com/microsoft/MoGe/blob/main/moge/scripts/infer_panorama.py
 - https://huggingface.co/Ruicheng/moge-3-vitl
 
+## OmniPoint (2026)
+
+OmniPoint: Universal Monocular Metric Pointcloud from Any Camera
+
+- https://arxiv.org/abs/2609.09394
+- https://botaoye.github.io/omnipoint/
+- https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf
+- https://arxiv.org/html/2609.09394v1
+- https://botaoye.github.io/
+
 ## PaGeR (2026)
 
 Unified Panoramic Geometry Estimation via Multi-View Foundation Models
@@ -65,6 +88,9 @@ Unified Panoramic Geometry Estimation via Multi-View Foundation Models
 - https://github.com/prs-eth/PaGeR
 - https://huggingface.co/prs-eth/PaGeR
 - https://huggingface.co/prs-eth/PaGeR-metric-depth
+- https://arxiv.org/pdf/2605.26368v2#page=7
+- https://arxiv.org/abs/2605.26368v2
+- https://github.com/prs-eth/PaGeR#pretrained-models
 - https://arxiv.org/abs/2605.26368
 
 ## RePer-360 (2026)

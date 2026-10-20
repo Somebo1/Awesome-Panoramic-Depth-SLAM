@@ -6,7 +6,7 @@ A curated index of **panoramic, fisheye and pinhole depth estimation, visual odo
 
 **[Explore the website →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=en)** · [Panoramic localization and mapping](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic&lang=en) · [Datasets](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=en) · [Full JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-Latest incremental literature-search cutoff: **2026-10-19**. Targeted pinhole additions, camera-taxonomy and dataset-annotation review: **2026-10-20**; this targeted review does not claim a comprehensive literature search through that date. The atlas contains **105** records: **34** depth and geometry methods (23 include a panoramic pipeline, 15 have pinhole-input evidence), **33** SLAM / VO / VIO methods (11 have explicit ERP input evidence), and **38** datasets (17 involve panoramic data or an explicit rendering or resampling protocol). Categories overlap. This is a manually verified index organized around research tasks, not a performance ranking or an exhaustive survey.
+Latest incremental literature-search cutoff: **2026-10-19**. Targeted pinhole / cross-camera additions, camera-taxonomy and dataset-annotation review: **2026-10-20**; this targeted review does not claim a comprehensive literature search through that date. The atlas contains **107** records: **36** depth and geometry methods (25 include a panoramic pipeline, 17 have pinhole-input evidence), **33** SLAM / VO / VIO methods (11 have explicit ERP input evidence), and **38** datasets (17 involve panoramic data or an explicit rendering or resampling protocol). Categories overlap. This is a manually verified index organized around research tasks, not a performance ranking or an exhaustive survey.
 
 ## Using the atlas
 
@@ -60,7 +60,7 @@ The canonical records are `source_data/datasets_depth.json` and `source_data/dat
 
 | Direction | Representative methods |
 |---|---|
-| Panoramic foundation models and cross-camera methods | DAP, UniDAC, DAC, DA², DA360, PanDA, UniK3D, PaGeR, RePer-360 |
+| Panoramic foundation models and cross-camera methods | DAP, DepthMaster (2026), OmniPoint, UniDAC, DAC, DA², DA360, PanDA, UniK3D, PaGeR, RePer-360 |
 | Panoramic projection and fusion | 360MonoDepth, OmniFusion, HRDFuse, Elite360D, RPG360, ST²360D |
 | Supervised and self-supervised panoramic depth | UniFuse, PanoFormer, BiFuse++, Depth Anywhere |
 | Physical multi-camera stereo | MODE, MCPDepth |
@@ -74,6 +74,10 @@ The canonical records are `source_data/datasets_depth.json` and `source_data/dat
 Full titles, authors, affiliations, publication information and original sources are available on the [website](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=en) and in the [evidence index](references/sources.md).
 
 The additions include **MoGe-2 (NeurIPS 2025)**, which separates affine point geometry from learned metric scale, and **MoGe-3 (accepted at NeurIPS 2026 per its official project)**, which uses sparse 3D refinement to preserve fine structures. Both released depth fields are camera Z-depth; radial range requires the point norm. **Marigold (CVPR 2024)** adds a diffusion-based affine-invariant depth reference with scale and shift ambiguity; it is neither metric depth nor inverse depth. All three include real paper diagrams, full bilingual specifications and a [source audit](references/pinhole_20261020_sources.md).
+
+The targeted additions also include **DepthMaster (2026, unified perspective/panorama)** and **OmniPoint**. DepthMaster distinguishes pinhole Z-depth from ERP range. Its Table 1 reports lower AbsRel than DAP on three indoor panorama benchmarks, within that paper's protocol; released defaults require enabling metric evaluation and correctly applying `metric_scale`. It is distinct from the unrelated 2025 diffusion paper with the same short name. See the [DepthMaster audit](references/depthmaster_20261020_sources.md).
+
+OmniPoint documents pinhole, fisheye and full-ERP inputs, while public code and checkpoints remain unverified. Its reviewed comparison uses **DA²**, with no direct DAP comparison found. Image-only, intrinsic-conditioned and sparse-depth-conditioned results are separate; see the [OmniPoint audit](references/omnipoint_20261020_sources.md). The existing PaGeR record now includes its Table 2 comparison with DAP: eight of nine cells improve, with Matterport3D360 delta1 the exception. Preserve units, range, unaligned metric evaluation and forced domain-head settings; see the [PaGeR benchmark audit](references/pager_dap_20261020_sources.md).
 
 360VO, 360-VIO and 360DVO are odometry methods, which does not establish global loop closure. PatchMatch-Stereo-Panorama extends OpenVSLAM with densification. Cube-Splat's virtual views share an optical center and pose, creating no physical stereo baseline. PanoLoop uses offline retrieval over the complete sequence and Sim(3) correction, so it is not labeled real-time online metric SLAM. See the [classic-method audit](references/slam_candidates_classics_sources.md) and [recent-method audit](references/slam_candidates_recent_sources.md). Two Sensors (MDPI) candidates were excluded from that batch as requested for its scope.
 
@@ -100,7 +104,7 @@ DAC and UniDAC may appear in multiple categories because they document calibrate
 
 ## Update records and figure provenance
 
-All 67 methods include verified paper figures; previews for the 38 datasets are attributed separately.
+All 69 methods include verified paper figures; previews for the 38 datasets are attributed separately.
 
 The latest literature search is documented in the [2026-10-19 source audit](references/weekly_20261019_sources.md), covering GeoPano, AprilVINS / MILD, PanoCARLA-Static, and previously omitted 360DVO and ODGS-SLAM datasets. GeoPano point maps are scale-aligned outputs. AprilVINS is conditionally metric VIO with fisheye, IMU and AprilTag inputs; its algorithm and MILD data remain pending release. Backfilled older resources are not described as new work from that week, and unverified code announcements are not labeled complete implementations.
 

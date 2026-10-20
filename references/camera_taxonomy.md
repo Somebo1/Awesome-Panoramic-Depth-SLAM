@@ -24,6 +24,20 @@ panoramic
 
 Review scope: focused_primary_source_recheck_2026-10-20
 
+## DepthMaster (2026)
+
+perspective, panoramic
+
+- perspective / direct: The public infer() accepts a pinhole RGB image, recovers or accepts fov_x, and returns metric Z-depth and camera-space points. 公开 infer() 接收针孔 RGB，恢复或接收 fov_x，输出公制 Z 深度与相机坐标点图。
+  - https://github.com/PolyU-VCLab/DepthMaster/blob/main/depthmaster/model/model.py
+  - https://github.com/PolyU-VCLab/DepthMaster
+- panoramic / direct: The official pipeline accepts complete ERP and internally uses six overlapping 95-degree cubemap views; metric-scaled point norms are fused into ERP radial range. These are virtual views, not a physical multi-camera rig. 官方流程接收完整 ERP，内部使用六个重叠 95° cubemap 透视面；点图应用公制尺度后取范数，融合为 ERP 径向距离。这些是虚拟视图，不是真实多相机设备。
+  - https://github.com/PolyU-VCLab/DepthMaster/blob/main/eval_panorama/eval.py
+  - https://github.com/PolyU-VCLab/DepthMaster
+  - https://arxiv.org/abs/2606.12368
+
+Review scope: focused_primary_source_recheck_2026-10-20
+
 ## GeoPano
 
 panoramic
@@ -53,6 +67,22 @@ perspective
 - perspective / direct: Single pinhole RGB input. No verified raw fisheye or full-ERP entrance for this model version. 单张针孔 RGB 输入；未核实此模型版本的原始鱼眼或完整 ERP 入口。
   - https://qft-333.github.io/moge3page/
   - https://github.com/microsoft/MoGe
+
+Review scope: focused_primary_source_recheck_2026-10-20
+
+## OmniPoint
+
+panoramic, fisheye, wide, perspective
+
+- panoramic / direct: Complete ERP input is documented and evaluated on Stanford2D3D-S/PanoSUNCG. Bidirectional virtual-view augmentation is training, not a requirement to stitch separate inference patches. 论文明确包含完整 ERP，并在 Stanford2D3D-S／PanoSUNCG 上评测。双向虚拟视图增强属于训练，不等于必须分块推理再拼接。
+  - https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf
+  - https://botaoye.github.io/omnipoint/
+- fisheye / direct: Raw fisheye is explicitly evaluated on KITTI-360 using predicted rays and radial distance, rather than being inferred from an any-camera name. 论文明确在 KITTI-360 评测原始鱼眼，以预测射线和径向距离恢复几何，不是由 any-camera 名称推断。
+  - https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf
+  - https://botaoye.github.io/omnipoint/
+- perspective / direct: Pinhole RGB is an explicit paper-documented input; intrinsics are optional. Public inference code/checkpoints remain unverified. 论文明确包含针孔 RGB 输入，内参可选；公开推理代码和权重尚未核实。
+  - https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf
+  - https://botaoye.github.io/omnipoint/
 
 Review scope: focused_primary_source_recheck_2026-10-20
 

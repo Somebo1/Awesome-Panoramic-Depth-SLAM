@@ -1018,5 +1018,65 @@
     "pdfSha256": "ea7d878018e2aa87efdf7116b31ed1e6568877f94cfc5486f77a1f12fa7f9522",
     "imageSha256": "52b09446c29b3abf4b4f522fa3c0c241621e871e9b13b3f9966524a2dac02cd7",
     "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+  },
+  "depthmaster2026": {
+    "thumbnail": "assets/papers/depthmaster2026-thumb.webp",
+    "image": "assets/papers/depthmaster2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2606.12368",
+    "page": 4,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "zh": "DepthMaster 将针孔与 ERP 统一为透视面，联合虚拟相机条件、点图/法线预测、共享尺度与对应一致性训练。",
+      "en": "DepthMaster unifies pinhole and ERP as perspective patches with virtual-camera conditioning, point/normal prediction, shared scale and correspondence-consistency training."
+    },
+    "credit": {
+      "zh": "来源：Pengfei Wang et al.，原论文 Figure 3。",
+      "en": "Source: Pengfei Wang et al., Figure 3 of the paper."
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      60,
+      190,
+      533,
+      377
+    ],
+    "originalCaption": "Figure 3. The pipeline of DepthMaster.",
+    "sourceLicense": "Original figure copyright belongs to the paper authors/publisher. arXiv non-exclusive distribution license does not establish a broad figure-reuse license.",
+    "reviewedAt": "2026-10-20",
+    "selectionNotes": "PDF page 4 and the final crop were visually inspected; the complete pipeline and both lower consistency/attention panels are included.",
+    "pdfSha256": "c435b22c372b556129b6029e2446d9ee86a2f29f5069ffbcd4adc8e894e8b92e",
+    "imageSha256": "3157854e8bd99a01274dcbccf73d4d938810984288203faea90965ce667c30da",
+    "verification": "Original PDF page and final crop visually inspected; identity, figure number, complete boundaries and legibility checked."
+  },
+  "omnipoint2026": {
+    "thumbnail": "assets/papers/omnipoint2026-thumb.webp",
+    "image": "assets/papers/omnipoint2026.webp",
+    "paperUrl": "https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf",
+    "page": 6,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "OmniPoint 将图像与可选内参、稀疏深度条件输入 DINOv2，分别预测射线／径向距离、天空掩码与公制尺度。",
+      "en": "OmniPoint combines image and optional intrinsic/sparse-depth conditions in DINOv2, with ray-distance, sky-mask and metric-scale heads."
+    },
+    "credit": {
+      "zh": "来源：Botao Ye et al.，原论文 Figure 2。",
+      "en": "Source: Botao Ye et al., Figure 2 of the original paper."
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      134,
+      114,
+      482,
+      206
+    ],
+    "originalCaption": "Fig. 2: Overview of OmniPoint.",
+    "sourceLicense": "Original figure copyright remains with the paper authors/publisher; a permissive figure-reuse license was not independently verified.",
+    "reviewedAt": "2026-10-20",
+    "selectionNotes": "Official project PDF page 6 and final Figure 2 crop visually inspected. Complete method diagram retained; page header, caption and adjacent Figure 3 excluded.",
+    "pdfSha256": "85ad75308f5f16bf48523e858d7a5f9329319e3214b6377a47fba2bf537b3a14",
+    "imageSha256": "eac71ea7a7ebec8e77c42d78d7cbec16f19575b14bea9c4b14ef541e11bc2cf1",
+    "verification": "Downloaded official PDF identity, page, figure label and complete crop boundaries visually confirmed; no generic replacement imagery."
   }
 }

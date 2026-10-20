@@ -750,5 +750,119 @@
     route_direct_dataset:'Camera observations',route_reprojected_dataset:'Reprojected product',route_rendered_dataset:'Rendered product',route_stitched_dataset:'Stitched product',
     datasetCameraGuide:'Dataset routes describe image product provenance: rendered or stitched ERP files may already be released and need no user conversion. Released, derivable and announced availability is stated separately. Simulated stereo may have a virtual baseline; common-center cubemap faces do not form such a rig.'
   });
+  Object.assign(summaries, {
+  "pager": "Adapts DA3 to six cubemap faces for panoramic scale-invariant/metric depth, normals and sky. Separate indoor/outdoor scale heads and checkpoint variants require explicit evaluation settings."
+});
+  Object.assign(zhRecords, {
+  "pager": [
+    "单张 ERP RGB；论文同时训练透视图像。",
+    "统一权重同时输出 ERP 尺度不变深度、公制深度、表面法线及天空掩码。",
+    "统一权重采用尺度不变深度与学习公制尺度分支；仅公制权重采用直接公制预测头。自动室内外 CLIP 路由是投稿后的更新。",
+    [
+      "论文公制评测按数据集指定室内或室外尺度头，默认自动路由属于后续发布行为。",
+      "输出高分辨率 ERP 不会增加固定六面网络输入的真实细节。",
+      "官方代码与权重已提供。",
+      "论文 v2 表 2（PDF 第 7 页）：PaGeR 在 9 个公制深度数据集/指标组合中有 8 项优于 DAP；唯一例外为 Matterport3D360 的 δ1，PaGeR 69.50%，DAP 80.19%。这是作者报告结果，未在本地复现。",
+      "表 2 按 AbsRel（%）/RMSE（cm）/δ1（%）排列，PaGeR 对 DAP：Matterport3D360 为 21.83/123.48/69.50 对 30.16/168.88/80.19；Stanford2D3DS 为 10.94/45.43/90.94 对 10.97/53.39/90.64；ZüriPano 为 31.97/530.85/39.30 对 47.00/839.72/24.02。",
+      "论文在 [0,75] 米范围直接评测公制预测，不做真值对齐。DAP 和 PaGeR 均有独立室内/室外预测头，论文按数据集指定域；不能把这些数值视为后加 CLIP 自动路由的实测结果，也不能跨评测协议推断全面领先。"
+    ]
+  ]
+});
+  Object.assign(summaries, {
+  "depthmaster2026": "Unifies single-image metric geometry for pinhole and full ERP inputs. Panoramas use six overlapping perspective faces, virtual-camera conditioning and correspondence consistency; ERP depth is radial range.",
+  "omnipoint2026": "A single-image metric point-map model for pinhole, raw fisheye and complete ERP inputs, with separated rays and radial distance. Optional intrinsics and sparse depth require distinct evaluation settings."
+});
+  Object.assign(zhRecords, {
+  "depthmaster2026": [
+    "单张针孔 RGB 或一张完整 ERP 全景图。",
+    "针孔公制 Z 深度或全景径向距离、公制点图、法线及有效掩码。",
+    "学习得到的公制尺度；尺度/仿射对齐评测额外使用真值，必须与原始米制结果区分。",
+    [
+      "本条为 2026 年 PolyU 统一透视/全景模型，与 2025 年同名扩散深度论文不同。",
+      "官方仓库于 2026 年 9 月宣布 NeurIPS 2026 接收；本次未独立核实正式论文集条目。",
+      "官方流程接收完整 ERP，内部生成六个 95° 重叠透视面；虚拟相机条件不是实测轨迹，也不构成真实多相机设备。",
+      "原论文 PDF 第 7 页 Table 1 报告米制 AbsRel：Stanford2D3D 为 7.73 对 DAP 10.89，Matterport3D 为 9.49 对 17.78，PanoSUNCG 为 4.54 对 6.71，均值 7.25 对 11.79，数值沿用表内展示。限于作者报告的三个室内全景基准，未独立复现，也不代表所有场景均优于 DAP。",
+      "复现米制评测需设置 evaluation.metric_depth_eval=true；默认全景配置仅评测尺度/仿射对齐。应沿 eval_panorama/eval.py 或 README 的 forward 后乘 metric_scale 路线；infer_panorama() 便利接口本身未应用此尺度。",
+      "未核实原始鱼眼接口；不输出相机轨迹。单图几何精度不等于时间一致性或 SLAM 精度。"
+    ]
+  ],
+  "omnipoint2026": [
+    "单张 RGB；可选相机标定和／或与图像对齐的稀疏深度。",
+    "相机中心坐标下的稠密公制点图、单位射线、径向距离、全局公制尺度与天空掩码。",
+    "纯 RGB 的公制尺度来自学习先验；公制稀疏条件可通过后对齐提供外部尺度，两种评测必须区分。",
+    [
+      "官方项目与作者主页标注 ECCV 2026；尚未独立核实出版社章节 DOI。",
+      "相机支持来自论文而非本地复现：截至 2026-10-20，已查官方页面有论文、海报和 BibTeX，未核实作者发布的公开推理代码或权重。",
+      "Table 2 的全景比较对象是 DA²／Depth Anything in Any Direction，不是 DAP／Depth Any Panoramas；已查原论文及项目中未找到与 DAP 的直接比较。",
+      "Table 2 在 Stanford2D3D-S 和 PanoSUNCG 上报告相对几何，不能据此声称全景公制深度超过 DAP。",
+      "Table 3 在六个针孔数据集上分别报告纯图像、内参条件和稀疏深度条件的公制结果；不能把条件输入结果归给纯单图模型。",
+      "法线一致性训练损失不代表有独立法线预测头；天空掩码不是已标定的深度置信度。",
+      "单图点图不证明时间一致性、真实相机运动或 SLAM 精度。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "depthmaster2026": {
+    "input": {
+      "frames": "单张针孔 RGB 或一张完整 ERP 全景图。",
+      "projection": "针孔直接输入；ERP 经官方流程转换为六个 95° 重叠透视面。",
+      "intrinsics": "针孔可选 fov_x，缺省恢复；ERP 使用投影生成的虚拟内参与旋转，不需要实测运动位姿。",
+      "resolution": "论文全景评测为六个 518×518 面重投影为 512×1024 ERP；公开代码可处理其他目标尺寸。",
+      "extrinsics": "不需要实测相机外参；ERP 的虚拟透视面共用相机中心。",
+      "imu": "无需。",
+      "gravity": "无需实测重力。",
+      "synchronization": "单图推理；六个面来自同一 ERP，不是六帧时序。"
+    },
+    "output": {
+      "primary": "针孔公制 Z 深度或全景径向距离、公制点图、法线及有效掩码。",
+      "point_map": "预测点图乘以学习得到的 metric_scale；全景六面共享坐标与尺度。",
+      "normal": "预测表面法线；全景先在 cubemap 面上表征几何，再进行 ERP 融合。",
+      "confidence": "非天空/有效像素掩码；可选置信通道依权重配置而定，不是已标定误差。",
+      "camera_parameters": "针孔归一化内参，主点居中；不估计真实相机外参。",
+      "depth_convention": "针孔 infer 取点图 Z 分量并乘 metric_scale；ERP 官方评测先对点图应用尺度，再取范数形成 range，融合回全景。不可混用局部 Z 与全景径向距离。",
+      "metric_status": "学习得到的公制尺度；尺度/仿射对齐评测额外使用真值，必须与原始米制结果区分。",
+      "pose_output": "不输出估计相机位姿或轨迹；虚拟姿态是已知投影条件。",
+      "runtime": "论文报告 A100 处理 1024×2048 ERP 为 531 ms，DAP 为 427 ms；未本机测量，不是 SLAM 全流程延迟。"
+    }
+  },
+  "omnipoint2026": {
+    "input": {
+      "frames": "单张 RGB；可选相机标定和／或与图像对齐的稀疏深度。",
+      "projection": "论文明确支持针孔透视、原始鱼眼、完整 ERP；不是仅将虚拟针孔切片作为推理输入。",
+      "intrinsics": "可选标定转换为逐像素射线图；纯 RGB 推理可自行预测射线，无需实测内参。",
+      "resolution": "尚未核实公开推理缩放、张量形状或预处理配置，因为未找到作者链接的实现。",
+      "extrinsics": "纯图像模式无需外参；额外稀疏深度传感器必须在外部对齐到图像。",
+      "imu": "未记录 IMU 输入。",
+      "gravity": "未记录实测重力输入。",
+      "synchronization": "单图预测；稀疏深度必须对应同一图像几何。多传感器标定与同步由集成系统负责。",
+      "sparse_depth": "可选 LiDAR／SfM 稀疏条件先按有效值均值归一化，再经高斯平滑并附有效掩码；公制稀疏条件可对预测做后对齐。"
+    },
+    "output": {
+      "primary": "相机中心坐标下的稠密公制点图、单位射线、径向距离、全局公制尺度与天空掩码。",
+      "point_map": "P = s × d × r；r 为单位射线，d 为预测径向距离，s 为学习到的全局公制尺度。",
+      "normal": "法线一致性属于训练损失；未记录独立法线输出头。",
+      "confidence": "天空区域掩码，不是已标定的深度不确定性。",
+      "camera_parameters": "逐像素射线场；可选已标定射线作为条件。未核实公开 K 恢复 API，也不输出外参或轨迹。",
+      "depth_convention": "核心表示是单位射线上的欧氏径向距离，公制点为 s×d×r，公制 range 为点的范数 s×d。不能直接称为针孔 Z-depth；点图 Z 分量依赖坐标轴，在完整全景中不总为正。具体保存格式尚未由公开代码核实。",
+      "metric_status": "纯 RGB 的公制尺度来自学习先验；公制稀疏条件可通过后对齐提供外部尺度，两种评测必须区分。",
+      "pose_output": "未记录相机位姿、轨迹、VO／VIO 状态或回环输出。",
+      "runtime": "未做本地推理计时或显存测量；论文中的 72 张 A100 是训练配置，不是推理硬件要求。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "depthmaster2026": {
+    "code": "MIT；第三方依赖保留各自条款。",
+    "weights": "官方 Hugging Face 元数据标注 MIT；未下载权重。"
+  },
+  "omnipoint2026": {
+    "code": "未知：尚未核实作者链接的公开推理代码。",
+    "weights": "未知：尚未核实公开权重及其许可。"
+  }
+});
+  Object.assign(environments, {
+  "depthmaster2026": "官方 README 测试环境为 Linux、Python 3.10、PyTorch 2.4.0、CUDA 12.1；utils3d 固定为 3fab839f0be9931dac7c8488eb0e1600c236e183。未本机推理或兼容性测试。",
+  "omnipoint2026": "论文采用 DINOv2 ViT-L 和 DPT 预测头；公开推理安装环境、硬件支持与精确版本要求尚未核实。"
+});
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

@@ -6,7 +6,7 @@
 
 **[浏览网站 →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=zh)** · [全景定位与建图](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic&lang=zh) · [数据集](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=zh) · [完整 JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-最近一次增量文献检索截止：**2026-10-19**。针孔方法补录、相机分类与数据集标注的专项核查：**2026-10-20**；该专项核查不代表已完成截至当日的全面检索。当前 **105** 条记录：深度与几何 **34** 项（23 项包含全景流程，15 项有针孔输入证据）、SLAM / VO / VIO **33** 项（11 项有明确 ERP 输入证据）、数据集 **38** 项（17 项涉及全景数据或明确的渲染、重采样协议）。分类可重叠；这是一份按研究任务组织的人工核验索引，不是性能排行榜或穷尽性综述。
+最近一次增量文献检索截止：**2026-10-19**。针孔与跨相机方法补录、相机分类与数据集标注的专项核查：**2026-10-20**；该专项核查不代表已完成截至当日的全面检索。当前 **107** 条记录：深度与几何 **36** 项（25 项包含全景流程，17 项有针孔输入证据）、SLAM / VO / VIO **33** 项（11 项有明确 ERP 输入证据）、数据集 **38** 项（17 项涉及全景数据或明确的渲染、重采样协议）。分类可重叠；这是一份按研究任务组织的人工核验索引，不是性能排行榜或穷尽性综述。
 
 ## 使用方式
 
@@ -60,7 +60,7 @@
 
 | 路线 | 代表方法 |
 |---|---|
-| 全景基础模型与跨相机 | DAP、UniDAC、DAC、DA²、DA360、PanDA、UniK3D、PaGeR、RePer-360 |
+| 全景基础模型与跨相机 | DAP、DepthMaster（2026）、OmniPoint、UniDAC、DAC、DA²、DA360、PanDA、UniK3D、PaGeR、RePer-360 |
 | 全景投影与融合 | 360MonoDepth、OmniFusion、HRDFuse、Elite360D、RPG360、ST²360D |
 | 全景监督与自监督 | UniFuse、PanoFormer、BiFuse++、Depth Anywhere |
 | 真实多相机立体 | MODE、MCPDepth |
@@ -74,6 +74,10 @@
 完整标题、作者、机构、发表信息和原始来源见[网站](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=zh)及[证据索引](references/sources.md)。
 
 新增的 **MoGe-2（NeurIPS 2025）**将仿射点图与学习公制尺度分离；**MoGe-3（官方项目标注 NeurIPS 2026 接收）**在此基础上用稀疏三维细化保留细结构，两者公开深度字段均为相机 Z，径向距离需取点范数。**Marigold（CVPR 2024）**提供扩散式仿射不变深度基线，保留尺度和偏移歧义，不能当作公制深度或逆深度。三个条目均附真实论文方法图、完整双语规格及[来源核验](references/pinhole_20261020_sources.md)。
+
+本轮另补录 **DepthMaster（2026，统一针孔与全景）**与 **OmniPoint**。DepthMaster 区分针孔 Z-depth 与 ERP range；论文表 1 的三个室内全景基准 AbsRel 均低于 DAP，但这不是跨协议的全面排名，公开配置还需启用米制评测并正确应用 `metric_scale`。它与 2025 年同名扩散模型是不同论文。见[DepthMaster 核验](references/depthmaster_20261020_sources.md)。
+
+OmniPoint 论文支持针孔、鱼眼和完整 ERP，代码与权重发布仍待核实；已查原文比较的是 **DA²**，未找到直接 DAP 对比。内参／稀疏深度条件与纯图像结果分别记录，见[OmniPoint 核验](references/omnipoint_20261020_sources.md)。已有 PaGeR 条目补充了表 2 的逐项 DAP 对比：9 项中 8 项更优，Matterport3D360 的 δ₁ 为例外；保留范围、单位、无真值对齐及指定室内外尺度头的限制，见[PaGeR 评测核验](references/pager_dap_20261020_sources.md)。
 
 360VO、360-VIO 和 360DVO 是里程计，不能据此宣称具备全局回环；PatchMatch-Stereo-Panorama 是 OpenVSLAM 的稠密化扩展；Cube-Splat 的虚拟视图共享光心与位姿，不产生物理立体基线；PanoLoop 使用整段序列的离线检索和 Sim(3) 校正，不能标为实时在线公制 SLAM。见[经典方法核验](references/slam_candidates_classics_sources.md)和[近期方法核验](references/slam_candidates_recent_sources.md)。该轮按选题要求未加入两篇 Sensors（MDPI）候选。
 
@@ -100,7 +104,7 @@ DAC 与 UniDAC 可跨类别出现，因为存在经过标定的鱼眼 / 针孔�
 
 ## 更新记录与配图来源
 
-67 项方法均提供经过核验的论文配图；38 项数据集的预览图另行注明来源。
+69 项方法均提供经过核验的论文配图；38 项数据集的预览图另行注明来源。
 
 最近一次文献检索见 [2026-10-19 核验记录](references/weekly_20261019_sources.md)，包括 GeoPano、AprilVINS / MILD、PanoCARLA-Static，以及补录的 360DVO 和 ODGS-SLAM 数据集。GeoPano 的点图为尺度对齐输出；AprilVINS 是鱼眼、IMU、AprilTag 配置下的有条件公制 VIO，算法与 MILD 数据仍待发布。旧遗漏的补录不称为当周新成果，未核实的新代码发布也不会标为完整实现。
 

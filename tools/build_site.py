@@ -36,6 +36,8 @@ DEPTH['geopano2026']=('GeoPano',['panoramic'],'relative','points','单张 ERP �
 DEPTH['moge3']=('MoGe-3', ['perspective'], 'metric', 'z', '以 MoGe-2 为基础，将点图提升到稀疏三维体素壳中反复细化，恢复细结构；原始接口属于针孔相机的公制 Z 深度与点图模型。')
 DEPTH['moge2']=('MoGe-2', ['perspective'], 'metric', 'z', '将仿射不变点图与公制尺度预测解耦，利用合成标签细化真实训练几何；作为针孔公制点图、Z 深度及可选法线基线。')
 DEPTH['marigold']=('Marigold', ['perspective'], 'relative', 'affine', '将 Stable Diffusion 改作单图深度预测，以合成数据微调并可集成多次采样；输出保留尺度与偏移歧义，是扩散式针孔深度的重要对照。')
+DEPTH['depthmaster2026']=('DepthMaster (2026)', ['perspective', 'panoramic'], 'metric', 'mixed', '统一针孔与完整 ERP 的单图公制几何模型；全景内部转为六个重叠透视面，利用虚拟相机条件与对应一致性约束，输出径向距离和点图。')
+DEPTH['omnipoint2026']=('OmniPoint', ['panoramic', 'fisheye', 'wide', 'perspective'], 'metric', 'points', '统一针孔、原始鱼眼和完整 ERP 的单图公制点图模型，以射线与径向距离解耦相机和场景；可选内参与稀疏深度，需区分纯图像与条件输入结果。')
 CAMERAS={'panoramic_erp':'panoramic','erp':'panoramic','panoramic':'panoramic',
  'fisheye':'fisheye','wide_fov':'wide','wide-angle':'wide','wide-fov':'wide',
  'perspective':'perspective','pinhole':'perspective','multi-camera':'multi','multi_camera':'multi'}
@@ -45,6 +47,7 @@ SCALE_OVERRIDES['aprilvins2026']='metric'
 CODE_OVERRIDES={'p2uslam2026':'none','panogsslam2026':'none','panoslam2025':'none',
                 'panoair2026':'none','lfvislam2023':'partial','dreamcube':'partial'}
 CODE_OVERRIDES['aprilvins2026']='none'
+CODE_OVERRIDES['omnipoint2026']='unverified'
 SLAM_DEPTH={'dbafusion2024':'inverse','droidslam2021':'inverse','goslam2023':'inverse',
             'mast3rslam2025':'points','splatam2024':'z','monogs2024':'z',
             'vo360_2022':'inverse','dvo360_2026':'inverse','panoloop2026':'points'}
@@ -288,7 +291,7 @@ def build():
     for e in records:
         evidence=[v if isinstance(v,str) else v.get('url','') for v in e['evidence']]
         sources.append(f"## {e['name']} ({e['year']})\n\n{e['title']}\n\n"+'\n'.join('- '+v for v in evidence if v)+'\n')
-    (ROOT/'references/sources.md').write_text('# Official-source index\n\nLiterature search cutoff '+UPDATED+'. Targeted camera, pinhole and annotation checks: 2026-10-20. Per-record dates and ledgers describe review scope; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
+    (ROOT/'references/sources.md').write_text('# Official-source index\n\nLiterature search cutoff '+UPDATED+'. Targeted pinhole, cross-camera, benchmark and annotation checks: 2026-10-20. Per-record dates and ledgers describe review scope; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
     camera_lines=['# Camera taxonomy / 相机分类\n\nReviewed 2026-10-20. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.\n\nPinhole 指针孔透视输入；Wide-FOV 不作为独立投影分类。名称、广角和内部切片均不能替代输入接口证据。保留既有 perspective enum 与旧链接，新 pinhole 链接为别名。\n']
     for record in records:
         camera_lines.append('## '+record['name']+'\n\n'+', '.join(record['cameras'])+'\n')

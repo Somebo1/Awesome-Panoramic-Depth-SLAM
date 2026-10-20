@@ -1,0 +1,50 @@
+{
+  "id": "omnipoint2026",
+  "checked": "2026-10-20",
+  "dapDirectComparison": "not_found_in_reviewed_primary_sources",
+  "note": {
+    "en": "No direct DAP comparison was found in the reviewed paper/project. Table 2 uses DA-squared, which is a different model; its relative panoramic result is not evidence of metric superiority over DAP.",
+    "zh": "已查原论文与官方项目未找到直接 DAP 比较。Table 2 比较的是另一模型 DA²，且属于相对全景几何，不能证明公制性能超过 DAP。"
+  },
+  "relativePanorama": {
+    "source": "https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf",
+    "table": "Table 2",
+    "pdfPage": 10,
+    "datasets": [
+      "Stanford2D3D-S",
+      "PanoSUNCG"
+    ],
+    "metric": "relative depth/point Rel, percent, lower is better",
+    "baseline": "DA²: Depth Anything in Any Direction",
+    "omnipointDepthRel": 5.79,
+    "baselineDepthRel": 6.65,
+    "omnipointPointRel": 5.9,
+    "baselinePointRel": 7.3,
+    "scope": "Author re-evaluation for relative geometry; do not compare across metric evaluation protocols or substitute DAP for DA²."
+  },
+  "metricConditions": {
+    "source": "https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf",
+    "table": "Table 3",
+    "pdfPage": 12,
+    "datasets": [
+      "NYUv2",
+      "KITTI",
+      "ETH3D",
+      "iBims-1",
+      "DIODE",
+      "HAMMER"
+    ],
+    "metric": "mean delta1, percent, higher is better",
+    "imageOnly": 83.5,
+    "withIntrinsics": 85.0,
+    "withSparseDepth": 98.0,
+    "scope": "Six pinhole benchmark results; conditioned inputs differ. These values are not panoramic DAP comparisons."
+  },
+  "evidence": [
+    "https://arxiv.org/abs/2609.09394",
+    "https://botaoye.github.io/omnipoint/",
+    "https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf",
+    "https://arxiv.org/html/2609.09394v1",
+    "https://botaoye.github.io/"
+  ]
+}
