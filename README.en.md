@@ -6,7 +6,7 @@ A curated index of **panoramic, fisheye and pinhole depth estimation, visual odo
 
 **[Explore the website →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=en)** · [Panoramic localization and mapping](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic&lang=en) · [Datasets](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=en) · [Full JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-Latest incremental literature-search cutoff: **2026-10-19**. Targeted pinhole / cross-camera additions, camera-taxonomy and dataset-annotation review: **2026-10-20**; this targeted review does not claim a comprehensive literature search through that date. The atlas contains **107** records: **36** depth and geometry methods (25 include a panoramic pipeline, 17 have pinhole-input evidence), **33** SLAM / VO / VIO methods (11 have explicit ERP input evidence), and **38** datasets (17 involve panoramic data or an explicit rendering or resampling protocol). Categories overlap. This is a manually verified index organized around research tasks, not a performance ranking or an exhaustive survey.
+Latest incremental literature-search cutoff: **2026-10-26**, with overlap from 2026-10-05; individual evidence dates remain separate. The atlas contains **109** records: **37** depth and geometry methods (26 include a panoramic pipeline, 18 have pinhole-input evidence), **34** SLAM / VO / VIO / localization methods (12 have explicit ERP input evidence), and **38** datasets (17 involve panoramic data or an explicit rendering or resampling protocol). Categories overlap. This is a manually verified index organized around research tasks, not a performance ranking or an exhaustive survey.
 
 ## Using the atlas
 
@@ -60,13 +60,13 @@ The canonical records are `source_data/datasets_depth.json` and `source_data/dat
 
 | Direction | Representative methods |
 |---|---|
-| Panoramic foundation models and cross-camera methods | DAP, DepthMaster (2026), OmniPoint, UniDAC, DAC, DA², DA360, PanDA, UniK3D, PaGeR, RePer-360 |
+| Panoramic foundation models and cross-camera methods | DAP, DepthMaster (2026), OmniPoint, OmniRay, UniDAC, DAC, DA², DA360, PanDA, UniK3D, PaGeR, RePer-360 |
 | Panoramic projection and fusion | 360MonoDepth, OmniFusion, HRDFuse, Elite360D, RPG360, ST²360D |
 | Supervised and self-supervised panoramic depth | UniFuse, PanoFormer, BiFuse++, Depth Anywhere |
 | Physical multi-camera stereo | MODE, MCPDepth |
 | Video and multi-view geometry references | Video Depth Anything, Depth Anything 3, VGGT, VGGT-Ω |
 | Pinhole depth and geometry baselines | Depth Anything V2, UniDepthV2, Metric3Dv2, Depth Pro, MoGe-2, MoGe-3, Marigold |
-| Localization and mapping with ERP input | stella_vslam, 360VO, 360-VIO, 360DVO, PatchMatch-Stereo-Panorama, Cube-Splat, PanoLoop, 360ORB-SLAM, ODGS-SLAM, PanoGS-SLAM, PanoAir |
+| Localization and mapping with ERP input | stella_vslam, OmniVLoc, 360VO, 360-VIO, 360DVO, PatchMatch-Stereo-Panorama, Cube-Splat, PanoLoop, 360ORB-SLAM, ODGS-SLAM, PanoGS-SLAM, PanoAir |
 | Fisheye, wide-FOV and inertial methods | OpenVINS, ORB-SLAM3, Basalt, VINS-Fusion, OKVIS2/2-X, SVO Pro, OmniSLAM, LF-VISLAM, P2U-SLAM |
 | Learned VO and SLAM | DROID-SLAM, DPVO, DPV-SLAM, MASt3R-SLAM, DBA-Fusion, D3VO, CodeVIO |
 | RGB-D, neural implicit and Gaussian maps | SplaTAM, GO-SLAM, MonoGS, PanoSLAM |
@@ -104,9 +104,11 @@ DAC and UniDAC may appear in multiple categories because they document calibrate
 
 ## Update records and figure provenance
 
-All 69 methods include verified paper figures; previews for the 38 datasets are attributed separately.
+All 71 methods include verified paper figures; previews for the 38 datasets are attributed separately.
 
-The latest literature search is documented in the [2026-10-19 source audit](references/weekly_20261019_sources.md), covering GeoPano, AprilVINS / MILD, PanoCARLA-Static, and previously omitted 360DVO and ODGS-SLAM datasets. GeoPano point maps are scale-aligned outputs. AprilVINS is conditionally metric VIO with fisheye, IMU and AprilTag inputs; its algorithm and MILD data remain pending release. Backfilled older resources are not described as new work from that week, and unverified code announcements are not labeled complete implementations.
+The [2026-10-26 incremental audit](references/weekly_20261026_sources.md) adds **OmniRay** (October 22: multi-projection relative point maps, not metric; code/models TBD) and **OmniVLoc** (October 20: ERP localization in a prebuilt metric map, with IMU in full mode, rather than SLAM from an unknown scene). Both have real original-paper method figures and complete bilingual specifications. **Hilti 2026 v2** clarifies estimated references, floor-plan annotations and limits on interpreting centimetre-scale differences; the manuscript revision is not a new dataset release. Official metadata for 54 code repositories and 79 existing arXiv identities was checked, with review scope and limits recorded.
+
+The preceding literature search is documented in the [2026-10-19 source audit](references/weekly_20261019_sources.md), covering GeoPano, AprilVINS / MILD, PanoCARLA-Static, and previously omitted 360DVO and ODGS-SLAM datasets. GeoPano point maps are scale-aligned outputs. AprilVINS is conditionally metric VIO with fisheye, IMU and AprilTag inputs; its algorithm and MILD data remain pending release. Backfilled older resources are not described as new work from that week, and unverified code announcements are not labeled complete implementations.
 
 Method cards prioritize proposed-method overviews, followed by teasers or representative results, with an enlarged view on click. These are not outputs reproduced by this website. Figures retain their original colors; the interface uses white backgrounds, black text, neutral gray borders and limited semantic color, with a text-only homepage introduction.
 

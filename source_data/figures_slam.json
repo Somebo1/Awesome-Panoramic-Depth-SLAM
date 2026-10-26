@@ -1016,5 +1016,35 @@
       1540,
       641
     ]
+  },
+  "omnivloc2026": {
+    "thumbnail": "assets/papers/omnivloc2026-thumb.webp",
+    "image": "assets/papers/omnivloc2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2610.27522v1",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "OmniVLoc 由查询 ERP、IMU 与位姿标注地图，经检索、DAP 深度、球面 PnP、尺度图和时间约束 BA 输出查询位姿。",
+      "en": "OmniVLoc combines ERP queries, IMU and a pose-annotated map through retrieval, DAP depth, spherical PnP, a scale graph and temporally constrained BA."
+    },
+    "credit": {
+      "zh": "来源：Zhuo Yu et al.，原论文 Figure 2。",
+      "en": "Source: Zhuo Yu et al., Figure 2 of the original paper."
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      54,
+      44,
+      552,
+      195
+    ],
+    "originalCaption": "Fig. 2. Overview of our system.",
+    "sourceLicense": "Copyright remains with the original authors/publisher; permissive figure reuse not independently verified.",
+    "reviewedAt": "2026-10-26",
+    "selectionNotes": "Original PDF page 3 and final crop visually inspected; complete pipeline retained and caption stored separately.",
+    "pdfSha256": "986991795814ef0740e1260c723c975744812cdbea19fd02048d46539244c30e",
+    "imageSha256": "bbb3c9d8199760cdfa4038b9729111c691c56c170e425f12a20b7e3e2eab060d",
+    "verification": "Original complete page and final diagram crop visually confirmed; correct paper, figure identity and boundaries."
   }
 }

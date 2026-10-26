@@ -3394,5 +3394,104 @@
     "projectionSubtypes": [],
     "reviewScope": "focused_primary_source_recheck_2026-10-20",
     "sourceChecked": "2026-10-20"
+  },
+  "omniray2026": {
+    "cameras": [
+      "panoramic",
+      "fisheye",
+      "wide",
+      "perspective"
+    ],
+    "cameraSupport": [
+      {
+        "geometry": "panoramic",
+        "route": "direct",
+        "availability": "paper",
+        "note": {
+          "en": "Complete ERP observations are explicitly evaluated; internal ray estimation is not an external pinhole adapter. Code is still TBD.",
+          "zh": "论文明确评测完整 ERP；内部射线预测不是外部针孔适配器。代码仍待发布。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.31645v1",
+          "https://arxiv.org/html/2610.31645v1",
+          "https://nam1410.github.io/omniray/"
+        ]
+      },
+      {
+        "geometry": "fisheye",
+        "route": "direct",
+        "availability": "paper",
+        "note": {
+          "en": "Fisheye and a withheld GoPro configuration are explicitly evaluated; camera support is paper-documented, not a released API.",
+          "zh": "论文明确评测鱼眼及留出的 GoPro 配置；属于论文能力，公开 API 尚待发布。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.31645v1",
+          "https://arxiv.org/html/2610.31645v1",
+          "https://nam1410.github.io/omniray/"
+        ]
+      },
+      {
+        "geometry": "perspective",
+        "route": "direct",
+        "availability": "paper",
+        "note": {
+          "en": "Pinhole images are a documented direct input. The model predicts rays and up-to-scale radial distance without supplied intrinsics.",
+          "zh": "针孔图像是明确的直接输入；模型无需给定内参，预测射线和相对径向距离。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.31645v1",
+          "https://arxiv.org/html/2610.31645v1",
+          "https://nam1410.github.io/omniray/"
+        ]
+      }
+    ],
+    "projectionSubtypes": [
+      "annular"
+    ],
+    "additionalSupport": [
+      {
+        "geometry": "annular",
+        "route": "direct",
+        "note": {
+          "en": "The held-out Nayar catadioptric configuration covers a 40-to-155-degree annulus about its axis; this is distinct from full ERP input.",
+          "zh": "留出的 Nayar 折反射配置覆盖绕轴 40–155 度的环形区域；它与完整 ERP 输入是不同表示。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.31645v1",
+          "https://arxiv.org/html/2610.31645v1",
+          "https://nam1410.github.io/omniray/"
+        ]
+      }
+    ],
+    "reviewScope": "focused_primary_source_recheck_2026-10-26",
+    "sourceChecked": "2026-10-26",
+    "wideFov": true,
+    "multiCamera": false
+  },
+  "omnivloc2026": {
+    "cameras": [
+      "panoramic"
+    ],
+    "wideFov": false,
+    "multiCamera": false,
+    "cameraSupport": [
+      {
+        "geometry": "panoramic",
+        "route": "direct",
+        "availability": "paper",
+        "note": {
+          "en": "Section III-B explicitly defines ERP observations; internal cubemap feature extraction does not create standalone pinhole or raw-fisheye support.",
+          "zh": "第 III-B 节明确规定 ERP 观测；内部 cubemap 特征提取不构成独立针孔或原始鱼眼输入支持。"
+        },
+        "evidence": [
+          "https://arxiv.org/html/2610.27522v1",
+          "https://arxiv.org/pdf/2610.27522v1"
+        ]
+      }
+    ],
+    "projectionSubtypes": [],
+    "reviewScope": "focused_primary_source_recheck_2026-10-26",
+    "sourceChecked": "2026-10-26"
   }
 }

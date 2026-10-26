@@ -1869,5 +1869,98 @@
       "https://botaoye.github.io/"
     ],
     "imu_required": false
+  },
+  {
+    "id": "omniray2026",
+    "short_name": "OmniRay",
+    "title": "OmniRay: Camera-Agnostic Monocular 3D Reconstruction with Composite Ray Fields",
+    "authors": [
+      "Namitha Guruprasad",
+      "Abhay Yadav",
+      "Cheng Peng",
+      "Rama Chellappa",
+      "Anand Bhattad"
+    ],
+    "institutions": [
+      "Johns Hopkins University",
+      "University of Virginia"
+    ],
+    "year": 2026,
+    "venue": "arXiv preprint 2610.31645v1; submitted 2026-10-22",
+    "paper_url": "https://arxiv.org/abs/2610.31645v1",
+    "project_url": "https://nam1410.github.io/omniray/",
+    "code_url": null,
+    "weights_url": null,
+    "license": {
+      "code": "Unknown: official implementation is TBD.",
+      "weights": "Unknown: official model/checkpoint release is TBD."
+    },
+    "category": [
+      "monocular",
+      "panoramic",
+      "fisheye",
+      "pinhole",
+      "relative",
+      "ray-field",
+      "point-map"
+    ],
+    "camera_support": [
+      "panoramic_erp",
+      "fisheye",
+      "perspective"
+    ],
+    "native_panoramic": true,
+    "task_family": "single-image camera-agnostic relative point-map estimation",
+    "accessed": "2026-10-26",
+    "input": {
+      "frames": "One RGB image from a central camera; no camera-type label or measured camera calibration.",
+      "projection": "Complete ERP, pinhole and fisheye inputs are explicitly evaluated. A separate held-out Nayar catadioptric case is annular, not another ERP representation.",
+      "intrinsics": "No intrinsics or distortion parameters required by the described inference; the model predicts a per-pixel unit ray field.",
+      "resolution": "Paper training images range from 896x1792 ERP to 512x512 lens crops, with an 8192-token cap. Released inference resize/API remains unavailable.",
+      "extrinsics": "Not required; one shared central viewpoint is assumed.",
+      "imu": "No",
+      "gravity": "No measured gravity input; panoramic training sampling keeps source horizons gravity-aligned.",
+      "synchronization": "One image, no temporal synchronization input."
+    },
+    "output": {
+      "primary": "Dense camera-frame 3D point map, unit rays and positive radial distances, recovered up to one global scale.",
+      "point_map": "P(u)=rho(u)*d(u); d is a unit camera ray and rho is its radial distance.",
+      "normal": "No independent normal-output head documented.",
+      "confidence": "No calibrated uncertainty or confidence-output head documented.",
+      "camera_parameters": "Composite dense ray field; no verified public intrinsics-parameter API or camera extrinsics output."
+    },
+    "geometry_output": [
+      "radial_range",
+      "point_map",
+      "rays"
+    ],
+    "depth_convention": "rho is positive Euclidean distance along a unit ray, not optical-axis Z. P=rho*d. The point map and range retain global scale ambiguity; serialized outputs are unverified without released code.",
+    "scale": "Up-to-scale geometry. All reported reconstruction methods use per-image median scale alignment; the paper does not establish absolute metric reconstruction.",
+    "metric_status": "scale_invariant",
+    "pose_output": "No camera pose, trajectory or SLAM state output documented.",
+    "imu_required": false,
+    "runtime": "No comparable local inference timing or peak-memory measurement. Eight A40 GPUs describe training, not an inference requirement.",
+    "code_entry": "Unknown",
+    "innovation": "Composes a monotone radial camera base with spherical-harmonic and free-form residual rotations, then combines the ray field with a DPT radial-distance prediction.",
+    "summary_zh": "以单调径向基底、球谐残差和自由场残差组合相机射线，统一针孔、鱼眼和完整 ERP 的单图相对三维点图；不需要相机类型或内参，但不恢复绝对米制尺度。",
+    "engineering_notes": [
+      "First submitted 2026-10-22; this is a new paper in the current weekly window, not a backfilled older model.",
+      "The official project explicitly says code and models are TBD; its Code, Demo and Checkpoint buttons point to the arXiv page rather than released artifacts as checked on 2026-10-26.",
+      "Paper Sec. 4.3 and Table 2 align each method per image by the ratio of ground-truth and predicted median radial distance. Scale-aligned results must not be labeled absolute metric accuracy.",
+      "The central-camera assumption requires rays to share a viewpoint. A noncentral stitched rig is not validated merely by the any-camera title.",
+      "Training uses 2D3DS and 360Loc source panoramas plus sampled lens views. Held-out GoPro/catadioptric geometry and unseen PanoCity/CO3Dv2 tests have different scopes.",
+      "Comparisons include UniK3D and DA3 under the author protocol; no direct DAP comparison was found in the reviewed paper/project. Single-image geometry does not provide a continuous trajectory."
+    ],
+    "environment": "Paper describes DINOv2 ViT-L/14 and a DPT distance head; encoder bfloat16 and heads/losses full precision. Public installable code, package versions and supported inference platforms remain TBD.",
+    "official_release_status": "code_and_models_not_released_TBD",
+    "reproduction_status": "Original paper/project reviewed and original method figure visually checked; no inference performed.",
+    "evidence_level": "L2_original_paper_and_official_project_no_implementation_released",
+    "schema_version": "1.1",
+    "url_verification": "2026-10-26: original arXiv v1, official project and code/checkpoint link targets checked.",
+    "evidence": [
+      "https://arxiv.org/abs/2610.31645v1",
+      "https://arxiv.org/html/2610.31645v1",
+      "https://nam1410.github.io/omniray/"
+    ]
   }
 ]

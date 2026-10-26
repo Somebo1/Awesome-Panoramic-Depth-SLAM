@@ -917,11 +917,13 @@
         "Panoramic representation": "Only raw front/back fisheyes are released. The official image_stitching.py tool derives ERP, with a Stella-VSLAM example. Distinct optical centres and nonzero baseline introduce parallax; the large-sphere stitching assumption is not an exact central panorama without depth.",
         "Calibration": "Kalibr camera–IMU extrinsics, per-camera time offsets, IMU configuration, calibration bags and AprilGrid files are available. EUCM is calibrated directly; the provided pinhole-equidistant intrinsics are fitted to EUCM. Use the matching camera model and retain the original image orientation for rolling-shutter correction.",
         "Time synchronization": "All runs retain a +10000 s timestamp shift. Reference LiDAR and its IMU use hardware PPS; the independent camera system is aligned through gyro-norm correlation and nonlinear refinement of time offset, linear clock scale and gyro biases. This is not common hardware synchronization of every sensor.",
-        "Reference pose provenance": "Hesai XT32 LiDAR-inertial SLAM, rigidly attached to the camera, generates estimated reference trajectories transformed into cam0 using extrinsics and time alignment. They are not independent motion-capture or total-station measurements. Raw reference LiDAR is absent from released ROS 2 bags.",
+        "Reference pose provenance": "Hesai XT32M2X LiDAR-inertial SLAM, rigidly attached to the camera, yields estimated references transformed into cam0 by extrinsics and clock alignment. Manuscript v2 explicitly states that independent survey measurements were not possible here. Its cited 3.94 cm / 0.7 cm accuracies concern earlier challenges with independently surveyed truth, not measured accuracy of these 30 reference trajectories. Raw reference LiDAR is absent from the released ROS 2 bags.",
         "Pose format and valid interval": "Reference poses express cam0 in the map frame (cam0→map). TUM text uses timestamp tx ty tz qx qy qz qw, with translations in metres. Approximately the first 5 seconds lack LiDAR reference coverage; the initial localization pose is near t=10005 s.",
-        "Floor-plan priors": "PNG, DXF and binary masks with/without windows are provided. They describe the planned completed building and can differ from the changing as-built scene. The repository cautions that these floor plans are not officially registered; use the documented map frame and supplied initial poses. floor_UG2_2025-12-02_run_1 has no floor plan; it remains usable for SLAM but is excluded from floor-plan localization.",
+        "Floor-plan priors": "PNG, DXF and binary masks with/without windows describe the planned completed building, which can differ from the changing as-built scene. Manuscript v2 states PNGs are manually labelled at 1 px = 1 cm, with 1–3 px annotation uncertainty after scaling; DXFs are not registered to the PNGs. The repository cautions that the plans are not officially registered. Use its map convention and initial poses. floor_UG2_2025-12-02_run_1 has no floor plan and remains SLAM-only. Section V-D separately describes manual initialization plus ICP alignment of reference LiDAR geometry to floor plans; that is distinct from DXF-to-PNG registration.",
         "Evaluation protocol": "All 30 references are now public. The original challenge scored 25 SLAM runs and 24 localization runs, excluding five early-release runs and additionally UG2 for localization. It requires at least 99% trajectory coverage and preserves metric scale; localization scoring ignores z.",
-        "Download and publication": "Official Hugging Face API checked on 2026-10-19: public, gated=false. Fetch each complete data/floor_X/YYYY-MM-DD/run_Z/rosbag/ directory, including rosbag.db3 and metadata.yaml. The repository reports RA-L acceptance; its current citation remains arXiv:2607.06464 without a verified final volume or pages."
+        "Download and publication": "The official data endpoint was previously checked on 2026-10-19 as public and non-gated; fetch complete rosbag folders including rosbag.db3 and metadata.yaml. ArXiv v2 was posted 2026-10-21 and its accepted-manuscript front matter records IEEE RA-L acceptance on 2026-10-11. Final publisher DOI, volume and pages remain unverified; the paper revision is not a new dataset release.",
+        "Reference and map uncertainty": "The paper reports about 2 cm average LiDAR-to-floorplan discrepancy caused by as-built/as-planned differences. This is not a measured trajectory-error bound. Manuscript v2 cautions against overinterpreting method differences of a few centimetres.",
+        "Sequence characterization": "Manuscript v2 corrects coverage to ten floors (eight above-ground levels plus two underground parking levels) and characterizes five difficulty factors: clutter, low light, dynamic initialization, aggressive motion and poor texture. This clarification does not add sequences to the existing 30-run release."
       },
       "zh": {
         "室内范围": "官方序列指南列有 30 条楼层序列，采集于 2025 年 5–12 月，覆盖 1–7 层、EG、UG1 和 UG2；按楼层/日期/run 选择下载。本条整理这些室内施工序列。",
@@ -929,23 +931,27 @@
         "全景表示": "原始数据仅发布前后双鱼眼；官方 image_stitching.py 可生成 ERP，并给出 Stella-VSLAM 示例。两个镜头光心不同且存在非零基线，拼接会有视差；大半径球面假设不等同于有深度支持的精确中心全景。",
         "标定": "提供 Kalibr 相机–IMU 外参、各相机时间偏移、IMU 配置、标定 bag 和 AprilGrid。EUCM 直接标定，pinhole-equidistant 内参由 EUCM 拟合。须使用匹配的相机模型，并为卷帘校正保留原始图像方向。",
         "时间同步": "各 run 保留 +10000 s 的时间戳平移。参考 LiDAR 与其 IMU 通过 PPS 硬件同步；独立运行的相机系统先用陀螺仪模长相关对齐，再联合优化时间偏移、线性时钟尺度和陀螺仪偏置，不能理解为全部传感器共用硬同步。",
-        "参考位姿来源": "与相机刚性连接的 Hesai XT32 LiDAR 惯性 SLAM 产生参考估计轨迹，再经外参和时间对齐变换到 cam0；不是独立动作捕捉或全站仪测量。发布的 ROS 2 bag 不包含生成参考轨迹的原始 LiDAR。",
+        "参考位姿来源": "与相机刚性连接的 Hesai XT32M2X LiDAR 惯性 SLAM 生成参考估计，再经外参和时钟对齐变换到 cam0。v2 明确说明本次无法进行独立测量；所引 3.94 cm／0.7 cm 精度来自有独立测量真值的过往挑战，不是这 30 条参考轨迹的实测误差。发布的 ROS 2 bag 不含参考 LiDAR。",
         "位姿格式与有效区间": "参考轨迹为 cam0 在 map 中的位姿（cam0→map）；TUM 文本依次为 timestamp tx ty tz qx qy qz qw，平移单位为米。约前 5 秒没有 LiDAR 参考覆盖；初始平面图定位位姿在 t=10005 s 附近。",
-        "平面图先验": "提供 PNG、DXF 及带窗/不带窗二值掩码。它们对应完工规划，可能与施工中的实际墙柱不一致。仓库特别注明这些平面图未经过官方配准；应按文档定义的 map 坐标系及随附初始位姿使用。floor_UG2_2025-12-02_run_1 无平面图，可用于 SLAM，但不参加平面图定位。",
+        "平面图先验": "PNG、DXF 及带窗／不带窗二值掩码对应完工规划，可能与施工实景不同。v2 说明 PNG 由人工标注，以 1 px＝1 cm 缩放后有 1–3 px 标注不确定性；DXF 未与 PNG 配准。仓库仍提示平面图未经过官方配准，应采用其 map 坐标约定与初始位姿。floor_UG2_2025-12-02_run_1 无平面图，仅参加 SLAM。 第 V-D 节另述参考 LiDAR 几何经人工初始化与 ICP 对齐到平面图，这与 DXF 到 PNG 配准是不同关系。",
         "评测协议": "目前 30 条参考轨迹均已公开。原挑战对 25 条 SLAM、24 条定位序列计分：排除 5 条早期公开序列，定位另排除 UG2。至少要求 99% 轨迹覆盖，不优化尺度；定位分数忽略 z。",
-        "下载与发表": "2026-10-19 核验官方 Hugging Face API：public、gated=false。逐条下载完整 data/floor_X/YYYY-MM-DD/run_Z/rosbag/ 目录，包含 rosbag.db3 与 metadata.yaml。仓库声明论文已获 RA-L 接收；当前引用仍为 arXiv:2607.06464，未补写未经核实的卷期页码。"
+        "下载与发表": "官方数据入口此前于 2026-10-19 核验为公开、非 gated；应下载含 rosbag.db3 与 metadata.yaml 的完整目录。arXiv v2 于 2026-10-21 发布，录用稿首页记录 IEEE RA-L 于 2026-10-11 接收。出版社正式 DOI、卷期页码仍待核实；论文修订不等于新数据集发布。",
+        "参考与地图不确定性": "论文报告 LiDAR 与平面图平均约 2 cm 的实建／规划差异；这不是轨迹误差实测界限。v2 提醒不要过度解读方法之间几厘米的差别。",
+        "序列难度说明": "v2 将覆盖范围更正为十层（八个地上楼层及两个地下停车层），并列五类难度：杂乱／遮挡、弱光、动态初始化、剧烈运动与弱纹理。这是说明修订，不是向原 30 条发布中新增序列。"
       }
     },
     "notes": {
       "en": [
         "The panoramic filter denotes an explicitly documented derived ERP workflow; downloaded imagery remains dual fisheye.",
         "No dense per-pixel depth labels or raw reference LiDAR are claimed.",
-        "This 2026 dataset is a separate release from the Hilti 2021 and Hilti–Oxford 2022 benchmarks."
+        "This 2026 dataset is a separate release from the Hilti 2021 and Hilti–Oxford 2022 benchmarks.",
+        "The 2026-10-21 manuscript revision clarifies reference uncertainty and floorplan annotations; it does not establish new dense depth labels or independently measured trajectory truth."
       ],
       "zh": [
         "全景筛选表示存在官方说明的 ERP 派生流程；下载的原始图像仍是双鱼眼。",
         "不将其标为逐像素稠密深度真值集，也不声称发布了参考 LiDAR。",
-        "这是独立的 2026 发布，与 Hilti 2021、Hilti–Oxford 2022 基准分别收录。"
+        "这是独立的 2026 发布，与 Hilti 2021、Hilti–Oxford 2022 基准分别收录。",
+        "2026-10-21 的论文修订澄清参考不确定性与平面图标注，不代表新增稠密深度或独立测量轨迹真值。"
       ]
     },
     "evidence": [
@@ -996,9 +1002,18 @@
       {
         "url": "https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026",
         "title": "Official API: current public and non-gated access checked on 2026-10-19"
+      },
+      {
+        "url": "https://arxiv.org/abs/2607.06464v2",
+        "title": "2026-10-21 revision and accepted-manuscript publication dates"
+      },
+      {
+        "url": "https://arxiv.org/html/2607.06464v2",
+        "title": "Revised Sections IV-A/B and V-B/D: floor count, difficult conditions and reference/map uncertainty"
       }
     ],
-    "checked": "2026-10-19"
+    "checked": "2026-10-26",
+    "venue": "IEEE RA-L accepted 2026-10-11 (author accepted manuscript); arXiv:2607.06464v2, 2026-10-21"
   },
   {
     "id": "ds_newer_college",

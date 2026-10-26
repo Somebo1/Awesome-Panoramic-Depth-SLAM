@@ -864,5 +864,99 @@
   "depthmaster2026": "官方 README 测试环境为 Linux、Python 3.10、PyTorch 2.4.0、CUDA 12.1；utils3d 固定为 3fab839f0be9931dac7c8488eb0e1600c236e183。未本机推理或兼容性测试。",
   "omnipoint2026": "论文采用 DINOv2 ViT-L 和 DPT 预测头；公开推理安装环境、硬件支持与精确版本要求尚未核实。"
 });
+  Object.assign(summaries, {
+  "omniray2026": "A composite ray field combines a monotone radial base, spherical-harmonic and free-form residuals for pinhole, fisheye and full-ERP reconstruction. Geometry remains up to scale; official code/models are TBD.",
+  "omnivloc2026": "Localizes ERP queries in a prebuilt metric pose-annotated map using retrieval, DAP depth, shared-scale graph optimization and spherical BA; full mode uses IMU/temporal priors."
+});
+  Object.assign(zhRecords, {
+  "omniray2026": [
+    "单张中心相机 RGB 图像；无需相机类型标签或实测内参。",
+    "相机坐标下的稠密三维点图、单位射线和正径向距离，整体尺度未确定。",
+    "相对几何；作者逐图用中位数尺度对齐，不能声称恢复绝对米制尺度。",
+    [
+      "论文于 2026-10-22 首次提交，属于本轮新增论文，不是旧文补录。",
+      "官网明确标注代码与模型为 TBD；截至 2026-10-26，Code、Demo、Checkpoint 按钮实际跳转 arXiv 页面，不代表实现或权重已发布。",
+      "第 4.3 节及表 2 按真值和预测径向距离中位数之比逐图对齐所有方法。对齐后结果不能称为绝对公制精度。",
+      "适用中心相机，即射线须共享一个视点；不能由 any-camera 名称推断已验证非中心拼接 rig。",
+      "训练源为 2D3DS 与 360Loc 全景和采样镜头视图；留出的 GoPro／折反射镜头与未见过的 PanoCity／CO3Dv2 属于不同评测范围。",
+      "论文按作者协议比较 UniK3D、DA3 等；已查原文与官网未发现直接 DAP 比较。单图点图不提供连续轨迹。"
+    ]
+  ],
+  "omnivloc2026": [
+    "ERP 查询序列、预建公制位姿标注全景参考地图；完整模式另用对齐的 IMU／运动先验。",
+    "既有地图坐标系下的绝对六自由度查询位姿／轨迹、查询尺度与局部 BA 地标。",
+    "公制尺度继承参考地图坐标，由多个固定参考位姿修正逐查询 DAP 尺度，不能只凭单图深度保证。",
+    [
+      "这是针对预建位姿标注拓扑度量地图的定位，不是从未知场景自行恢复公制尺度的独立单目 SLAM。",
+      "公制尺度由参考地图相机位姿锚定；多个固定地图节点共同修正逐查询 DAP 尺度。地图不存预三角化的三维地标。",
+      "完整流程使用 IMU 和时间运动先验；Ours-NoSeq 评测关闭查询间处理与 IMU，属于另一输入设置。",
+      "360Loc 不含实测 IMU，论文由真值轨迹加噪声模拟 IMU。自采数据的参考位姿来自商业激光视觉建图系统，不是独立动捕真值。",
+      "论文按 1 Hz 查询评测；C++/ONNX 的 1.30 Hz 是作者报告，未在本机测量，也不构成高频腕部跟踪证据。",
+      "论文称代码与自采数据将在正式发表后发布；未核实作者链接的实现、检查点、安装环境或许可。",
+      "全局地图检索和重定位不能当作更新固定参考地图的独立回环模块。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "omniray2026": {
+    "input": {
+      "frames": "单张中心相机 RGB；不输入相机类型或实测标定。",
+      "projection": "明确评测完整 ERP、针孔及鱼眼；留出测试的 Nayar 折反射图是环形像面，不能等同 ERP。",
+      "intrinsics": "描述的推理不需要内参或畸变参数，而是直接预测逐像素单位射线。",
+      "resolution": "论文训练从 896×1792 ERP 到 512×512 镜头裁图，token 上限 8192；公开推理缩放与 API 尚待发布。",
+      "extrinsics": "不需要；假设所有射线共享单一中心视点。",
+      "imu": "无需。",
+      "gravity": "没有实测重力输入；全景训练采样保持源地平线重力对齐。",
+      "synchronization": "单图模型，无时间同步输入。"
+    },
+    "output": {
+      "primary": "相机坐标下的稠密三维点图、单位射线和正径向距离，整体尺度未确定。",
+      "point_map": "P(u)=rho(u)×d(u)；d 为单位相机射线，rho 为对应径向距离。",
+      "normal": "未记录独立法线输出头。",
+      "confidence": "未记录经过标定的不确定性或置信度输出头。",
+      "camera_parameters": "组合式稠密射线场；未核实公开的参数化内参 API，也不输出相机外参。",
+      "depth_convention": "rho 是沿单位射线的正欧氏距离，不是光轴 Z；P=rho×d。点图与距离具有整体尺度不确定性，具体保存约定尚无法由公开代码核实。",
+      "metric_status": "整体尺度未确定；所有重建方法均逐图进行中位数尺度对齐，不能作为绝对公制精度依据。",
+      "pose_output": "未记录相机位姿、连续轨迹或 SLAM 状态输出。",
+      "runtime": "未进行本机推理计时或峰值显存测量；8 张 A40 是训练配置，不是推理要求。"
+    }
+  },
+  "omnivloc2026": {
+    "input": {
+      "frames": "ERP 查询图像与预建公制位姿标注全景地图；完整模式使用时间对齐的 IMU／运动先验。",
+      "projection": "完整 ERP 入口；六个 cubemap 面用于内部 SuperPoint／LightGlue 特征处理，几何优化回到球面。",
+      "intrinsics": "ERP 像素到单位球面射线映射；未核实通用原始鱼眼入口。",
+      "extrinsics": "地图参考位姿须在共同公制坐标系；相机—IMU 标定与原始拼接条件需以正式实现核查。",
+      "imu": true,
+      "resolution": "未核实公开推理张量接口；论文按 1 Hz 处理查询。",
+      "synchronization": "完整模式需相机／IMU 时间对应；方法图示 200 Hz IMU。"
+    },
+    "output": {
+      "primary": "既有地图坐标系中的绝对六自由度相机查询位姿／轨迹、查询尺度及局部 BA 地标。",
+      "point_map": "内部使用 DAP 查询点和局部地标执行球面 PnP／BA；未核实独立稠密地图导出。",
+      "camera_parameters": "输出查询位姿和正的逐查询深度尺度；地图节点位姿保持固定。",
+      "confidence": "分层一致性剔除，不是已标定的位姿不确定性。",
+      "normal": "未记录直接法线输出。",
+      "depth_convention": "DAP 提供内部 ERP 径向距离先验，正的逐查询尺度缩放其三维点和 PnP 平移；未核实独立保存深度产品或针孔 Z-depth API。",
+      "metric_status": "公制位姿依赖预建公制位姿标注参考地图。",
+      "pose_output": "是：预建公制地图框架下的绝对六自由度查询位姿。",
+      "runtime": "论文报告 C++/ONNX 在 1 Hz 查询设置达到 1.30 Hz；完整硬件与公开依赖待核实，未做本机测量。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "omniray2026": {
+    "code": "未知：官方实现仍为 TBD。",
+    "weights": "未知：官方模型／权重尚待发布。"
+  },
+  "omnivloc2026": "代码、权重与数据的发布许可待核实；论文公开分发不等于软件许可。"
+});
+  Object.assign(environments, {
+  "omniray2026": "论文采用 DINOv2 ViT-L/14 与 DPT 距离头；编码器用 bfloat16，头与损失用全精度。可安装代码、依赖版本及推理平台尚待发布。",
+  "omnivloc2026": "论文提及 C++/ONNX 加速；可安装的官方环境与完整硬件条件待核实。"
+});
+  Object.assign(families, {
+  "panoramic topo-metric visual localization": "全景拓扑度量视觉定位"
+});
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

@@ -1,10 +1,10 @@
 window.ATLAS_DATA = {
-  "updated": "2026-10-19",
+  "updated": "2026-10-26",
   "repoUrl": "https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM",
   "title": "Panoramic Depth Atlas",
   "description": "Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.",
   "schemaVersion": "1.4",
-  "interfaceUpdated": "2026-10-20",
+  "interfaceUpdated": "2026-10-26",
   "records": [
     {
       "id": "da2_panorama",
@@ -1147,6 +1147,205 @@ window.ATLAS_DATA = {
         "pdfSha256": "85ad75308f5f16bf48523e858d7a5f9329319e3214b6377a47fba2bf537b3a14",
         "imageSha256": "eac71ea7a7ebec8e77c42d78d7cbec16f19575b14bea9c4b14ef541e11bc2cf1",
         "verification": "Downloaded official PDF identity, page, figure label and complete crop boundaries visually confirmed; no generic replacement imagery."
+      }
+    },
+    {
+      "id": "omniray2026",
+      "collection": "depth",
+      "name": "OmniRay",
+      "title": "OmniRay: Camera-Agnostic Monocular 3D Reconstruction with Composite Ray Fields",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv preprint 2610.31645v1; submitted 2026-10-22",
+      "authors": [
+        "Namitha Guruprasad",
+        "Abhay Yadav",
+        "Cheng Peng",
+        "Rama Chellappa",
+        "Anand Bhattad"
+      ],
+      "institutions": [
+        "Johns Hopkins University",
+        "University of Virginia"
+      ],
+      "summary": "以单调径向基底、球谐残差和自由场残差组合相机射线，统一针孔、鱼眼和完整 ERP 的单图相对三维点图；不需要相机类型或内参，但不恢复绝对米制尺度。",
+      "cameras": [
+        "panoramic",
+        "fisheye",
+        "wide",
+        "perspective"
+      ],
+      "scale": "relative",
+      "scaleNote": "Up-to-scale geometry. All reported reconstruction methods use per-image median scale alignment; the paper does not establish absolute metric reconstruction.",
+      "aliases": [],
+      "metricStatus": "scale_invariant",
+      "depthType": "points",
+      "outputs": [
+        "radial_range",
+        "point_map",
+        "rays"
+      ],
+      "pose": false,
+      "inputSummary": "One RGB image from a central camera; no camera-type label or measured camera calibration.",
+      "outputSummary": "Dense camera-frame 3D point map, unit rays and positive radial distances, recovered up to one global scale.",
+      "inputs": {
+        "frames": "One RGB image from a central camera; no camera-type label or measured camera calibration.",
+        "projection": "Complete ERP, pinhole and fisheye inputs are explicitly evaluated. A separate held-out Nayar catadioptric case is annular, not another ERP representation.",
+        "intrinsics": "No intrinsics or distortion parameters required by the described inference; the model predicts a per-pixel unit ray field.",
+        "resolution": "Paper training images range from 896x1792 ERP to 512x512 lens crops, with an 8192-token cap. Released inference resize/API remains unavailable.",
+        "extrinsics": "Not required; one shared central viewpoint is assumed.",
+        "imu": "No",
+        "gravity": "No measured gravity input; panoramic training sampling keeps source horizons gravity-aligned.",
+        "synchronization": "One image, no temporal synchronization input."
+      },
+      "outputDetails": {
+        "primary": "Dense camera-frame 3D point map, unit rays and positive radial distances, recovered up to one global scale.",
+        "point_map": "P(u)=rho(u)*d(u); d is a unit camera ray and rho is its radial distance.",
+        "normal": "No independent normal-output head documented.",
+        "confidence": "No calibrated uncertainty or confidence-output head documented.",
+        "camera_parameters": "Composite dense ray field; no verified public intrinsics-parameter API or camera extrinsics output.",
+        "depth_convention": "rho is positive Euclidean distance along a unit ray, not optical-axis Z. P=rho*d. The point map and range retain global scale ambiguity; serialized outputs are unverified without released code.",
+        "metric_status": "scale_invariant",
+        "pose_output": "No camera pose, trajectory or SLAM state output documented.",
+        "runtime": "No comparable local inference timing or peak-memory measurement. Eight A40 GPUs describe training, not an inference requirement."
+      },
+      "codeStatus": "none",
+      "codeUrl": "",
+      "paperUrl": "https://arxiv.org/abs/2610.31645v1",
+      "projectUrl": "https://nam1410.github.io/omniray/",
+      "weightsUrl": "",
+      "license": {
+        "code": "Unknown: official implementation is TBD.",
+        "weights": "Unknown: official model/checkpoint release is TBD."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2610.31645v1",
+        "https://arxiv.org/html/2610.31645v1",
+        "https://nam1410.github.io/omniray/"
+      ],
+      "notes": [
+        "First submitted 2026-10-22; this is a new paper in the current weekly window, not a backfilled older model.",
+        "The official project explicitly says code and models are TBD; its Code, Demo and Checkpoint buttons point to the arXiv page rather than released artifacts as checked on 2026-10-26.",
+        "Paper Sec. 4.3 and Table 2 align each method per image by the ratio of ground-truth and predicted median radial distance. Scale-aligned results must not be labeled absolute metric accuracy.",
+        "The central-camera assumption requires rays to share a viewpoint. A noncentral stitched rig is not validated merely by the any-camera title.",
+        "Training uses 2D3DS and 360Loc source panoramas plus sampled lens views. Held-out GoPro/catadioptric geometry and unseen PanoCity/CO3Dv2 tests have different scopes.",
+        "Comparisons include UniK3D and DA3 under the author protocol; no direct DAP comparison was found in the reviewed paper/project. Single-image geometry does not provide a continuous trajectory.",
+        "code_and_models_not_released_TBD"
+      ],
+      "tags": [
+        "monocular",
+        "panoramic",
+        "fisheye",
+        "pinhole",
+        "relative",
+        "ray-field",
+        "point-map",
+        "radial_range",
+        "point_map",
+        "rays"
+      ],
+      "family": "single-image camera-agnostic relative point-map estimation",
+      "imu": false,
+      "loopClosure": "Not applicable",
+      "nativePanoramic": true,
+      "sourceChecked": "2026-10-26",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_and_official_project_no_implementation_released",
+      "codeEntry": "Unknown",
+      "environment": "Paper describes DINOv2 ViT-L/14 and a DPT distance head; encoder bfloat16 and heads/losses full precision. Public installable code, package versions and supported inference platforms remain TBD.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Complete ERP observations are explicitly evaluated; internal ray estimation is not an external pinhole adapter. Code is still TBD.",
+            "zh": "论文明确评测完整 ERP；内部射线预测不是外部针孔适配器。代码仍待发布。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.31645v1",
+            "https://arxiv.org/html/2610.31645v1",
+            "https://nam1410.github.io/omniray/"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Fisheye and a withheld GoPro configuration are explicitly evaluated; camera support is paper-documented, not a released API.",
+            "zh": "论文明确评测鱼眼及留出的 GoPro 配置；属于论文能力，公开 API 尚待发布。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.31645v1",
+            "https://arxiv.org/html/2610.31645v1",
+            "https://nam1410.github.io/omniray/"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Pinhole images are a documented direct input. The model predicts rays and up-to-scale radial distance without supplied intrinsics.",
+            "zh": "针孔图像是明确的直接输入；模型无需给定内参，预测射线和相对径向距离。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.31645v1",
+            "https://arxiv.org/html/2610.31645v1",
+            "https://nam1410.github.io/omniray/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [
+        "annular"
+      ],
+      "additionalSupport": [
+        {
+          "geometry": "annular",
+          "route": "direct",
+          "note": {
+            "en": "The held-out Nayar catadioptric configuration covers a 40-to-155-degree annulus about its axis; this is distinct from full ERP input.",
+            "zh": "留出的 Nayar 折反射配置覆盖绕轴 40–155 度的环形区域；它与完整 ERP 输入是不同表示。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.31645v1",
+            "https://arxiv.org/html/2610.31645v1",
+            "https://nam1410.github.io/omniray/"
+          ]
+        }
+      ],
+      "cameraReview": "focused_primary_source_recheck_2026-10-26",
+      "figure": {
+        "thumbnail": "assets/papers/omniray2026-thumb.webp",
+        "image": "assets/papers/omniray2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2610.31645v1",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "en": "OmniRay combines composite camera rays with a radial-distance branch to form up-to-scale point maps.",
+          "zh": "OmniRay 将组合式相机射线与径向距离分支结合，构成整体尺度未确定的点图。"
+        },
+        "credit": {
+          "en": "Source: Namitha Guruprasad et al., Figure 2 of the original paper.",
+          "zh": "来源：Namitha Guruprasad et al.，原论文 Figure 2。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          106,
+          80,
+          504,
+          316
+        ],
+        "originalCaption": "Figure 2: OmniRay Overview.",
+        "sourceLicense": "Original arXiv v1 is licensed CC BY 4.0; paper attribution retained. This is not a software or checkpoint license.",
+        "reviewedAt": "2026-10-26",
+        "selectionNotes": "Original PDF page 3 and final Figure 2 crop visually inspected; both reconstruction and composite-ray panels retained.",
+        "pdfSha256": "b893bd46731114697c060f1b60f1d099ce0539ccd5b32c3e3d9732b3a1a72ba3",
+        "imageSha256": "afee50834040ce8dec5222e16089be3bd702f2cef356d09d74546375a123865d",
+        "verification": "Original page and final crop visually confirmed; complete diagram boundaries, title and point-map labels retained."
       }
     },
     {
@@ -3791,7 +3990,7 @@ window.ATLAS_DATA = {
       "figure": {
         "thumbnail": "assets/papers/video_depth_anything-thumb.webp",
         "image": "assets/papers/video_depth_anything.webp",
-        "paperUrl": "https://arxiv.org/pdf/2501.12375",
+        "paperUrl": "https://arxiv.org/pdf/2501.12375v4",
         "page": 4,
         "figureLabel": "Figure 2",
         "caption": {
@@ -6260,11 +6459,13 @@ window.ATLAS_DATA = {
           "Panoramic representation": "Only raw front/back fisheyes are released. The official image_stitching.py tool derives ERP, with a Stella-VSLAM example. Distinct optical centres and nonzero baseline introduce parallax; the large-sphere stitching assumption is not an exact central panorama without depth.",
           "Calibration": "Kalibr camera–IMU extrinsics, per-camera time offsets, IMU configuration, calibration bags and AprilGrid files are available. EUCM is calibrated directly; the provided pinhole-equidistant intrinsics are fitted to EUCM. Use the matching camera model and retain the original image orientation for rolling-shutter correction.",
           "Time synchronization": "All runs retain a +10000 s timestamp shift. Reference LiDAR and its IMU use hardware PPS; the independent camera system is aligned through gyro-norm correlation and nonlinear refinement of time offset, linear clock scale and gyro biases. This is not common hardware synchronization of every sensor.",
-          "Reference pose provenance": "Hesai XT32 LiDAR-inertial SLAM, rigidly attached to the camera, generates estimated reference trajectories transformed into cam0 using extrinsics and time alignment. They are not independent motion-capture or total-station measurements. Raw reference LiDAR is absent from released ROS 2 bags.",
+          "Reference pose provenance": "Hesai XT32M2X LiDAR-inertial SLAM, rigidly attached to the camera, yields estimated references transformed into cam0 by extrinsics and clock alignment. Manuscript v2 explicitly states that independent survey measurements were not possible here. Its cited 3.94 cm / 0.7 cm accuracies concern earlier challenges with independently surveyed truth, not measured accuracy of these 30 reference trajectories. Raw reference LiDAR is absent from the released ROS 2 bags.",
           "Pose format and valid interval": "Reference poses express cam0 in the map frame (cam0→map). TUM text uses timestamp tx ty tz qx qy qz qw, with translations in metres. Approximately the first 5 seconds lack LiDAR reference coverage; the initial localization pose is near t=10005 s.",
-          "Floor-plan priors": "PNG, DXF and binary masks with/without windows are provided. They describe the planned completed building and can differ from the changing as-built scene. The repository cautions that these floor plans are not officially registered; use the documented map frame and supplied initial poses. floor_UG2_2025-12-02_run_1 has no floor plan; it remains usable for SLAM but is excluded from floor-plan localization.",
+          "Floor-plan priors": "PNG, DXF and binary masks with/without windows describe the planned completed building, which can differ from the changing as-built scene. Manuscript v2 states PNGs are manually labelled at 1 px = 1 cm, with 1–3 px annotation uncertainty after scaling; DXFs are not registered to the PNGs. The repository cautions that the plans are not officially registered. Use its map convention and initial poses. floor_UG2_2025-12-02_run_1 has no floor plan and remains SLAM-only. Section V-D separately describes manual initialization plus ICP alignment of reference LiDAR geometry to floor plans; that is distinct from DXF-to-PNG registration.",
           "Evaluation protocol": "All 30 references are now public. The original challenge scored 25 SLAM runs and 24 localization runs, excluding five early-release runs and additionally UG2 for localization. It requires at least 99% trajectory coverage and preserves metric scale; localization scoring ignores z.",
-          "Download and publication": "Official Hugging Face API checked on 2026-10-19: public, gated=false. Fetch each complete data/floor_X/YYYY-MM-DD/run_Z/rosbag/ directory, including rosbag.db3 and metadata.yaml. The repository reports RA-L acceptance; its current citation remains arXiv:2607.06464 without a verified final volume or pages."
+          "Download and publication": "The official data endpoint was previously checked on 2026-10-19 as public and non-gated; fetch complete rosbag folders including rosbag.db3 and metadata.yaml. ArXiv v2 was posted 2026-10-21 and its accepted-manuscript front matter records IEEE RA-L acceptance on 2026-10-11. Final publisher DOI, volume and pages remain unverified; the paper revision is not a new dataset release.",
+          "Reference and map uncertainty": "The paper reports about 2 cm average LiDAR-to-floorplan discrepancy caused by as-built/as-planned differences. This is not a measured trajectory-error bound. Manuscript v2 cautions against overinterpreting method differences of a few centimetres.",
+          "Sequence characterization": "Manuscript v2 corrects coverage to ten floors (eight above-ground levels plus two underground parking levels) and characterizes five difficulty factors: clutter, low light, dynamic initialization, aggressive motion and poor texture. This clarification does not add sequences to the existing 30-run release."
         },
         "zh": {
           "室内范围": "官方序列指南列有 30 条楼层序列，采集于 2025 年 5–12 月，覆盖 1–7 层、EG、UG1 和 UG2；按楼层/日期/run 选择下载。本条整理这些室内施工序列。",
@@ -6272,23 +6473,27 @@ window.ATLAS_DATA = {
           "全景表示": "原始数据仅发布前后双鱼眼；官方 image_stitching.py 可生成 ERP，并给出 Stella-VSLAM 示例。两个镜头光心不同且存在非零基线，拼接会有视差；大半径球面假设不等同于有深度支持的精确中心全景。",
           "标定": "提供 Kalibr 相机–IMU 外参、各相机时间偏移、IMU 配置、标定 bag 和 AprilGrid。EUCM 直接标定，pinhole-equidistant 内参由 EUCM 拟合。须使用匹配的相机模型，并为卷帘校正保留原始图像方向。",
           "时间同步": "各 run 保留 +10000 s 的时间戳平移。参考 LiDAR 与其 IMU 通过 PPS 硬件同步；独立运行的相机系统先用陀螺仪模长相关对齐，再联合优化时间偏移、线性时钟尺度和陀螺仪偏置，不能理解为全部传感器共用硬同步。",
-          "参考位姿来源": "与相机刚性连接的 Hesai XT32 LiDAR 惯性 SLAM 产生参考估计轨迹，再经外参和时间对齐变换到 cam0；不是独立动作捕捉或全站仪测量。发布的 ROS 2 bag 不包含生成参考轨迹的原始 LiDAR。",
+          "参考位姿来源": "与相机刚性连接的 Hesai XT32M2X LiDAR 惯性 SLAM 生成参考估计，再经外参和时钟对齐变换到 cam0。v2 明确说明本次无法进行独立测量；所引 3.94 cm／0.7 cm 精度来自有独立测量真值的过往挑战，不是这 30 条参考轨迹的实测误差。发布的 ROS 2 bag 不含参考 LiDAR。",
           "位姿格式与有效区间": "参考轨迹为 cam0 在 map 中的位姿（cam0→map）；TUM 文本依次为 timestamp tx ty tz qx qy qz qw，平移单位为米。约前 5 秒没有 LiDAR 参考覆盖；初始平面图定位位姿在 t=10005 s 附近。",
-          "平面图先验": "提供 PNG、DXF 及带窗/不带窗二值掩码。它们对应完工规划，可能与施工中的实际墙柱不一致。仓库特别注明这些平面图未经过官方配准；应按文档定义的 map 坐标系及随附初始位姿使用。floor_UG2_2025-12-02_run_1 无平面图，可用于 SLAM，但不参加平面图定位。",
+          "平面图先验": "PNG、DXF 及带窗／不带窗二值掩码对应完工规划，可能与施工实景不同。v2 说明 PNG 由人工标注，以 1 px＝1 cm 缩放后有 1–3 px 标注不确定性；DXF 未与 PNG 配准。仓库仍提示平面图未经过官方配准，应采用其 map 坐标约定与初始位姿。floor_UG2_2025-12-02_run_1 无平面图，仅参加 SLAM。 第 V-D 节另述参考 LiDAR 几何经人工初始化与 ICP 对齐到平面图，这与 DXF 到 PNG 配准是不同关系。",
           "评测协议": "目前 30 条参考轨迹均已公开。原挑战对 25 条 SLAM、24 条定位序列计分：排除 5 条早期公开序列，定位另排除 UG2。至少要求 99% 轨迹覆盖，不优化尺度；定位分数忽略 z。",
-          "下载与发表": "2026-10-19 核验官方 Hugging Face API：public、gated=false。逐条下载完整 data/floor_X/YYYY-MM-DD/run_Z/rosbag/ 目录，包含 rosbag.db3 与 metadata.yaml。仓库声明论文已获 RA-L 接收；当前引用仍为 arXiv:2607.06464，未补写未经核实的卷期页码。"
+          "下载与发表": "官方数据入口此前于 2026-10-19 核验为公开、非 gated；应下载含 rosbag.db3 与 metadata.yaml 的完整目录。arXiv v2 于 2026-10-21 发布，录用稿首页记录 IEEE RA-L 于 2026-10-11 接收。出版社正式 DOI、卷期页码仍待核实；论文修订不等于新数据集发布。",
+          "参考与地图不确定性": "论文报告 LiDAR 与平面图平均约 2 cm 的实建／规划差异；这不是轨迹误差实测界限。v2 提醒不要过度解读方法之间几厘米的差别。",
+          "序列难度说明": "v2 将覆盖范围更正为十层（八个地上楼层及两个地下停车层），并列五类难度：杂乱／遮挡、弱光、动态初始化、剧烈运动与弱纹理。这是说明修订，不是向原 30 条发布中新增序列。"
         }
       },
       "notes": {
         "en": [
           "The panoramic filter denotes an explicitly documented derived ERP workflow; downloaded imagery remains dual fisheye.",
           "No dense per-pixel depth labels or raw reference LiDAR are claimed.",
-          "This 2026 dataset is a separate release from the Hilti 2021 and Hilti–Oxford 2022 benchmarks."
+          "This 2026 dataset is a separate release from the Hilti 2021 and Hilti–Oxford 2022 benchmarks.",
+          "The 2026-10-21 manuscript revision clarifies reference uncertainty and floorplan annotations; it does not establish new dense depth labels or independently measured trajectory truth."
         ],
         "zh": [
           "全景筛选表示存在官方说明的 ERP 派生流程；下载的原始图像仍是双鱼眼。",
           "不将其标为逐像素稠密深度真值集，也不声称发布了参考 LiDAR。",
-          "这是独立的 2026 发布，与 Hilti 2021、Hilti–Oxford 2022 基准分别收录。"
+          "这是独立的 2026 发布，与 Hilti 2021、Hilti–Oxford 2022 基准分别收录。",
+          "2026-10-21 的论文修订澄清参考不确定性与平面图标注，不代表新增稠密深度或独立测量轨迹真值。"
         ]
       },
       "evidence": [
@@ -6339,9 +6544,18 @@ window.ATLAS_DATA = {
         {
           "url": "https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026",
           "title": "Official API: current public and non-gated access checked on 2026-10-19"
+        },
+        {
+          "url": "https://arxiv.org/abs/2607.06464v2",
+          "title": "2026-10-21 revision and accepted-manuscript publication dates"
+        },
+        {
+          "url": "https://arxiv.org/html/2607.06464v2",
+          "title": "Revised Sections IV-A/B and V-B/D: floor count, difficult conditions and reference/map uncertainty"
         }
       ],
-      "checked": "2026-10-19",
+      "checked": "2026-10-26",
+      "venue": "IEEE RA-L accepted 2026-10-11 (author accepted manuscript); arXiv:2607.06464v2, 2026-10-21",
       "collection": "datasets",
       "localizedSummary": {
         "en": "Thirty indoor construction runs with dual approximately 200° fisheyes, IMU, floor-plan priors and LiDAR-inertial reference poses; ERP is derived using official stitching tools, not the native release.",
@@ -6354,11 +6568,13 @@ window.ATLAS_DATA = {
           "Panoramic representation": "Only raw front/back fisheyes are released. The official image_stitching.py tool derives ERP, with a Stella-VSLAM example. Distinct optical centres and nonzero baseline introduce parallax; the large-sphere stitching assumption is not an exact central panorama without depth.",
           "Calibration": "Kalibr camera–IMU extrinsics, per-camera time offsets, IMU configuration, calibration bags and AprilGrid files are available. EUCM is calibrated directly; the provided pinhole-equidistant intrinsics are fitted to EUCM. Use the matching camera model and retain the original image orientation for rolling-shutter correction.",
           "Time synchronization": "All runs retain a +10000 s timestamp shift. Reference LiDAR and its IMU use hardware PPS; the independent camera system is aligned through gyro-norm correlation and nonlinear refinement of time offset, linear clock scale and gyro biases. This is not common hardware synchronization of every sensor.",
-          "Reference pose provenance": "Hesai XT32 LiDAR-inertial SLAM, rigidly attached to the camera, generates estimated reference trajectories transformed into cam0 using extrinsics and time alignment. They are not independent motion-capture or total-station measurements. Raw reference LiDAR is absent from released ROS 2 bags.",
+          "Reference pose provenance": "Hesai XT32M2X LiDAR-inertial SLAM, rigidly attached to the camera, yields estimated references transformed into cam0 by extrinsics and clock alignment. Manuscript v2 explicitly states that independent survey measurements were not possible here. Its cited 3.94 cm / 0.7 cm accuracies concern earlier challenges with independently surveyed truth, not measured accuracy of these 30 reference trajectories. Raw reference LiDAR is absent from the released ROS 2 bags.",
           "Pose format and valid interval": "Reference poses express cam0 in the map frame (cam0→map). TUM text uses timestamp tx ty tz qx qy qz qw, with translations in metres. Approximately the first 5 seconds lack LiDAR reference coverage; the initial localization pose is near t=10005 s.",
-          "Floor-plan priors": "PNG, DXF and binary masks with/without windows are provided. They describe the planned completed building and can differ from the changing as-built scene. The repository cautions that these floor plans are not officially registered; use the documented map frame and supplied initial poses. floor_UG2_2025-12-02_run_1 has no floor plan; it remains usable for SLAM but is excluded from floor-plan localization.",
+          "Floor-plan priors": "PNG, DXF and binary masks with/without windows describe the planned completed building, which can differ from the changing as-built scene. Manuscript v2 states PNGs are manually labelled at 1 px = 1 cm, with 1–3 px annotation uncertainty after scaling; DXFs are not registered to the PNGs. The repository cautions that the plans are not officially registered. Use its map convention and initial poses. floor_UG2_2025-12-02_run_1 has no floor plan and remains SLAM-only. Section V-D separately describes manual initialization plus ICP alignment of reference LiDAR geometry to floor plans; that is distinct from DXF-to-PNG registration.",
           "Evaluation protocol": "All 30 references are now public. The original challenge scored 25 SLAM runs and 24 localization runs, excluding five early-release runs and additionally UG2 for localization. It requires at least 99% trajectory coverage and preserves metric scale; localization scoring ignores z.",
-          "Download and publication": "Official Hugging Face API checked on 2026-10-19: public, gated=false. Fetch each complete data/floor_X/YYYY-MM-DD/run_Z/rosbag/ directory, including rosbag.db3 and metadata.yaml. The repository reports RA-L acceptance; its current citation remains arXiv:2607.06464 without a verified final volume or pages."
+          "Download and publication": "The official data endpoint was previously checked on 2026-10-19 as public and non-gated; fetch complete rosbag folders including rosbag.db3 and metadata.yaml. ArXiv v2 was posted 2026-10-21 and its accepted-manuscript front matter records IEEE RA-L acceptance on 2026-10-11. Final publisher DOI, volume and pages remain unverified; the paper revision is not a new dataset release.",
+          "Reference and map uncertainty": "The paper reports about 2 cm average LiDAR-to-floorplan discrepancy caused by as-built/as-planned differences. This is not a measured trajectory-error bound. Manuscript v2 cautions against overinterpreting method differences of a few centimetres.",
+          "Sequence characterization": "Manuscript v2 corrects coverage to ten floors (eight above-ground levels plus two underground parking levels) and characterizes five difficulty factors: clutter, low light, dynamic initialization, aggressive motion and poor texture. This clarification does not add sequences to the existing 30-run release."
         },
         "zh": {
           "室内范围": "官方序列指南列有 30 条楼层序列，采集于 2025 年 5–12 月，覆盖 1–7 层、EG、UG1 和 UG2；按楼层/日期/run 选择下载。本条整理这些室内施工序列。",
@@ -6366,32 +6582,35 @@ window.ATLAS_DATA = {
           "全景表示": "原始数据仅发布前后双鱼眼；官方 image_stitching.py 可生成 ERP，并给出 Stella-VSLAM 示例。两个镜头光心不同且存在非零基线，拼接会有视差；大半径球面假设不等同于有深度支持的精确中心全景。",
           "标定": "提供 Kalibr 相机–IMU 外参、各相机时间偏移、IMU 配置、标定 bag 和 AprilGrid。EUCM 直接标定，pinhole-equidistant 内参由 EUCM 拟合。须使用匹配的相机模型，并为卷帘校正保留原始图像方向。",
           "时间同步": "各 run 保留 +10000 s 的时间戳平移。参考 LiDAR 与其 IMU 通过 PPS 硬件同步；独立运行的相机系统先用陀螺仪模长相关对齐，再联合优化时间偏移、线性时钟尺度和陀螺仪偏置，不能理解为全部传感器共用硬同步。",
-          "参考位姿来源": "与相机刚性连接的 Hesai XT32 LiDAR 惯性 SLAM 产生参考估计轨迹，再经外参和时间对齐变换到 cam0；不是独立动作捕捉或全站仪测量。发布的 ROS 2 bag 不包含生成参考轨迹的原始 LiDAR。",
+          "参考位姿来源": "与相机刚性连接的 Hesai XT32M2X LiDAR 惯性 SLAM 生成参考估计，再经外参和时钟对齐变换到 cam0。v2 明确说明本次无法进行独立测量；所引 3.94 cm／0.7 cm 精度来自有独立测量真值的过往挑战，不是这 30 条参考轨迹的实测误差。发布的 ROS 2 bag 不含参考 LiDAR。",
           "位姿格式与有效区间": "参考轨迹为 cam0 在 map 中的位姿（cam0→map）；TUM 文本依次为 timestamp tx ty tz qx qy qz qw，平移单位为米。约前 5 秒没有 LiDAR 参考覆盖；初始平面图定位位姿在 t=10005 s 附近。",
-          "平面图先验": "提供 PNG、DXF 及带窗/不带窗二值掩码。它们对应完工规划，可能与施工中的实际墙柱不一致。仓库特别注明这些平面图未经过官方配准；应按文档定义的 map 坐标系及随附初始位姿使用。floor_UG2_2025-12-02_run_1 无平面图，可用于 SLAM，但不参加平面图定位。",
+          "平面图先验": "PNG、DXF 及带窗／不带窗二值掩码对应完工规划，可能与施工实景不同。v2 说明 PNG 由人工标注，以 1 px＝1 cm 缩放后有 1–3 px 标注不确定性；DXF 未与 PNG 配准。仓库仍提示平面图未经过官方配准，应采用其 map 坐标约定与初始位姿。floor_UG2_2025-12-02_run_1 无平面图，仅参加 SLAM。 第 V-D 节另述参考 LiDAR 几何经人工初始化与 ICP 对齐到平面图，这与 DXF 到 PNG 配准是不同关系。",
           "评测协议": "目前 30 条参考轨迹均已公开。原挑战对 25 条 SLAM、24 条定位序列计分：排除 5 条早期公开序列，定位另排除 UG2。至少要求 99% 轨迹覆盖，不优化尺度；定位分数忽略 z。",
-          "下载与发表": "2026-10-19 核验官方 Hugging Face API：public、gated=false。逐条下载完整 data/floor_X/YYYY-MM-DD/run_Z/rosbag/ 目录，包含 rosbag.db3 与 metadata.yaml。仓库声明论文已获 RA-L 接收；当前引用仍为 arXiv:2607.06464，未补写未经核实的卷期页码。"
+          "下载与发表": "官方数据入口此前于 2026-10-19 核验为公开、非 gated；应下载含 rosbag.db3 与 metadata.yaml 的完整目录。arXiv v2 于 2026-10-21 发布，录用稿首页记录 IEEE RA-L 于 2026-10-11 接收。出版社正式 DOI、卷期页码仍待核实；论文修订不等于新数据集发布。",
+          "参考与地图不确定性": "论文报告 LiDAR 与平面图平均约 2 cm 的实建／规划差异；这不是轨迹误差实测界限。v2 提醒不要过度解读方法之间几厘米的差别。",
+          "序列难度说明": "v2 将覆盖范围更正为十层（八个地上楼层及两个地下停车层），并列五类难度：杂乱／遮挡、弱光、动态初始化、剧烈运动与弱纹理。这是说明修订，不是向原 30 条发布中新增序列。"
         }
       },
       "datasetNotes": {
         "en": [
           "The panoramic filter denotes an explicitly documented derived ERP workflow; downloaded imagery remains dual fisheye.",
           "No dense per-pixel depth labels or raw reference LiDAR are claimed.",
-          "This 2026 dataset is a separate release from the Hilti 2021 and Hilti–Oxford 2022 benchmarks."
+          "This 2026 dataset is a separate release from the Hilti 2021 and Hilti–Oxford 2022 benchmarks.",
+          "The 2026-10-21 manuscript revision clarifies reference uncertainty and floorplan annotations; it does not establish new dense depth labels or independently measured trajectory truth."
         ],
         "zh": [
           "全景筛选表示存在官方说明的 ERP 派生流程；下载的原始图像仍是双鱼眼。",
           "不将其标为逐像素稠密深度真值集，也不声称发布了参考 LiDAR。",
-          "这是独立的 2026 发布，与 Hilti 2021、Hilti–Oxford 2022 基准分别收录。"
+          "这是独立的 2026 发布，与 Hilti 2021、Hilti–Oxford 2022 基准分别收录。",
+          "2026-10-21 的论文修订澄清参考不确定性与平面图标注，不代表新增稠密深度或独立测量轨迹真值。"
         ]
       },
       "datasetLicense": {
         "en": "Dataset: CC BY-NC-SA 3.0, as declared by the official Hugging Face card. Open access does not remove its non-commercial and share-alike conditions.",
         "zh": "数据集采用官方 Hugging Face 卡片声明的 CC BY-NC-SA 3.0；开放下载仍须遵守非商业使用和相同方式共享等条件。"
       },
-      "sourceChecked": "2026-10-19",
+      "sourceChecked": "2026-10-26",
       "authors": "Unknown",
-      "venue": "Dataset / benchmark",
       "aliases": [],
       "cameraSupport": [
         {
@@ -6442,8 +6661,8 @@ window.ATLAS_DATA = {
             "estimated"
           ],
           "note": {
-            "en": "LiDAR-inertial SLAM yields cam0-in-map reference poses. These are estimates rather than independent mocap/total-station truth; the first five seconds lack coverage.",
-            "zh": "LiDAR 惯性 SLAM 生成 cam0 在地图中的参考位姿；属于估计参考而非独立动捕、全站仪真值，前约五秒缺少覆盖。"
+            "en": "LiDAR-inertial SLAM estimates cam0-in-map references; v2 explicitly rules out independent survey measurements here. Earlier-challenge centimetre figures are not measured accuracy on this release. The first five seconds lack coverage.",
+            "zh": "LiDAR 惯性 SLAM 估计 cam0 在地图中的参考；v2 明确本次没有独立测量。过往挑战的厘米数字并非本发布的实测精度，前约五秒缺少覆盖。"
           }
         },
         "evidence": [
@@ -6458,9 +6677,10 @@ window.ATLAS_DATA = {
           "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/camera_calibration/kalibr_imucam_chain.yaml",
           "https://arxiv.org/abs/2607.06464",
           "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026",
-          "https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026"
+          "https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026",
+          "https://arxiv.org/html/2607.06464v2"
         ],
-        "checked": "2026-10-20"
+        "checked": "2026-10-26"
       },
       "curation": {
         "tier": "specialized",
@@ -7421,6 +7641,151 @@ window.ATLAS_DATA = {
           191
         ],
         "originalCaption": "Figure S3. Example images from the Insta360 Pro sequences."
+      }
+    },
+    {
+      "id": "omnivloc2026",
+      "collection": "slam",
+      "name": "OmniVLoc",
+      "title": "OmniVLoc: Topo-metric Visual Localization for Omnidirectional Cameras",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv preprint, first submitted 20 October 2026; formal acceptance not verified",
+      "authors": [
+        "Zhuo Yu",
+        "Shuyang Zhang",
+        "Huihua Zhu",
+        "Wenjia Ouyang",
+        "Zuo Zuo",
+        "Jianhao Jiao",
+        "Yilong Zhu",
+        "Xiaopin Zhong",
+        "Zongze Wu"
+      ],
+      "institutions": [
+        "Shenzhen University",
+        "Xi’an Jiaotong University",
+        "University College London",
+        "The Hong Kong University of Science and Technology"
+      ],
+      "summary": "面向已有公制位姿标注全景地图的拓扑度量定位，以地点检索、DAP 深度、多参考尺度图优化和球面 BA 估计查询位姿；完整模式融合 IMU，区别于从零建图的 SLAM。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "metric",
+      "scaleNote": "Metric poses inherit a metric reference-map coordinate frame; query DAP scale is refined from multiple fixed map poses, rather than guaranteed by single-image depth alone.",
+      "aliases": [],
+      "metricStatus": "metric from a prebuilt metric pose-annotated reference map",
+      "depthType": "none",
+      "outputs": [
+        "pose",
+        "local_landmarks"
+      ],
+      "pose": true,
+      "inputSummary": "ERP query images plus a prebuilt metric pose-annotated panoramic reference map; full mode also uses temporally aligned IMU/motion priors.",
+      "outputSummary": "Absolute 6DoF query camera poses/trajectory in the existing map frame, with query-scale refinement and local BA landmarks.",
+      "inputs": {
+        "frames": "ERP query images plus a prebuilt metric pose-annotated panoramic reference map; full mode also uses temporally aligned IMU/motion priors.",
+        "projection": "Complete ERP input; six cubemap faces are internal SuperPoint/LightGlue feature views, followed by spherical geometry.",
+        "intrinsics": "ERP pixel-to-unit-sphere mapping; no general raw-fisheye interface verified.",
+        "extrinsics": "Reference poses must be expressed in one metric frame; camera-IMU calibration and original stitching assumptions require a verified release.",
+        "imu": true,
+        "resolution": "Not verified as a public inference tensor API; query processing is evaluated at 1 Hz.",
+        "synchronization": "Full mode requires camera/IMU temporal correspondence; the pipeline figure depicts a 200 Hz IMU."
+      },
+      "outputDetails": {
+        "primary": "Absolute 6DoF query camera poses/trajectory in the existing map frame, with query-scale refinement and local BA landmarks.",
+        "point_map": "Temporary DAP-backed query points/local landmarks support spherical PnP and BA; no independent dense-map export verified.",
+        "camera_parameters": "Query pose and positive per-query depth scale; map node poses stay fixed.",
+        "confidence": "Hierarchical consistency rejection, not a calibrated pose-uncertainty output.",
+        "normal": "No direct normal output documented.",
+        "depth_convention": "DAP is an internal ERP radial-range prior. A positive per-query scale rescales its 3D points and PnP translations; no independent saved depth product or pinhole Z-depth API is verified.",
+        "metric_status": "metric from a prebuilt metric pose-annotated reference map",
+        "pose_output": "Yes: absolute 6DoF query poses in the prebuilt metric map frame.",
+        "runtime": "Paper reports 1.30 Hz C++/ONNX operation for a 1 Hz query setup. Exact deployment hardware and public dependencies remain unverified; no local benchmark."
+      },
+      "codeStatus": "none",
+      "codeUrl": "",
+      "paperUrl": "https://arxiv.org/abs/2610.27522",
+      "projectUrl": "https://arxiv.org/html/2610.27522v1",
+      "weightsUrl": "",
+      "license": "Unknown: code, weights and dataset release licenses not verified; paper distribution is not software permission.",
+      "evidence": [
+        "https://arxiv.org/abs/2610.27522",
+        "https://arxiv.org/html/2610.27522v1",
+        "https://arxiv.org/pdf/2610.27522v1"
+      ],
+      "notes": [
+        "This is localization against a prebuilt pose-annotated topo-metric reference, not a standalone monocular SLAM system that discovers metric scale from an unknown scene.",
+        "Reference-map metric camera poses anchor absolute scale; per-query DAP scale is corrected using multiple fixed map nodes. No prebuilt 3D landmark map is stored.",
+        "The full pipeline uses IMU/temporal priors. The Ours-NoSeq evaluation disables query-query processing and IMU; those results are a separate input setting.",
+        "360Loc has no measured IMU, so the paper synthesizes IMU from its ground-truth trajectory with noise. The custom dataset reference poses come from a commercial LiDAR-visual mapping system, not an independent motion-capture truth.",
+        "Query localization is evaluated at 1 Hz. Reported 1.30 Hz C++/ONNX throughput is not a local benchmark and does not establish high-rate wrist tracking.",
+        "Paper states code and custom dataset will be released upon publication; no author-linked implementation, checkpoint, runtime environment or permissive code license has been verified.",
+        "Global map retrieval and relocalization are not evidence of a separate loop-closure module updating the fixed reference map.",
+        "Code and custom dataset not released as verified artifacts; paper promises release upon publication."
+      ],
+      "tags": [
+        "pose",
+        "local_landmarks"
+      ],
+      "family": "panoramic topo-metric visual localization",
+      "imu": true,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-10-26",
+      "publiclyVerified": true,
+      "verificationLevel": "Original paper and ERP/scale/input protocol reviewed; no implementation release or local reproduction verified",
+      "codeEntry": "Unknown",
+      "environment": "Paper mentions C++/ONNX acceleration; an installable official code environment and complete hardware settings are unverified.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Section III-B explicitly defines ERP observations; internal cubemap feature extraction does not create standalone pinhole or raw-fisheye support.",
+            "zh": "第 III-B 节明确规定 ERP 观测；内部 cubemap 特征提取不构成独立针孔或原始鱼眼输入支持。"
+          },
+          "evidence": [
+            "https://arxiv.org/html/2610.27522v1",
+            "https://arxiv.org/pdf/2610.27522v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-10-26",
+      "figure": {
+        "thumbnail": "assets/papers/omnivloc2026-thumb.webp",
+        "image": "assets/papers/omnivloc2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2610.27522v1",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "OmniVLoc 由查询 ERP、IMU 与位姿标注地图，经检索、DAP 深度、球面 PnP、尺度图和时间约束 BA 输出查询位姿。",
+          "en": "OmniVLoc combines ERP queries, IMU and a pose-annotated map through retrieval, DAP depth, spherical PnP, a scale graph and temporally constrained BA."
+        },
+        "credit": {
+          "zh": "来源：Zhuo Yu et al.，原论文 Figure 2。",
+          "en": "Source: Zhuo Yu et al., Figure 2 of the original paper."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          54,
+          44,
+          552,
+          195
+        ],
+        "originalCaption": "Fig. 2. Overview of our system.",
+        "sourceLicense": "Copyright remains with the original authors/publisher; permissive figure reuse not independently verified.",
+        "reviewedAt": "2026-10-26",
+        "selectionNotes": "Original PDF page 3 and final crop visually inspected; complete pipeline retained and caption stored separately.",
+        "pdfSha256": "986991795814ef0740e1260c723c975744812cdbea19fd02048d46539244c30e",
+        "imageSha256": "bbb3c9d8199760cdfa4038b9729111c691c56c170e425f12a20b7e3e2eab060d",
+        "verification": "Original complete page and final diagram crop visually confirmed; correct paper, figure identity and boundaries."
       }
     },
     {
@@ -18959,12 +19324,12 @@ window.ATLAS_DATA = {
     }
   ],
   "stats": {
-    "depth": 36,
-    "slam": 33,
+    "depth": 37,
+    "slam": 34,
     "datasets": 38,
-    "panoramicDepth": 25,
-    "panoramicSLAM": 11,
-    "paperFigures": 69,
+    "panoramicDepth": 26,
+    "panoramicSLAM": 12,
+    "paperFigures": 71,
     "datasetFigures": 38
   }
 };

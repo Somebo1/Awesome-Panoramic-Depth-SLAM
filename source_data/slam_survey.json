@@ -1428,5 +1428,89 @@
     ],
     "code_entry": "Unknown",
     "environment": "VINS-Fisheye sliding window plus AprilTag front end; installable implementation and dependency versions not released as verified artifacts"
+  },
+  {
+    "id": "omnivloc2026",
+    "short_name": "OmniVLoc",
+    "title": "OmniVLoc: Topo-metric Visual Localization for Omnidirectional Cameras",
+    "authors": [
+      "Zhuo Yu",
+      "Shuyang Zhang",
+      "Huihua Zhu",
+      "Wenjia Ouyang",
+      "Zuo Zuo",
+      "Jianhao Jiao",
+      "Yilong Zhu",
+      "Xiaopin Zhong",
+      "Zongze Wu"
+    ],
+    "institutions": [
+      "Shenzhen University",
+      "Xi’an Jiaotong University",
+      "University College London",
+      "The Hong Kong University of Science and Technology"
+    ],
+    "year": 2026,
+    "venue": "arXiv preprint, first submitted 20 October 2026; formal acceptance not verified",
+    "paper_url": "https://arxiv.org/abs/2610.27522",
+    "project_url": "https://arxiv.org/html/2610.27522v1",
+    "code_url": null,
+    "weights_url": null,
+    "license": "Unknown: code, weights and dataset release licenses not verified; paper distribution is not software permission.",
+    "input": {
+      "frames": "ERP query images plus a prebuilt metric pose-annotated panoramic reference map; full mode also uses temporally aligned IMU/motion priors.",
+      "projection": "Complete ERP input; six cubemap faces are internal SuperPoint/LightGlue feature views, followed by spherical geometry.",
+      "intrinsics": "ERP pixel-to-unit-sphere mapping; no general raw-fisheye interface verified.",
+      "extrinsics": "Reference poses must be expressed in one metric frame; camera-IMU calibration and original stitching assumptions require a verified release.",
+      "imu": true,
+      "resolution": "Not verified as a public inference tensor API; query processing is evaluated at 1 Hz.",
+      "synchronization": "Full mode requires camera/IMU temporal correspondence; the pipeline figure depicts a 200 Hz IMU."
+    },
+    "output": {
+      "primary": "Absolute 6DoF query camera poses/trajectory in the existing map frame, with query-scale refinement and local BA landmarks.",
+      "point_map": "Temporary DAP-backed query points/local landmarks support spherical PnP and BA; no independent dense-map export verified.",
+      "camera_parameters": "Query pose and positive per-query depth scale; map node poses stay fixed.",
+      "confidence": "Hierarchical consistency rejection, not a calibrated pose-uncertainty output.",
+      "normal": "No direct normal output documented."
+    },
+    "depth_convention": "DAP is an internal ERP radial-range prior. A positive per-query scale rescales its 3D points and PnP translations; no independent saved depth product or pinhole Z-depth API is verified.",
+    "scale": "Metric poses inherit a metric reference-map coordinate frame; query DAP scale is refined from multiple fixed map poses, rather than guaranteed by single-image depth alone.",
+    "pose_output": "Yes: absolute 6DoF query poses in the prebuilt metric map frame.",
+    "slam_family": "panoramic topo-metric visual localization",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "native_erp": true,
+    "native_panoramic": true,
+    "geometry_output": [
+      "pose",
+      "local_landmarks"
+    ],
+    "imu_required": true,
+    "loop_closure": false,
+    "metric_status": "metric from a prebuilt metric pose-annotated reference map",
+    "runtime": "Paper reports 1.30 Hz C++/ONNX operation for a 1 Hz query setup. Exact deployment hardware and public dependencies remain unverified; no local benchmark.",
+    "code_entry": "Unknown",
+    "engineering_notes": [
+      "This is localization against a prebuilt pose-annotated topo-metric reference, not a standalone monocular SLAM system that discovers metric scale from an unknown scene.",
+      "Reference-map metric camera poses anchor absolute scale; per-query DAP scale is corrected using multiple fixed map nodes. No prebuilt 3D landmark map is stored.",
+      "The full pipeline uses IMU/temporal priors. The Ours-NoSeq evaluation disables query-query processing and IMU; those results are a separate input setting.",
+      "360Loc has no measured IMU, so the paper synthesizes IMU from its ground-truth trajectory with noise. The custom dataset reference poses come from a commercial LiDAR-visual mapping system, not an independent motion-capture truth.",
+      "Query localization is evaluated at 1 Hz. Reported 1.30 Hz C++/ONNX throughput is not a local benchmark and does not establish high-rate wrist tracking.",
+      "Paper states code and custom dataset will be released upon publication; no author-linked implementation, checkpoint, runtime environment or permissive code license has been verified.",
+      "Global map retrieval and relocalization are not evidence of a separate loop-closure module updating the fixed reference map."
+    ],
+    "official_release_status": "Code and custom dataset not released as verified artifacts; paper promises release upon publication.",
+    "summary_zh": "面向已有公制位姿标注全景地图的拓扑度量定位，以地点检索、DAP 深度、多参考尺度图优化和球面 BA 估计查询位姿；完整模式融合 IMU，区别于从零建图的 SLAM。",
+    "environment": "Paper mentions C++/ONNX acceleration; an installable official code environment and complete hardware settings are unverified.",
+    "accessed": "2026-10-26",
+    "evidence_level": "Original paper and ERP/scale/input protocol reviewed; no implementation release or local reproduction verified",
+    "reproduction_status": "Original PDF and system diagram reviewed; not run locally.",
+    "evidence": [
+      "https://arxiv.org/abs/2610.27522",
+      "https://arxiv.org/html/2610.27522v1",
+      "https://arxiv.org/pdf/2610.27522v1"
+    ],
+    "url_verification": "2026-10-26: arXiv v1 abstract and full text reviewed; original PDF downloaded and Figure 2 visually inspected."
   }
 ]

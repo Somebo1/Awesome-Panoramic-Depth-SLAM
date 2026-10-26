@@ -664,8 +664,8 @@
         "estimated"
       ],
       "note": {
-        "en": "LiDAR-inertial SLAM yields cam0-in-map reference poses. These are estimates rather than independent mocap/total-station truth; the first five seconds lack coverage.",
-        "zh": "LiDAR 惯性 SLAM 生成 cam0 在地图中的参考位姿；属于估计参考而非独立动捕、全站仪真值，前约五秒缺少覆盖。"
+        "en": "LiDAR-inertial SLAM estimates cam0-in-map references; v2 explicitly rules out independent survey measurements here. Earlier-challenge centimetre figures are not measured accuracy on this release. The first five seconds lack coverage.",
+        "zh": "LiDAR 惯性 SLAM 估计 cam0 在地图中的参考；v2 明确本次没有独立测量。过往挑战的厘米数字并非本发布的实测精度，前约五秒缺少覆盖。"
       }
     },
     "evidence": [
@@ -680,9 +680,10 @@
       "https://huggingface.co/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026/blob/main/camera_calibration/kalibr_imucam_chain.yaml",
       "https://arxiv.org/abs/2607.06464",
       "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026",
-      "https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026"
+      "https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026",
+      "https://arxiv.org/html/2607.06464v2"
     ],
-    "checked": "2026-10-20"
+    "checked": "2026-10-26"
   },
   "ds_newer_college": {
     "depth": {

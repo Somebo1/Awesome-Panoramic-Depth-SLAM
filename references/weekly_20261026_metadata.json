@@ -1,0 +1,1178 @@
+{
+  "checked": "2026-10-26",
+  "window": [
+    "2026-10-05",
+    "2026-10-26"
+  ],
+  "baseline_commit": "a07f0d7b333138eb879324e3f633be1dad96b5ad",
+  "github_repositories_checked": 54,
+  "arxiv_identities_checked": 79,
+  "github_errors": 0,
+  "arxiv_errors": 0,
+  "github": [
+    {
+      "repo": "EnVision-Research/DA-2",
+      "ids": [
+        "da2_panorama"
+      ],
+      "url": "https://github.com/EnVision-Research/DA-2",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "Insta360-Research-Team/DAP",
+      "ids": [
+        "dap"
+      ],
+      "url": "https://github.com/Insta360-Research-Team/DAP",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "PolyU-VCLab/DepthMaster",
+      "ids": [
+        "depthmaster2026"
+      ],
+      "url": "https://github.com/PolyU-VCLab/DepthMaster",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "Qjizhi/MCPDepth",
+      "ids": [
+        "mcpdepth"
+      ],
+      "url": "https://github.com/Qjizhi/MCPDepth",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "microsoft/MoGe",
+      "ids": [
+        "moge3",
+        "moge2"
+      ],
+      "url": "https://github.com/microsoft/MoGe",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "prs-eth/PaGeR",
+      "ids": [
+        "pager"
+      ],
+      "url": "https://github.com/prs-eth/PaGeR",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "munimo/RePer360",
+      "ids": [
+        "reper360"
+      ],
+      "url": "https://github.com/munimo/RePer360",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "girish1511/UniDAC",
+      "ids": [
+        "unidac"
+      ],
+      "url": "https://github.com/girish1511/UniDAC",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "facebookresearch/vggt-omega",
+      "ids": [
+        "vggt_omega"
+      ],
+      "url": "https://github.com/facebookresearch/vggt-omega",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "yuliangguo/depth_any_camera",
+      "ids": [
+        "dac"
+      ],
+      "url": "https://github.com/yuliangguo/depth_any_camera",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "ByteDance-Seed/Depth-Anything-3",
+      "ids": [
+        "depth_anything_3"
+      ],
+      "url": "https://github.com/ByteDance-Seed/Depth-Anything-3",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "antigravity-tech/DA360",
+      "ids": [
+        "da360"
+      ],
+      "url": "https://github.com/antigravity-tech/DA360",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "apple-aiml-research/ml-depth-pro",
+      "ids": [
+        "depth_pro"
+      ],
+      "url": "https://github.com/apple-aiml-research/ml-depth-pro",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "Yukun-Huang/DreamCube",
+      "ids": [
+        "dreamcube"
+      ],
+      "url": "https://github.com/Yukun-Huang/DreamCube",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "caozidong/PanDA",
+      "ids": [
+        "panda"
+      ],
+      "url": "https://github.com/caozidong/PanDA",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "jdk9405/RPG360",
+      "ids": [
+        "rpg360"
+      ],
+      "url": "https://github.com/jdk9405/RPG360",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "lpiccinelli-eth/UniDepth",
+      "ids": [
+        "unidepth_v2"
+      ],
+      "url": "https://github.com/lpiccinelli-eth/UniDepth",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "lpiccinelli-eth/UniK3D",
+      "ids": [
+        "unik3d"
+      ],
+      "url": "https://github.com/lpiccinelli-eth/UniK3D",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "facebookresearch/vggt",
+      "ids": [
+        "vggt"
+      ],
+      "url": "https://github.com/facebookresearch/vggt",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "DepthAnything/Video-Depth-Anything",
+      "ids": [
+        "video_depth_anything"
+      ],
+      "url": "https://github.com/DepthAnything/Video-Depth-Anything",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "DepthAnything/Depth-Anything-V2",
+      "ids": [
+        "depth_anything_v2"
+      ],
+      "url": "https://github.com/DepthAnything/Depth-Anything-V2",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "albert100121/Depth-Anywhere",
+      "ids": [
+        "depth_anywhere"
+      ],
+      "url": "https://github.com/albert100121/Depth-Anywhere",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "haoai-1997/Elite360D",
+      "ids": [
+        "elite360d"
+      ],
+      "url": "https://github.com/haoai-1997/Elite360D",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "prs-eth/Marigold",
+      "ids": [
+        "marigold"
+      ],
+      "url": "https://github.com/prs-eth/Marigold",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "YvanYin/Metric3D",
+      "ids": [
+        "metric3d_v2"
+      ],
+      "url": "https://github.com/YvanYin/Metric3D",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "fuenwang/BiFusev2",
+      "ids": [
+        "bifuse_pp"
+      ],
+      "url": "https://github.com/fuenwang/BiFusev2",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "haoai-1997/HRDFuse",
+      "ids": [
+        "hrdfuse"
+      ],
+      "url": "https://github.com/haoai-1997/HRDFuse",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "manurare/360monodepth",
+      "ids": [
+        "360monodepth"
+      ],
+      "url": "https://github.com/manurare/360monodepth",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "nju-ee/MODE-2022",
+      "ids": [
+        "mode"
+      ],
+      "url": "https://github.com/nju-ee/MODE-2022",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "yuliangguo/OmniFusion",
+      "ids": [
+        "omnifusion"
+      ],
+      "url": "https://github.com/yuliangguo/OmniFusion",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "zhijieshen-bjtu/PanoFormer",
+      "ids": [
+        "panoformer"
+      ],
+      "url": "https://github.com/zhijieshen-bjtu/PanoFormer",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "alibaba/UniFuse-Unidirectional-Fusion",
+      "ids": [
+        "unifuse"
+      ],
+      "url": "https://github.com/alibaba/UniFuse-Unidirectional-Fusion",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "chris1004336379/360DVO",
+      "ids": [
+        "dvo360_2026"
+      ],
+      "url": "https://github.com/chris1004336379/360DVO",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "guoxf304/CubeSplat",
+      "ids": [
+        "cubesplat2026"
+      ],
+      "url": "https://github.com/guoxf304/CubeSplat",
+      "commits": [
+        {
+          "sha": "7227c7c5858be2c192a778f40ba7c6cb1a5bfc94",
+          "date": "2026-10-12T11:33:30Z",
+          "subject": "Simplify demo presentation and remove reproduction summary",
+          "url": "https://github.com/guoxf304/CubeSplat/commit/7227c7c5858be2c192a778f40ba7c6cb1a5bfc94"
+        },
+        {
+          "sha": "f2ea59b79ab8b00b11d3e886958f152ff290f084",
+          "date": "2026-10-12T11:28:14Z",
+          "subject": "Embed animated demo and reduce pipeline display size",
+          "url": "https://github.com/guoxf304/CubeSplat/commit/f2ea59b79ab8b00b11d3e886958f152ff290f084"
+        },
+        {
+          "sha": "bf6f83905fe09a7676dd461a195cfba6f96ab4da",
+          "date": "2026-10-12T11:21:55Z",
+          "subject": "Add ECCV publication, pipeline figure and demo",
+          "url": "https://github.com/guoxf304/CubeSplat/commit/bf6f83905fe09a7676dd461a195cfba6f96ab4da"
+        },
+        {
+          "sha": "bbb9f0ae089b77c442e895a59700d6a4e81e1433",
+          "date": "2026-10-12T10:42:47Z",
+          "subject": "Simplify README and add paper figure slot",
+          "url": "https://github.com/guoxf304/CubeSplat/commit/bbb9f0ae089b77c442e895a59700d6a4e81e1433"
+        },
+        {
+          "sha": "2668a4d2eeca9dd02612913ba53d5886dbd68147",
+          "date": "2026-10-12T10:28:33Z",
+          "subject": "Prepare Cube-Splat release and document verified setup",
+          "url": "https://github.com/guoxf304/CubeSplat/commit/2668a4d2eeca9dd02612913ba53d5886dbd68147"
+        }
+      ],
+      "releases": []
+    },
+    {
+      "repo": "odgs-slam/odgs-slam",
+      "ids": [
+        "odgsslam2026"
+      ],
+      "url": "https://github.com/odgs-slam/odgs-slam",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "BambValley/P2U-SLAM",
+      "ids": [
+        "p2uslam2026"
+      ],
+      "url": "https://github.com/BambValley/P2U-SLAM",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "YYWumm/PanoAir",
+      "ids": [
+        "panoair2026"
+      ],
+      "url": "https://github.com/YYWumm/PanoAir",
+      "commits": [
+        {
+          "sha": "01462987bd14c2ccd7ff947371dda584ab38acb4",
+          "date": "2026-10-16T02:52:22Z",
+          "subject": "Update README with paper link",
+          "url": "https://github.com/YYWumm/PanoAir/commit/01462987bd14c2ccd7ff947371dda584ab38acb4"
+        }
+      ],
+      "releases": []
+    },
+    {
+      "repo": "rmurai0610/MASt3R-SLAM",
+      "ids": [
+        "mast3rslam2025"
+      ],
+      "url": "https://github.com/rmurai0610/MASt3R-SLAM",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "ethz-mrl/OKVIS2-X",
+      "ids": [
+        "okvis2x2025"
+      ],
+      "url": "https://github.com/ethz-mrl/OKVIS2-X",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "runnanchen/PanoSLAM",
+      "ids": [
+        "panoslam2025"
+      ],
+      "url": "https://github.com/runnanchen/PanoSLAM",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "GREAT-WHU/DBA-Fusion",
+      "ids": [
+        "dbafusion2024"
+      ],
+      "url": "https://github.com/GREAT-WHU/DBA-Fusion",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "princeton-vl/DPVO",
+      "ids": [
+        "dpvslam2024",
+        "dpvo2023"
+      ],
+      "url": "https://github.com/princeton-vl/DPVO",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "muskie82/MonoGS",
+      "ids": [
+        "monogs2024"
+      ],
+      "url": "https://github.com/muskie82/MonoGS",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "spla-tam/SplaTAM",
+      "ids": [
+        "splatam2024"
+      ],
+      "url": "https://github.com/spla-tam/SplaTAM",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "youmi-zym/GO-SLAM",
+      "ids": [
+        "goslam2023"
+      ],
+      "url": "https://github.com/youmi-zym/GO-SLAM",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "flysoaryun/LF-VISLAM",
+      "ids": [
+        "lfvislam2023"
+      ],
+      "url": "https://github.com/flysoaryun/LF-VISLAM",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "ethz-mrl/okvis2",
+      "ids": [
+        "okvis2_2022"
+      ],
+      "url": "https://github.com/ethz-mrl/okvis2",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "RoblabWh/PatchMatch",
+      "ids": [
+        "patchmatch_panorama2022"
+      ],
+      "url": "https://github.com/RoblabWh/PatchMatch",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "princeton-vl/DROID-SLAM",
+      "ids": [
+        "droidslam2021"
+      ],
+      "url": "https://github.com/princeton-vl/DROID-SLAM",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "UZ-SLAMLab/ORB_SLAM3",
+      "ids": [
+        "orbslam3_2021"
+      ],
+      "url": "https://github.com/UZ-SLAMLab/ORB_SLAM3",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "rpng/open_vins",
+      "ids": [
+        "openvins2020"
+      ],
+      "url": "https://github.com/rpng/open_vins",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "stella-cv/stella_vslam",
+      "ids": [
+        "stella_vslam"
+      ],
+      "url": "https://github.com/stella-cv/stella_vslam",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "HKUST-Aerial-Robotics/VINS-Fusion",
+      "ids": [
+        "vinsfusion2019"
+      ],
+      "url": "https://github.com/HKUST-Aerial-Robotics/VINS-Fusion",
+      "commits": [],
+      "releases": []
+    },
+    {
+      "repo": "uzh-rpg/rpg_svo_pro_open",
+      "ids": [
+        "svo_pro"
+      ],
+      "url": "https://github.com/uzh-rpg/rpg_svo_pro_open",
+      "commits": [],
+      "releases": []
+    }
+  ],
+  "arxiv": [
+    {
+      "arxiv": "2509.26618",
+      "ids": [
+        "da2_panorama"
+      ],
+      "url": "https://arxiv.org/abs/2509.26618",
+      "submission_history": "From: Haodong Li [ view email ] [v1] Tue, 30 Sep 2025 17:55:37 UTC (28,378 KB) [v2] Sun, 12 Oct 2025 22:41:42 UTC (28,378 KB) [v3] Tue, 21 Oct 2025 08:19:52 UTC (28,378 KB) [v4] Wed, 5 Nov 2025 09:05:01 UTC (28,378 KB) [v5] Sat, 8 Nov 2025 21:21:48 UTC (28,378 KB)"
+    },
+    {
+      "arxiv": "2512.16913",
+      "ids": [
+        "dap"
+      ],
+      "url": "https://arxiv.org/abs/2512.16913",
+      "submission_history": "From: Xin Lin [ view email ] [v1] Thu, 18 Dec 2025 18:59:29 UTC (5,639 KB)"
+    },
+    {
+      "arxiv": "2606.12368",
+      "ids": [
+        "depthmaster2026"
+      ],
+      "url": "https://arxiv.org/abs/2606.12368",
+      "submission_history": "From: Pengfei Wang [ view email ] [v1] Wed, 10 Jun 2026 17:35:23 UTC (15,446 KB) [v2] Thu, 11 Jun 2026 05:24:02 UTC (15,446 KB)"
+    },
+    {
+      "arxiv": "2610.21297",
+      "ids": [
+        "geopano2026"
+      ],
+      "url": "https://arxiv.org/abs/2610.21297",
+      "submission_history": "From: Jing Ou [ view email ] [v1] Thu, 15 Oct 2026 05:42:59 UTC (18,475 KB)"
+    },
+    {
+      "arxiv": "2408.01653",
+      "ids": [
+        "mcpdepth"
+      ],
+      "url": "https://arxiv.org/abs/2408.01653",
+      "submission_history": "From: Feng Qiao [ view email ] [v1] Sat, 3 Aug 2024 03:35:37 UTC (32,183 KB) [v2] Tue, 23 Sep 2025 19:12:03 UTC (10,999 KB) [v3] Mon, 29 Sep 2025 17:37:27 UTC (10,999 KB) [v4] Sat, 30 May 2026 22:56:46 UTC (21,341 KB)"
+    },
+    {
+      "arxiv": "2607.17967",
+      "ids": [
+        "moge3"
+      ],
+      "url": "https://arxiv.org/abs/2607.17967",
+      "submission_history": "From: Ruicheng Li [ view email ] [v1] Mon, 20 Jul 2026 14:07:32 UTC (24,365 KB) [v2] Tue, 21 Jul 2026 10:50:48 UTC (24,365 KB)"
+    },
+    {
+      "arxiv": "2609.09394",
+      "ids": [
+        "omnipoint2026"
+      ],
+      "url": "https://arxiv.org/abs/2609.09394",
+      "submission_history": "From: Botao Ye [ view email ] [v1] Tue, 8 Sep 2026 19:45:58 UTC (2,093 KB)"
+    },
+    {
+      "arxiv": "2605.26368",
+      "ids": [
+        "pager"
+      ],
+      "url": "https://arxiv.org/abs/2605.26368",
+      "submission_history": "From: Vukasin Bozic [ view email ] [v1] Mon, 25 May 2026 22:32:42 UTC (42,439 KB) [v2] Wed, 27 May 2026 12:32:56 UTC (42,439 KB)"
+    },
+    {
+      "arxiv": "2603.05999",
+      "ids": [
+        "reper360"
+      ],
+      "url": "https://arxiv.org/abs/2603.05999",
+      "submission_history": "From: Cheng Guan [ view email ] [v1] Fri, 6 Mar 2026 07:58:53 UTC (5,782 KB) [v2] Mon, 29 Jun 2026 06:30:39 UTC (18,156 KB)"
+    },
+    {
+      "arxiv": "2603.27105",
+      "ids": [
+        "unidac"
+      ],
+      "url": "https://arxiv.org/abs/2603.27105",
+      "submission_history": "From: Girish Chandar Ganesan [ view email ] [v1] Sat, 28 Mar 2026 03:23:08 UTC (41,897 KB) [v2] Wed, 8 Apr 2026 06:07:51 UTC (41,897 KB)"
+    },
+    {
+      "arxiv": "2605.15195",
+      "ids": [
+        "vggt_omega"
+      ],
+      "url": "https://arxiv.org/abs/2605.15195",
+      "submission_history": "From: Jianyuan Wang [ view email ] [v1] Thu, 14 May 2026 17:59:51 UTC (29,193 KB)"
+    },
+    {
+      "arxiv": "2501.02464",
+      "ids": [
+        "dac"
+      ],
+      "url": "https://arxiv.org/abs/2501.02464",
+      "submission_history": "From: Yuliang Guo [ view email ] [v1] Sun, 5 Jan 2025 07:22:40 UTC (18,047 KB) [v2] Sun, 16 Mar 2025 18:28:32 UTC (18,050 KB)"
+    },
+    {
+      "arxiv": "2511.10647",
+      "ids": [
+        "depth_anything_3"
+      ],
+      "url": "https://arxiv.org/abs/2511.10647",
+      "submission_history": "From: Haotong Lin [ view email ] [v1] Thu, 13 Nov 2025 18:59:53 UTC (21,837 KB)"
+    },
+    {
+      "arxiv": "2512.22819",
+      "ids": [
+        "da360"
+      ],
+      "url": "https://arxiv.org/abs/2512.22819",
+      "submission_history": "From: Hualie Jiang [ view email ] [v1] Sun, 28 Dec 2025 07:12:58 UTC (26,021 KB) [v2] Wed, 30 Sep 2026 06:37:18 UTC (15,911 KB)"
+    },
+    {
+      "arxiv": "2410.02073",
+      "ids": [
+        "depth_pro"
+      ],
+      "url": "https://arxiv.org/abs/2410.02073",
+      "submission_history": "From: Stephan R Richter [ view email ] [v1] Wed, 2 Oct 2024 22:42:20 UTC (33,411 KB) [v2] Mon, 21 Apr 2025 12:09:08 UTC (33,437 KB)"
+    },
+    {
+      "arxiv": "2506.17206",
+      "ids": [
+        "dreamcube"
+      ],
+      "url": "https://arxiv.org/abs/2506.17206",
+      "submission_history": "From: Yukun Huang [ view email ] [v1] Fri, 20 Jun 2025 17:55:06 UTC (6,022 KB)"
+    },
+    {
+      "arxiv": "2507.02546",
+      "ids": [
+        "moge2"
+      ],
+      "url": "https://arxiv.org/abs/2507.02546",
+      "submission_history": "From: Ruicheng Wang [ view email ] [v1] Thu, 3 Jul 2025 11:40:01 UTC (28,220 KB)"
+    },
+    {
+      "arxiv": "2509.23991",
+      "ids": [
+        "rpg360"
+      ],
+      "url": "https://arxiv.org/abs/2509.23991",
+      "submission_history": "From: Dongki Jung [ view email ] [v1] Sun, 28 Sep 2025 17:33:12 UTC (10,860 KB)"
+    },
+    {
+      "arxiv": "2502.20110",
+      "ids": [
+        "unidepth_v2"
+      ],
+      "url": "https://arxiv.org/abs/2502.20110",
+      "submission_history": "From: Luigi Piccinelli [ view email ] [v1] Thu, 27 Feb 2025 14:03:15 UTC (2,786 KB) [v2] Thu, 18 Dec 2025 09:32:11 UTC (10,015 KB)"
+    },
+    {
+      "arxiv": "2503.16591",
+      "ids": [
+        "unik3d"
+      ],
+      "url": "https://arxiv.org/abs/2503.16591",
+      "submission_history": "From: Luigi Piccinelli [ view email ] [v1] Thu, 20 Mar 2025 17:49:23 UTC (6,261 KB)"
+    },
+    {
+      "arxiv": "2503.11651",
+      "ids": [
+        "vggt"
+      ],
+      "url": "https://arxiv.org/abs/2503.11651",
+      "submission_history": "From: Jianyuan Wang [ view email ] [v1] Fri, 14 Mar 2025 17:59:47 UTC (19,958 KB)"
+    },
+    {
+      "arxiv": "2501.12375",
+      "ids": [
+        "video_depth_anything"
+      ],
+      "url": "https://arxiv.org/abs/2501.12375",
+      "submission_history": "From: Sili Chen [ view email ] [v1] Tue, 21 Jan 2025 18:53:30 UTC (8,739 KB) [v2] Wed, 22 Jan 2025 11:33:54 UTC (8,739 KB) [v3] Sun, 15 Jun 2025 03:50:49 UTC (10,364 KB) [v4] Wed, 14 Oct 2026 06:48:25 UTC (10,359 KB)"
+    },
+    {
+      "arxiv": "2406.09414",
+      "ids": [
+        "depth_anything_v2"
+      ],
+      "url": "https://arxiv.org/abs/2406.09414",
+      "submission_history": "From: Lihe Yang [ view email ] [v1] Thu, 13 Jun 2024 17:59:56 UTC (46,058 KB) [v2] Sun, 20 Oct 2024 11:24:09 UTC (46,064 KB)"
+    },
+    {
+      "arxiv": "2406.12849",
+      "ids": [
+        "depth_anywhere"
+      ],
+      "url": "https://arxiv.org/abs/2406.12849",
+      "submission_history": "From: Ning-Hsu Wang [ view email ] [v1] Tue, 18 Jun 2024 17:59:31 UTC (16,323 KB) [v2] Wed, 30 Oct 2024 16:37:01 UTC (20,395 KB)"
+    },
+    {
+      "arxiv": "2403.16376",
+      "ids": [
+        "elite360d"
+      ],
+      "url": "https://arxiv.org/abs/2403.16376",
+      "submission_history": "From: Hao Ai [ view email ] [v1] Mon, 25 Mar 2024 02:46:57 UTC (13,632 KB) [v2] Sat, 25 May 2024 05:05:55 UTC (9,904 KB)"
+    },
+    {
+      "arxiv": "2312.02145",
+      "ids": [
+        "marigold"
+      ],
+      "url": "https://arxiv.org/abs/2312.02145",
+      "submission_history": "From: Bingxin Ke [ view email ] [v1] Mon, 4 Dec 2023 18:59:13 UTC (25,169 KB) [v2] Wed, 3 Apr 2024 14:14:18 UTC (25,616 KB)"
+    },
+    {
+      "arxiv": "2404.15506",
+      "ids": [
+        "metric3d_v2"
+      ],
+      "url": "https://arxiv.org/abs/2404.15506",
+      "submission_history": "From: Wei Yin [ view email ] [v1] Fri, 22 Mar 2024 02:30:46 UTC (18,684 KB) [v2] Fri, 16 Aug 2024 05:36:12 UTC (25,319 KB) [v3] Tue, 29 Oct 2024 06:24:27 UTC (25,319 KB) [v4] Fri, 3 Jan 2025 15:39:16 UTC (25,319 KB)"
+    },
+    {
+      "arxiv": "2209.02952",
+      "ids": [
+        "bifuse_pp"
+      ],
+      "url": "https://arxiv.org/abs/2209.02952",
+      "submission_history": "From: Fu-En Wang [ view email ] [v1] Wed, 7 Sep 2022 06:24:21 UTC (9,426 KB)"
+    },
+    {
+      "arxiv": "2303.11616",
+      "ids": [
+        "hrdfuse"
+      ],
+      "url": "https://arxiv.org/abs/2303.11616",
+      "submission_history": "From: Hao Ai [ view email ] [v1] Tue, 21 Mar 2023 06:26:18 UTC (20,679 KB) [v2] Wed, 22 Mar 2023 04:36:11 UTC (20,678 KB) [v3] Mon, 22 May 2023 02:14:10 UTC (20,678 KB)"
+    },
+    {
+      "arxiv": "2111.15669",
+      "ids": [
+        "360monodepth"
+      ],
+      "url": "https://arxiv.org/abs/2111.15669",
+      "submission_history": "From: Manuel Rey-Area [ view email ] [v1] Tue, 30 Nov 2021 18:57:29 UTC (14,132 KB) [v2] Mon, 28 Mar 2022 17:26:24 UTC (28,824 KB)"
+    },
+    {
+      "arxiv": "2203.00838",
+      "ids": [
+        "omnifusion"
+      ],
+      "url": "https://arxiv.org/abs/2203.00838",
+      "submission_history": "From: Yuyan Li [ view email ] [v1] Wed, 2 Mar 2022 03:19:49 UTC (44,848 KB) [v2] Tue, 29 Mar 2022 02:33:16 UTC (29,561 KB)"
+    },
+    {
+      "arxiv": "2203.09283",
+      "ids": [
+        "panoformer"
+      ],
+      "url": "https://arxiv.org/abs/2203.09283",
+      "submission_history": "From: Zhijie Shen [ view email ] [v1] Thu, 17 Mar 2022 12:19:43 UTC (19,407 KB) [v2] Tue, 12 Jul 2022 07:59:13 UTC (3,027 KB)"
+    },
+    {
+      "arxiv": "2102.03550",
+      "ids": [
+        "unifuse"
+      ],
+      "url": "https://arxiv.org/abs/2102.03550",
+      "submission_history": "From: Hualie Jiang [ view email ] [v1] Sat, 6 Feb 2021 10:01:09 UTC (4,782 KB) [v2] Thu, 27 May 2021 13:50:50 UTC (4,625 KB)"
+    },
+    {
+      "arxiv": "2601.02309",
+      "ids": [
+        "dvo360_2026",
+        "ds_360dvo"
+      ],
+      "url": "https://arxiv.org/abs/2601.02309",
+      "submission_history": "From: Xiaopeng Guo [ view email ] [v1] Mon, 5 Jan 2026 17:52:50 UTC (28,048 KB) [v2] Fri, 9 Jan 2026 10:36:31 UTC (28,048 KB)"
+    },
+    {
+      "arxiv": "2610.09857",
+      "ids": [
+        "aprilvins2026",
+        "ds_mild2026"
+      ],
+      "url": "https://arxiv.org/abs/2610.09857",
+      "submission_history": "From: Zhang Junjie [ view email ] [v1] Wed, 7 Oct 2026 11:14:14 UTC (3,236 KB)"
+    },
+    {
+      "arxiv": "2609.21347",
+      "ids": [
+        "cubesplat2026"
+      ],
+      "url": "https://arxiv.org/abs/2609.21347",
+      "submission_history": "From: Xiangfei Guo [ view email ] [v1] Fri, 18 Sep 2026 06:01:25 UTC (20,958 KB)"
+    },
+    {
+      "arxiv": "2607.06464",
+      "ids": [
+        "ds_hilti2026"
+      ],
+      "url": "https://arxiv.org/abs/2607.06464",
+      "submission_history": "From: Emilia Szymanska [ view email ] [v1] Tue, 7 Jul 2026 16:25:35 UTC (8,514 KB) [v2] Wed, 21 Oct 2026 09:33:05 UTC (8,478 KB)"
+    },
+    {
+      "arxiv": "2604.22482",
+      "ids": [
+        "ds_holo360d"
+      ],
+      "url": "https://arxiv.org/abs/2604.22482",
+      "submission_history": "From: Zhuoxiao Li [ view email ] [v1] Fri, 24 Apr 2026 12:03:27 UTC (20,876 KB) [v2] Mon, 8 Jun 2026 05:20:56 UTC (20,876 KB)"
+    },
+    {
+      "arxiv": "2409.10143",
+      "ids": [
+        "p2uslam2026"
+      ],
+      "url": "https://arxiv.org/abs/2409.10143",
+      "submission_history": "From: Kailun Yang [ view email ] [v1] Mon, 16 Sep 2024 10:13:34 UTC (3,966 KB) [v2] Sat, 3 Jan 2026 13:47:22 UTC (3,893 KB)"
+    },
+    {
+      "arxiv": "2604.00852",
+      "ids": [
+        "panoair2026",
+        "ds_panoair"
+      ],
+      "url": "https://arxiv.org/abs/2604.00852",
+      "submission_history": "From: Yiyang Wu [ view email ] [v1] Wed, 1 Apr 2026 13:05:19 UTC (1,646 KB) [v2] Fri, 16 Oct 2026 02:21:19 UTC (1,784 KB)"
+    },
+    {
+      "arxiv": "2609.17387",
+      "ids": [
+        "panogsslam2026"
+      ],
+      "url": "https://arxiv.org/abs/2609.17387",
+      "submission_history": "From: Yongqi Mao [ view email ] [v1] Tue, 15 Sep 2026 16:26:12 UTC (22,102 KB)"
+    },
+    {
+      "arxiv": "2412.12392",
+      "ids": [
+        "mast3rslam2025"
+      ],
+      "url": "https://arxiv.org/abs/2412.12392",
+      "submission_history": "From: Riku Murai [ view email ] [v1] Mon, 16 Dec 2024 23:00:05 UTC (2,632 KB) [v2] Mon, 2 Jun 2025 13:44:10 UTC (2,627 KB)"
+    },
+    {
+      "arxiv": "2510.04612",
+      "ids": [
+        "okvis2x2025"
+      ],
+      "url": "https://arxiv.org/abs/2510.04612",
+      "submission_history": "From: Simon Boche [ view email ] [v1] Mon, 6 Oct 2025 09:23:36 UTC (18,121 KB)"
+    },
+    {
+      "arxiv": "2411.10546",
+      "ids": [
+        "ds_oxford_spires"
+      ],
+      "url": "https://arxiv.org/abs/2411.10546",
+      "submission_history": "From: Yifu Tao [ view email ] [v1] Fri, 15 Nov 2024 19:43:24 UTC (14,597 KB) [v2] Wed, 10 Sep 2025 20:11:59 UTC (19,000 KB)"
+    },
+    {
+      "arxiv": "2501.00352",
+      "ids": [
+        "panoslam2025"
+      ],
+      "url": "https://arxiv.org/abs/2501.00352",
+      "submission_history": "From: Runnan Chen Dr. [ view email ] [v1] Tue, 31 Dec 2024 08:58:10 UTC (13,368 KB)"
+    },
+    {
+      "arxiv": "2401.10560",
+      "ids": [
+        "360orbslam2024"
+      ],
+      "url": "https://arxiv.org/abs/2401.10560",
+      "submission_history": "From: Yichen Chen [ view email ] [v1] Fri, 19 Jan 2024 08:52:24 UTC (15,638 KB)"
+    },
+    {
+      "arxiv": "2403.13714",
+      "ids": [
+        "dbafusion2024"
+      ],
+      "url": "https://arxiv.org/abs/2403.13714",
+      "submission_history": "From: Yuxuan Zhou [ view email ] [v1] Wed, 20 Mar 2024 16:20:54 UTC (43,588 KB)"
+    },
+    {
+      "arxiv": "2408.01654",
+      "ids": [
+        "dpvslam2024"
+      ],
+      "url": "https://arxiv.org/abs/2408.01654",
+      "submission_history": "From: Lahav Lipson [ view email ] [v1] Sat, 3 Aug 2024 03:51:47 UTC (3,256 KB)"
+    },
+    {
+      "arxiv": "2312.06741",
+      "ids": [
+        "monogs2024"
+      ],
+      "url": "https://arxiv.org/abs/2312.06741",
+      "submission_history": "From: Hidenobu Matsuki [ view email ] [v1] Mon, 11 Dec 2023 18:19:04 UTC (19,523 KB) [v2] Sun, 14 Apr 2024 22:33:27 UTC (20,624 KB)"
+    },
+    {
+      "arxiv": "2208.04726",
+      "ids": [
+        "dpvo2023"
+      ],
+      "url": "https://arxiv.org/abs/2208.04726",
+      "submission_history": "From: Lahav Lipson [ view email ] [v1] Mon, 8 Aug 2022 04:47:38 UTC (1,315 KB) [v2] Tue, 23 May 2023 17:59:29 UTC (2,136 KB)"
+    },
+    {
+      "arxiv": "2309.02436",
+      "ids": [
+        "goslam2023"
+      ],
+      "url": "https://arxiv.org/abs/2309.02436",
+      "submission_history": "From: Matteo Poggi [ view email ] [v1] Tue, 5 Sep 2023 17:59:58 UTC (16,723 KB)"
+    },
+    {
+      "arxiv": "2209.05167",
+      "ids": [
+        "lfvislam2023"
+      ],
+      "url": "https://arxiv.org/abs/2209.05167",
+      "submission_history": "From: Kailun Yang [ view email ] [v1] Mon, 12 Sep 2022 11:51:20 UTC (4,031 KB) [v2] Fri, 17 Feb 2023 15:51:14 UTC (6,487 KB) [v3] Thu, 12 Oct 2023 03:09:25 UTC (12,560 KB)"
+    },
+    {
+      "arxiv": "2208.09825",
+      "ids": [
+        "ds_hilti2022"
+      ],
+      "url": "https://arxiv.org/abs/2208.09825",
+      "submission_history": "From: Lintong Zhang [ view email ] [v1] Sun, 21 Aug 2022 07:11:46 UTC (9,416 KB) [v2] Mon, 27 Feb 2023 14:01:24 UTC (9,917 KB) [v3] Mon, 15 May 2023 10:49:18 UTC (9,785 KB)"
+    },
+    {
+      "arxiv": "2109.13410",
+      "ids": [
+        "ds_kitti360"
+      ],
+      "url": "https://arxiv.org/abs/2109.13410",
+      "submission_history": "From: Yiyi Liao [ view email ] [v1] Tue, 28 Sep 2021 00:41:29 UTC (13,194 KB) [v2] Fri, 3 Jun 2022 07:09:53 UTC (14,612 KB)"
+    },
+    {
+      "arxiv": "2202.09199",
+      "ids": [
+        "okvis2_2022"
+      ],
+      "url": "https://arxiv.org/abs/2202.09199",
+      "submission_history": "From: Stefan Leutenegger [ view email ] [v1] Fri, 18 Feb 2022 13:53:43 UTC (2,283 KB) [v2] Fri, 12 Aug 2022 10:53:55 UTC (2,283 KB)"
+    },
+    {
+      "arxiv": "2211.16266",
+      "ids": [
+        "patchmatch_panorama2022"
+      ],
+      "url": "https://arxiv.org/abs/2211.16266",
+      "submission_history": "From: Hartmut Surmann HaSu [ view email ] [v1] Tue, 29 Nov 2022 14:54:01 UTC (27,741 KB)"
+    },
+    {
+      "arxiv": "2012.10133",
+      "ids": [
+        "codevio2021"
+      ],
+      "url": "https://arxiv.org/abs/2012.10133",
+      "submission_history": "From: Xingxing Zuo [ view email ] [v1] Fri, 18 Dec 2020 09:42:54 UTC (3,066 KB) [v2] Wed, 30 Jun 2021 16:18:18 UTC (3,064 KB) [v3] Fri, 19 May 2023 09:12:35 UTC (3,065 KB)"
+    },
+    {
+      "arxiv": "2108.10869",
+      "ids": [
+        "droidslam2021"
+      ],
+      "url": "https://arxiv.org/abs/2108.10869",
+      "submission_history": "From: Zachary Teed [ view email ] [v1] Tue, 24 Aug 2021 17:50:10 UTC (9,430 KB) [v2] Wed, 2 Feb 2022 19:28:32 UTC (9,439 KB)"
+    },
+    {
+      "arxiv": "2109.08238",
+      "ids": [
+        "ds_hm3d"
+      ],
+      "url": "https://arxiv.org/abs/2109.08238",
+      "submission_history": "From: Santhosh Kumar Ramakrishnan [ view email ] [v1] Thu, 16 Sep 2021 22:01:24 UTC (31,914 KB)"
+    },
+    {
+      "arxiv": "2109.11316",
+      "ids": [
+        "ds_hilti2021"
+      ],
+      "url": "https://arxiv.org/abs/2109.11316",
+      "submission_history": "From: Michael Helmberger [ view email ] [v1] Thu, 23 Sep 2021 12:02:40 UTC (7,898 KB) [v2] Fri, 25 Feb 2022 06:55:07 UTC (8,285 KB) [v3] Mon, 20 Jun 2022 07:00:02 UTC (9,955 KB)"
+    },
+    {
+      "arxiv": "2011.02523",
+      "ids": [
+        "ds_hypersim"
+      ],
+      "url": "https://arxiv.org/abs/2011.02523",
+      "submission_history": "From: Mike Roberts [ view email ] [v1] Wed, 4 Nov 2020 20:12:07 UTC (7,715 KB) [v2] Sat, 7 Nov 2020 20:43:43 UTC (7,715 KB) [v3] Tue, 10 Nov 2020 08:05:56 UTC (7,715 KB) [v4] Tue, 17 Nov 2020 02:54:24 UTC (7,715 KB) [v5] Wed, 18 Aug 2021 03:16:16 UTC (8,099 KB) function toggleList(whichLayer,toggleThis) { var elem, vis; if( document.getElementById ) // standard elem = document.getElementById( whichLayer ); else if( document.all ) // old msie versions elem = document.all[whichLayer]; else if( document.layers ) // nn4 elem = document.layers[whichLayer]; vis = elem.style; // if the style.display value is blank we try to figure it out here if(vis.display==''&&elem.offsetWidth!=undefined&&elem.offsetHeight!=undefined) vis.display = (elem.offsetWidth!=0&&elem.offsetHeight!=0)?'inline':'none'; vis.display = (vis.display==''||vis.display=='inline')?'none':'inline'; // toggle link inner text status = vis.display; if(vis.display=='inline'){ document.getElementById('toggle').innerHTML = \"(collapse list)\"; document.getElementById('toggle').title = \"Collapse list\"; } else { document.getElementById('toggle').innerHTML = \"(\"+toggleThis+\")\"; document.getElementById('toggle').title = \"Show complete list\"; } }"
+    },
+    {
+      "arxiv": "2007.11898",
+      "ids": [
+        "orbslam3_2021"
+      ],
+      "url": "https://arxiv.org/abs/2007.11898",
+      "submission_history": "From: Carlos Campos Martínez [ view email ] [v1] Thu, 23 Jul 2020 10:09:54 UTC (6,859 KB) [v2] Fri, 23 Apr 2021 13:17:58 UTC (3,975 KB)"
+    },
+    {
+      "arxiv": "2109.02749",
+      "ids": [
+        "ds_pano3d"
+      ],
+      "url": "https://arxiv.org/abs/2109.02749",
+      "submission_history": "From: Nikolaos Zioulis Mr. [ view email ] [v1] Mon, 6 Sep 2021 21:30:03 UTC (30,909 KB)"
+    },
+    {
+      "arxiv": "1904.06504",
+      "ids": [
+        "basalt2020"
+      ],
+      "url": "https://arxiv.org/abs/1904.06504",
+      "submission_history": "From: Vladyslav Usenko [ view email ] [v1] Sat, 13 Apr 2019 08:15:00 UTC (1,157 KB) [v2] Mon, 29 Apr 2019 16:19:36 UTC (1,157 KB) [v3] Sat, 30 May 2020 19:01:09 UTC (1,158 KB)"
+    },
+    {
+      "arxiv": "2003.01060",
+      "ids": [
+        "d3vo2020"
+      ],
+      "url": "https://arxiv.org/abs/2003.01060",
+      "submission_history": "From: Nan Yang [ view email ] [v1] Mon, 2 Mar 2020 17:47:13 UTC (5,333 KB) [v2] Sat, 28 Mar 2020 21:08:41 UTC (9,110 KB)"
+    },
+    {
+      "arxiv": "2003.08056",
+      "ids": [
+        "omnislam2020"
+      ],
+      "url": "https://arxiv.org/abs/2003.08056",
+      "submission_history": "From: Changhee Won [ view email ] [v1] Wed, 18 Mar 2020 05:52:10 UTC (3,583 KB)"
+    },
+    {
+      "arxiv": "1908.00222",
+      "ids": [
+        "ds_structured3d"
+      ],
+      "url": "https://arxiv.org/abs/1908.00222",
+      "submission_history": "From: Jia Zheng [ view email ] [v1] Thu, 1 Aug 2019 06:01:19 UTC (6,612 KB) [v2] Sun, 15 Mar 2020 12:10:52 UTC (6,966 KB) [v3] Fri, 17 Jul 2020 04:27:08 UTC (7,095 KB)"
+    },
+    {
+      "arxiv": "2003.14338",
+      "ids": [
+        "ds_tartanair"
+      ],
+      "url": "https://arxiv.org/abs/2003.14338",
+      "submission_history": "From: Chen Wang [ view email ] [v1] Tue, 31 Mar 2020 16:21:55 UTC (5,843 KB) [v2] Sat, 8 Aug 2020 14:03:26 UTC (27,931 KB)"
+    },
+    {
+      "arxiv": "1908.00463",
+      "ids": [
+        "ds_diode"
+      ],
+      "url": "https://arxiv.org/abs/1908.00463",
+      "submission_history": "From: Igor Vasiljevic [ view email ] [v1] Thu, 1 Aug 2019 15:39:54 UTC (4,132 KB) [v2] Thu, 29 Aug 2019 04:17:49 UTC (4,155 KB)"
+    },
+    {
+      "arxiv": "1906.05797",
+      "ids": [
+        "ds_replica"
+      ],
+      "url": "https://arxiv.org/abs/1906.05797",
+      "submission_history": "From: Julian Straub [ view email ] [v1] Thu, 13 Jun 2019 16:29:58 UTC (9,398 KB)"
+    },
+    {
+      "arxiv": "1905.01489",
+      "ids": [
+        "ds_woodscape"
+      ],
+      "url": "https://arxiv.org/abs/1905.01489",
+      "submission_history": "From: Senthil Yogamani [ view email ] [v1] Sat, 4 May 2019 13:14:12 UTC (4,999 KB) [v2] Fri, 16 Aug 2019 20:40:58 UTC (5,001 KB) [v3] Fri, 2 Jul 2021 22:16:13 UTC (5,001 KB)"
+    },
+    {
+      "arxiv": "1910.01122",
+      "ids": [
+        "stella_vslam"
+      ],
+      "url": "https://arxiv.org/abs/1910.01122",
+      "submission_history": "From: Ken Sakurada [ view email ] [v1] Wed, 2 Oct 2019 18:00:01 UTC (4,178 KB) [v2] Thu, 10 Oct 2019 06:43:19 UTC (4,178 KB) [v3] Thu, 6 Apr 2023 12:34:01 UTC (4,178 KB)"
+    },
+    {
+      "arxiv": "1807.09620",
+      "ids": [
+        "ds_3d60"
+      ],
+      "url": "https://arxiv.org/abs/1807.09620",
+      "submission_history": "From: Nikolaos Zioulis Mr. [ view email ] [v1] Wed, 25 Jul 2018 14:06:10 UTC (8,736 KB)"
+    },
+    {
+      "arxiv": "1808.10654",
+      "ids": [
+        "ds_gibson"
+      ],
+      "url": "https://arxiv.org/abs/1808.10654",
+      "submission_history": "From: Amir Zamir [ view email ] [v1] Fri, 31 Aug 2018 09:56:43 UTC (9,382 KB) [v2] Tue, 20 Oct 2026 17:37:11 UTC (15,337 KB)"
+    },
+    {
+      "arxiv": "1804.06120",
+      "ids": [
+        "ds_tum_vi"
+      ],
+      "url": "https://arxiv.org/abs/1804.06120",
+      "submission_history": "From: David Schubert [ view email ] [v1] Tue, 17 Apr 2018 09:11:23 UTC (5,690 KB) [v2] Thu, 20 Sep 2018 16:50:09 UTC (2,834 KB) [v3] Mon, 9 Mar 2020 13:42:21 UTC (2,875 KB)"
+    },
+    {
+      "arxiv": "1708.03852",
+      "ids": [
+        "vinsfusion2019"
+      ],
+      "url": "https://arxiv.org/abs/1708.03852",
+      "submission_history": "From: Tong Qin [ view email ] [v1] Sun, 13 Aug 2017 04:47:42 UTC (4,501 KB)"
+    },
+    {
+      "arxiv": "1708.06500",
+      "ids": [
+        "ds_kitti_depth"
+      ],
+      "url": "https://arxiv.org/abs/1708.06500",
+      "submission_history": "From: Nick Schneider [ view email ] [v1] Tue, 22 Aug 2017 05:29:20 UTC (8,897 KB) [v2] Wed, 30 Aug 2017 18:12:47 UTC (9,498 KB)"
+    },
+    {
+      "arxiv": "1709.06158",
+      "ids": [
+        "ds_matterport3d"
+      ],
+      "url": "https://arxiv.org/abs/1709.06158",
+      "submission_history": "From: Matthias Nießner [ view email ] [v1] Mon, 18 Sep 2017 20:34:48 UTC (18,615 KB)"
+    },
+    {
+      "arxiv": "1702.01105",
+      "ids": [
+        "ds_stanford2d3ds"
+      ],
+      "url": "https://arxiv.org/abs/1702.01105",
+      "submission_history": "From: Iro Armeni [ view email ] [v1] Fri, 3 Feb 2017 18:28:33 UTC (7,981 KB) [v2] Thu, 6 Apr 2017 01:46:13 UTC (14,342 KB)"
+    }
+  ],
+  "scope": "Official API/abstract metadata snapshot, not local model reproduction or a full semantic review of every commit."
+}

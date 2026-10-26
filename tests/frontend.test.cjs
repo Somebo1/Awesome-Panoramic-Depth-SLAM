@@ -364,6 +364,21 @@ check('DAP comparison claims remain tied to the original tables and retain losin
   assert.equal(omni.dapDirectComparison,'not_found_in_reviewed_primary_sources');assert.match(omni.relativePanorama.baseline,/DA²/);
   assert(omni.metricConditions.withSparseDepth>omni.metricConditions.imageOnly);
 });
+check('weekly additions preserve relative rays and reference-map localization requirements',()=>{
+  const byId=new Map(catalog.records.map(r=>[r.id,r]));const ray=byId.get('omniray2026'),loc=byId.get('omnivloc2026');assert(ray&&loc);
+  assert.equal(ray.scale,'relative');assert.equal(ray.metricStatus,'scale_invariant');assert.equal(ray.depthType,'points');assert.equal(ray.pose,false);assert.equal(ray.codeStatus,'none');
+  for(const camera of ['panoramic','fisheye','perspective'])assert(ray.cameras.includes(camera));assert(!ray.cameras.includes('multi'));assert(ray.projectionSubtypes.includes('annular'));
+  assert.match(ray.outputDetails.depth_convention,/radial|Euclidean/);assert.match(ray.notes.join(' '),/median/);assert.equal(ray.figure.verified,true);
+  assert.equal(loc.collection,'slam');assert.deepEqual(loc.cameras,['panoramic']);assert.equal(loc.depthType,'none');assert.equal(loc.scale,'metric');assert.equal(loc.imu,true);assert.equal(loc.loopClosure,false);assert.equal(loc.codeStatus,'none');
+  assert.match(loc.inputSummary,/prebuilt metric/i);assert.match(loc.notes.join(' '),/synthesizes IMU|synthesized/i);assert.match(loc.notes.join(' '),/NoSeq/);
+  const b=boot('?collection=slam&category=panoramic&q=OmniVLoc&lang=en');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord('omnivloc2026');assert.match(b.doc.getElementById('detail-content').textContent,/prebuilt/);b.dom.window.close();
+});
+check('Hilti v2 uncertainty does not become independent trajectory truth or dense depth',()=>{
+  const r=catalog.records.find(r=>r.id==='ds_hilti2026');assert.equal(r.annotations.trajectory.status,'reference');assert.equal(r.annotations.depth.status,'no');
+  assert.match(r.datasetDetails.en['Reference pose provenance'],/independent/);assert.match(r.datasetDetails.en['Reference and map uncertainty'],/not a measured trajectory/);
+  assert.match(r.datasetDetails.en['Floor-plan priors'],/1.3 px/);assert(r.evidence.some(e=>e.url&&e.url.includes('2607.06464v2')));
+  assert.equal(catalog.records.filter(r=>r.id==='ds_hilti2026').length,1);
+});
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};
 fs.mkdirSync(path.join(root,'tests/results'),{recursive:true});

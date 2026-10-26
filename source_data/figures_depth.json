@@ -422,7 +422,7 @@
   "video_depth_anything": {
     "thumbnail": "assets/papers/video_depth_anything-thumb.webp",
     "image": "assets/papers/video_depth_anything.webp",
-    "paperUrl": "https://arxiv.org/pdf/2501.12375",
+    "paperUrl": "https://arxiv.org/pdf/2501.12375v4",
     "page": 4,
     "figureLabel": "Figure 2",
     "caption": {
@@ -1078,5 +1078,35 @@
     "pdfSha256": "85ad75308f5f16bf48523e858d7a5f9329319e3214b6377a47fba2bf537b3a14",
     "imageSha256": "eac71ea7a7ebec8e77c42d78d7cbec16f19575b14bea9c4b14ef541e11bc2cf1",
     "verification": "Downloaded official PDF identity, page, figure label and complete crop boundaries visually confirmed; no generic replacement imagery."
+  },
+  "omniray2026": {
+    "thumbnail": "assets/papers/omniray2026-thumb.webp",
+    "image": "assets/papers/omniray2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2610.31645v1",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "en": "OmniRay combines composite camera rays with a radial-distance branch to form up-to-scale point maps.",
+      "zh": "OmniRay 将组合式相机射线与径向距离分支结合，构成整体尺度未确定的点图。"
+    },
+    "credit": {
+      "en": "Source: Namitha Guruprasad et al., Figure 2 of the original paper.",
+      "zh": "来源：Namitha Guruprasad et al.，原论文 Figure 2。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      106,
+      80,
+      504,
+      316
+    ],
+    "originalCaption": "Figure 2: OmniRay Overview.",
+    "sourceLicense": "Original arXiv v1 is licensed CC BY 4.0; paper attribution retained. This is not a software or checkpoint license.",
+    "reviewedAt": "2026-10-26",
+    "selectionNotes": "Original PDF page 3 and final Figure 2 crop visually inspected; both reconstruction and composite-ray panels retained.",
+    "pdfSha256": "b893bd46731114697c060f1b60f1d099ce0539ccd5b32c3e3d9732b3a1a72ba3",
+    "imageSha256": "afee50834040ce8dec5222e16089be3bd702f2cef356d09d74546375a123865d",
+    "verification": "Original page and final crop visually confirmed; complete diagram boundaries, title and point-map labels retained."
   }
 }

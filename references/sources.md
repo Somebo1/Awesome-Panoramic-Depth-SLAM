@@ -1,6 +1,6 @@
 # Official-source index
 
-Literature search cutoff 2026-10-19. Targeted pinhole, cross-camera, benchmark and annotation checks: 2026-10-20. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
+Literature search cutoff 2026-10-26. Incremental method and dataset checks: 2026-10-26; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
 
 ## DA² (2026)
 
@@ -78,6 +78,14 @@ OmniPoint: Universal Monocular Metric Pointcloud from Any Camera
 - https://botaoye.github.io/omnipoint/assets/OmniPoint_ECCV2026_paper.pdf
 - https://arxiv.org/html/2609.09394v1
 - https://botaoye.github.io/
+
+## OmniRay (2026)
+
+OmniRay: Camera-Agnostic Monocular 3D Reconstruction with Composite Ray Fields
+
+- https://arxiv.org/abs/2610.31645v1
+- https://arxiv.org/html/2610.31645v1
+- https://nam1410.github.io/omniray/
 
 ## PaGeR (2026)
 
@@ -430,6 +438,8 @@ Hilti-Trimble-Oxford Dataset: 360 Visual-Inertial Benchmark with Floor Plan Prio
 - https://arxiv.org/abs/2607.06464
 - https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026
 - https://huggingface.co/api/datasets/Hilti-Research/hilti-trimble-slam-challenge-2026
+- https://arxiv.org/abs/2607.06464v2
+- https://arxiv.org/html/2607.06464v2
 
 ## Holo360D (2026)
 
@@ -465,6 +475,14 @@ ODGS-SLAM Dataset: synthetic and real omnidirectional motion sequences
 - https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1
 - https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_room_synthetic_README.md?download=1
 - https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/outdoor_synthetic_README.md?download=1
+
+## OmniVLoc (2026)
+
+OmniVLoc: Topo-metric Visual Localization for Omnidirectional Cameras
+
+- https://arxiv.org/abs/2610.27522
+- https://arxiv.org/html/2610.27522v1
+- https://arxiv.org/pdf/2610.27522v1
 
 ## P2U-SLAM (2026)
 

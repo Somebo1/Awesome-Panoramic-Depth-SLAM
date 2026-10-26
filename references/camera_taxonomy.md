@@ -1,6 +1,6 @@
 # Camera taxonomy / 相机分类
 
-Reviewed 2026-10-20. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.
+Incremental classification additions checked 2026-10-26; earlier per-ID review dates are preserved. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.
 
 Pinhole 指针孔透视输入；Wide-FOV 不作为独立投影分类。名称、广角和内部切片均不能替代输入接口证据。保留既有 perspective enum 与旧链接，新 pinhole 链接为别名。
 
@@ -85,6 +85,25 @@ panoramic, fisheye, wide, perspective
   - https://botaoye.github.io/omnipoint/
 
 Review scope: focused_primary_source_recheck_2026-10-20
+
+## OmniRay
+
+panoramic, fisheye, wide, perspective
+
+- panoramic / direct: Complete ERP observations are explicitly evaluated; internal ray estimation is not an external pinhole adapter. Code is still TBD. 论文明确评测完整 ERP；内部射线预测不是外部针孔适配器。代码仍待发布。
+  - https://arxiv.org/abs/2610.31645v1
+  - https://arxiv.org/html/2610.31645v1
+  - https://nam1410.github.io/omniray/
+- fisheye / direct: Fisheye and a withheld GoPro configuration are explicitly evaluated; camera support is paper-documented, not a released API. 论文明确评测鱼眼及留出的 GoPro 配置；属于论文能力，公开 API 尚待发布。
+  - https://arxiv.org/abs/2610.31645v1
+  - https://arxiv.org/html/2610.31645v1
+  - https://nam1410.github.io/omniray/
+- perspective / direct: Pinhole images are a documented direct input. The model predicts rays and up-to-scale radial distance without supplied intrinsics. 针孔图像是明确的直接输入；模型无需给定内参，预测射线和相对径向距离。
+  - https://arxiv.org/abs/2610.31645v1
+  - https://arxiv.org/html/2610.31645v1
+  - https://nam1410.github.io/omniray/
+
+Review scope: focused_primary_source_recheck_2026-10-26
 
 ## PaGeR
 
@@ -521,6 +540,16 @@ panoramic, fisheye, wide, perspective, multi
   - https://researchdata.uibk.ac.at/records/z6f6r-sjc65/files/indoor_real_world_README.md?download=1
 
 Review scope: carried_forward_from_existing_source_review
+
+## OmniVLoc
+
+panoramic
+
+- panoramic / direct: Section III-B explicitly defines ERP observations; internal cubemap feature extraction does not create standalone pinhole or raw-fisheye support. 第 III-B 节明确规定 ERP 观测；内部 cubemap 特征提取不构成独立针孔或原始鱼眼输入支持。
+  - https://arxiv.org/html/2610.27522v1
+  - https://arxiv.org/pdf/2610.27522v1
+
+Review scope: focused_primary_source_recheck_2026-10-26
 
 ## P2U-SLAM
 

@@ -58,6 +58,14 @@ Figure 2, PDF page 6. OmniPoint combines image and optional intrinsic/sparse-dep
 - Screenshot: [assets/papers/omnipoint2026.webp](../site/assets/papers/omnipoint2026.webp)
 - Local PDF SHA-256: `85ad75308f5f16bf48523e858d7a5f9329319e3214b6377a47fba2bf537b3a14`
 
+## OmniRay
+
+Figure 2, PDF page 3. OmniRay combines composite camera rays with a radial-distance branch to form up-to-scale point maps.
+
+- PDF: https://arxiv.org/pdf/2610.31645v1
+- Screenshot: [assets/papers/omniray2026.webp](../site/assets/papers/omniray2026.webp)
+- Local PDF SHA-256: `b893bd46731114697c060f1b60f1d099ce0539ccd5b32c3e3d9732b3a1a72ba3`
+
 ## PaGeR
 
 Figure 2, PDF page 4. Shared geometry backbone with scale-invariant/metric depth, normals and sky prediction.
@@ -190,7 +198,7 @@ Figure 2, PDF page 3. Alternating-attention backbone and camera, depth, point-ma
 
 Figure 2, PDF page 4. Video pipeline with a Depth Anything V2 encoder and spatiotemporal head.
 
-- PDF: https://arxiv.org/pdf/2501.12375
+- PDF: https://arxiv.org/pdf/2501.12375v4
 - Screenshot: [assets/papers/video_depth_anything.webp](../site/assets/papers/video_depth_anything.webp)
 - Local PDF SHA-256: `188e1aa3bc19506fa2069df3f3b30161b9aab9f67a4d020b3a8855d36642a5fb`
 
@@ -321,6 +329,14 @@ Figure 1, PDF page 1. Panoramic tracking, keyframe management and spherical Gaus
 - PDF: https://openaccess.thecvf.com/content/CVPR2026/papers/Spiss_ODGS-SLAM_Omnidirectional_Gaussian_Splatting_SLAM_CVPR_2026_paper.pdf
 - Screenshot: [assets/papers/odgsslam2026.webp](../site/assets/papers/odgsslam2026.webp)
 - Local PDF SHA-256: `a3a8faefdf2e09e09aa961625e55f692344da8ab185ce2f5ed05220b87e92213`
+
+## OmniVLoc
+
+Figure 2, PDF page 3. OmniVLoc combines ERP queries, IMU and a pose-annotated map through retrieval, DAP depth, spherical PnP, a scale graph and temporally constrained BA.
+
+- PDF: https://arxiv.org/pdf/2610.27522v1
+- Screenshot: [assets/papers/omnivloc2026.webp](../site/assets/papers/omnivloc2026.webp)
+- Local PDF SHA-256: `986991795814ef0740e1260c723c975744812cdbea19fd02048d46539244c30e`
 
 ## P2U-SLAM
 
