@@ -3493,5 +3493,166 @@
     "projectionSubtypes": [],
     "reviewScope": "focused_primary_source_recheck_2026-10-26",
     "sourceChecked": "2026-10-26"
+  },
+  "any3r2026": {
+    "cameras": [
+      "panoramic",
+      "fisheye",
+      "wide",
+      "perspective"
+    ],
+    "wideFov": true,
+    "multiCamera": false,
+    "cameraSupport": [
+      {
+        "geometry": "panoramic",
+        "route": "direct",
+        "availability": "released",
+        "note": {
+          "en": "Complete 360x180 ERP is a released direct input through cameras.ERP() or its known unit-ray grid; no external perspective adapter is needed.",
+          "zh": "公开接口通过 cameras.ERP() 或已知单位射线网格直接接受完整 360×180 ERP，无需外部透视适配。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.36150v1",
+          "https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md",
+          "https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py"
+        ]
+      },
+      {
+        "geometry": "fisheye",
+        "route": "direct",
+        "availability": "released",
+        "note": {
+          "en": "Released camera helpers accept calibrated raw fisheye models including KB4 and beyond-180-degree lenses; per-view ray calibration is required.",
+          "zh": "已发布相机工具接受 KB4 等已标定原始鱼眼及超过 180 度镜头；需要逐视图射线标定。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.36150v1",
+          "https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md",
+          "https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py"
+        ]
+      },
+      {
+        "geometry": "perspective",
+        "route": "direct",
+        "availability": "released",
+        "note": {
+          "en": "Released pinhole/OpenCV camera helpers generate rays for perspective views. They can be mixed with fisheye and ERP views in one reconstruction.",
+          "zh": "公开针孔／OpenCV 工具为透视视图生成射线，可与鱼眼及 ERP 一起输入重建。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.36150v1",
+          "https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md",
+          "https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py"
+        ]
+      }
+    ],
+    "projectionSubtypes": [],
+    "reviewScope": "focused_primary_source_recheck_2026-11-02",
+    "sourceChecked": "2026-11-02"
+  },
+  "dex2026": {
+    "cameras": [
+      "fisheye",
+      "wide"
+    ],
+    "cameraSupport": [
+      {
+        "geometry": "fisheye",
+        "route": "direct",
+        "availability": "paper",
+        "note": {
+          "en": "DEX directly consumes raw fisheye RGB at inference without rectification or supplied calibration. Training uses calibrated perspective teachers and synthetic KB distortions. The repository remains license-only; no full ERP support verified.",
+          "zh": "DEX 推理直接处理原始鱼眼 RGB，无需去畸变或给定标定。训练用标定透视教师与合成 KB 畸变。仓库仍仅有许可文件，未核实完整 ERP 支持。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2608.27860v2",
+          "https://arxiv.org/html/2608.27860v2",
+          "https://github.com/Suchisrit/DEX"
+        ]
+      }
+    ],
+    "projectionSubtypes": [],
+    "additionalSupport": [],
+    "reviewScope": "focused_primary_source_recheck_2026-11-02",
+    "sourceChecked": "2026-11-02",
+    "wideFov": true,
+    "multiCamera": false
+  },
+  "holorecon2026": {
+    "cameras": [
+      "panoramic"
+    ],
+    "wideFov": false,
+    "multiCamera": false,
+    "cameraSupport": [
+      {
+        "geometry": "panoramic",
+        "route": "direct",
+        "availability": "paper",
+        "note": {
+          "en": "Sections 3 and B.1 explicitly take full ERP frames. Internal co-centered calibrated perspective views are components, not standalone pinhole/fisheye inputs or physical stereo.",
+          "zh": "第 3 节与 B.1 明确输入完整 ERP；内部共心校准透视视图是处理组件，不构成独立针孔／鱼眼入口或物理立体。"
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.36876v1",
+          "https://arxiv.org/html/2610.36876v1",
+          "https://arxiv.org/pdf/2610.36876v1"
+        ]
+      }
+    ],
+    "projectionSubtypes": [],
+    "reviewScope": "focused_primary_source_recheck_2026-11-02",
+    "sourceChecked": "2026-11-02"
+  },
+  "ds_panorecon": {
+    "cameras": [
+      "panoramic"
+    ],
+    "wideFov": false,
+    "multiCamera": false,
+    "cameraSupport": [
+      {
+        "geometry": "panoramic",
+        "route": "stitched",
+        "availability": "announced",
+        "note": {
+          "en": "The paper exports X4 video as ERP, but a complete benchmark archive is not confirmed. Raw fisheye or physical stereo products are not established; internal perspective rigs do not create a baseline.",
+          "zh": "论文将 X4 视频导出为 ERP，完整基准压缩包尚未确证。未确立原始鱼眼或物理双目产品；内部透视 rig 不构成立体基线。"
+        },
+        "evidence": [
+          "https://arxiv.org/html/2610.36876v1",
+          "https://zhuoxiaoli.github.io/HoloRecon_page/"
+        ]
+      }
+    ],
+    "projectionSubtypes": [],
+    "reviewScope": "focused_primary_source_recheck_2026-11-02",
+    "sourceChecked": "2026-11-02"
+  },
+  "ds_synpano": {
+    "cameras": [
+      "panoramic"
+    ],
+    "wideFov": false,
+    "multiCamera": false,
+    "cameraSupport": [
+      {
+        "geometry": "panoramic",
+        "route": "rendered",
+        "availability": "released",
+        "note": {
+          "en": "The downloadable RGB PNGs are Blender-rendered complete 2:1 ERP frames. No raw fisheye or physical/simulated stereo baseline is documented for this product.",
+          "zh": "可下载 RGB PNG 是 Blender 渲染的完整 2:1 ERP 图像；该产品未记录原始鱼眼或物理/仿真立体基线。"
+        },
+        "evidence": [
+          "https://github.com/guoxf304/SynPano-Dataset",
+          "https://huggingface.co/api/datasets/gxfzju/SynPano"
+        ]
+      }
+    ],
+    "projectionSubtypes": [],
+    "reviewScope": "focused_primary_source_recheck_2026-11-02",
+    "sourceChecked": "2026-11-02"
   }
 }

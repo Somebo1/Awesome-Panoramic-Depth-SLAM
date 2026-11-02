@@ -690,5 +690,67 @@
     "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
     "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
     "sourceSha256": "7e3466e302a313c53b67cde07b8e8687f3f972bc94e4cf0f5086ecbab235eabc"
+  },
+  "ds_panorecon": {
+    "image": "assets/datasets/ds_panorecon.webp",
+    "thumbnail": "assets/datasets/ds_panorecon-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+    "sourceUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/assets/web/dataset_full.webp",
+    "paperUrl": "https://arxiv.org/abs/2610.36876v1",
+    "sourceTitle": "PanoRecon official LiDAR reference geometry preview",
+    "caption": {
+      "en": "Official seven-scene PanoRecon LiDAR-reference montage. Reference geometry, not HoloRecon predicted reconstruction or a confirmation that full benchmark data are downloadable.",
+      "zh": "PanoRecon 官方七场景 LiDAR 参考几何拼图；这是参考几何，不是 HoloRecon 的预测重建，也不代表完整基准已可下载。"
+    },
+    "credit": {
+      "en": "Source: Zhuoxiao Li et al., HoloRecon / PanoRecon official project, seven-scene reference-geometry preview.",
+      "zh": "来源：Zhuoxiao Li 等，HoloRecon / PanoRecon 官方项目七场景参考几何预览。"
+    },
+    "attribution": {
+      "en": "Source: Zhuoxiao Li et al., HoloRecon / PanoRecon official project, seven-scene reference-geometry preview.",
+      "zh": "来源：Zhuoxiao Li 等，HoloRecon / PanoRecon 官方项目七场景参考几何预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-11-02",
+    "imageSize": [
+      1600,
+      633
+    ],
+    "sourceLicense": "Copyright remains with original authors; no separate preview reuse terms confirmed.",
+    "verificationNote": "Individually viewed the official original image and resulting WebP preview. Preserved the complete scene montage or full 2:1 frame; no generated illustration, no method estimate relabeled as truth.",
+    "sourceSha256": "760172330a716182244ea83af5c233ed2bb71580842440a23bf48f309a019327"
+  },
+  "ds_synpano": {
+    "image": "assets/datasets/ds_synpano.webp",
+    "thumbnail": "assets/datasets/ds_synpano-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://github.com/guoxf304/SynPano-Dataset",
+    "sourceUrl": "https://raw.githubusercontent.com/guoxf304/SynPano-Dataset/main/assets/apartment.jpg",
+    "paperUrl": "https://arxiv.org/abs/2609.21347",
+    "sourceTitle": "SynPano official rendered ERP RGB preview",
+    "caption": {
+      "en": "Official resized, uncropped ERP RGB preview from apartment/images/0108.png. A Blender-rendered color frame, not a measured scene or a depth map.",
+      "zh": "官方由 apartment/images/0108.png 缩小、未裁剪的 ERP RGB 预览；这是 Blender 渲染彩色帧，不是实测场景或深度图。"
+    },
+    "credit": {
+      "en": "Source: SynPano dataset authors, official SynPano-Dataset apartment preview.",
+      "zh": "来源：SynPano 数据集作者，官方 SynPano-Dataset apartment 预览。"
+    },
+    "attribution": {
+      "en": "Source: SynPano dataset authors, official SynPano-Dataset apartment preview.",
+      "zh": "来源：SynPano 数据集作者，官方 SynPano-Dataset apartment 预览。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-11-02",
+    "imageSize": [
+      640,
+      320
+    ],
+    "sourceLicense": "Official dataset README says CC BY-NC-SA 4.0; Hugging Face metadata says MIT. Reuse terms conflict and require maintainer clarification.",
+    "verificationNote": "Individually viewed the official original image and resulting WebP preview. Preserved the complete scene montage or full 2:1 frame; no generated illustration, no method estimate relabeled as truth.",
+    "sourceSha256": "eaac2c9fb63590e95c067d061bd5751fe4ed47b9d22009e732110e58803420c6"
   }
 }

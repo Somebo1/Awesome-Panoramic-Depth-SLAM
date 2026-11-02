@@ -86,6 +86,30 @@ Town06 path6 official static-scene preview at 1.00 s: RGB panorama above the dep
 - Preview: [image](../site/assets/datasets/ds_panocarla_static2026.webp)
 - Credit: Source: Chuanxin Song / Soon122, PanoCARLA-Static official preview video, Town06 path6, 1.00 s.
 
+## PanoRecon
+
+Official seven-scene PanoRecon LiDAR-reference montage. Reference geometry, not HoloRecon predicted reconstruction or a confirmation that full benchmark data are downloadable.
+
+- Source type: author-project-image
+- Page: https://zhuoxiaoli.github.io/HoloRecon_page/
+- Original: https://zhuoxiaoli.github.io/HoloRecon_page/assets/web/dataset_full.webp
+- Identity: Official sample; PDF page: Not a PDF excerpt
+- Source SHA-256: `760172330a716182244ea83af5c233ed2bb71580842440a23bf48f309a019327`
+- Preview: [image](../site/assets/datasets/ds_panorecon.webp)
+- Credit: Source: Zhuoxiao Li et al., HoloRecon / PanoRecon official project, seven-scene reference-geometry preview.
+
+## SynPano
+
+Official resized, uncropped ERP RGB preview from apartment/images/0108.png. A Blender-rendered color frame, not a measured scene or a depth map.
+
+- Source type: author-project-image
+- Page: https://github.com/guoxf304/SynPano-Dataset
+- Original: https://raw.githubusercontent.com/guoxf304/SynPano-Dataset/main/assets/apartment.jpg
+- Identity: Official sample; PDF page: Not a PDF excerpt
+- Source SHA-256: `eaac2c9fb63590e95c067d061bd5751fe4ed47b9d22009e732110e58803420c6`
+- Preview: [image](../site/assets/datasets/ds_synpano.webp)
+- Credit: Source: SynPano dataset authors, official SynPano-Dataset apartment preview.
+
 ## Oxford Spires
 
 Official Oxford Spires overview of reconstructed college environments.

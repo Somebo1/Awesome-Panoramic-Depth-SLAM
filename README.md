@@ -6,7 +6,7 @@
 
 **[浏览网站 →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=zh)** · [全景定位与建图](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic&lang=zh) · [数据集](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=zh) · [完整 JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-最近一次增量文献检索截止：**2026-10-26**（本轮回溯覆盖 2026-10-05 起，含补漏区间；逐条证据日期单列）。当前 **109** 条记录：深度与几何 **37** 项（26 项包含全景流程，18 项有针孔输入证据）、SLAM / VO / VIO / 定位 **34** 项（12 项有明确 ERP 输入证据）、数据集 **38** 项（17 项涉及全景数据或明确的渲染、重采样协议）。分类可重叠；这是一份按研究任务组织的人工核验索引，不是性能排行榜或穷尽性综述。
+最近一次增量文献检索截止：**2026-11-02**（本轮回溯覆盖 2026-10-12 起，含补漏区间；逐条证据日期单列）。当前 **114** 条记录：深度与几何 **39** 项（27 项包含全景流程，19 项有针孔输入证据）、SLAM / VO / VIO / 定位 **35** 项（13 项有明确 ERP 输入证据）、数据集 **40** 项（19 项涉及全景数据或明确的渲染、重采样协议）。分类可重叠；这是一份按研究任务组织的人工核验索引，不是性能排行榜或穷尽性综述。
 
 ## 使用方式
 
@@ -29,7 +29,7 @@
 
 这个顺序是按任务范围给出的编辑建议，不是按下载量或引用量计算的客观排名，也不意味着成熟的透视基准天然适合完整 ERP 输入。版本支持与原生 ERP 支持仍需分别核查。
 
-当前 38 项覆盖全景实测与渲染基准、鱼眼视觉惯性序列和常见透视对照。部分已介绍的资源尚未开放；“已收录”不等于“数据可下载”。每条记录分别说明实际传感器、公开标注、深度或距离定义、轨迹来源、标定与同步、划分、许可及访问条件。
+当前 40 项覆盖全景实测与渲染基准、鱼眼视觉惯性序列和常见透视对照。部分已介绍的资源尚未开放；“已收录”不等于“数据可下载”。每条记录分别说明实际传感器、公开标注、深度或距离定义、轨迹来源、标定与同步、划分、许可及访问条件。
 
 深度与轨迹各有独立的五状态筛选，避免把估计参考、局部覆盖与独立真值混在一起：
 
@@ -60,14 +60,14 @@
 
 | 路线 | 代表方法 |
 |---|---|
-| 全景基础模型与跨相机 | DAP、DepthMaster（2026）、OmniPoint、OmniRay、UniDAC、DAC、DA²、DA360、PanDA、UniK3D、PaGeR、RePer-360 |
+| 全景基础模型与跨相机 | DAP、DepthMaster（2026）、OmniPoint、OmniRay、Any3R、UniDAC、DAC、DA²、DA360、PanDA、UniK3D、PaGeR、RePer-360 |
 | 全景投影与融合 | 360MonoDepth、OmniFusion、HRDFuse、Elite360D、RPG360、ST²360D |
 | 全景监督与自监督 | UniFuse、PanoFormer、BiFuse++、Depth Anywhere |
 | 真实多相机立体 | MODE、MCPDepth |
 | 视频与多视图几何对照 | Video Depth Anything、Depth Anything 3、VGGT、VGGT-Ω |
 | 针孔 / 透视深度与几何基线 | Depth Anything V2、UniDepthV2、Metric3Dv2、Depth Pro、MoGe-2、MoGe-3、Marigold |
-| ERP 输入定位与建图 | stella_vslam、OmniVLoc、360VO、360-VIO、360DVO、PatchMatch-Stereo-Panorama、Cube-Splat、PanoLoop、360ORB-SLAM、ODGS-SLAM、PanoGS-SLAM、PanoAir |
-| 鱼眼、广视场与惯性 | OpenVINS、ORB-SLAM3、Basalt、VINS-Fusion、OKVIS2/2-X、SVO Pro、OmniSLAM、LF-VISLAM、P2U-SLAM |
+| ERP 输入定位与建图 | stella_vslam、HoloRecon、OmniVLoc、360VO、360-VIO、360DVO、PatchMatch-Stereo-Panorama、Cube-Splat、PanoLoop、360ORB-SLAM、ODGS-SLAM、PanoGS-SLAM、PanoAir |
+| 鱼眼、广视场与惯性 | DEX、OpenVINS、ORB-SLAM3、Basalt、VINS-Fusion、OKVIS2/2-X、SVO Pro、OmniSLAM、LF-VISLAM、P2U-SLAM |
 | 学习式 VO 与 SLAM | DROID-SLAM、DPVO、DPV-SLAM、MASt3R-SLAM、DBA-Fusion、D3VO、CodeVIO |
 | RGB-D、神经隐式与高斯地图 | SplaTAM、GO-SLAM、MonoGS、PanoSLAM |
 
@@ -104,9 +104,11 @@ DAC 与 UniDAC 可跨类别出现，因为存在经过标定的鱼眼 / 针孔�
 
 ## 更新记录与配图来源
 
-71 项方法均提供经过核验的论文配图；38 项数据集的预览图另行注明来源。
+74 项方法均提供经过核验的论文配图；40 项数据集的预览图另行注明来源。
 
-本周增量见 [2026-10-26 核验记录](references/weekly_20261026_sources.md)：新增 10 月 22 日的 **OmniRay**（统一多投影的相对点图，非公制，代码／模型待发布）和 10 月 20 日的 **OmniVLoc**（已有公制地图上的 ERP 定位，完整模式使用 IMU，非从零 SLAM）。两项均提供真实原论文方法图和完整双语规格。更新 **Hilti 2026 v2** 的估计参考轨迹、平面图标注及厘米级差异解释限制；不将论文修订当作新数据发布。本轮还检查了 54 个官方代码仓库与 79 个既有 arXiv 身份，核查结果和限制一并存档。
+本周增量见 [2026-11-02 核验记录](references/weekly_20261102_sources.md)：新增 **Any3R**（已标定混合投影多视图相对重建，代码与权重已发布）、**HoloRecon**（完整 ERP 长程重建与回环，相对尺度、尚非实时），补录修订后的鱼眼适配器 **DEX**（无 ERP 支持证据，代码仍未发布）。新增已开放的 **SynPano**（5364 张 RGB 与匹配仿真位姿、无深度图，官方许可声明冲突）及待确认完整下载的 **PanoRecon**（7 个室外场景，配准估计参考）。同时更新 VGGT-Ω v2 的评测修正和 OmniRay 的项目链接；不将网页源码当模型发布。检查了 54 个现有官方代码仓库与 81 个 arXiv 身份；Atom 检索遇 429 的覆盖限制已记录。
+
+此前增量见 [2026-10-26 核验记录](references/weekly_20261026_sources.md)：新增 10 月 22 日的 **OmniRay**（统一多投影的相对点图，非公制，代码／模型待发布）和 10 月 20 日的 **OmniVLoc**（已有公制地图上的 ERP 定位，完整模式使用 IMU，非从零 SLAM）。两项均提供真实原论文方法图和完整双语规格。更新 **Hilti 2026 v2** 的估计参考轨迹、平面图标注及厘米级差异解释限制；不将论文修订当作新数据发布。本轮还检查了 54 个官方代码仓库与 79 个既有 arXiv 身份，核查结果和限制一并存档。
 
 上一轮文献检索见 [2026-10-19 核验记录](references/weekly_20261019_sources.md)，包括 GeoPano、AprilVINS / MILD、PanoCARLA-Static，以及补录的 360DVO 和 ODGS-SLAM 数据集。GeoPano 的点图为尺度对齐输出；AprilVINS 是鱼眼、IMU、AprilTag 配置下的有条件公制 VIO，算法与 MILD 数据仍待发布。旧遗漏的补录不称为当周新成果，未核实的新代码发布也不会标为完整实现。
 

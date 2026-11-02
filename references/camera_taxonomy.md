@@ -1,8 +1,27 @@
 # Camera taxonomy / 相机分类
 
-Incremental classification additions checked 2026-10-26; earlier per-ID review dates are preserved. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.
+Incremental classification additions checked 2026-11-02; earlier per-ID review dates are preserved. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.
 
 Pinhole 指针孔透视输入；Wide-FOV 不作为独立投影分类。名称、广角和内部切片均不能替代输入接口证据。保留既有 perspective enum 与旧链接，新 pinhole 链接为别名。
+
+## Any3R
+
+panoramic, fisheye, wide, perspective
+
+- panoramic / direct: Complete 360x180 ERP is a released direct input through cameras.ERP() or its known unit-ray grid; no external perspective adapter is needed. 公开接口通过 cameras.ERP() 或已知单位射线网格直接接受完整 360×180 ERP，无需外部透视适配。
+  - https://arxiv.org/abs/2610.36150v1
+  - https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md
+  - https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py
+- fisheye / direct: Released camera helpers accept calibrated raw fisheye models including KB4 and beyond-180-degree lenses; per-view ray calibration is required. 已发布相机工具接受 KB4 等已标定原始鱼眼及超过 180 度镜头；需要逐视图射线标定。
+  - https://arxiv.org/abs/2610.36150v1
+  - https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md
+  - https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py
+- perspective / direct: Released pinhole/OpenCV camera helpers generate rays for perspective views. They can be mixed with fisheye and ERP views in one reconstruction. 公开针孔／OpenCV 工具为透视视图生成射线，可与鱼眼及 ERP 一起输入重建。
+  - https://arxiv.org/abs/2610.36150v1
+  - https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md
+  - https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py
+
+Review scope: focused_primary_source_recheck_2026-11-02
 
 ## DA²
 
@@ -14,6 +33,17 @@ panoramic
   - https://arxiv.org/abs/2509.26618
 
 Review scope: carried_forward_from_existing_source_review
+
+## DEX (Distortion Extenders)
+
+fisheye, wide
+
+- fisheye / direct: DEX directly consumes raw fisheye RGB at inference without rectification or supplied calibration. Training uses calibrated perspective teachers and synthetic KB distortions. The repository remains license-only; no full ERP support verified. DEX 推理直接处理原始鱼眼 RGB，无需去畸变或给定标定。训练用标定透视教师与合成 KB 畸变。仓库仍仅有许可文件，未核实完整 ERP 支持。
+  - https://arxiv.org/abs/2608.27860v2
+  - https://arxiv.org/html/2608.27860v2
+  - https://github.com/Suchisrit/DEX
+
+Review scope: focused_primary_source_recheck_2026-11-02
 
 ## Depth Any Panoramas
 
@@ -501,6 +531,17 @@ panoramic
 
 Review scope: carried_forward_from_existing_source_review
 
+## HoloRecon
+
+panoramic
+
+- panoramic / direct: Sections 3 and B.1 explicitly take full ERP frames. Internal co-centered calibrated perspective views are components, not standalone pinhole/fisheye inputs or physical stereo. 第 3 节与 B.1 明确输入完整 ERP；内部共心校准透视视图是处理组件，不构成独立针孔／鱼眼入口或物理立体。
+  - https://arxiv.org/abs/2610.36876v1
+  - https://arxiv.org/html/2610.36876v1
+  - https://arxiv.org/pdf/2610.36876v1
+
+Review scope: focused_primary_source_recheck_2026-11-02
+
 ## MILD / MILD-Sim
 
 fisheye, wide, multi
@@ -619,6 +660,26 @@ panoramic
   - https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download
 
 Review scope: carried_forward_from_existing_source_review
+
+## PanoRecon
+
+panoramic
+
+- panoramic / stitched: The paper exports X4 video as ERP, but a complete benchmark archive is not confirmed. Raw fisheye or physical stereo products are not established; internal perspective rigs do not create a baseline. 论文将 X4 视频导出为 ERP，完整基准压缩包尚未确证。未确立原始鱼眼或物理双目产品；内部透视 rig 不构成立体基线。
+  - https://arxiv.org/html/2610.36876v1
+  - https://zhuoxiaoli.github.io/HoloRecon_page/
+
+Review scope: focused_primary_source_recheck_2026-11-02
+
+## SynPano
+
+panoramic
+
+- panoramic / rendered: The downloadable RGB PNGs are Blender-rendered complete 2:1 ERP frames. No raw fisheye or physical/simulated stereo baseline is documented for this product. 可下载 RGB PNG 是 Blender 渲染的完整 2:1 ERP 图像；该产品未记录原始鱼眼或物理/仿真立体基线。
+  - https://github.com/guoxf304/SynPano-Dataset
+  - https://huggingface.co/api/datasets/gxfzju/SynPano
+
+Review scope: focused_primary_source_recheck_2026-11-02
 
 ## MASt3R-SLAM
 

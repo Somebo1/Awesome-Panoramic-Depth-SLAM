@@ -1512,5 +1512,94 @@
       "https://arxiv.org/pdf/2610.27522v1"
     ],
     "url_verification": "2026-10-26: arXiv v1 abstract and full text reviewed; original PDF downloaded and Figure 2 visually inspected."
+  },
+  {
+    "id": "holorecon2026",
+    "short_name": "HoloRecon",
+    "title": "HoloRecon: Incremental Reconstruction of Long-Range Panoramas with Global Consistency",
+    "authors": [
+      "Zhuoxiao Li",
+      "Xinyi Liu",
+      "Hongye Hou",
+      "Jing Ou",
+      "Kang Du",
+      "Shuai Zhang",
+      "Dongli Wu",
+      "Taoyu Wu",
+      "Siyuan Feng",
+      "Xiaohui Zhu",
+      "Wufan Zhao"
+    ],
+    "institutions": [
+      "The Hong Kong University of Science and Technology (Guangzhou)",
+      "University of Liverpool",
+      "Hong Kong Polytechnic University",
+      "Xi’an Jiaotong-Liverpool University"
+    ],
+    "year": 2026,
+    "venue": "arXiv preprint 2610.36876v1, first submitted 27 October 2026; formal acceptance not verified",
+    "paper_url": "https://arxiv.org/abs/2610.36876v1",
+    "project_url": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+    "code_url": null,
+    "weights_url": null,
+    "license": "Paper is distributed under CC BY-NC-SA 4.0; an official implementation, fine-tuned checkpoint and software license are not verified.",
+    "input": {
+      "frames": "Monocular full ERP image sequence; no input IMU, LiDAR or prebuilt metric reference map in the described reconstruction method.",
+      "projection": "ERP sparse tracking and panoramic BA; internally rendered calibrated perspective views share each panorama’s optical center and fixed rotations.",
+      "intrinsics": "Known ERP-to-sphere mapping and rendering intrinsics/rotations for virtual perspective views; no arbitrary raw-fisheye entry established.",
+      "extrinsics": "Virtual view rotations relative to one panorama are fixed; they introduce no physical stereo baseline.",
+      "imu": false,
+      "resolution": "No public tensor/inference API verified; method uses 16-keyframe windows with four shared keyframes.",
+      "synchronization": "Ordered monocular frames; the method does not require an IMU or synchronized depth stream."
+    },
+    "output": {
+      "primary": "Globally corrected panoramic camera trajectory, sparse landmarks and a dense point-cloud reconstruction.",
+      "point_map": "Fine-tuned Pi3 local geometry cached in each source camera frame, recalibrated and repositioned after global correction.",
+      "camera_parameters": "One pose per panorama; local depth scales; Sim(3) connection graph followed by ERP bundle adjustment.",
+      "confidence": "Multi-view geometric consistency and robust verification of connections; no calibrated uncertainty output established.",
+      "normal": "No independent surface-normal API verified."
+    },
+    "depth_convention": "Pi3 virtual-view geometry contributes optical-axis Z-depth. Radial distance for ERP feature lifting is d = s × Z × ||K^-1 p||; scales are anchored to the monocular sparse map, not known metres.",
+    "scale": "Relative monocular map gauge. Appendix B.1 explicitly recovers metric scale only by evaluation alignment; B.3 fixes the root pose but leaves monocular scale unconstrained. One global Umeyama Sim(3) aligns trajectory to references.",
+    "pose_output": "Yes: estimated trajectory and global correction within a monocular reconstruction frame; not independently metric poses.",
+    "slam_family": "hybrid panoramic sparse and feed-forward reconstruction",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "native_erp": true,
+    "native_panoramic": true,
+    "geometry_output": [
+      "pose",
+      "point_map",
+      "sparse_landmarks"
+    ],
+    "imu_required": false,
+    "loop_closure": true,
+    "metric_status": "scale-ambiguous monocular geometry; Sim(3)-aligned evaluation",
+    "runtime": "Not real time. Paper uses one NVIDIA RTX PRO 6000 Blackwell Workstation Edition; YUTO MMS C key stages total 181.38 min, excluding separate preprocessing/export. Frame input pauses for triggered global refinement; no local benchmark.",
+    "code_entry": "Unknown: no installable author-linked implementation verified",
+    "engineering_notes": [
+      "Full ERP is the external input. Internal co-centered perspective renderings do not establish independent pinhole or raw-fisheye entry points, nor a metric stereo baseline.",
+      "An ORB panoramic frontend estimates sparse poses/landmarks; fine-tuned Pi3 geometry is scaled to those landmarks. The sparse map itself remains up to scale.",
+      "Cross-view depth-supported ORB correspondences verify long-range Sim(3) connections. Pose-graph correction, observation fusion and panoramic BA then update cached dense geometry without rerunning Pi3.",
+      "Virtual-view Z-depth must be converted to radial distance before ERP lifting; using the same numeric Z value as camera-centre range is incorrect.",
+      "Incremental processing is not a real-time throughput claim. Global refinement pauses frame input, and heavy blur, long weak-texture segments and unmodeled dynamics remain limitations.",
+      "All trajectory comparisons use one global Sim(3) alignment; dense evaluation also permits ICP refinement. Reported errors do not establish absolute metric deployment or wrist precision.",
+      "PanoRecon’s metric reference poses are estimated by ERP rig registration against RTK-assisted LiDAR camera references; reprojection RMSE is not an independent trajectory-accuracy measurement.",
+      "Original paper and official project with scene/video demonstrations are available. An author-linked estimator source release, fine-tuned checkpoint and runtime installation were not verified."
+    ],
+    "official_release_status": "Official paper and project demonstrations available; implementation and fine-tuned checkpoints not released as verified artifacts.",
+    "summary_zh": "将 ORB 全景稀疏建图与微调 Pi3 几何结合，以跨视图三维验证建立长程回环，再用 Sim(3) 图优化与 ERP BA 修正轨迹和稠密点云；单目尺度仍不确定，尚非实时。",
+    "environment": "Paper reports RTX PRO 6000 Blackwell, GPU panoramic BA with double precision and Pi3 fine-tuned on Holo360D; installable official runtime and checkpoint unverified.",
+    "accessed": "2026-11-02",
+    "evidence_level": "Official original paper, appendix and project reviewed; actual Figure 2 visually inspected; no local estimator reproduction.",
+    "reproduction_status": "Original PDF downloaded and true method diagram visually inspected; estimator not run locally.",
+    "evidence": [
+      "https://arxiv.org/abs/2610.36876v1",
+      "https://arxiv.org/html/2610.36876v1",
+      "https://arxiv.org/pdf/2610.36876v1",
+      "https://zhuoxiaoli.github.io/HoloRecon_page/"
+    ],
+    "url_verification": "2026-11-02: original arXiv v1 and author project reviewed; code/checkpoint links not verified."
   }
 ]

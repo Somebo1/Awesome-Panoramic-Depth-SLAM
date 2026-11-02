@@ -2460,5 +2460,226 @@
       "Indoor",
       "Benefit of Large Field-of-View Cameras for Visual Odometry"
     ]
+  },
+  {
+    "id": "ds_panorecon",
+    "name": "PanoRecon",
+    "title": "PanoRecon Benchmark for Long-Range Panoramic Reconstruction",
+    "year": 2026,
+    "venue": "Companion benchmark to HoloRecon, arXiv 2610.36876v1, 27 October 2026; data access unconfirmed",
+    "authors": "Zhuoxiao Li; Xinyi Liu; Hongye Hou; Jing Ou; Kang Du; Shuai Zhang; Dongli Wu; Taoyu Wu; Siyuan Feng; Xiaohui Zhu; Wufan Zhao",
+    "aliases": [
+      "PanoRecon benchmark",
+      "HoloRecon dataset"
+    ],
+    "cameras": [
+      "panoramic"
+    ],
+    "tasks": [
+      "slam"
+    ],
+    "environment": [
+      "outdoor"
+    ],
+    "reality": "real",
+    "sensors": [
+      "Insta360 X4 ERP video",
+      "Separate RTK-assisted LiDAR survey",
+      "LiDAR-rig reference cameras"
+    ],
+    "sensorLabels": {
+      "en": [
+        "Insta360 X4 ERP video",
+        "Separate RTK-assisted LiDAR survey",
+        "LiDAR-rig reference cameras"
+      ],
+      "zh": [
+        "Insta360 X4 ERP 视频",
+        "分次采集的 RTK 辅助 LiDAR 测量",
+        "LiDAR 平台参考相机"
+      ]
+    },
+    "groundTruth": [
+      "Paper-described LiDAR geometry",
+      "Estimated reference ERP poses"
+    ],
+    "groundTruthLabels": {
+      "en": [
+        "Paper-described LiDAR geometry",
+        "Estimated reference ERP poses"
+      ],
+      "zh": [
+        "论文描述的 LiDAR 几何",
+        "估计得到的 ERP 参考位姿"
+      ]
+    },
+    "access": "unknown",
+    "homepageUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+    "paperUrl": "https://arxiv.org/abs/2610.36876v1",
+    "downloadUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+    "license": {
+      "en": "No dataset reuse license or complete archive endpoint was established on the official project page. The paper license does not license a dataset. Public preview images and reconstructed viewer clouds do not establish availability of the benchmark inputs and references.",
+      "zh": "官方项目页尚未确立数据集再利用许可或完整压缩包入口。论文许可不等于数据许可；公开预览图及重建点云浏览器不能证明基准输入与参考数据已完整发布。"
+    },
+    "summary": {
+      "en": "Seven outdoor ERP routes with repeated architecture and long-range revisits, described with LiDAR geometry and registered metric reference poses. Complete benchmark download and terms remain unconfirmed.",
+      "zh": "包含 7 条室外 ERP 路线，覆盖重复建筑与远距离重访；论文描述 LiDAR 几何及配准得到的米制参考位姿，完整基准下载和许可仍待核实。"
+    },
+    "details": {
+      "en": {
+        "Scope and inventory": "Seven real outdoor building, residential and road scenes: Building 1, Building 2, Residence 1, Road, GYM, HPC and Residence 2. Mean video duration is 11.49 min and mean route length 0.87 km (0.26–1.69 km). These are manuscript statistics, not a downloaded inventory.",
+        "Panoramic imagery": "An Insta360 X4 records 5K video at 30 fps from a 3 m pole. Recordings are exported as ERP and sampled at 2K every 0.1 s. No public raw-fisheye, stereo-baseline or IMU input release is established; virtual perspective rig views share one center.",
+        "Acquisition and synchronization": "Panoramic video and RTK-assisted LiDAR are acquired in separate sessions along the same planned route. They are registered geometrically, not reported as synchronized simultaneous camera–LiDAR streams.",
+        "Reference pose construction": "RTK-corrected LiDAR SLAM supplies a metric point cloud and poses/calibration of three onboard cameras. RealityScan fixes those reference-camera poses, matches calibrated perspective views of each ERP rig, and optimizes the ERP poses. These are estimated, LiDAR-registered references rather than independently tracked camera truth.",
+        "Reference uncertainty": "The reported mean reprojection RMSE of 0.1917 px is an image-registration residual, not a camera-position error bound. A separate independent pose-accuracy survey was not established.",
+        "Geometry and depth labels": "The paper describes LiDAR reference geometry for dense reconstruction evaluation. A downloadable per-image dense-depth product, range-versus-Z definition, valid masks and image-level depth split are not established. Do not equate a geometry preview or method-predicted depth with released depth truth.",
+        "Evaluation protocol": "Camera trajectories use one global Umeyama Sim(3) alignment. PanoRecon SLAM methods process all sampled images, with evaluation keyframes at 1 s intervals; SfM uses 1 s inputs. Dense evaluation additionally refines cloud registration with ICP and reports precision/recall/F-score at 20 cm. Aligned scores do not establish unaligned absolute metric inference.",
+        "Release and maturity": "As checked on 2 November 2026, the official page provides previews, videos and an interactive reconstruction viewer, but no confirmed complete input/reference archive, official split or dataset terms. This pending resource is placed after mature accessible benchmarks."
+      },
+      "zh": {
+        "范围与规模": "论文覆盖 7 个真实室外建筑、住宅与道路场景：Building 1、Building 2、Residence 1、Road、GYM、HPC 和 Residence 2。视频平均 11.49 分钟，路线平均 0.87 km（0.26–1.69 km）；这些是论文统计，尚非本地下载清单。",
+        "全景成像": "Insta360 X4 安装在 3 m 延长杆上，以 5K、30 fps 录制，导出 ERP 后每 0.1 秒抽取 2K 图像。未确立原始鱼眼、有基线双目或 IMU 输入的公开发布；虚拟透视 rig 的子视图共用光心。",
+        "采集与同步": "全景视频与 RTK 辅助 LiDAR 沿相同规划路线分次采集，以几何方式配准；不能表述为相机与 LiDAR 同时硬件同步采集。",
+        "参考位姿构建": "RTK 校正的 LiDAR SLAM 生成米制点云，以及 3 路随载相机的位姿和标定。RealityScan 固定参考相机位姿，将每帧 ERP 分成已标定透视 rig 后匹配并优化 ERP 位姿。这是与 LiDAR 配准的估计参考，不是独立跟踪的相机真值。",
+        "参考不确定性": "平均重投影 RMSE 0.1917 px 是图像配准残差，不是相机位置误差界；尚未建立额外独立测量的位姿精度。",
+        "几何与深度标签": "论文描述用于稠密重建评测的 LiDAR 参考几何，尚未确立可下载的逐图稠密深度、range/Z 定义、有效掩码及深度划分。几何预览与方法预测深度不能视为已发布深度真值。",
+        "评测口径": "轨迹先统一作一次 Umeyama Sim(3) 对齐。SLAM 使用全部抽帧图像，按 1 秒间隔关键帧评测；SfM 采用 1 秒间隔输入。稠密评测还用 ICP 精配准，在 20 cm 阈值报告精确率、召回率及 F-score；对齐后的分数不证明未对齐的绝对米制推断能力。",
+        "发布与成熟度": "截至 2026 年 11 月 2 日，官方页提供预览、视频与交互重建浏览器，但尚未确证完整输入/参考压缩包、官方划分和数据许可。作为待核实专项资源，排在成熟可获取基准之后。"
+      }
+    },
+    "notes": {
+      "en": [
+        "Paper-described reference products and demonstrated method reconstructions are distinct. A public viewer is not a complete dataset release.",
+        "Keep all views and revisits from a route in one split when constructing a custom protocol."
+      ],
+      "zh": [
+        "论文描述的参考产品与方法重建展示须分清；公开浏览器不等于完整数据发布。",
+        "自定义划分时，同一路线的各视图与重访应归入同一划分。"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://arxiv.org/abs/2610.36876v1",
+        "title": "Original HoloRecon v1 and PanoRecon benchmark identity"
+      },
+      {
+        "url": "https://arxiv.org/html/2610.36876v1",
+        "title": "Section 4 and Appendix A.1: separate capture sessions, reference estimation and evaluation"
+      },
+      {
+        "url": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+        "title": "Official PanoRecon statistics, reference-geometry preview and current access controls"
+      }
+    ],
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "ds_synpano",
+    "name": "SynPano",
+    "title": "SynPano: A Synthetic Panoramic Dataset for SLAM",
+    "year": 2026,
+    "venue": "Official dataset release, 26–27 October 2026; associated with Cube-Splat (ECCV 2026)",
+    "authors": "SynPano / Cube-Splat dataset authors (official maintainer: guoxf304 / gxfzju)",
+    "aliases": [
+      "SynPano-Dataset",
+      "SynPano-Datasets",
+      "Cube-Splat synthetic dataset"
+    ],
+    "cameras": [
+      "panoramic"
+    ],
+    "tasks": [
+      "slam"
+    ],
+    "environment": [
+      "indoor",
+      "outdoor"
+    ],
+    "reality": "synthetic",
+    "sensors": [
+      "Rendered ERP RGB"
+    ],
+    "sensorLabels": {
+      "en": [
+        "Rendered ERP RGB"
+      ],
+      "zh": [
+        "渲染 ERP RGB"
+      ]
+    },
+    "groundTruth": [
+      "Rendered camera poses"
+    ],
+    "groundTruthLabels": {
+      "en": [
+        "Rendered camera poses"
+      ],
+      "zh": [
+        "渲染相机位姿"
+      ]
+    },
+    "access": "open",
+    "homepageUrl": "https://github.com/guoxf304/SynPano-Dataset",
+    "paperUrl": "https://arxiv.org/abs/2609.21347",
+    "downloadUrl": "https://huggingface.co/datasets/gxfzju/SynPano",
+    "license": {
+      "en": "Conflicting official terms: the SynPano GitHub README declares CC BY-NC-SA 4.0, whereas the Hugging Face card declares MIT. File access is ungated, but the applicable dataset reuse license is unresolved; confirm terms with the maintainers before relying on either declaration.",
+      "zh": "官方许可声明存在冲突：SynPano GitHub README 为 CC BY-NC-SA 4.0，Hugging Face 卡片却标 MIT。文件可直接下载，但适用的数据再利用许可尚未解决；依赖任一声明前应向维护者核实。"
+    },
+    "summary": {
+      "en": "Blender-rendered 1920×960 ERP sequences: 5,364 RGB images and matched camera-pose rows across eight indoor/outdoor scenes. The current release has no depth images; official license declarations conflict.",
+      "zh": "Blender 渲染的 1920×960 ERP 序列：8 个室内外场景共 5,364 张 RGB 及匹配的相机位姿。当前发布不含深度图，官方许可声明存在冲突。"
+    },
+    "details": {
+      "en": {
+        "Current inventory": "Five indoor scenes (apartment, jodo, livingroom, meetingroom, washroom) and three outdoor scenes (desert, island_lake, village). Current counts are apartment 217, desert 1196, island_lake 611, jodo 511, livingroom 196, meetingroom 499, village 1583, washroom 551. Total: 5,364 PNG images plus eight pose files; rounded scene sizes sum to 14.02 GB. Metadata files are additional.",
+        "Release evidence": "The official Hugging Face repository was created 26 October 2026 at 13:04 UTC and last modified 27 October. The reviewed revision is 6ca1bf731c7b1417ea84c8830fff1a73aa08516c. Public metadata is non-private and ungated. These dates concern the available data repository, not a new Cube-Splat paper version.",
+        "Panoramic product": "Blender-rendered 2:1 equirectangular RGB at 1920×960. No raw fisheye or independent stereo pair is included in the checked inventory. Cubemap factorization inside Cube-Splat does not create a dataset stereo baseline.",
+        "Pose format and association": "Each groundtruth.txt row has nine columns: frame_id image_name x y z qx qy qz qw. It uses frame indices, not timestamps, and is not an eight-column TUM file. All eight small pose files were read and every image_name matched the published image inventory. The quaternion scalar is last; pose direction, world-axis convention, metric units and frame rate were not fully established by the README.",
+        "Completeness and old copies": "At the pinned release, island_lake has 611 images named 0000.png–0610.png and 611 pose rows. Older Cube-Splat notes describe an incomplete copy; check your actual files and match by image_name. Do not apply the old 453-image count or interpret 0610 as a 610-frame total.",
+        "Depth and other sensors": "The published file inventory contains RGB images and camera-pose text only. No depth images, depth masks, IMU, LiDAR or semantics are supplied by this release. Rendering in Blender does not imply those modalities were exported. Learned depth priors used by Cube-Splat are method predictions.",
+        "Evaluation and scope": "This is a targeted synthetic panoramic tracking/mapping resource, rather than a real-sensor accuracy benchmark. No official train/validation/test split was established. Keep scene identity, temporal overlap, alignment and any assumed units explicit; synthetic pose labels do not establish real-camera calibration robustness.",
+        "License conflict": "The official documentation and dataset card disagree: CC BY-NC-SA 4.0 versus MIT. Open download availability does not settle reuse rights. Preserve both declarations and obtain a maintainer clarification; do not silently promote the permissive tag."
+      },
+      "zh": {
+        "当前文件规模": "5 个室内场景（apartment、jodo、livingroom、meetingroom、washroom）与 3 个室外场景（desert、island_lake、village）。各场景图像数依次为 apartment 217、desert 1196、island_lake 611、jodo 511、livingroom 196、meetingroom 499、village 1583、washroom 551，共 5364 张 PNG 和 8 个位姿文件，场景文件约 14.02 GB；另有仓库元数据文件。",
+        "发布证据": "官方 Hugging Face 仓库创建于 2026 年 10 月 26 日 13:04 UTC，最后修改于 10 月 27 日；核验版本为 6ca1bf731c7b1417ea84c8830fff1a73aa08516c。公开元数据表明仓库非私有且未设下载门槛。这些日期对应数据仓库，不代表 Cube-Splat 论文新版。",
+        "全景产品": "Blender 渲染 1920×960、2:1 的 ERP RGB。核验清单没有原始鱼眼或独立双目对；Cube-Splat 内部 cubemap 分解不能视为数据集立体基线。",
+        "位姿格式与关联": "groundtruth.txt 每行 9 列：frame_id image_name x y z qx qy qz qw，采用帧索引而非时间戳，不是 8 列 TUM。已读取 8 个小型位姿文件并逐一将 image_name 与公开图像清单匹配。四元数实部在末列；README 尚未完整确立位姿方向、世界坐标轴、米制单位及帧率。",
+        "完整性与旧副本": "固定版本的 island_lake 有 611 张图像（0000.png–0610.png）与 611 行位姿。旧 Cube-Splat 说明提及不完整副本，应核对本地实际文件并按 image_name 匹配；不沿用旧 453 张计数，也不能将末编号 0610 误解成共 610 帧。",
+        "深度与其他传感器": "当前公开文件清单仅有 RGB 图像与相机位姿文本，没有深度图、深度掩码、IMU、LiDAR 或语义。Blender 可渲染不代表这些模态已导出；Cube-Splat 使用的学习深度先验仍是方法预测。",
+        "评测与适用范围": "这是合成全景跟踪/建图专项资源，不是真实传感器精度基准。尚未确立官方训练/验证/测试划分；须明确场景、时间重叠、对齐与单位假设，合成位姿标签不证明真实相机标定鲁棒性。",
+        "许可冲突": "官方文档声明 CC BY-NC-SA 4.0，而数据卡片写 MIT。开放下载不能消除再利用条款冲突；应保留两种声明并向维护者核实，不静默采用更宽松标签。"
+      }
+    },
+    "notes": {
+      "en": [
+        "This is the newly available official synthetic dataset release, not a new camera mode inferred from Cube-Splat.",
+        "Only metadata, eight small pose manifests and a lightweight official preview were downloaded during this review."
+      ],
+      "zh": [
+        "本条对应新可获取的官方合成数据发布，不从 Cube-Splat 方法推断额外相机产品。",
+        "本轮仅下载元数据、8 个小型位姿清单及官方轻量预览，未下载完整数据集。"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/guoxf304/SynPano-Dataset",
+        "title": "Official dataset README: Blender ERP, scene inventory, pose format and CC BY-NC-SA statement"
+      },
+      {
+        "url": "https://huggingface.co/datasets/gxfzju/SynPano",
+        "title": "Official file host and MIT card declaration"
+      },
+      {
+        "url": "https://huggingface.co/api/datasets/gxfzju/SynPano",
+        "title": "Official API: pinned revision, ungated access, release timestamps and complete image inventory"
+      },
+      {
+        "url": "https://huggingface.co/datasets/gxfzju/SynPano/resolve/6ca1bf731c7b1417ea84c8830fff1a73aa08516c/island_lake/groundtruth.txt",
+        "title": "Pinned 611-row island_lake pose manifest checked against public image names"
+      }
+    ],
+    "checked": "2026-11-02"
   }
 ]

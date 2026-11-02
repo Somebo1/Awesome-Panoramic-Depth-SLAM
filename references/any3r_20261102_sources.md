@@ -1,0 +1,9 @@
+# Any3R source audit — 2026-11-02
+
+[Original v1](https://arxiv.org/abs/2610.36150v1), submitted October 26; [official project](https://jingong-chen.github.io/Any3R/), [actual inference source](https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py), [camera conventions](https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md), [third-party license distinctions](https://github.com/Jingong-Chen/Any3R/blob/main/THIRD_PARTY_NOTICES.md) and [official model](https://huggingface.co/Jingong/Any3R) checked.
+
+The October31 release includes actual inference, camera, demo and evaluation code. The ungated model listing contains config.json and model.safetensors at revision fa0dec07c5769d15a51b76877342f912ee6ae39f; weights were not downloaded. Per-view ray fields are supplied from calibration, with direct complete ERP, raw fisheye and pinhole interfaces. Missing rays fall back to ERP, not lens estimation. Outputs are radial distance, confidence, local/world points and first-view camera-to-world poses, with arbitrary global scale. Similarity/ICP-aligned errors do not establish metric inference. This is a view-set reconstructor, not an online SLAM system or known-baseline stereo rig.
+
+The original utilities are MIT, but the VGGT-Omega-derived trunk/aggregator and released weights are under the FAIR Noncommercial Research License. The top-level MIT notice does not override these component terms. Source was inspected without executing it or installing the model. Reported timing is author hardware data only. No direct DAP comparison was established.
+
+Original PDF page3 and complete Figure3 WebP crop were visually checked. Crop [56.8,68,554.8,240] in PDF points at180dpi; original PDF SHA256 3469a282efebb70b20186c1d788e8cd204e44822e404876c02f600160fd516f5. Original image CC BY4.0 attribution retained; fullPDF remains local/ignored.

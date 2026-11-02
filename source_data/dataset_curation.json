@@ -732,5 +732,51 @@
       }
     ],
     "checked": "2026-10-20"
+  },
+  "ds_panorecon": {
+    "tier": "pending",
+    "rank": 3,
+    "scope": {
+      "en": "Long-route panoramic reconstruction",
+      "zh": "长路线全景重建"
+    },
+    "reason": {
+      "en": "A targeted seven-scene benchmark with paper-described LiDAR references; complete input/reference download and license remain unconfirmed.",
+      "zh": "面向长路线的 7 场景专项基准，论文描述 LiDAR 参考；完整输入/参考下载与许可尚待核实。"
+    },
+    "evidence": [
+      {
+        "url": "https://arxiv.org/html/2610.36876v1",
+        "title": "Original PanoRecon protocol and reference construction"
+      },
+      {
+        "url": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+        "title": "Official project preview and access review"
+      }
+    ],
+    "checked": "2026-11-02"
+  },
+  "ds_synpano": {
+    "tier": "specialized",
+    "rank": 11,
+    "scope": {
+      "en": "Synthetic panoramic tracking / mapping",
+      "zh": "合成全景跟踪/建图"
+    },
+    "reason": {
+      "en": "An accessible eight-scene ERP/pose resource for targeted tests. Recent and narrower than mature benchmarks; pose conventions and conflicting reuse terms need attention.",
+      "zh": "可获取的 8 场景 ERP/位姿专项资源。范围小于成熟基准，且新近发布；位姿约定与许可冲突仍需留意。"
+    },
+    "evidence": [
+      {
+        "url": "https://github.com/guoxf304/SynPano-Dataset",
+        "title": "Official release scope and data format"
+      },
+      {
+        "url": "https://huggingface.co/api/datasets/gxfzju/SynPano",
+        "title": "Ungated current file inventory; compare MIT card with official README terms"
+      }
+    ],
+    "checked": "2026-11-02"
   }
 }

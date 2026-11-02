@@ -958,5 +958,149 @@
   Object.assign(families, {
   "panoramic topo-metric visual localization": "全景拓扑度量视觉定位"
 });
+  Object.assign(summaries, {
+  "any3r2026": "Ray-conditioned angular encoding and solid-angle supervision fuse calibrated ERP, fisheye and pinhole views into radial depth, point maps and camera poses. Reconstruction remains up to scale; inference code and weights are released.",
+  "dex2026": "Lightweight feature modulators adapt frozen perspective models to raw fisheye range prediction and segmentation using synthetic-warp alignment. Full ERP support is unverified; the official repository is still license-only.",
+  "holorecon2026": "Couples ORB panoramic mapping with fine-tuned Pi3 geometry, verifies long-range Sim(3) connections and refines trajectory/dense geometry; scale remains ambiguous and processing is not real time."
+});
+  Object.assign(zhRecords, {
+  "any3r2026": [
+    "静态场景的一组 RGB 视图，可混合不同中心相机投影；论文训练使用 2–8 视图，公开接口接受视图集合。",
+    "逐视图径向距离、置信度、局部／世界点图及相机到世界位姿，场景尺度任意。",
+    "整体尺度任意；需要已知逐像素射线，不能将对齐误差当作绝对公制精度。",
+    [
+      "论文于 2026-10-26 首次提交；官网仓库将推理代码、权重、演示和评测发布日记为 2026-10-31。已检查真实模型／相机／导出源码及无需申请的 model.safetensors 文件清单，未下载权重。",
+      "跨相机能力依赖已知射线，不表示免标定。公开模型未收到射线时会把每张图都当作 ERP，不会自动识别镜头。",
+      "评测包含 13 种相机，其中训练见过 8 种、留出 5 种。主受控基准由全景重采样；ScanNet++ 和 FIORD 另测真实鱼眼镜头。",
+      "几何仍有整体尺度歧义；重建评测先做相似变换和 ICP 对齐。以米报告的对齐误差不证明绝对公制推理。",
+      "混合镜头视图不等于已标定的实体立体 rig；本条不代表连续 SLAM、时间跟踪或回环系统。",
+      "顶层 LICENSE 为 MIT，但完整网络的 VGGT-Omega 派生组件与权重适用 FAIR 非商业研究许可，不能整体当作 MIT。",
+      "已查一手来源未建立直接 DAP 比较；未进行本机模型推理或硬件性能复现。"
+    ]
+  ],
+  "dex2026": [
+    "单张原始鱼眼 RGB；分割配置另需文本类别。",
+    "所选冻结深度模型加 DEX 输出稠密欧氏径向距离 R；独立分割配置输出类别相似度。",
+    "尺度依赖基础／教师模型，不提供统一公制保证；相对与公制模型须分别核查。",
+    [
+      "补录 ECCV 2026 方法，首次提交于 2026-08-28；arXiv v2 于 2026-10-26 更新，并非本周首次发表。Springer 确认页码 245–265 和正式 DOI。",
+      "论文摘要写代码可用，但截至 2026-11-02 作者仓库仅有 LICENSE，介绍仍为 coming soon；未核实可执行 DEX 源码或权重发布。",
+      "DEX 是冻结深度／分割模型的适配器，不是单个通用米制权重。尺度依赖选用的教师／基础模型；MiDaS、DepthAnything 的相对分支与 UniDepthV2 的公制分支须区分。",
+      "推理直接输入原始鱼眼 RGB，不需要实测标定或去畸变。训练需要标定后的透视图与合成 Kannala–Brandt 变换；评测的几何转换也使用已知标定。",
+      "深度变体预测欧氏射线距离 R。ScanNet++ 评测用标定将 R 转回相机 Z，KITTI-360 则在 R 下评测，两种约定不能混用。",
+      "真实鱼眼评测采用室内 ScanNet++ 与室外 KITTI-360；WoodScape 用于分割。未核实完整 ERP 输入，也未核实直接 DAP 比较。",
+      "论文分析可由适配器激活解码畸变系数，但公开相机标定 API、点图导出与连续位姿／SLAM 状态均未核实。"
+    ]
+  ],
+  "holorecon2026": [
+    "单目完整 ERP 序列；所述重建方法不输入 IMU、LiDAR 或预建公制参考地图。",
+    "全局校正的全景相机轨迹、稀疏地标与稠密点云重建。",
+    "单目地图尺度仍不确定；附录明确仅在评测对齐时恢复公制尺度，轨迹采用全局 Umeyama Sim(3) 对齐。",
+    [
+      "外部输入是完整 ERP；内部共心透视渲染不构成独立针孔或原始鱼眼入口，也不提供公制立体基线。",
+      "ORB 全景前端估计稀疏位姿与地标，微调 Pi3 的几何尺度拟合这些地标；稀疏地图本身仍有单目尺度自由度。",
+      "以跨视图深度支持的 ORB 对应验证长程 Sim(3) 连接，经位姿图、观测融合与全景 BA 修正后，无需重跑 Pi3 即可更新缓存稠密几何。",
+      "虚拟视图 Z-depth 必须先转为径向距离再投向 ERP；不能将同一 Z 数值直接当作相机中心距离。",
+      "增量处理不等于实时；全局优化会暂停帧输入，严重模糊、长时间弱纹理与未显式建模的动态物体仍是局限。",
+      "轨迹评测均进行全局 Sim(3) 对齐，稠密评测另允许 ICP；结果不能直接证明部署时的绝对公制精度或腕部精度。",
+      "PanoRecon 的公制参考位姿由 ERP 相机组向 RTK 辅助 LiDAR 相机参考配准估计；重投影 RMSE 不是独立轨迹精度。",
+      "原论文和官方项目提供场景及视频展示；未核实作者链接的估计器源码、微调检查点或可安装环境。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "any3r2026": {
+    "input": {
+      "frames": "静态场景的一组 RGB 视图，可混合不同中心相机投影；论文训练使用 2–8 视图，公开接口接受视图集合。",
+      "projection": "明确直接接受完整 ERP、原始鱼眼（含超过 180 度）及针孔，不要求先转 cubemap。",
+      "intrinsics": "需要每个视图的单位射线图，可由给定标定或近似镜头／视场生成；ERP 使用已知球面网格。模型不估计内参。",
+      "resolution": "infer 输入 images 为 (S,3,H,W)、值域 [0,1]，rays 为 (S,H,W,3)。prepare_views 缩放并填充公共画布，patch 为 16；演示默认尺寸 512。",
+      "extrinsics": "不提供视图间位姿，由网络在第一视图坐标系预测相机到世界变换。",
+      "imu": "无需。",
+      "gravity": "未记录实测重力输入。",
+      "synchronization": "无 IMU 或 rig 同步输入要求；假设场景静态。"
+    },
+    "output": {
+      "primary": "逐视图径向距离、置信度、局部／世界点图及相机到世界位姿，场景尺度任意。",
+      "point_map": "local_points=depth×ray；world_points 由预测的相机到世界位姿变换得到。",
+      "normal": "未记录独立法线头。",
+      "confidence": "depth_conf (S,H,W) 是学习分数，不是经过标定的物理误差界。",
+      "camera_parameters": "camera_poses (S,4,4)，以第一视图为参考；内参／射线由外部提供。",
+      "depth_convention": "depth 为沿给定单位射线的距离 X=d×R，不是光轴 Z；距离与平移均保留任意整体尺度。",
+      "metric_status": "整体尺度不确定；论文重建精度使用相似变换与 ICP 对齐，以米报告的对齐误差不是绝对公制能力。",
+      "pose_output": "输出视图集合在第一视图坐标系下的相机到世界位姿；不含在线里程计状态或回环系统。",
+      "runtime": "作者报告 RTX 5090 上 32 张 512×512 视图耗时 1.1 秒、128 张耗时 9 秒并占 17.7GB；本站未复现，也不是连续 SLAM 帧率。"
+    }
+  },
+  "dex2026": {
+    "input": {
+      "frames": "单张原始鱼眼 RGB；分割另需文本类别标签。",
+      "projection": "DEX 实际评测原始鱼眼；没有完整 ERP 接口或基准证据。透视图用于训练教师，不能据此声称已发布统一输入接口。",
+      "intrinsics": "推理不需要实测标定或去畸变；训练目标需要透视内参与合成 KB 变换。",
+      "resolution": "论文评测：ScanNet++ 为 462×616，KITTI-360 为 700×700；公开推理尺寸/API 尚未发布。",
+      "extrinsics": "所描述的单图推理不需要外参。",
+      "imu": "无需。",
+      "gravity": "未记录实测重力输入。",
+      "synchronization": "单图模型，无时间或外部传感器同步输入。"
+    },
+    "output": {
+      "primary": "所选冻结深度模型加 DEX 输出稠密欧氏径向距离 R；分割是另一个任务配置。",
+      "point_map": "未核实已发布的直接点图头或导出器；恢复公制点需要正确相机射线及公制基础模型／尺度。",
+      "normal": "未记录独立法线头。",
+      "confidence": "DEX 未记录新增且经过物理标定的深度不确定性头。",
+      "camera_parameters": "论文分析由激活解码 KB 畸变系数；公开推理 API 未发布。",
+      "depth_convention": "深度变体采用欧氏射线距离 R，而非光轴 Z。训练将透视教师 Z 转成 R；ScanNet++ 评测用 KB 标定转回 Z，KITTI-360 在 R 下配合 MEI 几何评测。",
+      "metric_status": "尺度依赖基础／教师模型；MiDaS、DepthAnything 与 UniDepthV2 的尺度口径不同，不能赋予统一米制保证。尚未核实 DEX 权重发布，实际检查点约定暂无法核查。",
+      "pose_output": "未记录相机位姿、轨迹或 SLAM 状态输出。",
+      "runtime": "未进行本机计时或峰值显存测试；4 张 RTX3090、8 个 epoch 是训练配置，不是推理需求。"
+    }
+  },
+  "holorecon2026": {
+    "input": {
+      "frames": "单目完整 ERP 序列；所述重建方法不输入 IMU、LiDAR 或预建公制参考地图。",
+      "projection": "ERP 稀疏跟踪与全景 BA；内部校准透视视图共享每张全景的光心和固定相对旋转。",
+      "intrinsics": "使用已知 ERP—球面映射及虚拟视图渲染内参与旋转；未确认任意原始鱼眼入口。",
+      "extrinsics": "虚拟视图相对全景的旋转固定，不构成物理立体基线。",
+      "imu": false,
+      "resolution": "未核实公开推理接口；采用 16 关键帧窗口，相邻窗口共享 4 帧。",
+      "synchronization": "有序单目帧；不要求 IMU 或同步深度传感器流。"
+    },
+    "output": {
+      "primary": "全局校正的全景相机轨迹、稀疏地标与稠密点云重建。",
+      "point_map": "微调 Pi3 局部几何缓存在来源相机坐标系，全局校正后重新标定尺度与放置。",
+      "camera_parameters": "每张全景一个位姿与局部深度尺度；Sim(3) 连接图之后执行 ERP BA。",
+      "confidence": "连接的多视图几何一致性和鲁棒验证；未建立已标定不确定性输出。",
+      "normal": "未核实独立法线接口。",
+      "depth_convention": "Pi3 虚拟视图几何提供光轴 Z-depth；ERP 特征提升使用 d = s × Z × ||K^-1 p||，尺度锚定单目稀疏图，未锚定真实米制。",
+      "metric_status": "单目尺度不确定；评测进行 Sim(3) 对齐。",
+      "pose_output": "是：单目重建坐标系中的估计轨迹与全局校正；不是独立公制位姿。",
+      "runtime": "尚非实时。作者使用 RTX PRO 6000 Blackwell；YUTO MMS C 主要阶段合计 181.38 分钟，另不计预处理和导出。触发全局优化时暂停帧输入；未做本机计时。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "any3r2026": {
+    "code": "原创工具采用 MIT；VGGT-Omega 派生主干与聚合器采用 FAIR 非商业研究许可，运行完整模型受其限制。",
+    "weights": "继承 VGGT-Omega 的 FAIR 非商业研究许可，并非 MIT。"
+  },
+  "dex2026": {
+    "code": "作者仓库仅有 Apache-2.0 LICENSE；DEX 可执行源码未发布。",
+    "weights": "未知：未核实 DEX 权重或其独立许可。"
+  },
+  "holorecon2026": "论文采用 CC BY-NC-SA 4.0；未核实官方实现、微调权重及软件许可。"
+});
+  Object.assign(environments, {
+  "any3r2026": "Python ≥3.10、torch≥2.3、numpy、Pillow、safetensors、huggingface_hub≥0.23。模型元数据列出 11.5 亿参数、4.6GB 全精度权重；建议 bfloat16 GPU，旧 CUDA 设备可用 float16，源码也有 CPU 路径。本站未下载权重或执行推理。",
+  "dex2026": "论文实现采用 Adam、学习率 1e-3、内部秩 20，深度 batch 32，在 4 张 RTX3090 上训练 8 个 epoch。可安装依赖与推理平台尚未发布。",
+  "holorecon2026": "作者报告 RTX PRO 6000 Blackwell、双精度全景 GPU BA 和 Holo360D 微调 Pi3；可安装官方环境及检查点待核实。"
+});
+  Object.assign(families, {
+  "calibrated multi-view relative reconstruction": "已标定多视图相对重建",
+  "hybrid panoramic sparse and feed-forward reconstruction": "全景稀疏与前馈几何混合重建"
+});
+  zhRecords.vggt_omega[3].push("arXiv v2（2026-10-25）修正了表 1、表 2 中 Ours-1B 的位姿与深度结果；10B 行与架构描述不变，不代表新增投影支持或新模型发布。");
+  zhRecords.omniray2026[3][0]="论文于 2026-10-22 首次提交，已在 10 月 26 日收录；11 月 2 日复查项目及发布链接，不重复新增论文。";
+  zhRecords.omniray2026[3][1]="截至 2026-11-02，官网仍标注代码与模型为 TBD。Code 链接现指向仅含项目网页和预计算点云浏览器的仓库，README 明确模型实现将在发表后开源；Checkpoint 链接返回 HTTP 401，未核实权重发布。";
+  families["single-image fisheye depth adaptation"]="单图鱼眼深度适配";
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

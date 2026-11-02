@@ -2,6 +2,14 @@
 
 Figures support scholarly literature review. Copyright remains with the original authors. Full PDFs are stored locally and are not redistributed. Original author image files are kept locally; attributed web-sized copies are published. PDF page numbers count from 1; author webpage images do not claim PDF pages or PDF hashes.
 
+## Any3R
+
+Figure 3, PDF page 3. Any3R conditions rotary coordinates and point supervision on calibrated rays, then predicts relative camera poses and radial point maps.
+
+- PDF: https://arxiv.org/pdf/2610.36150v1
+- Screenshot: [assets/papers/any3r2026.webp](../site/assets/papers/any3r2026.webp)
+- Local PDF SHA-256: `3469a282efebb70b20186c1d788e8cd204e44822e404876c02f600160fd516f5`
+
 ## DA²
 
 Figure 4, PDF page 5. SphereViT spherical embeddings, architecture and training supervision.
@@ -9,6 +17,14 @@ Figure 4, PDF page 5. SphereViT spherical embeddings, architecture and training 
 - PDF: https://arxiv.org/pdf/2509.26618
 - Screenshot: [assets/papers/da2_panorama.webp](../site/assets/papers/da2_panorama.webp)
 - Local PDF SHA-256: `76bbe903e6d73b83c0066194f580f6c63472c4d0947733c63144500931938695`
+
+## DEX (Distortion Extenders)
+
+Figure 2, PDF page 7. DEX training aligns a frozen perspective teacher and synthetic-fisheye branch; feature affinities select learned extender modulators.
+
+- PDF: https://arxiv.org/pdf/2608.27860v2
+- Screenshot: [assets/papers/dex2026.webp](../site/assets/papers/dex2026.webp)
+- Local PDF SHA-256: `deb48b857da324f46899956fb65ce191faccd24be3328e5af9c789850a2ab468`
 
 ## Depth Any Panoramas
 
@@ -94,7 +110,7 @@ Figure 3, PDF page 4. Method overview decoupling relative depth and depth-guided
 
 Figure 2, PDF page 3. Alternating attention over image, camera and scene tokens with geometry outputs.
 
-- PDF: https://arxiv.org/pdf/2605.15195
+- PDF: https://arxiv.org/pdf/2605.15195v1
 - Screenshot: [assets/papers/vggt_omega.webp](../site/assets/papers/vggt_omega.webp)
 - Local PDF SHA-256: `ffd0456e4fe0b5c42c0c95161c7e6005eb2ce3c0071b3b37de9b72955c00879b`
 
@@ -310,7 +326,7 @@ Figure 1, PDF page 1. Distortion-aware spherical features and omnidirectional di
 
 Figure 4, PDF page 5. Fisheye/IMU sliding-window estimation, sequence-local tag geometry, prior admission and guarded joint-state output.
 
-- PDF: https://arxiv.org/pdf/2610.09857
+- PDF: https://arxiv.org/pdf/2610.09857v1
 - Screenshot: [assets/papers/aprilvins2026.webp](../site/assets/papers/aprilvins2026.webp)
 - Local PDF SHA-256: `c55449b7590f8959e584f156d3e98f197489c72e0f7980398b5ecc709d98a9fc`
 
@@ -321,6 +337,14 @@ Figure 2, PDF page 6. ERP or PAL panoramas are factorized into cubemap views for
 - PDF: https://arxiv.org/pdf/2609.21347
 - Screenshot: [assets/papers/cubesplat2026.webp](../site/assets/papers/cubesplat2026.webp)
 - Local PDF SHA-256: `03cf13240d68f267d2c79f3eabe7c4c3784d9e914337811e384580e0984acf8c`
+
+## HoloRecon
+
+Figure 2, PDF page 4. HoloRecon anchors Pi3 depths to sparse landmarks, verifies long-range connections, refines the sparse graph and observations, then realigns cached dense geometry.
+
+- PDF: https://arxiv.org/pdf/2610.36876v1
+- Screenshot: [assets/papers/holorecon2026.webp](../site/assets/papers/holorecon2026.webp)
+- Local PDF SHA-256: `014ff6bddd528454a18e15ee374aafda8f56fd10237df241b09f8bc0da5bc7c7`
 
 ## ODGS-SLAM
 

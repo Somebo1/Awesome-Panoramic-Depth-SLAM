@@ -1,6 +1,19 @@
 # Official-source index
 
-Literature search cutoff 2026-10-26. Incremental method and dataset checks: 2026-10-26; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
+Literature search cutoff 2026-11-02. Incremental method and dataset checks: 2026-11-02; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
+
+## Any3R (2026)
+
+Any3R: Feedforward 3D Reconstruction from Any Camera Type
+
+- https://arxiv.org/abs/2610.36150v1
+- https://arxiv.org/html/2610.36150v1
+- https://jingong-chen.github.io/Any3R/
+- https://github.com/Jingong-Chen/Any3R
+- https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py
+- https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md
+- https://github.com/Jingong-Chen/Any3R/blob/main/THIRD_PARTY_NOTICES.md
+- https://huggingface.co/Jingong/Any3R
 
 ## DA² (2026)
 
@@ -13,6 +26,15 @@ DA²: Depth Anything in Any Direction
 - https://arxiv.org/abs/2509.26618
 - https://depth-any-in-any-dir.github.io/
 - https://github.com/EnVision-Research/DA-2
+
+## DEX (Distortion Extenders) (2026)
+
+From Perspective to Fisheye Depth Estimation and Open-Vocabulary Segmentation
+
+- https://arxiv.org/abs/2608.27860v2
+- https://arxiv.org/html/2608.27860v2
+- https://github.com/Suchisrit/DEX
+- https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14
 
 ## Depth Any Panoramas (2026)
 
@@ -86,6 +108,8 @@ OmniRay: Camera-Agnostic Monocular 3D Reconstruction with Composite Ray Fields
 - https://arxiv.org/abs/2610.31645v1
 - https://arxiv.org/html/2610.31645v1
 - https://nam1410.github.io/omniray/
+- https://github.com/nam1410/omniray
+- https://raw.githubusercontent.com/nam1410/omniray/main/README.md
 
 ## PaGeR (2026)
 
@@ -127,9 +151,11 @@ VGGT-Ω
 
 - Official project method description, current README and model forward inspected; paper experimental sections not fully read
 - https://raw.githubusercontent.com/facebookresearch/vggt-omega/main/README.md
-- https://arxiv.org/abs/2605.15195
+- https://arxiv.org/abs/2605.15195v2
+- https://arxiv.org/html/2605.15195v2
 - https://vggt-omega.github.io/
 - https://github.com/facebookresearch/vggt-omega
+- https://arxiv.org/abs/2605.15195
 
 ## Depth Any Camera (2025)
 
@@ -450,6 +476,15 @@ Holo360D: A Large-Scale Real-World Dataset with Continuous Trajectories for Adva
 - https://huggingface.co/datasets/ouou123/Holo360D
 - https://jou719.github.io/Holo360D_homepage/
 
+## HoloRecon (2026)
+
+HoloRecon: Incremental Reconstruction of Long-Range Panoramas with Global Consistency
+
+- https://arxiv.org/abs/2610.36876v1
+- https://arxiv.org/html/2610.36876v1
+- https://arxiv.org/pdf/2610.36876v1
+- https://zhuoxiaoli.github.io/HoloRecon_page/
+
 ## MILD / MILD-Sim (2026)
 
 Towards Accurate End-Effector Localization for UMI-Style Robotic Manipulation Teaching
@@ -539,6 +574,24 @@ PanoLoop: Yaw-Invariant Loop Closure for Feed-Forward Panoramic SLAM
 - https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download
 - https://diglib7.eg.org/bitstreams/8f7f04ff-aeaf-4c8e-bbaf-0068bee7a665/download
 - https://pacificgraphics2026.github.io/full-program.html?format=video
+
+## PanoRecon (2026)
+
+PanoRecon Benchmark for Long-Range Panoramic Reconstruction
+
+- https://arxiv.org/abs/2610.36876v1
+- https://arxiv.org/html/2610.36876v1
+- https://zhuoxiaoli.github.io/HoloRecon_page/
+
+## SynPano (2026)
+
+SynPano: A Synthetic Panoramic Dataset for SLAM
+
+- https://github.com/guoxf304/SynPano-Dataset
+- https://huggingface.co/datasets/gxfzju/SynPano
+- https://huggingface.co/api/datasets/gxfzju/SynPano
+- https://huggingface.co/datasets/gxfzju/SynPano/resolve/6ca1bf731c7b1417ea84c8830fff1a73aa08516c/island_lake/groundtruth.txt
+- https://huggingface.co/datasets/gxfzju/SynPano/tree/6ca1bf731c7b1417ea84c8830fff1a73aa08516c
 
 ## MASt3R-SLAM (2025)
 

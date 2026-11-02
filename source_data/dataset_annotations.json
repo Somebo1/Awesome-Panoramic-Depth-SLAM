@@ -1055,5 +1055,57 @@
       "https://github.com/uzh-rpg/rpg_blender_omni_camera"
     ],
     "checked": "2026-10-20"
+  },
+  "ds_panorecon": {
+    "depth": {
+      "status": "unknown",
+      "provenance": [],
+      "note": {
+        "en": "LiDAR reference geometry is described, but no complete downloadable per-image depth product, convention or mask is confirmed. A scene point-cloud preview is not released image-depth truth.",
+        "zh": "论文描述 LiDAR 参考几何，但未确证完整可下载的逐图深度产品、定义及掩码；场景点云预览不等于已发布图像深度真值。"
+      }
+    },
+    "trajectory": {
+      "status": "unknown",
+      "provenance": [
+        "estimated"
+      ],
+      "note": {
+        "en": "Metric ERP references are estimated by registration to fixed RTK/LiDAR-derived reference cameras; complete benchmark inputs and pose files remain unavailable or unconfirmed. They are not independent tracking truth.",
+        "zh": "米制 ERP 参考由配准到固定的 RTK/LiDAR 参考相机估计而来；完整输入与位姿文件的可获取性仍待确认，不能称为独立跟踪真值。"
+      }
+    },
+    "evidence": [
+      "https://arxiv.org/abs/2610.36876v1",
+      "https://arxiv.org/html/2610.36876v1",
+      "https://zhuoxiaoli.github.io/HoloRecon_page/"
+    ],
+    "checked": "2026-11-02"
+  },
+  "ds_synpano": {
+    "depth": {
+      "status": "no",
+      "provenance": [],
+      "note": {
+        "en": "The checked release inventory contains only RGB PNGs and pose text, with no image-depth labels or masks. Cube-Splat depth priors are predictions, not dataset truth.",
+        "zh": "核验的发布清单仅包含 RGB PNG 与位姿文本，没有图像深度标签或掩码；Cube-Splat 深度先验为预测而非数据真值。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "All 5,364 released images match simulation camera-pose rows across eight scenes. Files use image names and frame indices, not timestamps; coordinate and unit conventions still require confirmation.",
+        "zh": "8 个场景全部 5364 张发布图像均匹配仿真相机位姿行。文件以图像名和帧索引关联，没有时间戳；坐标与单位约定仍需确认。"
+      }
+    },
+    "evidence": [
+      "https://github.com/guoxf304/SynPano-Dataset",
+      "https://huggingface.co/api/datasets/gxfzju/SynPano",
+      "https://huggingface.co/datasets/gxfzju/SynPano/tree/6ca1bf731c7b1417ea84c8830fff1a73aa08516c"
+    ],
+    "checked": "2026-11-02"
   }
 }

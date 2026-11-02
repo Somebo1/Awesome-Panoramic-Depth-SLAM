@@ -302,7 +302,7 @@
   "vggt_omega": {
     "thumbnail": "assets/papers/vggt_omega-thumb.webp",
     "image": "assets/papers/vggt_omega.webp",
-    "paperUrl": "https://arxiv.org/pdf/2605.15195",
+    "paperUrl": "https://arxiv.org/pdf/2605.15195v1",
     "page": 3,
     "figureLabel": "Figure 2",
     "caption": {
@@ -1108,5 +1108,65 @@
     "pdfSha256": "b893bd46731114697c060f1b60f1d099ce0539ccd5b32c3e3d9732b3a1a72ba3",
     "imageSha256": "afee50834040ce8dec5222e16089be3bd702f2cef356d09d74546375a123865d",
     "verification": "Original page and final crop visually confirmed; complete diagram boundaries, title and point-map labels retained."
+  },
+  "any3r2026": {
+    "thumbnail": "assets/papers/any3r2026-thumb.webp",
+    "image": "assets/papers/any3r2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2610.36150v1",
+    "page": 3,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "en": "Any3R conditions rotary coordinates and point supervision on calibrated rays, then predicts relative camera poses and radial point maps.",
+      "zh": "Any3R 以已标定射线条件化旋转位置编码与点图监督，再预测相对相机位姿及径向点图。"
+    },
+    "credit": {
+      "en": "Source: Jingong Chen et al., Figure 3 of the original paper.",
+      "zh": "来源：Jingong Chen et al.，原论文 Figure 3。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      56.8,
+      68,
+      554.8,
+      240
+    ],
+    "originalCaption": "Figure 3. Overview.",
+    "sourceLicense": "Original arXiv v1 is CC BY 4.0; attribution retained. Software and checkpoint terms differ.",
+    "reviewedAt": "2026-11-02",
+    "selectionNotes": "Original PDF page 3 and final WebP crop visually inspected; complete input, attention, camera, dense and training-loss branches retained.",
+    "pdfSha256": "3469a282efebb70b20186c1d788e8cd204e44822e404876c02f600160fd516f5",
+    "imageSha256": "07a6ca268d451d5a759450e4aa6858c7422c4e31a486d9575876af18d2419af6",
+    "verification": "Original full page and final encoded image visually inspected; diagram identity, complete boundaries and legibility confirmed."
+  },
+  "dex2026": {
+    "thumbnail": "assets/papers/dex2026-thumb.webp",
+    "image": "assets/papers/dex2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2608.27860v2",
+    "page": 7,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "en": "DEX training aligns a frozen perspective teacher and synthetic-fisheye branch; feature affinities select learned extender modulators.",
+      "zh": "DEX 以冻结的透视教师对齐合成鱼眼分支，并依据特征相似度组合可学习的适配器。"
+    },
+    "credit": {
+      "en": "Source: Rit Gangopadhyay and Alex Wong, Figure 2 of the original paper.",
+      "zh": "来源：Rit Gangopadhyay 与 Alex Wong，原论文 Figure 2。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      167,
+      114,
+      446,
+      303
+    ],
+    "originalCaption": "Fig. 2: Distortion Extenders. The figure illustrates the DEX training pipeline and architecture.",
+    "sourceLicense": "Original arXiv v2 is licensed CC BY 4.0; attribution retained. This does not establish checkpoint availability or license.",
+    "reviewedAt": "2026-11-02",
+    "selectionNotes": "Original PDF page 7 and final WebP crop visually inspected. Both training and extender mechanism panels kept complete, page header and figure caption excluded.",
+    "pdfSha256": "deb48b857da324f46899956fb65ce191faccd24be3328e5af9c789850a2ab468",
+    "imageSha256": "7d6bba9b056d64a0b478a7e2109333ae83919ecab4202593f8bcb1731c2f944d",
+    "verification": "Original page and final crop visually confirmed; diagram identity, boundaries, range conversion and two panels checked."
   }
 }

@@ -989,7 +989,7 @@
   "aprilvins2026": {
     "thumbnail": "assets/papers/aprilvins2026-thumb.webp",
     "image": "assets/papers/aprilvins2026.webp",
-    "paperUrl": "https://arxiv.org/pdf/2610.09857",
+    "paperUrl": "https://arxiv.org/pdf/2610.09857v1",
     "page": 5,
     "figureLabel": "Figure 4",
     "caption": {
@@ -1046,5 +1046,39 @@
     "pdfSha256": "986991795814ef0740e1260c723c975744812cdbea19fd02048d46539244c30e",
     "imageSha256": "bbb3c9d8199760cdfa4038b9729111c691c56c170e425f12a20b7e3e2eab060d",
     "verification": "Original complete page and final diagram crop visually confirmed; correct paper, figure identity and boundaries."
+  },
+  "holorecon2026": {
+    "thumbnail": "assets/papers/holorecon2026-thumb.webp",
+    "image": "assets/papers/holorecon2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2610.36876v1",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "zh": "HoloRecon 以稀疏地标对齐 Pi3 深度，验证长程连接，经位姿图与观测融合优化稀疏地图，再重新放置缓存稠密几何。",
+      "en": "HoloRecon anchors Pi3 depths to sparse landmarks, verifies long-range connections, refines the sparse graph and observations, then realigns cached dense geometry."
+    },
+    "credit": {
+      "zh": "来源：Zhuoxiao Li et al.，原论文 Figure 2（PDF 第 4 页）。",
+      "en": "Source: Zhuoxiao Li et al., Figure 2 of the original PDF, page 4."
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      70,
+      77,
+      542,
+      255
+    ],
+    "originalCaption": "Figure 2 Overview of the proposed method. Sparse landmarks calibrate Pi3 depths, and registered panoramic cameras place them in the map. These predictions support cross-view ORB correspondences for verifying long-range camera constraints. Global correction and observation fusion refine the sparse map, which recalibrates and repositions the cached dense geometry.",
+    "sourceLicense": "Original arXiv paper distributed under CC BY-NC-SA 4.0; figure attribution retained. Software release license not verified.",
+    "reviewedAt": "2026-11-02",
+    "selectionNotes": "Complete original PDF page 4 and final crop visually inspected. PDF labels this Figure 2; arXiv HTML omits the teaser from numbering and calls it Figure 1. Use PDF identity for provenance.",
+    "pdfSha256": "014ff6bddd528454a18e15ee374aafda8f56fd10237df241b09f8bc0da5bc7c7",
+    "imageSha256": "780e93df85472c846aa593f4ffd38e515c2d2c4c9148dda8417a3cdd523f7e74",
+    "imageSize": [
+      1416,
+      534
+    ],
+    "verification": "Original full page and final diagram visually confirmed: correct paper and complete method diagram; caption retained separately."
   }
 }

@@ -1,11 +1,209 @@
 window.ATLAS_DATA = {
-  "updated": "2026-10-26",
+  "updated": "2026-11-02",
   "repoUrl": "https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM",
   "title": "Panoramic Depth Atlas",
   "description": "Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.",
   "schemaVersion": "1.4",
-  "interfaceUpdated": "2026-10-26",
+  "interfaceUpdated": "2026-11-02",
   "records": [
+    {
+      "id": "any3r2026",
+      "collection": "depth",
+      "name": "Any3R",
+      "title": "Any3R: Feedforward 3D Reconstruction from Any Camera Type",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv preprint 2610.36150v1; submitted 2026-10-26",
+      "authors": [
+        "Jingong Chen",
+        "Qingwen Zhang",
+        "Youming Deng",
+        "Chulwoo Pack",
+        "Olaf Wysocki",
+        "Boris Jutzi",
+        "Kwanghee Won",
+        "Kyle Gao"
+      ],
+      "institutions": [
+        "South Dakota State University",
+        "Aalto University",
+        "KTH Royal Institute of Technology",
+        "Cornell University",
+        "University of Cambridge",
+        "Karlsruhe Institute of Technology"
+      ],
+      "summary": "以已知逐像素射线条件化角度位置编码与立体角损失，直接融合完整 ERP、鱼眼和针孔多视图，预测径向距离、点图和相对位姿；尺度仍不确定，需要相机标定。",
+      "cameras": [
+        "panoramic",
+        "fisheye",
+        "wide",
+        "perspective"
+      ],
+      "scale": "relative",
+      "scaleNote": "Relative geometry with arbitrary global scene scale. Paper uses similarity alignment and ICP for reconstruction accuracy; metre-valued aligned errors do not prove metric inference.",
+      "aliases": [],
+      "metricStatus": "scale_invariant",
+      "depthType": "range",
+      "outputs": [
+        "radial_range",
+        "point_map",
+        "camera_pose",
+        "confidence"
+      ],
+      "pose": true,
+      "inputSummary": "A set of RGB views of a static scene, potentially mixing different central-camera projections. Paper training uses 2-8 views; public inference accepts a view set.",
+      "outputSummary": "Per-view radial distance, confidence, local/world point maps and predicted camera-to-world poses, all with arbitrary scene scale.",
+      "inputs": {
+        "frames": "A set of RGB views of a static scene, potentially mixing different central-camera projections. Paper training uses 2-8 views; public inference accepts a view set.",
+        "projection": "Complete ERP, raw fisheye (including beyond 180 degrees) and pinhole are explicit direct inputs. No cubemap conversion is required.",
+        "intrinsics": "Per-view unit ray map required, computed from supplied calibration or an approximate nominal lens/FoV. ERP rays follow the known spherical grid. The model does not estimate intrinsics.",
+        "resolution": "infer: images (S,3,H,W) in [0,1], rays (S,H,W,3). prepare_views downsizes and pads a shared canvas; patch size 16. Demo default size 512.",
+        "extrinsics": "No supplied inter-view poses; camera-to-world poses are predicted in the first-view frame.",
+        "imu": "No",
+        "gravity": "No measured gravity input documented.",
+        "synchronization": "No IMU or rig synchronization requirement; scenes are assumed static."
+      },
+      "outputDetails": {
+        "primary": "Per-view radial distance, confidence, local/world point maps and predicted camera-to-world poses, all with arbitrary scene scale.",
+        "point_map": "local_points=depth*ray; world_points are transformed by predicted camera-to-world poses.",
+        "normal": "No independent normal-output head documented.",
+        "confidence": "depth_conf (S,H,W) is a learned score, not a calibrated physical error bound.",
+        "camera_parameters": "camera_poses (S,4,4), relative to the first view. Intrinsics/ray fields are supplied rather than recovered.",
+        "depth_convention": "depth is distance along each supplied unit ray: X=d*R, not optical-axis Z. Both distance and camera translation retain arbitrary global scale.",
+        "metric_status": "scale_invariant",
+        "pose_output": "Yes: camera-to-world poses for the input view set, in the first-view frame; no online odometry state or loop-closure system.",
+        "runtime": "Authors report 32 views at 512x512 in 1.1 s and 128 views in 9 s (17.7 GB) on RTX 5090; not locally reproduced and not a continuous-SLAM frame rate."
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/Jingong-Chen/Any3R",
+      "paperUrl": "https://arxiv.org/abs/2610.36150v1",
+      "projectUrl": "https://jingong-chen.github.io/Any3R/",
+      "weightsUrl": "https://huggingface.co/Jingong/Any3R",
+      "license": {
+        "code": "MIT for original utilities; VGGT-Omega-derived trunk and aggregator use the FAIR Noncommercial Research License. Running the full network inherits noncommercial research restrictions.",
+        "weights": "FAIR Noncommercial Research License, inherited from VGGT-Omega; not MIT."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2610.36150v1",
+        "https://arxiv.org/html/2610.36150v1",
+        "https://jingong-chen.github.io/Any3R/",
+        "https://github.com/Jingong-Chen/Any3R",
+        "https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py",
+        "https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md",
+        "https://github.com/Jingong-Chen/Any3R/blob/main/THIRD_PARTY_NOTICES.md",
+        "https://huggingface.co/Jingong/Any3R"
+      ],
+      "notes": [
+        "Submitted 2026-10-26; official repository dates inference, weights, demo and evaluation release to 2026-10-31. Actual model, camera and export source files and an ungated model.safetensors listing were verified; weights were not downloaded.",
+        "Camera-agnostic means a ray-conditioned central-camera interface, not calibration-free. With no ray map, the public model falls back to ERP directions for every view; this is not automatic lens recognition.",
+        "Thirteen camera models are evaluated, eight seen during training and five held out. The main controlled benchmark resamples panoramas; separate ScanNet++ and FIORD tests use real fisheye lenses.",
+        "All geometry retains an arbitrary global scale. Evaluation aligns fused predictions with a similarity transform and ICP; reported reconstruction errors in metres are not absolute metric-depth evidence.",
+        "A view set can mix lenses without a calibrated physical stereo baseline. This does not establish a multi-camera rig mode or continuous SLAM, temporal tracking or loop closure.",
+        "The full model is restricted to noncommercial research by the VGGT-Omega-derived components and weights even though the top-level LICENSE is MIT.",
+        "No direct comparison with DAP was established in the reviewed primary sources. No local model inference or hardware performance validation was performed.",
+        "inference_code_weights_demo_and_evaluation_released_2026-10-31; no local inference"
+      ],
+      "tags": [
+        "multi-view",
+        "panoramic",
+        "fisheye",
+        "pinhole",
+        "ray-conditioned",
+        "relative",
+        "feed-forward-reconstruction",
+        "radial_range",
+        "point_map",
+        "camera_pose",
+        "confidence"
+      ],
+      "family": "calibrated multi-view relative reconstruction",
+      "imu": false,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-11-02",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_and_released_source_model_listing_no_local_inference",
+      "codeEntry": "any3r/model.py::Any3R.infer; any3r/io.py::prepare_views; demo.py; eval/evaluate.py",
+      "environment": "Python >=3.10, torch>=2.3, numpy, Pillow, safetensors and huggingface_hub>=0.23. Model metadata lists 1.15B parameters / 4.6GB float32 weights. GPU bfloat16 recommended; infer uses float16 on older CUDA devices, CPU path is present. No weights downloaded or inference run.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Complete 360x180 ERP is a released direct input through cameras.ERP() or its known unit-ray grid; no external perspective adapter is needed.",
+            "zh": "公开接口通过 cameras.ERP() 或已知单位射线网格直接接受完整 360×180 ERP，无需外部透视适配。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.36150v1",
+            "https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md",
+            "https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Released camera helpers accept calibrated raw fisheye models including KB4 and beyond-180-degree lenses; per-view ray calibration is required.",
+            "zh": "已发布相机工具接受 KB4 等已标定原始鱼眼及超过 180 度镜头；需要逐视图射线标定。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.36150v1",
+            "https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md",
+            "https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Released pinhole/OpenCV camera helpers generate rays for perspective views. They can be mixed with fisheye and ERP views in one reconstruction.",
+            "zh": "公开针孔／OpenCV 工具为透视视图生成射线，可与鱼眼及 ERP 一起输入重建。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.36150v1",
+            "https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md",
+            "https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-11-02",
+      "figure": {
+        "thumbnail": "assets/papers/any3r2026-thumb.webp",
+        "image": "assets/papers/any3r2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2610.36150v1",
+        "page": 3,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "en": "Any3R conditions rotary coordinates and point supervision on calibrated rays, then predicts relative camera poses and radial point maps.",
+          "zh": "Any3R 以已标定射线条件化旋转位置编码与点图监督，再预测相对相机位姿及径向点图。"
+        },
+        "credit": {
+          "en": "Source: Jingong Chen et al., Figure 3 of the original paper.",
+          "zh": "来源：Jingong Chen et al.，原论文 Figure 3。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          56.8,
+          68,
+          554.8,
+          240
+        ],
+        "originalCaption": "Figure 3. Overview.",
+        "sourceLicense": "Original arXiv v1 is CC BY 4.0; attribution retained. Software and checkpoint terms differ.",
+        "reviewedAt": "2026-11-02",
+        "selectionNotes": "Original PDF page 3 and final WebP crop visually inspected; complete input, attention, camera, dense and training-loss branches retained.",
+        "pdfSha256": "3469a282efebb70b20186c1d788e8cd204e44822e404876c02f600160fd516f5",
+        "imageSha256": "07a6ca268d451d5a759450e4aa6858c7422c4e31a486d9575876af18d2419af6",
+        "verification": "Original full page and final encoded image visually inspected; diagram identity, complete boundaries and legibility confirmed."
+      }
+    },
     {
       "id": "da2_panorama",
       "collection": "depth",
@@ -160,6 +358,150 @@ window.ATLAS_DATA = {
         "pdfSha256": "76bbe903e6d73b83c0066194f580f6c63472c4d0947733c63144500931938695",
         "imageSha256": "086191c134d223dd16d8a41ee6ce04efae61d6f450b222da1764a427efd9ab41",
         "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+      }
+    },
+    {
+      "id": "dex2026",
+      "collection": "depth",
+      "name": "DEX (Distortion Extenders)",
+      "title": "From Perspective to Fisheye Depth Estimation and Open-Vocabulary Segmentation",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "ECCV 2026, pp. 245-265; DOI 10.1007/978-3-032-37627-5_14; arXiv v2 revised 2026-10-26",
+      "authors": [
+        "Rit Gangopadhyay",
+        "Alex Wong"
+      ],
+      "institutions": [
+        "Yale Vision Laboratory, Yale University"
+      ],
+      "summary": "在冻结的透视基础模型中插入轻量特征调制器，以透视图合成鱼眼并自监督对齐；直接预测原始鱼眼径向距离，还能适配开放词汇分割。没有核实完整 ERP 支持，官方仓库仍仅有许可文件。",
+      "cameras": [
+        "fisheye",
+        "wide"
+      ],
+      "scale": "mixed",
+      "scaleNote": "Base/teacher dependent, not a universal metric-scale guarantee. DEX is tested with relative MiDaS/DepthAnything and metric UniDepthV2; released DEX checkpoint semantics cannot yet be audited.",
+      "aliases": [],
+      "metricStatus": "mixed_checkpoints",
+      "depthType": "range",
+      "outputs": [
+        "radial_range"
+      ],
+      "pose": false,
+      "inputSummary": "One raw fisheye RGB image; segmentation additionally receives text class labels.",
+      "outputSummary": "Dense Euclidean radial range R from a selected frozen depth model plus DEX; alternatively open-vocabulary segmentation logits in a separate task configuration.",
+      "inputs": {
+        "frames": "One raw fisheye RGB image; segmentation additionally receives text class labels.",
+        "projection": "Raw fisheye is the evaluated DEX input; no complete ERP interface or benchmark was established. Perspective images are training teachers, not evidence of a released unified inference interface.",
+        "intrinsics": "No measured calibration or rectification needed at inference; calibrated perspective intrinsics and synthetic KB transforms are required by the training objective.",
+        "resolution": "Paper evaluation uses 462x616 on ScanNet++ and 700x700 on KITTI-360. Released inference resize/API remains unavailable.",
+        "extrinsics": "Not required for the described single-image inference.",
+        "imu": "No",
+        "gravity": "No measured gravity input documented.",
+        "synchronization": "Single image, no temporal or external-sensor synchronization input."
+      },
+      "outputDetails": {
+        "primary": "Dense Euclidean radial range R from a selected frozen depth model plus DEX; alternatively open-vocabulary segmentation logits in a separate task configuration.",
+        "point_map": "No released direct point-map head or exporter verified. Reconstructing metric points requires appropriate camera rays and a metric base/scale.",
+        "normal": "No independent normal-output head documented.",
+        "confidence": "No additional calibrated depth-uncertainty head documented for DEX.",
+        "camera_parameters": "Paper analysis decodes KB distortion coefficients from extender activations; no released inference API verified.",
+        "depth_convention": "Depth variant uses Euclidean ray distance R, not camera-axis Z. Training converts perspective teacher Z to R; ScanNet++ evaluation converts R back to Z using KB calibration, while KITTI-360 uses R with MEI geometry.",
+        "metric_status": "mixed_checkpoints",
+        "pose_output": "No camera pose, trajectory or SLAM state output documented.",
+        "runtime": "No local timing or peak-VRAM measurement; four RTX3090 GPUs for eight training epochs are not an inference requirement."
+      },
+      "codeStatus": "none",
+      "codeUrl": "https://github.com/Suchisrit/DEX",
+      "paperUrl": "https://arxiv.org/abs/2608.27860v2",
+      "projectUrl": "https://github.com/Suchisrit/DEX",
+      "weightsUrl": "",
+      "license": {
+        "code": "Author repository contains Apache-2.0 LICENSE only; executable DEX source has not been released.",
+        "weights": "Unknown: no DEX checkpoints or checkpoint license verified."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2608.27860v2",
+        "https://arxiv.org/html/2608.27860v2",
+        "https://github.com/Suchisrit/DEX",
+        "https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14"
+      ],
+      "notes": [
+        "Backfilled ECCV 2026 method, first submitted 2026-08-28; arXiv v2 was posted 2026-10-26, not a first publication this week. Springer confirms pp. 245-265, DOI 10.1007/978-3-032-37627-5_14.",
+        "The paper abstract says code is available, but on 2026-11-02 the author-linked repository contains only LICENSE and describes the release as coming soon. No executable DEX source or checkpoints were verified.",
+        "DEX is an adapter to frozen depth/segmentation models, not one standalone universal metric checkpoint. Scale depends on the selected teacher/base model; relative MiDaS/DepthAnything and metric UniDepthV2 must not be conflated.",
+        "Inference accepts raw fisheye RGB without calibration or rectification. Calibrated perspective images and synthetic Kannala-Brandt warps are used during training; known calibration is also used for geometry conversion in evaluation.",
+        "The depth variant predicts Euclidean ray range R. ScanNet++ evaluation converts R to camera Z using its calibration, whereas KITTI-360 is evaluated in R. These conventions are not interchangeable.",
+        "Real fisheye tests use ScanNet++ indoors and KITTI-360 outdoors; WoodScape evaluates segmentation. No full-ERP input or direct DAP comparison was verified.",
+        "Calibration coefficients can be decoded from extender activations in the paper analysis; a released camera-calibration API, point-map exporter and continuous pose/SLAM state were not verified.",
+        "license_only_repository_code_and_checkpoints_coming_soon"
+      ],
+      "tags": [
+        "monocular",
+        "fisheye",
+        "adapter",
+        "depth-and-segmentation",
+        "radial_range"
+      ],
+      "family": "single-image fisheye depth adaptation",
+      "imu": false,
+      "loopClosure": "Not applicable",
+      "nativePanoramic": false,
+      "sourceChecked": "2026-11-02",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_and_official_repository_no_implementation_released",
+      "codeEntry": "Not released: author repository contains LICENSE only as checked 2026-11-02.",
+      "environment": "Paper implementation: Adam, learning rate 1e-3, inner rank 20, batch 32 for depth, eight epochs on four RTX3090 GPUs. Installable dependencies and inference platform are not released.",
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "DEX directly consumes raw fisheye RGB at inference without rectification or supplied calibration. Training uses calibrated perspective teachers and synthetic KB distortions. The repository remains license-only; no full ERP support verified.",
+            "zh": "DEX 推理直接处理原始鱼眼 RGB，无需去畸变或给定标定。训练用标定透视教师与合成 KB 畸变。仓库仍仅有许可文件，未核实完整 ERP 支持。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2608.27860v2",
+            "https://arxiv.org/html/2608.27860v2",
+            "https://github.com/Suchisrit/DEX"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-11-02",
+      "figure": {
+        "thumbnail": "assets/papers/dex2026-thumb.webp",
+        "image": "assets/papers/dex2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2608.27860v2",
+        "page": 7,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "en": "DEX training aligns a frozen perspective teacher and synthetic-fisheye branch; feature affinities select learned extender modulators.",
+          "zh": "DEX 以冻结的透视教师对齐合成鱼眼分支，并依据特征相似度组合可学习的适配器。"
+        },
+        "credit": {
+          "en": "Source: Rit Gangopadhyay and Alex Wong, Figure 2 of the original paper.",
+          "zh": "来源：Rit Gangopadhyay 与 Alex Wong，原论文 Figure 2。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          167,
+          114,
+          446,
+          303
+        ],
+        "originalCaption": "Fig. 2: Distortion Extenders. The figure illustrates the DEX training pipeline and architecture.",
+        "sourceLicense": "Original arXiv v2 is licensed CC BY 4.0; attribution retained. This does not establish checkpoint availability or license.",
+        "reviewedAt": "2026-11-02",
+        "selectionNotes": "Original PDF page 7 and final WebP crop visually inspected. Both training and extender mechanism panels kept complete, page header and figure caption excluded.",
+        "pdfSha256": "deb48b857da324f46899956fb65ce191faccd24be3328e5af9c789850a2ab468",
+        "imageSha256": "7d6bba9b056d64a0b478a7e2109333ae83919ecab4202593f8bcb1731c2f944d",
+        "verification": "Original page and final crop visually confirmed; diagram identity, boundaries, range conversion and two panels checked."
       }
     },
     {
@@ -1222,11 +1564,13 @@ window.ATLAS_DATA = {
       "evidence": [
         "https://arxiv.org/abs/2610.31645v1",
         "https://arxiv.org/html/2610.31645v1",
-        "https://nam1410.github.io/omniray/"
+        "https://nam1410.github.io/omniray/",
+        "https://github.com/nam1410/omniray",
+        "https://raw.githubusercontent.com/nam1410/omniray/main/README.md"
       ],
       "notes": [
-        "First submitted 2026-10-22; this is a new paper in the current weekly window, not a backfilled older model.",
-        "The official project explicitly says code and models are TBD; its Code, Demo and Checkpoint buttons point to the arXiv page rather than released artifacts as checked on 2026-10-26.",
+        "First submitted 2026-10-22 and added in the October26 review; November2 revisits project/release links without changing the paper identity.",
+        "As checked on 2026-11-02, the project still labels code/models TBD. Its GitHub target now contains the project page and a viewer of precomputed point clouds only; the repository explicitly plans model code upon publication. The linked Hugging Face checkpoint endpoint could not be accessed (HTTP 401), so no weight release was verified.",
         "Paper Sec. 4.3 and Table 2 align each method per image by the ratio of ground-truth and predicted median radial distance. Scale-aligned results must not be labeled absolute metric accuracy.",
         "The central-camera assumption requires rays to share a viewpoint. A noncentral stitched rig is not validated merely by the any-camera title.",
         "Training uses 2D3DS and 360Loc source panoramas plus sampled lens views. Held-out GoPro/catadioptric geometry and unseen PanoCity/CO3Dv2 tests have different scopes.",
@@ -1249,7 +1593,7 @@ window.ATLAS_DATA = {
       "imu": false,
       "loopClosure": "Not applicable",
       "nativePanoramic": true,
-      "sourceChecked": "2026-10-26",
+      "sourceChecked": "2026-11-02",
       "publiclyVerified": true,
       "verificationLevel": "L2_original_paper_and_official_project_no_implementation_released",
       "codeEntry": "Unknown",
@@ -1863,7 +2207,7 @@ window.ATLAS_DATA = {
       "year": 2026,
       "firstYear": 2026,
       "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
-      "venue": "CVPR 2026 Oral / Best Paper Finalist per official project",
+      "venue": "CVPR 2026 Oral / Best Paper Finalist per official project; arXiv v2 revised 2026-10-25",
       "authors": [
         "Jianyuan Wang",
         "Minghao Chen",
@@ -1920,7 +2264,7 @@ window.ATLAS_DATA = {
       },
       "codeStatus": "released",
       "codeUrl": "https://github.com/facebookresearch/vggt-omega",
-      "paperUrl": "https://arxiv.org/abs/2605.15195",
+      "paperUrl": "https://arxiv.org/abs/2605.15195v2",
       "projectUrl": "https://vggt-omega.github.io/",
       "weightsUrl": "https://huggingface.co/facebook/VGGT-Omega",
       "license": {
@@ -1930,14 +2274,17 @@ window.ATLAS_DATA = {
       "evidence": [
         "Official project method description, current README and model forward inspected; paper experimental sections not fully read",
         "https://raw.githubusercontent.com/facebookresearch/vggt-omega/main/README.md",
-        "https://arxiv.org/abs/2605.15195",
+        "https://arxiv.org/abs/2605.15195v2",
+        "https://arxiv.org/html/2605.15195v2",
         "https://vggt-omega.github.io/",
-        "https://github.com/facebookresearch/vggt-omega"
+        "https://github.com/facebookresearch/vggt-omega",
+        "https://arxiv.org/abs/2605.15195"
       ],
       "notes": [
         "Use Sep2026 416-Reproduction checkpoint for benchmarking;512in-wild explicitly no benchmarking",
         "Project newsSep18 vs repoSep8 release-date discrepancy; cutoff existence verified",
-        "Unknown: no public comparable measurement verified."
+        "Unknown: no public comparable measurement verified.",
+        "arXiv v2 (2026-10-25) corrects the Ours-1B pose/depth results in Tables 1 and 2. The 10B rows and architecture description are unchanged from v1; this is not a new projection capability or model release."
       ],
       "tags": [
         "multi-view",
@@ -1948,7 +2295,7 @@ window.ATLAS_DATA = {
       "imu": "No",
       "loopClosure": "Not applicable",
       "nativePanoramic": false,
-      "sourceChecked": "2026-10-17",
+      "sourceChecked": "2026-11-02",
       "publiclyVerified": true,
       "verificationLevel": "L2_partial",
       "codeEntry": [
@@ -1979,7 +2326,7 @@ window.ATLAS_DATA = {
       "figure": {
         "thumbnail": "assets/papers/vggt_omega-thumb.webp",
         "image": "assets/papers/vggt_omega.webp",
-        "paperUrl": "https://arxiv.org/pdf/2605.15195",
+        "paperUrl": "https://arxiv.org/pdf/2605.15195v1",
         "page": 3,
         "figureLabel": "Figure 2",
         "caption": {
@@ -6238,7 +6585,7 @@ window.ATLAS_DATA = {
       "figure": {
         "thumbnail": "assets/papers/aprilvins2026-thumb.webp",
         "image": "assets/papers/aprilvins2026.webp",
-        "paperUrl": "https://arxiv.org/pdf/2610.09857",
+        "paperUrl": "https://arxiv.org/pdf/2610.09857v1",
         "page": 5,
         "figureLabel": "Figure 4",
         "caption": {
@@ -6972,6 +7319,162 @@ window.ATLAS_DATA = {
         "sourceUrl": "https://jou719.github.io/Holo360D_homepage/assets/images/eccv_coverfigure.jpg",
         "sourceSha256": "1bbe0024dbd5972d3917b0d5e4970171703715a8ed9a3c569c5eb8a00799b2e5",
         "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+      }
+    },
+    {
+      "id": "holorecon2026",
+      "collection": "slam",
+      "name": "HoloRecon",
+      "title": "HoloRecon: Incremental Reconstruction of Long-Range Panoramas with Global Consistency",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv preprint 2610.36876v1, first submitted 27 October 2026; formal acceptance not verified",
+      "authors": [
+        "Zhuoxiao Li",
+        "Xinyi Liu",
+        "Hongye Hou",
+        "Jing Ou",
+        "Kang Du",
+        "Shuai Zhang",
+        "Dongli Wu",
+        "Taoyu Wu",
+        "Siyuan Feng",
+        "Xiaohui Zhu",
+        "Wufan Zhao"
+      ],
+      "institutions": [
+        "The Hong Kong University of Science and Technology (Guangzhou)",
+        "University of Liverpool",
+        "Hong Kong Polytechnic University",
+        "Xi’an Jiaotong-Liverpool University"
+      ],
+      "summary": "将 ORB 全景稀疏建图与微调 Pi3 几何结合，以跨视图三维验证建立长程回环，再用 Sim(3) 图优化与 ERP BA 修正轨迹和稠密点云；单目尺度仍不确定，尚非实时。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "relative",
+      "scaleNote": "Relative monocular map gauge. Appendix B.1 explicitly recovers metric scale only by evaluation alignment; B.3 fixes the root pose but leaves monocular scale unconstrained. One global Umeyama Sim(3) aligns trajectory to references.",
+      "aliases": [],
+      "metricStatus": "scale-ambiguous monocular geometry; Sim(3)-aligned evaluation",
+      "depthType": "points",
+      "outputs": [
+        "pose",
+        "point_map",
+        "sparse_landmarks"
+      ],
+      "pose": true,
+      "inputSummary": "Monocular full ERP image sequence; no input IMU, LiDAR or prebuilt metric reference map in the described reconstruction method.",
+      "outputSummary": "Globally corrected panoramic camera trajectory, sparse landmarks and a dense point-cloud reconstruction.",
+      "inputs": {
+        "frames": "Monocular full ERP image sequence; no input IMU, LiDAR or prebuilt metric reference map in the described reconstruction method.",
+        "projection": "ERP sparse tracking and panoramic BA; internally rendered calibrated perspective views share each panorama’s optical center and fixed rotations.",
+        "intrinsics": "Known ERP-to-sphere mapping and rendering intrinsics/rotations for virtual perspective views; no arbitrary raw-fisheye entry established.",
+        "extrinsics": "Virtual view rotations relative to one panorama are fixed; they introduce no physical stereo baseline.",
+        "imu": false,
+        "resolution": "No public tensor/inference API verified; method uses 16-keyframe windows with four shared keyframes.",
+        "synchronization": "Ordered monocular frames; the method does not require an IMU or synchronized depth stream."
+      },
+      "outputDetails": {
+        "primary": "Globally corrected panoramic camera trajectory, sparse landmarks and a dense point-cloud reconstruction.",
+        "point_map": "Fine-tuned Pi3 local geometry cached in each source camera frame, recalibrated and repositioned after global correction.",
+        "camera_parameters": "One pose per panorama; local depth scales; Sim(3) connection graph followed by ERP bundle adjustment.",
+        "confidence": "Multi-view geometric consistency and robust verification of connections; no calibrated uncertainty output established.",
+        "normal": "No independent surface-normal API verified.",
+        "depth_convention": "Pi3 virtual-view geometry contributes optical-axis Z-depth. Radial distance for ERP feature lifting is d = s × Z × ||K^-1 p||; scales are anchored to the monocular sparse map, not known metres.",
+        "metric_status": "scale-ambiguous monocular geometry; Sim(3)-aligned evaluation",
+        "pose_output": "Yes: estimated trajectory and global correction within a monocular reconstruction frame; not independently metric poses.",
+        "runtime": "Not real time. Paper uses one NVIDIA RTX PRO 6000 Blackwell Workstation Edition; YUTO MMS C key stages total 181.38 min, excluding separate preprocessing/export. Frame input pauses for triggered global refinement; no local benchmark."
+      },
+      "codeStatus": "unverified",
+      "codeUrl": "",
+      "paperUrl": "https://arxiv.org/abs/2610.36876v1",
+      "projectUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+      "weightsUrl": "",
+      "license": "Paper is distributed under CC BY-NC-SA 4.0; an official implementation, fine-tuned checkpoint and software license are not verified.",
+      "evidence": [
+        "https://arxiv.org/abs/2610.36876v1",
+        "https://arxiv.org/html/2610.36876v1",
+        "https://arxiv.org/pdf/2610.36876v1",
+        "https://zhuoxiaoli.github.io/HoloRecon_page/"
+      ],
+      "notes": [
+        "Full ERP is the external input. Internal co-centered perspective renderings do not establish independent pinhole or raw-fisheye entry points, nor a metric stereo baseline.",
+        "An ORB panoramic frontend estimates sparse poses/landmarks; fine-tuned Pi3 geometry is scaled to those landmarks. The sparse map itself remains up to scale.",
+        "Cross-view depth-supported ORB correspondences verify long-range Sim(3) connections. Pose-graph correction, observation fusion and panoramic BA then update cached dense geometry without rerunning Pi3.",
+        "Virtual-view Z-depth must be converted to radial distance before ERP lifting; using the same numeric Z value as camera-centre range is incorrect.",
+        "Incremental processing is not a real-time throughput claim. Global refinement pauses frame input, and heavy blur, long weak-texture segments and unmodeled dynamics remain limitations.",
+        "All trajectory comparisons use one global Sim(3) alignment; dense evaluation also permits ICP refinement. Reported errors do not establish absolute metric deployment or wrist precision.",
+        "PanoRecon’s metric reference poses are estimated by ERP rig registration against RTK-assisted LiDAR camera references; reprojection RMSE is not an independent trajectory-accuracy measurement.",
+        "Original paper and official project with scene/video demonstrations are available. An author-linked estimator source release, fine-tuned checkpoint and runtime installation were not verified.",
+        "Official paper and project demonstrations available; implementation and fine-tuned checkpoints not released as verified artifacts."
+      ],
+      "tags": [
+        "pose",
+        "point_map",
+        "sparse_landmarks"
+      ],
+      "family": "hybrid panoramic sparse and feed-forward reconstruction",
+      "imu": false,
+      "loopClosure": true,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-11-02",
+      "publiclyVerified": true,
+      "verificationLevel": "Official original paper, appendix and project reviewed; actual Figure 2 visually inspected; no local estimator reproduction.",
+      "codeEntry": "Unknown: no installable author-linked implementation verified",
+      "environment": "Paper reports RTX PRO 6000 Blackwell, GPU panoramic BA with double precision and Pi3 fine-tuned on Holo360D; installable official runtime and checkpoint unverified.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Sections 3 and B.1 explicitly take full ERP frames. Internal co-centered calibrated perspective views are components, not standalone pinhole/fisheye inputs or physical stereo.",
+            "zh": "第 3 节与 B.1 明确输入完整 ERP；内部共心校准透视视图是处理组件，不构成独立针孔／鱼眼入口或物理立体。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.36876v1",
+            "https://arxiv.org/html/2610.36876v1",
+            "https://arxiv.org/pdf/2610.36876v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-11-02",
+      "figure": {
+        "thumbnail": "assets/papers/holorecon2026-thumb.webp",
+        "image": "assets/papers/holorecon2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2610.36876v1",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "zh": "HoloRecon 以稀疏地标对齐 Pi3 深度，验证长程连接，经位姿图与观测融合优化稀疏地图，再重新放置缓存稠密几何。",
+          "en": "HoloRecon anchors Pi3 depths to sparse landmarks, verifies long-range connections, refines the sparse graph and observations, then realigns cached dense geometry."
+        },
+        "credit": {
+          "zh": "来源：Zhuoxiao Li et al.，原论文 Figure 2（PDF 第 4 页）。",
+          "en": "Source: Zhuoxiao Li et al., Figure 2 of the original PDF, page 4."
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          70,
+          77,
+          542,
+          255
+        ],
+        "originalCaption": "Figure 2 Overview of the proposed method. Sparse landmarks calibrate Pi3 depths, and registered panoramic cameras place them in the map. These predictions support cross-view ORB correspondences for verifying long-range camera constraints. Global correction and observation fusion refine the sparse map, which recalibrates and repositions the cached dense geometry.",
+        "sourceLicense": "Original arXiv paper distributed under CC BY-NC-SA 4.0; figure attribution retained. Software release license not verified.",
+        "reviewedAt": "2026-11-02",
+        "selectionNotes": "Complete original PDF page 4 and final crop visually inspected. PDF labels this Figure 2; arXiv HTML omits the teaser from numbering and calls it Figure 1. Use PDF identity for provenance.",
+        "pdfSha256": "014ff6bddd528454a18e15ee374aafda8f56fd10237df241b09f8bc0da5bc7c7",
+        "imageSha256": "780e93df85472c846aa593f4ffd38e515c2d2c4c9148dda8417a3cdd523f7e74",
+        "imageSize": [
+          1416,
+          534
+        ],
+        "verification": "Original full page and final diagram visually confirmed: correct paper and complete method diagram; caption retained separately."
       }
     },
     {
@@ -8772,6 +9275,508 @@ window.ATLAS_DATA = {
           533
         ],
         "pdfSha256": "afe4c6ca289ce4f28d31a5ef1e7635698f8d0e6ea51080a70edd1a2acfb353db"
+      }
+    },
+    {
+      "id": "ds_panorecon",
+      "name": "PanoRecon",
+      "title": "PanoRecon Benchmark for Long-Range Panoramic Reconstruction",
+      "year": 2026,
+      "venue": "Companion benchmark to HoloRecon, arXiv 2610.36876v1, 27 October 2026; data access unconfirmed",
+      "authors": "Zhuoxiao Li; Xinyi Liu; Hongye Hou; Jing Ou; Kang Du; Shuai Zhang; Dongli Wu; Taoyu Wu; Siyuan Feng; Xiaohui Zhu; Wufan Zhao",
+      "aliases": [
+        "PanoRecon benchmark",
+        "HoloRecon dataset"
+      ],
+      "cameras": [
+        "panoramic"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "real",
+      "sensors": [
+        "Insta360 X4 ERP video",
+        "Separate RTK-assisted LiDAR survey",
+        "LiDAR-rig reference cameras"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Insta360 X4 ERP video",
+          "Separate RTK-assisted LiDAR survey",
+          "LiDAR-rig reference cameras"
+        ],
+        "zh": [
+          "Insta360 X4 ERP 视频",
+          "分次采集的 RTK 辅助 LiDAR 测量",
+          "LiDAR 平台参考相机"
+        ]
+      },
+      "groundTruth": [
+        "Paper-described LiDAR geometry",
+        "Estimated reference ERP poses"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Paper-described LiDAR geometry",
+          "Estimated reference ERP poses"
+        ],
+        "zh": [
+          "论文描述的 LiDAR 几何",
+          "估计得到的 ERP 参考位姿"
+        ]
+      },
+      "access": "unknown",
+      "homepageUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+      "paperUrl": "https://arxiv.org/abs/2610.36876v1",
+      "downloadUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+      "license": {
+        "en": "No dataset reuse license or complete archive endpoint was established on the official project page. The paper license does not license a dataset. Public preview images and reconstructed viewer clouds do not establish availability of the benchmark inputs and references.",
+        "zh": "官方项目页尚未确立数据集再利用许可或完整压缩包入口。论文许可不等于数据许可；公开预览图及重建点云浏览器不能证明基准输入与参考数据已完整发布。"
+      },
+      "summary": "包含 7 条室外 ERP 路线，覆盖重复建筑与远距离重访；论文描述 LiDAR 几何及配准得到的米制参考位姿，完整基准下载和许可仍待核实。",
+      "details": {
+        "en": {
+          "Scope and inventory": "Seven real outdoor building, residential and road scenes: Building 1, Building 2, Residence 1, Road, GYM, HPC and Residence 2. Mean video duration is 11.49 min and mean route length 0.87 km (0.26–1.69 km). These are manuscript statistics, not a downloaded inventory.",
+          "Panoramic imagery": "An Insta360 X4 records 5K video at 30 fps from a 3 m pole. Recordings are exported as ERP and sampled at 2K every 0.1 s. No public raw-fisheye, stereo-baseline or IMU input release is established; virtual perspective rig views share one center.",
+          "Acquisition and synchronization": "Panoramic video and RTK-assisted LiDAR are acquired in separate sessions along the same planned route. They are registered geometrically, not reported as synchronized simultaneous camera–LiDAR streams.",
+          "Reference pose construction": "RTK-corrected LiDAR SLAM supplies a metric point cloud and poses/calibration of three onboard cameras. RealityScan fixes those reference-camera poses, matches calibrated perspective views of each ERP rig, and optimizes the ERP poses. These are estimated, LiDAR-registered references rather than independently tracked camera truth.",
+          "Reference uncertainty": "The reported mean reprojection RMSE of 0.1917 px is an image-registration residual, not a camera-position error bound. A separate independent pose-accuracy survey was not established.",
+          "Geometry and depth labels": "The paper describes LiDAR reference geometry for dense reconstruction evaluation. A downloadable per-image dense-depth product, range-versus-Z definition, valid masks and image-level depth split are not established. Do not equate a geometry preview or method-predicted depth with released depth truth.",
+          "Evaluation protocol": "Camera trajectories use one global Umeyama Sim(3) alignment. PanoRecon SLAM methods process all sampled images, with evaluation keyframes at 1 s intervals; SfM uses 1 s inputs. Dense evaluation additionally refines cloud registration with ICP and reports precision/recall/F-score at 20 cm. Aligned scores do not establish unaligned absolute metric inference.",
+          "Release and maturity": "As checked on 2 November 2026, the official page provides previews, videos and an interactive reconstruction viewer, but no confirmed complete input/reference archive, official split or dataset terms. This pending resource is placed after mature accessible benchmarks."
+        },
+        "zh": {
+          "范围与规模": "论文覆盖 7 个真实室外建筑、住宅与道路场景：Building 1、Building 2、Residence 1、Road、GYM、HPC 和 Residence 2。视频平均 11.49 分钟，路线平均 0.87 km（0.26–1.69 km）；这些是论文统计，尚非本地下载清单。",
+          "全景成像": "Insta360 X4 安装在 3 m 延长杆上，以 5K、30 fps 录制，导出 ERP 后每 0.1 秒抽取 2K 图像。未确立原始鱼眼、有基线双目或 IMU 输入的公开发布；虚拟透视 rig 的子视图共用光心。",
+          "采集与同步": "全景视频与 RTK 辅助 LiDAR 沿相同规划路线分次采集，以几何方式配准；不能表述为相机与 LiDAR 同时硬件同步采集。",
+          "参考位姿构建": "RTK 校正的 LiDAR SLAM 生成米制点云，以及 3 路随载相机的位姿和标定。RealityScan 固定参考相机位姿，将每帧 ERP 分成已标定透视 rig 后匹配并优化 ERP 位姿。这是与 LiDAR 配准的估计参考，不是独立跟踪的相机真值。",
+          "参考不确定性": "平均重投影 RMSE 0.1917 px 是图像配准残差，不是相机位置误差界；尚未建立额外独立测量的位姿精度。",
+          "几何与深度标签": "论文描述用于稠密重建评测的 LiDAR 参考几何，尚未确立可下载的逐图稠密深度、range/Z 定义、有效掩码及深度划分。几何预览与方法预测深度不能视为已发布深度真值。",
+          "评测口径": "轨迹先统一作一次 Umeyama Sim(3) 对齐。SLAM 使用全部抽帧图像，按 1 秒间隔关键帧评测；SfM 采用 1 秒间隔输入。稠密评测还用 ICP 精配准，在 20 cm 阈值报告精确率、召回率及 F-score；对齐后的分数不证明未对齐的绝对米制推断能力。",
+          "发布与成熟度": "截至 2026 年 11 月 2 日，官方页提供预览、视频与交互重建浏览器，但尚未确证完整输入/参考压缩包、官方划分和数据许可。作为待核实专项资源，排在成熟可获取基准之后。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Paper-described reference products and demonstrated method reconstructions are distinct. A public viewer is not a complete dataset release.",
+          "Keep all views and revisits from a route in one split when constructing a custom protocol."
+        ],
+        "zh": [
+          "论文描述的参考产品与方法重建展示须分清；公开浏览器不等于完整数据发布。",
+          "自定义划分时，同一路线的各视图与重访应归入同一划分。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://arxiv.org/abs/2610.36876v1",
+          "title": "Original HoloRecon v1 and PanoRecon benchmark identity"
+        },
+        {
+          "url": "https://arxiv.org/html/2610.36876v1",
+          "title": "Section 4 and Appendix A.1: separate capture sessions, reference estimation and evaluation"
+        },
+        {
+          "url": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+          "title": "Official PanoRecon statistics, reference-geometry preview and current access controls"
+        }
+      ],
+      "checked": "2026-11-02",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Seven outdoor ERP routes with repeated architecture and long-range revisits, described with LiDAR geometry and registered metric reference poses. Complete benchmark download and terms remain unconfirmed.",
+        "zh": "包含 7 条室外 ERP 路线，覆盖重复建筑与远距离重访；论文描述 LiDAR 几何及配准得到的米制参考位姿，完整基准下载和许可仍待核实。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Scope and inventory": "Seven real outdoor building, residential and road scenes: Building 1, Building 2, Residence 1, Road, GYM, HPC and Residence 2. Mean video duration is 11.49 min and mean route length 0.87 km (0.26–1.69 km). These are manuscript statistics, not a downloaded inventory.",
+          "Panoramic imagery": "An Insta360 X4 records 5K video at 30 fps from a 3 m pole. Recordings are exported as ERP and sampled at 2K every 0.1 s. No public raw-fisheye, stereo-baseline or IMU input release is established; virtual perspective rig views share one center.",
+          "Acquisition and synchronization": "Panoramic video and RTK-assisted LiDAR are acquired in separate sessions along the same planned route. They are registered geometrically, not reported as synchronized simultaneous camera–LiDAR streams.",
+          "Reference pose construction": "RTK-corrected LiDAR SLAM supplies a metric point cloud and poses/calibration of three onboard cameras. RealityScan fixes those reference-camera poses, matches calibrated perspective views of each ERP rig, and optimizes the ERP poses. These are estimated, LiDAR-registered references rather than independently tracked camera truth.",
+          "Reference uncertainty": "The reported mean reprojection RMSE of 0.1917 px is an image-registration residual, not a camera-position error bound. A separate independent pose-accuracy survey was not established.",
+          "Geometry and depth labels": "The paper describes LiDAR reference geometry for dense reconstruction evaluation. A downloadable per-image dense-depth product, range-versus-Z definition, valid masks and image-level depth split are not established. Do not equate a geometry preview or method-predicted depth with released depth truth.",
+          "Evaluation protocol": "Camera trajectories use one global Umeyama Sim(3) alignment. PanoRecon SLAM methods process all sampled images, with evaluation keyframes at 1 s intervals; SfM uses 1 s inputs. Dense evaluation additionally refines cloud registration with ICP and reports precision/recall/F-score at 20 cm. Aligned scores do not establish unaligned absolute metric inference.",
+          "Release and maturity": "As checked on 2 November 2026, the official page provides previews, videos and an interactive reconstruction viewer, but no confirmed complete input/reference archive, official split or dataset terms. This pending resource is placed after mature accessible benchmarks."
+        },
+        "zh": {
+          "范围与规模": "论文覆盖 7 个真实室外建筑、住宅与道路场景：Building 1、Building 2、Residence 1、Road、GYM、HPC 和 Residence 2。视频平均 11.49 分钟，路线平均 0.87 km（0.26–1.69 km）；这些是论文统计，尚非本地下载清单。",
+          "全景成像": "Insta360 X4 安装在 3 m 延长杆上，以 5K、30 fps 录制，导出 ERP 后每 0.1 秒抽取 2K 图像。未确立原始鱼眼、有基线双目或 IMU 输入的公开发布；虚拟透视 rig 的子视图共用光心。",
+          "采集与同步": "全景视频与 RTK 辅助 LiDAR 沿相同规划路线分次采集，以几何方式配准；不能表述为相机与 LiDAR 同时硬件同步采集。",
+          "参考位姿构建": "RTK 校正的 LiDAR SLAM 生成米制点云，以及 3 路随载相机的位姿和标定。RealityScan 固定参考相机位姿，将每帧 ERP 分成已标定透视 rig 后匹配并优化 ERP 位姿。这是与 LiDAR 配准的估计参考，不是独立跟踪的相机真值。",
+          "参考不确定性": "平均重投影 RMSE 0.1917 px 是图像配准残差，不是相机位置误差界；尚未建立额外独立测量的位姿精度。",
+          "几何与深度标签": "论文描述用于稠密重建评测的 LiDAR 参考几何，尚未确立可下载的逐图稠密深度、range/Z 定义、有效掩码及深度划分。几何预览与方法预测深度不能视为已发布深度真值。",
+          "评测口径": "轨迹先统一作一次 Umeyama Sim(3) 对齐。SLAM 使用全部抽帧图像，按 1 秒间隔关键帧评测；SfM 采用 1 秒间隔输入。稠密评测还用 ICP 精配准，在 20 cm 阈值报告精确率、召回率及 F-score；对齐后的分数不证明未对齐的绝对米制推断能力。",
+          "发布与成熟度": "截至 2026 年 11 月 2 日，官方页提供预览、视频与交互重建浏览器，但尚未确证完整输入/参考压缩包、官方划分和数据许可。作为待核实专项资源，排在成熟可获取基准之后。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Paper-described reference products and demonstrated method reconstructions are distinct. A public viewer is not a complete dataset release.",
+          "Keep all views and revisits from a route in one split when constructing a custom protocol."
+        ],
+        "zh": [
+          "论文描述的参考产品与方法重建展示须分清；公开浏览器不等于完整数据发布。",
+          "自定义划分时，同一路线的各视图与重访应归入同一划分。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "No dataset reuse license or complete archive endpoint was established on the official project page. The paper license does not license a dataset. Public preview images and reconstructed viewer clouds do not establish availability of the benchmark inputs and references.",
+        "zh": "官方项目页尚未确立数据集再利用许可或完整压缩包入口。论文许可不等于数据许可；公开预览图及重建点云浏览器不能证明基准输入与参考数据已完整发布。"
+      },
+      "sourceChecked": "2026-11-02",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "stitched",
+          "availability": "announced",
+          "note": {
+            "en": "The paper exports X4 video as ERP, but a complete benchmark archive is not confirmed. Raw fisheye or physical stereo products are not established; internal perspective rigs do not create a baseline.",
+            "zh": "论文将 X4 视频导出为 ERP，完整基准压缩包尚未确证。未确立原始鱼眼或物理双目产品；内部透视 rig 不构成立体基线。"
+          },
+          "evidence": [
+            "https://arxiv.org/html/2610.36876v1",
+            "https://zhuoxiaoli.github.io/HoloRecon_page/"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "focused_primary_source_recheck_2026-11-02",
+      "annotations": {
+        "depth": {
+          "status": "unknown",
+          "provenance": [],
+          "note": {
+            "en": "LiDAR reference geometry is described, but no complete downloadable per-image depth product, convention or mask is confirmed. A scene point-cloud preview is not released image-depth truth.",
+            "zh": "论文描述 LiDAR 参考几何，但未确证完整可下载的逐图深度产品、定义及掩码；场景点云预览不等于已发布图像深度真值。"
+          }
+        },
+        "trajectory": {
+          "status": "unknown",
+          "provenance": [
+            "estimated"
+          ],
+          "note": {
+            "en": "Metric ERP references are estimated by registration to fixed RTK/LiDAR-derived reference cameras; complete benchmark inputs and pose files remain unavailable or unconfirmed. They are not independent tracking truth.",
+            "zh": "米制 ERP 参考由配准到固定的 RTK/LiDAR 参考相机估计而来；完整输入与位姿文件的可获取性仍待确认，不能称为独立跟踪真值。"
+          }
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2610.36876v1",
+          "https://arxiv.org/html/2610.36876v1",
+          "https://zhuoxiaoli.github.io/HoloRecon_page/"
+        ],
+        "checked": "2026-11-02"
+      },
+      "curation": {
+        "tier": "pending",
+        "rank": 3,
+        "scope": {
+          "en": "Long-route panoramic reconstruction",
+          "zh": "长路线全景重建"
+        },
+        "reason": {
+          "en": "A targeted seven-scene benchmark with paper-described LiDAR references; complete input/reference download and license remain unconfirmed.",
+          "zh": "面向长路线的 7 场景专项基准，论文描述 LiDAR 参考；完整输入/参考下载与许可尚待核实。"
+        },
+        "evidence": [
+          {
+            "url": "https://arxiv.org/html/2610.36876v1",
+            "title": "Original PanoRecon protocol and reference construction"
+          },
+          {
+            "url": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+            "title": "Official project preview and access review"
+          }
+        ],
+        "checked": "2026-11-02"
+      },
+      "figure": {
+        "image": "assets/datasets/ds_panorecon.webp",
+        "thumbnail": "assets/datasets/ds_panorecon-thumb.webp",
+        "sourceType": "author-project-image",
+        "sourcePageUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/",
+        "sourceUrl": "https://zhuoxiaoli.github.io/HoloRecon_page/assets/web/dataset_full.webp",
+        "paperUrl": "https://arxiv.org/abs/2610.36876v1",
+        "sourceTitle": "PanoRecon official LiDAR reference geometry preview",
+        "caption": {
+          "en": "Official seven-scene PanoRecon LiDAR-reference montage. Reference geometry, not HoloRecon predicted reconstruction or a confirmation that full benchmark data are downloadable.",
+          "zh": "PanoRecon 官方七场景 LiDAR 参考几何拼图；这是参考几何，不是 HoloRecon 的预测重建，也不代表完整基准已可下载。"
+        },
+        "credit": {
+          "en": "Source: Zhuoxiao Li et al., HoloRecon / PanoRecon official project, seven-scene reference-geometry preview.",
+          "zh": "来源：Zhuoxiao Li 等，HoloRecon / PanoRecon 官方项目七场景参考几何预览。"
+        },
+        "attribution": {
+          "en": "Source: Zhuoxiao Li et al., HoloRecon / PanoRecon official project, seven-scene reference-geometry preview.",
+          "zh": "来源：Zhuoxiao Li 等，HoloRecon / PanoRecon 官方项目七场景参考几何预览。"
+        },
+        "kind": "dataset-preview",
+        "verified": true,
+        "sourceChecked": "2026-11-02",
+        "imageSize": [
+          1600,
+          633
+        ],
+        "sourceLicense": "Copyright remains with original authors; no separate preview reuse terms confirmed.",
+        "verificationNote": "Individually viewed the official original image and resulting WebP preview. Preserved the complete scene montage or full 2:1 frame; no generated illustration, no method estimate relabeled as truth.",
+        "sourceSha256": "760172330a716182244ea83af5c233ed2bb71580842440a23bf48f309a019327"
+      }
+    },
+    {
+      "id": "ds_synpano",
+      "name": "SynPano",
+      "title": "SynPano: A Synthetic Panoramic Dataset for SLAM",
+      "year": 2026,
+      "venue": "Official dataset release, 26–27 October 2026; associated with Cube-Splat (ECCV 2026)",
+      "authors": "SynPano / Cube-Splat dataset authors (official maintainer: guoxf304 / gxfzju)",
+      "aliases": [
+        "SynPano-Dataset",
+        "SynPano-Datasets",
+        "Cube-Splat synthetic dataset"
+      ],
+      "cameras": [
+        "panoramic"
+      ],
+      "tasks": [
+        "slam"
+      ],
+      "environment": [
+        "indoor",
+        "outdoor"
+      ],
+      "reality": "synthetic",
+      "sensors": [
+        "Rendered ERP RGB"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Rendered ERP RGB"
+        ],
+        "zh": [
+          "渲染 ERP RGB"
+        ]
+      },
+      "groundTruth": [
+        "Rendered camera poses"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Rendered camera poses"
+        ],
+        "zh": [
+          "渲染相机位姿"
+        ]
+      },
+      "access": "open",
+      "homepageUrl": "https://github.com/guoxf304/SynPano-Dataset",
+      "paperUrl": "https://arxiv.org/abs/2609.21347",
+      "downloadUrl": "https://huggingface.co/datasets/gxfzju/SynPano",
+      "license": {
+        "en": "Conflicting official terms: the SynPano GitHub README declares CC BY-NC-SA 4.0, whereas the Hugging Face card declares MIT. File access is ungated, but the applicable dataset reuse license is unresolved; confirm terms with the maintainers before relying on either declaration.",
+        "zh": "官方许可声明存在冲突：SynPano GitHub README 为 CC BY-NC-SA 4.0，Hugging Face 卡片却标 MIT。文件可直接下载，但适用的数据再利用许可尚未解决；依赖任一声明前应向维护者核实。"
+      },
+      "summary": "Blender 渲染的 1920×960 ERP 序列：8 个室内外场景共 5,364 张 RGB 及匹配的相机位姿。当前发布不含深度图，官方许可声明存在冲突。",
+      "details": {
+        "en": {
+          "Current inventory": "Five indoor scenes (apartment, jodo, livingroom, meetingroom, washroom) and three outdoor scenes (desert, island_lake, village). Current counts are apartment 217, desert 1196, island_lake 611, jodo 511, livingroom 196, meetingroom 499, village 1583, washroom 551. Total: 5,364 PNG images plus eight pose files; rounded scene sizes sum to 14.02 GB. Metadata files are additional.",
+          "Release evidence": "The official Hugging Face repository was created 26 October 2026 at 13:04 UTC and last modified 27 October. The reviewed revision is 6ca1bf731c7b1417ea84c8830fff1a73aa08516c. Public metadata is non-private and ungated. These dates concern the available data repository, not a new Cube-Splat paper version.",
+          "Panoramic product": "Blender-rendered 2:1 equirectangular RGB at 1920×960. No raw fisheye or independent stereo pair is included in the checked inventory. Cubemap factorization inside Cube-Splat does not create a dataset stereo baseline.",
+          "Pose format and association": "Each groundtruth.txt row has nine columns: frame_id image_name x y z qx qy qz qw. It uses frame indices, not timestamps, and is not an eight-column TUM file. All eight small pose files were read and every image_name matched the published image inventory. The quaternion scalar is last; pose direction, world-axis convention, metric units and frame rate were not fully established by the README.",
+          "Completeness and old copies": "At the pinned release, island_lake has 611 images named 0000.png–0610.png and 611 pose rows. Older Cube-Splat notes describe an incomplete copy; check your actual files and match by image_name. Do not apply the old 453-image count or interpret 0610 as a 610-frame total.",
+          "Depth and other sensors": "The published file inventory contains RGB images and camera-pose text only. No depth images, depth masks, IMU, LiDAR or semantics are supplied by this release. Rendering in Blender does not imply those modalities were exported. Learned depth priors used by Cube-Splat are method predictions.",
+          "Evaluation and scope": "This is a targeted synthetic panoramic tracking/mapping resource, rather than a real-sensor accuracy benchmark. No official train/validation/test split was established. Keep scene identity, temporal overlap, alignment and any assumed units explicit; synthetic pose labels do not establish real-camera calibration robustness.",
+          "License conflict": "The official documentation and dataset card disagree: CC BY-NC-SA 4.0 versus MIT. Open download availability does not settle reuse rights. Preserve both declarations and obtain a maintainer clarification; do not silently promote the permissive tag."
+        },
+        "zh": {
+          "当前文件规模": "5 个室内场景（apartment、jodo、livingroom、meetingroom、washroom）与 3 个室外场景（desert、island_lake、village）。各场景图像数依次为 apartment 217、desert 1196、island_lake 611、jodo 511、livingroom 196、meetingroom 499、village 1583、washroom 551，共 5364 张 PNG 和 8 个位姿文件，场景文件约 14.02 GB；另有仓库元数据文件。",
+          "发布证据": "官方 Hugging Face 仓库创建于 2026 年 10 月 26 日 13:04 UTC，最后修改于 10 月 27 日；核验版本为 6ca1bf731c7b1417ea84c8830fff1a73aa08516c。公开元数据表明仓库非私有且未设下载门槛。这些日期对应数据仓库，不代表 Cube-Splat 论文新版。",
+          "全景产品": "Blender 渲染 1920×960、2:1 的 ERP RGB。核验清单没有原始鱼眼或独立双目对；Cube-Splat 内部 cubemap 分解不能视为数据集立体基线。",
+          "位姿格式与关联": "groundtruth.txt 每行 9 列：frame_id image_name x y z qx qy qz qw，采用帧索引而非时间戳，不是 8 列 TUM。已读取 8 个小型位姿文件并逐一将 image_name 与公开图像清单匹配。四元数实部在末列；README 尚未完整确立位姿方向、世界坐标轴、米制单位及帧率。",
+          "完整性与旧副本": "固定版本的 island_lake 有 611 张图像（0000.png–0610.png）与 611 行位姿。旧 Cube-Splat 说明提及不完整副本，应核对本地实际文件并按 image_name 匹配；不沿用旧 453 张计数，也不能将末编号 0610 误解成共 610 帧。",
+          "深度与其他传感器": "当前公开文件清单仅有 RGB 图像与相机位姿文本，没有深度图、深度掩码、IMU、LiDAR 或语义。Blender 可渲染不代表这些模态已导出；Cube-Splat 使用的学习深度先验仍是方法预测。",
+          "评测与适用范围": "这是合成全景跟踪/建图专项资源，不是真实传感器精度基准。尚未确立官方训练/验证/测试划分；须明确场景、时间重叠、对齐与单位假设，合成位姿标签不证明真实相机标定鲁棒性。",
+          "许可冲突": "官方文档声明 CC BY-NC-SA 4.0，而数据卡片写 MIT。开放下载不能消除再利用条款冲突；应保留两种声明并向维护者核实，不静默采用更宽松标签。"
+        }
+      },
+      "notes": {
+        "en": [
+          "This is the newly available official synthetic dataset release, not a new camera mode inferred from Cube-Splat.",
+          "Only metadata, eight small pose manifests and a lightweight official preview were downloaded during this review."
+        ],
+        "zh": [
+          "本条对应新可获取的官方合成数据发布，不从 Cube-Splat 方法推断额外相机产品。",
+          "本轮仅下载元数据、8 个小型位姿清单及官方轻量预览，未下载完整数据集。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://github.com/guoxf304/SynPano-Dataset",
+          "title": "Official dataset README: Blender ERP, scene inventory, pose format and CC BY-NC-SA statement"
+        },
+        {
+          "url": "https://huggingface.co/datasets/gxfzju/SynPano",
+          "title": "Official file host and MIT card declaration"
+        },
+        {
+          "url": "https://huggingface.co/api/datasets/gxfzju/SynPano",
+          "title": "Official API: pinned revision, ungated access, release timestamps and complete image inventory"
+        },
+        {
+          "url": "https://huggingface.co/datasets/gxfzju/SynPano/resolve/6ca1bf731c7b1417ea84c8830fff1a73aa08516c/island_lake/groundtruth.txt",
+          "title": "Pinned 611-row island_lake pose manifest checked against public image names"
+        },
+        {
+          "title": "Camera / annotation source",
+          "url": "https://huggingface.co/datasets/gxfzju/SynPano/tree/6ca1bf731c7b1417ea84c8830fff1a73aa08516c",
+          "checked": "2026-11-02"
+        }
+      ],
+      "checked": "2026-11-02",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Blender-rendered 1920×960 ERP sequences: 5,364 RGB images and matched camera-pose rows across eight indoor/outdoor scenes. The current release has no depth images; official license declarations conflict.",
+        "zh": "Blender 渲染的 1920×960 ERP 序列：8 个室内外场景共 5,364 张 RGB 及匹配的相机位姿。当前发布不含深度图，官方许可声明存在冲突。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Current inventory": "Five indoor scenes (apartment, jodo, livingroom, meetingroom, washroom) and three outdoor scenes (desert, island_lake, village). Current counts are apartment 217, desert 1196, island_lake 611, jodo 511, livingroom 196, meetingroom 499, village 1583, washroom 551. Total: 5,364 PNG images plus eight pose files; rounded scene sizes sum to 14.02 GB. Metadata files are additional.",
+          "Release evidence": "The official Hugging Face repository was created 26 October 2026 at 13:04 UTC and last modified 27 October. The reviewed revision is 6ca1bf731c7b1417ea84c8830fff1a73aa08516c. Public metadata is non-private and ungated. These dates concern the available data repository, not a new Cube-Splat paper version.",
+          "Panoramic product": "Blender-rendered 2:1 equirectangular RGB at 1920×960. No raw fisheye or independent stereo pair is included in the checked inventory. Cubemap factorization inside Cube-Splat does not create a dataset stereo baseline.",
+          "Pose format and association": "Each groundtruth.txt row has nine columns: frame_id image_name x y z qx qy qz qw. It uses frame indices, not timestamps, and is not an eight-column TUM file. All eight small pose files were read and every image_name matched the published image inventory. The quaternion scalar is last; pose direction, world-axis convention, metric units and frame rate were not fully established by the README.",
+          "Completeness and old copies": "At the pinned release, island_lake has 611 images named 0000.png–0610.png and 611 pose rows. Older Cube-Splat notes describe an incomplete copy; check your actual files and match by image_name. Do not apply the old 453-image count or interpret 0610 as a 610-frame total.",
+          "Depth and other sensors": "The published file inventory contains RGB images and camera-pose text only. No depth images, depth masks, IMU, LiDAR or semantics are supplied by this release. Rendering in Blender does not imply those modalities were exported. Learned depth priors used by Cube-Splat are method predictions.",
+          "Evaluation and scope": "This is a targeted synthetic panoramic tracking/mapping resource, rather than a real-sensor accuracy benchmark. No official train/validation/test split was established. Keep scene identity, temporal overlap, alignment and any assumed units explicit; synthetic pose labels do not establish real-camera calibration robustness.",
+          "License conflict": "The official documentation and dataset card disagree: CC BY-NC-SA 4.0 versus MIT. Open download availability does not settle reuse rights. Preserve both declarations and obtain a maintainer clarification; do not silently promote the permissive tag."
+        },
+        "zh": {
+          "当前文件规模": "5 个室内场景（apartment、jodo、livingroom、meetingroom、washroom）与 3 个室外场景（desert、island_lake、village）。各场景图像数依次为 apartment 217、desert 1196、island_lake 611、jodo 511、livingroom 196、meetingroom 499、village 1583、washroom 551，共 5364 张 PNG 和 8 个位姿文件，场景文件约 14.02 GB；另有仓库元数据文件。",
+          "发布证据": "官方 Hugging Face 仓库创建于 2026 年 10 月 26 日 13:04 UTC，最后修改于 10 月 27 日；核验版本为 6ca1bf731c7b1417ea84c8830fff1a73aa08516c。公开元数据表明仓库非私有且未设下载门槛。这些日期对应数据仓库，不代表 Cube-Splat 论文新版。",
+          "全景产品": "Blender 渲染 1920×960、2:1 的 ERP RGB。核验清单没有原始鱼眼或独立双目对；Cube-Splat 内部 cubemap 分解不能视为数据集立体基线。",
+          "位姿格式与关联": "groundtruth.txt 每行 9 列：frame_id image_name x y z qx qy qz qw，采用帧索引而非时间戳，不是 8 列 TUM。已读取 8 个小型位姿文件并逐一将 image_name 与公开图像清单匹配。四元数实部在末列；README 尚未完整确立位姿方向、世界坐标轴、米制单位及帧率。",
+          "完整性与旧副本": "固定版本的 island_lake 有 611 张图像（0000.png–0610.png）与 611 行位姿。旧 Cube-Splat 说明提及不完整副本，应核对本地实际文件并按 image_name 匹配；不沿用旧 453 张计数，也不能将末编号 0610 误解成共 610 帧。",
+          "深度与其他传感器": "当前公开文件清单仅有 RGB 图像与相机位姿文本，没有深度图、深度掩码、IMU、LiDAR 或语义。Blender 可渲染不代表这些模态已导出；Cube-Splat 使用的学习深度先验仍是方法预测。",
+          "评测与适用范围": "这是合成全景跟踪/建图专项资源，不是真实传感器精度基准。尚未确立官方训练/验证/测试划分；须明确场景、时间重叠、对齐与单位假设，合成位姿标签不证明真实相机标定鲁棒性。",
+          "许可冲突": "官方文档声明 CC BY-NC-SA 4.0，而数据卡片写 MIT。开放下载不能消除再利用条款冲突；应保留两种声明并向维护者核实，不静默采用更宽松标签。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "This is the newly available official synthetic dataset release, not a new camera mode inferred from Cube-Splat.",
+          "Only metadata, eight small pose manifests and a lightweight official preview were downloaded during this review."
+        ],
+        "zh": [
+          "本条对应新可获取的官方合成数据发布，不从 Cube-Splat 方法推断额外相机产品。",
+          "本轮仅下载元数据、8 个小型位姿清单及官方轻量预览，未下载完整数据集。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "Conflicting official terms: the SynPano GitHub README declares CC BY-NC-SA 4.0, whereas the Hugging Face card declares MIT. File access is ungated, but the applicable dataset reuse license is unresolved; confirm terms with the maintainers before relying on either declaration.",
+        "zh": "官方许可声明存在冲突：SynPano GitHub README 为 CC BY-NC-SA 4.0，Hugging Face 卡片却标 MIT。文件可直接下载，但适用的数据再利用许可尚未解决；依赖任一声明前应向维护者核实。"
+      },
+      "sourceChecked": "2026-11-02",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "The downloadable RGB PNGs are Blender-rendered complete 2:1 ERP frames. No raw fisheye or physical/simulated stereo baseline is documented for this product.",
+            "zh": "可下载 RGB PNG 是 Blender 渲染的完整 2:1 ERP 图像；该产品未记录原始鱼眼或物理/仿真立体基线。"
+          },
+          "evidence": [
+            "https://github.com/guoxf304/SynPano-Dataset",
+            "https://huggingface.co/api/datasets/gxfzju/SynPano"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "focused_primary_source_recheck_2026-11-02",
+      "annotations": {
+        "depth": {
+          "status": "no",
+          "provenance": [],
+          "note": {
+            "en": "The checked release inventory contains only RGB PNGs and pose text, with no image-depth labels or masks. Cube-Splat depth priors are predictions, not dataset truth.",
+            "zh": "核验的发布清单仅包含 RGB PNG 与位姿文本，没有图像深度标签或掩码；Cube-Splat 深度先验为预测而非数据真值。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "All 5,364 released images match simulation camera-pose rows across eight scenes. Files use image names and frame indices, not timestamps; coordinate and unit conventions still require confirmation.",
+            "zh": "8 个场景全部 5364 张发布图像均匹配仿真相机位姿行。文件以图像名和帧索引关联，没有时间戳；坐标与单位约定仍需确认。"
+          }
+        },
+        "evidence": [
+          "https://github.com/guoxf304/SynPano-Dataset",
+          "https://huggingface.co/api/datasets/gxfzju/SynPano",
+          "https://huggingface.co/datasets/gxfzju/SynPano/tree/6ca1bf731c7b1417ea84c8830fff1a73aa08516c"
+        ],
+        "checked": "2026-11-02"
+      },
+      "curation": {
+        "tier": "specialized",
+        "rank": 11,
+        "scope": {
+          "en": "Synthetic panoramic tracking / mapping",
+          "zh": "合成全景跟踪/建图"
+        },
+        "reason": {
+          "en": "An accessible eight-scene ERP/pose resource for targeted tests. Recent and narrower than mature benchmarks; pose conventions and conflicting reuse terms need attention.",
+          "zh": "可获取的 8 场景 ERP/位姿专项资源。范围小于成熟基准，且新近发布；位姿约定与许可冲突仍需留意。"
+        },
+        "evidence": [
+          {
+            "url": "https://github.com/guoxf304/SynPano-Dataset",
+            "title": "Official release scope and data format"
+          },
+          {
+            "url": "https://huggingface.co/api/datasets/gxfzju/SynPano",
+            "title": "Ungated current file inventory; compare MIT card with official README terms"
+          }
+        ],
+        "checked": "2026-11-02"
+      },
+      "figure": {
+        "image": "assets/datasets/ds_synpano.webp",
+        "thumbnail": "assets/datasets/ds_synpano-thumb.webp",
+        "sourceType": "author-project-image",
+        "sourcePageUrl": "https://github.com/guoxf304/SynPano-Dataset",
+        "sourceUrl": "https://raw.githubusercontent.com/guoxf304/SynPano-Dataset/main/assets/apartment.jpg",
+        "paperUrl": "https://arxiv.org/abs/2609.21347",
+        "sourceTitle": "SynPano official rendered ERP RGB preview",
+        "caption": {
+          "en": "Official resized, uncropped ERP RGB preview from apartment/images/0108.png. A Blender-rendered color frame, not a measured scene or a depth map.",
+          "zh": "官方由 apartment/images/0108.png 缩小、未裁剪的 ERP RGB 预览；这是 Blender 渲染彩色帧，不是实测场景或深度图。"
+        },
+        "credit": {
+          "en": "Source: SynPano dataset authors, official SynPano-Dataset apartment preview.",
+          "zh": "来源：SynPano 数据集作者，官方 SynPano-Dataset apartment 预览。"
+        },
+        "attribution": {
+          "en": "Source: SynPano dataset authors, official SynPano-Dataset apartment preview.",
+          "zh": "来源：SynPano 数据集作者，官方 SynPano-Dataset apartment 预览。"
+        },
+        "kind": "dataset-preview",
+        "verified": true,
+        "sourceChecked": "2026-11-02",
+        "imageSize": [
+          640,
+          320
+        ],
+        "sourceLicense": "Official dataset README says CC BY-NC-SA 4.0; Hugging Face metadata says MIT. Reuse terms conflict and require maintainer clarification.",
+        "verificationNote": "Individually viewed the official original image and resulting WebP preview. Preserved the complete scene montage or full 2:1 frame; no generated illustration, no method estimate relabeled as truth.",
+        "sourceSha256": "eaac2c9fb63590e95c067d061bd5751fe4ed47b9d22009e732110e58803420c6"
       }
     },
     {
@@ -19324,12 +20329,12 @@ window.ATLAS_DATA = {
     }
   ],
   "stats": {
-    "depth": 37,
-    "slam": 34,
-    "datasets": 38,
-    "panoramicDepth": 26,
-    "panoramicSLAM": 12,
-    "paperFigures": 71,
-    "datasetFigures": 38
+    "depth": 39,
+    "slam": 35,
+    "datasets": 40,
+    "panoramicDepth": 27,
+    "panoramicSLAM": 13,
+    "paperFigures": 74,
+    "datasetFigures": 40
   }
 };

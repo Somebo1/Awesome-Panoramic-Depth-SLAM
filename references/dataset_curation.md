@@ -373,6 +373,17 @@ A recent static-scene release; dynamic-version per-frame poses are not interchan
 
 - https://huggingface.co/datasets/Soon122/PanoCARLA-Static
 
+### SynPano
+
+合成全景跟踪/建图 / Synthetic panoramic tracking / mapping
+
+可获取的 8 场景 ERP/位姿专项资源。范围小于成熟基准，且新近发布；位姿约定与许可冲突仍需留意。
+
+An accessible eight-scene ERP/pose resource for targeted tests. Recent and narrower than mature benchmarks; pose conventions and conflicting reuse terms need attention.
+
+- https://github.com/guoxf304/SynPano-Dataset
+- https://huggingface.co/api/datasets/gxfzju/SynPano
+
 ## 待发布或待核实 / Awaiting release or verification
 
 ### MILD / MILD-Sim
@@ -394,3 +405,14 @@ Announced benchmark; complete data, code and evaluation manifests await acceptan
 Dataset acquisition and reference completeness remain unverified.
 
 - https://github.com/YYWumm/PanoAir
+
+### PanoRecon
+
+长路线全景重建 / Long-route panoramic reconstruction
+
+面向长路线的 7 场景专项基准，论文描述 LiDAR 参考；完整输入/参考下载与许可尚待核实。
+
+A targeted seven-scene benchmark with paper-described LiDAR references; complete input/reference download and license remain unconfirmed.
+
+- https://arxiv.org/html/2610.36876v1
+- https://zhuoxiaoli.github.io/HoloRecon_page/

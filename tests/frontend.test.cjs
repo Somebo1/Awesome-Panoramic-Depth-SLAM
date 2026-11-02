@@ -379,6 +379,30 @@ check('Hilti v2 uncertainty does not become independent trajectory truth or dens
   assert.match(r.datasetDetails.en['Floor-plan priors'],/1.3 px/);assert(r.evidence.some(e=>e.url&&e.url.includes('2607.06464v2')));
   assert.equal(catalog.records.filter(r=>r.id==='ds_hilti2026').length,1);
 });
+check('calibrated Any3R and DEX retain distinct camera, gauge and release semantics',()=>{
+  const byId=new Map(catalog.records.map(r=>[r.id,r]));const any=byId.get('any3r2026'),dex=byId.get('dex2026');assert(any&&dex);
+  assert.equal(any.scale,'relative');assert.equal(any.depthType,'range');assert.equal(any.pose,true);assert.equal(any.imu,false);assert.equal(any.loopClosure,false);assert.equal(any.codeStatus,'released');
+  for(const camera of ['panoramic','fisheye','perspective'])assert(any.cameras.includes(camera));assert(!any.cameras.includes('multi'));
+  assert.match(any.inputs.intrinsics,/required|calibration/);assert.match(any.outputDetails.depth_convention,/not optical-axis Z/);assert.match(any.license.weights,/Noncommercial/);assert.match(any.license.code,/trunk/);
+  assert.deepEqual(dex.cameras,['fisheye','wide']);assert.equal(dex.nativePanoramic,false);assert.equal(dex.scale,'mixed');assert.equal(dex.depthType,'range');assert.equal(dex.codeStatus,'none');assert.equal(dex.pose,false);
+  assert.match(dex.notes.join(' '),/LICENSE/);assert.match(dex.outputDetails.depth_convention,/back to Z/);
+  for(const [id,category,phrase] of [['any3r2026','panoramic','已知'],['dex2026','fisheye','单图鱼眼深度适配']]){
+    const b=boot('?collection=depth&category='+category+'&lang=zh');assert(b.api.getFilteredRecords().some(r=>r.id===id));b.api.openRecord(id);assert.match(b.doc.getElementById('detail-content').textContent,new RegExp(phrase));b.dom.window.close();
+  }
+});
+check('HoloRecon global correction does not imply metric, physical stereo or real-time tracking',()=>{
+  const r=catalog.records.find(r=>r.id==='holorecon2026');assert(r);assert.deepEqual(r.cameras,['panoramic']);assert.equal(r.scale,'relative');assert.equal(r.depthType,'points');assert.equal(r.pose,true);assert.equal(r.imu,false);assert.equal(r.loopClosure,true);assert.equal(r.codeStatus,'unverified');
+  assert.match(r.outputDetails.depth_convention,/Z.*radial|Radial/);assert.match(r.outputDetails.runtime,/Not real time/);assert.match(r.notes.join(' '),/Sim\(3\)/);assert.equal(r.figure.page,4);assert.equal(r.figure.figureLabel,'Figure 2');
+  const b=boot('?collection=slam&category=panoramic&q=HoloRecon&lang=en');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/181.38/);b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/尺度仍不确定|单目尺度/);b.dom.window.close();
+});
+check('new panorama datasets preserve release inventory, estimated references and unresolved terms',()=>{
+  const byId=new Map(catalog.records.map(r=>[r.id,r]));const syn=byId.get('ds_synpano'),pano=byId.get('ds_panorecon');assert(syn&&pano);
+  assert.equal(syn.reality,'synthetic');assert.equal(syn.access,'open');assert.equal(syn.annotations.depth.status,'no');assert.equal(syn.annotations.trajectory.status,'yes');assert.deepEqual(syn.annotations.trajectory.provenance,['rendered']);assert.equal(syn.cameraSupport[0].route,'rendered');assert.equal(syn.curation.tier,'specialized');
+  assert.match(syn.datasetDetails.en['Current inventory'],/5,364/);assert.match(syn.datasetDetails.en['Completeness and old copies'],/611/);assert.match(syn.datasetDetails.en['Pose format and association'],/nine columns/);assert.match(syn.datasetLicense.en,/CC BY-NC-SA 4.0/);assert.match(syn.datasetLicense.en,/MIT/);
+  assert.equal(pano.reality,'real');assert.equal(pano.access,'unknown');assert.equal(pano.curation.tier,'pending');assert.equal(pano.annotations.depth.status,'unknown');assert.equal(pano.annotations.trajectory.status,'unknown');assert.deepEqual(pano.annotations.trajectory.provenance,['estimated']);assert.match(pano.datasetDetails.en['Reference uncertainty'],/not a camera-position/);
+  const b=boot('?collection=datasets&category=panoramic&lang=en');b.api.setFilter('trajectoryGT','yes');assert(b.api.getFilteredRecords().some(r=>r.id===syn.id));assert(!b.api.getFilteredRecords().some(r=>r.id===pano.id));b.api.setFilter('trajectoryGT','unknown');assert(b.api.getFilteredRecords().some(r=>r.id===pano.id));
+  for(const id of [syn.id,pano.id]){b.api.setLanguage('zh');b.api.openRecord(id);assert.match(b.doc.getElementById('detail-content').textContent,/许可/);b.doc.getElementById('detail-dialog').close();}b.dom.window.close();
+});
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};
 fs.mkdirSync(path.join(root,'tests/results'),{recursive:true});

@@ -6,7 +6,7 @@ A curated index of **panoramic, fisheye and pinhole depth estimation, visual odo
 
 **[Explore the website →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=en)** · [Panoramic localization and mapping](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic&lang=en) · [Datasets](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=en) · [Full JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-Latest incremental literature-search cutoff: **2026-10-26**, with overlap from 2026-10-05; individual evidence dates remain separate. The atlas contains **109** records: **37** depth and geometry methods (26 include a panoramic pipeline, 18 have pinhole-input evidence), **34** SLAM / VO / VIO / localization methods (12 have explicit ERP input evidence), and **38** datasets (17 involve panoramic data or an explicit rendering or resampling protocol). Categories overlap. This is a manually verified index organized around research tasks, not a performance ranking or an exhaustive survey.
+Latest incremental literature-search cutoff: **2026-11-02**, with overlap from 2026-10-12; individual evidence dates remain separate. The atlas contains **114** records: **39** depth and geometry methods (27 include a panoramic pipeline, 19 have pinhole-input evidence), **35** SLAM / VO / VIO / localization methods (13 have explicit ERP input evidence), and **40** datasets (19 involve panoramic data or an explicit rendering or resampling protocol). Categories overlap. This is a manually verified index organized around research tasks, not a performance ranking or an exhaustive survey.
 
 ## Using the atlas
 
@@ -29,7 +29,7 @@ The default reading priority puts resources with established use and clearer eva
 
 This order is an editorial recommendation qualified by task scope, not an objective download-count or citation-based popularity ranking. An established perspective benchmark is not automatically suitable for full ERP input. Version support and native ERP support still need separate verification.
 
-The 38 entries cover captured and rendered panoramic benchmarks, fisheye visual-inertial sequences, and common perspective baselines. Some announced resources are not yet available: inclusion does not mean the data can be downloaded. Each entry distinguishes the actual sensors, public annotations, depth or distance definition, reference trajectory, calibration and synchronization, splits, license and access conditions.
+The 40 entries cover captured and rendered panoramic benchmarks, fisheye visual-inertial sequences, and common perspective baselines. Some announced resources are not yet available: inclusion does not mean the data can be downloaded. Each entry distinguishes the actual sensors, public annotations, depth or distance definition, reference trajectory, calibration and synchronization, splits, license and access conditions.
 
 Depth and trajectory each have five independent annotation-status filters, preserving the distinction between estimated references, limited coverage and independently obtained ground truth:
 
@@ -60,14 +60,14 @@ The canonical records are `source_data/datasets_depth.json` and `source_data/dat
 
 | Direction | Representative methods |
 |---|---|
-| Panoramic foundation models and cross-camera methods | DAP, DepthMaster (2026), OmniPoint, OmniRay, UniDAC, DAC, DA², DA360, PanDA, UniK3D, PaGeR, RePer-360 |
+| Panoramic foundation models and cross-camera methods | DAP, DepthMaster (2026), OmniPoint, OmniRay, Any3R, UniDAC, DAC, DA², DA360, PanDA, UniK3D, PaGeR, RePer-360 |
 | Panoramic projection and fusion | 360MonoDepth, OmniFusion, HRDFuse, Elite360D, RPG360, ST²360D |
 | Supervised and self-supervised panoramic depth | UniFuse, PanoFormer, BiFuse++, Depth Anywhere |
 | Physical multi-camera stereo | MODE, MCPDepth |
 | Video and multi-view geometry references | Video Depth Anything, Depth Anything 3, VGGT, VGGT-Ω |
 | Pinhole depth and geometry baselines | Depth Anything V2, UniDepthV2, Metric3Dv2, Depth Pro, MoGe-2, MoGe-3, Marigold |
-| Localization and mapping with ERP input | stella_vslam, OmniVLoc, 360VO, 360-VIO, 360DVO, PatchMatch-Stereo-Panorama, Cube-Splat, PanoLoop, 360ORB-SLAM, ODGS-SLAM, PanoGS-SLAM, PanoAir |
-| Fisheye, wide-FOV and inertial methods | OpenVINS, ORB-SLAM3, Basalt, VINS-Fusion, OKVIS2/2-X, SVO Pro, OmniSLAM, LF-VISLAM, P2U-SLAM |
+| Localization and mapping with ERP input | stella_vslam, HoloRecon, OmniVLoc, 360VO, 360-VIO, 360DVO, PatchMatch-Stereo-Panorama, Cube-Splat, PanoLoop, 360ORB-SLAM, ODGS-SLAM, PanoGS-SLAM, PanoAir |
+| Fisheye, wide-FOV and inertial methods | DEX, OpenVINS, ORB-SLAM3, Basalt, VINS-Fusion, OKVIS2/2-X, SVO Pro, OmniSLAM, LF-VISLAM, P2U-SLAM |
 | Learned VO and SLAM | DROID-SLAM, DPVO, DPV-SLAM, MASt3R-SLAM, DBA-Fusion, D3VO, CodeVIO |
 | RGB-D, neural implicit and Gaussian maps | SplaTAM, GO-SLAM, MonoGS, PanoSLAM |
 
@@ -104,9 +104,11 @@ DAC and UniDAC may appear in multiple categories because they document calibrate
 
 ## Update records and figure provenance
 
-All 71 methods include verified paper figures; previews for the 38 datasets are attributed separately.
+All 74 methods include verified paper figures; previews for the 40 datasets are attributed separately.
 
-The [2026-10-26 incremental audit](references/weekly_20261026_sources.md) adds **OmniRay** (October 22: multi-projection relative point maps, not metric; code/models TBD) and **OmniVLoc** (October 20: ERP localization in a prebuilt metric map, with IMU in full mode, rather than SLAM from an unknown scene). Both have real original-paper method figures and complete bilingual specifications. **Hilti 2026 v2** clarifies estimated references, floor-plan annotations and limits on interpreting centimetre-scale differences; the manuscript revision is not a new dataset release. Official metadata for 54 code repositories and 79 existing arXiv identities was checked, with review scope and limits recorded.
+The [2026-11-02 incremental audit](references/weekly_20261102_sources.md) adds **Any3R** (calibrated mixed-camera, up-to-scale multi-view geometry; inference code and weights released), **HoloRecon** (full-ERP long-range reconstruction and global correction; relative scale, not real time), and backfills revised **DEX** (fisheye adaptation, no verified ERP support, code still pending). New datasets are **SynPano** (5364 RGB frames with matched simulation poses, no depth images, conflicting official license declarations) and **PanoRecon** (seven outdoor scenes with estimated registered references; complete archive unconfirmed). Existing VGGT-Ω v2 results and OmniRay project links are corrected without treating website code as a model release. Metadata for 54 existing official repositories and 81 arXiv identities was checked; HTTP429 limitations of Atom discovery are documented.
+
+The earlier [2026-10-26 incremental audit](references/weekly_20261026_sources.md) adds **OmniRay** (October 22: multi-projection relative point maps, not metric; code/models TBD) and **OmniVLoc** (October 20: ERP localization in a prebuilt metric map, with IMU in full mode, rather than SLAM from an unknown scene). Both have real original-paper method figures and complete bilingual specifications. **Hilti 2026 v2** clarifies estimated references, floor-plan annotations and limits on interpreting centimetre-scale differences; the manuscript revision is not a new dataset release. Official metadata for 54 code repositories and 79 existing arXiv identities was checked, with review scope and limits recorded.
 
 The preceding literature search is documented in the [2026-10-19 source audit](references/weekly_20261019_sources.md), covering GeoPano, AprilVINS / MILD, PanoCARLA-Static, and previously omitted 360DVO and ODGS-SLAM datasets. GeoPano point maps are scale-aligned outputs. AprilVINS is conditionally metric VIO with fisheye, IMU and AprilTag inputs; its algorithm and MILD data remain pending release. Backfilled older resources are not described as new work from that week, and unverified code announcements are not labeled complete implementations.
 

@@ -800,8 +800,8 @@
       "Meta AI"
     ],
     "year": 2026,
-    "venue": "CVPR 2026 Oral / Best Paper Finalist per official project",
-    "paper_url": "https://arxiv.org/abs/2605.15195",
+    "venue": "CVPR 2026 Oral / Best Paper Finalist per official project; arXiv v2 revised 2026-10-25",
+    "paper_url": "https://arxiv.org/abs/2605.15195v2",
     "project_url": "https://vggt-omega.github.io/",
     "code_url": "https://github.com/facebookresearch/vggt-omega",
     "weights_url": "https://huggingface.co/facebook/VGGT-Omega",
@@ -843,19 +843,22 @@
     "innovation": "Register attention restricts cross-frame exchange; single dense head; scalable supervision and unlabeled videos.",
     "evidence": [
       "Official project method description, current README and model forward inspected; paper experimental sections not fully read",
-      "https://raw.githubusercontent.com/facebookresearch/vggt-omega/main/README.md"
+      "https://raw.githubusercontent.com/facebookresearch/vggt-omega/main/README.md",
+      "https://arxiv.org/abs/2605.15195v2",
+      "https://arxiv.org/html/2605.15195v2"
     ],
     "engineering_notes": [
       "Use Sep2026 416-Reproduction checkpoint for benchmarking;512in-wild explicitly no benchmarking",
       "Project newsSep18 vs repoSep8 release-date discrepancy; cutoff existence verified",
-      "Unknown: no public comparable measurement verified."
+      "Unknown: no public comparable measurement verified.",
+      "arXiv v2 (2026-10-25) corrects the Ours-1B pose/depth results in Tables 1 and 2. The 10B rows and architecture description are unchanged from v1; this is not a new projection capability or model release."
     ],
-    "accessed": "2026-10-17",
+    "accessed": "2026-11-02",
     "environment": "PyTorch official repository; exact version requirements not fully audited: Unknown",
     "reproduction_status": "Official sources audited to stated level; no trained model inference executed in this mission",
     "evidence_level": "L2_partial",
     "schema_version": "1.0",
-    "url_verification": "2026-10-17: code_url opened; project_url opened or explicitly linked by official repository; direct weights_url opened where retained, otherwise verified official README anchor; no guessed HF organization/collection ID retained"
+    "url_verification": "2026-11-02: original arXiv v1/v2 PDFs compared; v2 updates Ours-1B benchmark values without new camera capabilities. Existing repository/model-card availability was checked separately."
   },
   {
     "id": "unidepth_v2",
@@ -1911,7 +1914,7 @@
     ],
     "native_panoramic": true,
     "task_family": "single-image camera-agnostic relative point-map estimation",
-    "accessed": "2026-10-26",
+    "accessed": "2026-11-02",
     "input": {
       "frames": "One RGB image from a central camera; no camera-type label or measured camera calibration.",
       "projection": "Complete ERP, pinhole and fisheye inputs are explicitly evaluated. A separate held-out Nayar catadioptric case is annular, not another ERP representation.",
@@ -1944,8 +1947,8 @@
     "innovation": "Composes a monotone radial camera base with spherical-harmonic and free-form residual rotations, then combines the ray field with a DPT radial-distance prediction.",
     "summary_zh": "以单调径向基底、球谐残差和自由场残差组合相机射线，统一针孔、鱼眼和完整 ERP 的单图相对三维点图；不需要相机类型或内参，但不恢复绝对米制尺度。",
     "engineering_notes": [
-      "First submitted 2026-10-22; this is a new paper in the current weekly window, not a backfilled older model.",
-      "The official project explicitly says code and models are TBD; its Code, Demo and Checkpoint buttons point to the arXiv page rather than released artifacts as checked on 2026-10-26.",
+      "First submitted 2026-10-22 and added in the October26 review; November2 revisits project/release links without changing the paper identity.",
+      "As checked on 2026-11-02, the project still labels code/models TBD. Its GitHub target now contains the project page and a viewer of precomputed point clouds only; the repository explicitly plans model code upon publication. The linked Hugging Face checkpoint endpoint could not be accessed (HTTP 401), so no weight release was verified.",
       "Paper Sec. 4.3 and Table 2 align each method per image by the ratio of ground-truth and predicted median radial distance. Scale-aligned results must not be labeled absolute metric accuracy.",
       "The central-camera assumption requires rays to share a viewpoint. A noncentral stitched rig is not validated merely by the any-camera title.",
       "Training uses 2D3DS and 360Loc source panoramas plus sampled lens views. Held-out GoPro/catadioptric geometry and unseen PanoCity/CO3Dv2 tests have different scopes.",
@@ -1956,11 +1959,205 @@
     "reproduction_status": "Original paper/project reviewed and original method figure visually checked; no inference performed.",
     "evidence_level": "L2_original_paper_and_official_project_no_implementation_released",
     "schema_version": "1.1",
-    "url_verification": "2026-10-26: original arXiv v1, official project and code/checkpoint link targets checked.",
+    "url_verification": "2026-11-02: official project, Code link target and project-only repository README checked. Checkpoint link returned HTTP 401; no implementation/checkpoint release verified.",
     "evidence": [
       "https://arxiv.org/abs/2610.31645v1",
       "https://arxiv.org/html/2610.31645v1",
-      "https://nam1410.github.io/omniray/"
+      "https://nam1410.github.io/omniray/",
+      "https://github.com/nam1410/omniray",
+      "https://raw.githubusercontent.com/nam1410/omniray/main/README.md"
+    ]
+  },
+  {
+    "id": "any3r2026",
+    "short_name": "Any3R",
+    "title": "Any3R: Feedforward 3D Reconstruction from Any Camera Type",
+    "authors": [
+      "Jingong Chen",
+      "Qingwen Zhang",
+      "Youming Deng",
+      "Chulwoo Pack",
+      "Olaf Wysocki",
+      "Boris Jutzi",
+      "Kwanghee Won",
+      "Kyle Gao"
+    ],
+    "institutions": [
+      "South Dakota State University",
+      "Aalto University",
+      "KTH Royal Institute of Technology",
+      "Cornell University",
+      "University of Cambridge",
+      "Karlsruhe Institute of Technology"
+    ],
+    "year": 2026,
+    "venue": "arXiv preprint 2610.36150v1; submitted 2026-10-26",
+    "paper_url": "https://arxiv.org/abs/2610.36150v1",
+    "project_url": "https://jingong-chen.github.io/Any3R/",
+    "code_url": "https://github.com/Jingong-Chen/Any3R",
+    "weights_url": "https://huggingface.co/Jingong/Any3R",
+    "license": {
+      "code": "MIT for original utilities; VGGT-Omega-derived trunk and aggregator use the FAIR Noncommercial Research License. Running the full network inherits noncommercial research restrictions.",
+      "weights": "FAIR Noncommercial Research License, inherited from VGGT-Omega; not MIT."
+    },
+    "category": [
+      "multi-view",
+      "panoramic",
+      "fisheye",
+      "pinhole",
+      "ray-conditioned",
+      "relative",
+      "feed-forward-reconstruction"
+    ],
+    "camera_support": [
+      "panoramic_erp",
+      "fisheye",
+      "perspective"
+    ],
+    "native_panoramic": true,
+    "task_family": "calibrated multi-view relative reconstruction",
+    "accessed": "2026-11-02",
+    "input": {
+      "frames": "A set of RGB views of a static scene, potentially mixing different central-camera projections. Paper training uses 2-8 views; public inference accepts a view set.",
+      "projection": "Complete ERP, raw fisheye (including beyond 180 degrees) and pinhole are explicit direct inputs. No cubemap conversion is required.",
+      "intrinsics": "Per-view unit ray map required, computed from supplied calibration or an approximate nominal lens/FoV. ERP rays follow the known spherical grid. The model does not estimate intrinsics.",
+      "resolution": "infer: images (S,3,H,W) in [0,1], rays (S,H,W,3). prepare_views downsizes and pads a shared canvas; patch size 16. Demo default size 512.",
+      "extrinsics": "No supplied inter-view poses; camera-to-world poses are predicted in the first-view frame.",
+      "imu": "No",
+      "gravity": "No measured gravity input documented.",
+      "synchronization": "No IMU or rig synchronization requirement; scenes are assumed static."
+    },
+    "output": {
+      "primary": "Per-view radial distance, confidence, local/world point maps and predicted camera-to-world poses, all with arbitrary scene scale.",
+      "point_map": "local_points=depth*ray; world_points are transformed by predicted camera-to-world poses.",
+      "normal": "No independent normal-output head documented.",
+      "confidence": "depth_conf (S,H,W) is a learned score, not a calibrated physical error bound.",
+      "camera_parameters": "camera_poses (S,4,4), relative to the first view. Intrinsics/ray fields are supplied rather than recovered."
+    },
+    "geometry_output": [
+      "radial_range",
+      "point_map",
+      "camera_pose",
+      "confidence"
+    ],
+    "depth_convention": "depth is distance along each supplied unit ray: X=d*R, not optical-axis Z. Both distance and camera translation retain arbitrary global scale.",
+    "scale": "Relative geometry with arbitrary global scene scale. Paper uses similarity alignment and ICP for reconstruction accuracy; metre-valued aligned errors do not prove metric inference.",
+    "metric_status": "scale_invariant",
+    "pose_output": "Yes: camera-to-world poses for the input view set, in the first-view frame; no online odometry state or loop-closure system.",
+    "imu_required": false,
+    "loop_closure": false,
+    "runtime": "Authors report 32 views at 512x512 in 1.1 s and 128 views in 9 s (17.7 GB) on RTX 5090; not locally reproduced and not a continuous-SLAM frame rate.",
+    "code_entry": "any3r/model.py::Any3R.infer; any3r/io.py::prepare_views; demo.py; eval/evaluate.py",
+    "innovation": "Uses calibrated rays to set angular rotary coordinates and weight point supervision by solid angle, allowing one VGGT-Omega-derived model to fuse mixed central-camera views.",
+    "summary_zh": "以已知逐像素射线条件化角度位置编码与立体角损失，直接融合完整 ERP、鱼眼和针孔多视图，预测径向距离、点图和相对位姿；尺度仍不确定，需要相机标定。",
+    "engineering_notes": [
+      "Submitted 2026-10-26; official repository dates inference, weights, demo and evaluation release to 2026-10-31. Actual model, camera and export source files and an ungated model.safetensors listing were verified; weights were not downloaded.",
+      "Camera-agnostic means a ray-conditioned central-camera interface, not calibration-free. With no ray map, the public model falls back to ERP directions for every view; this is not automatic lens recognition.",
+      "Thirteen camera models are evaluated, eight seen during training and five held out. The main controlled benchmark resamples panoramas; separate ScanNet++ and FIORD tests use real fisheye lenses.",
+      "All geometry retains an arbitrary global scale. Evaluation aligns fused predictions with a similarity transform and ICP; reported reconstruction errors in metres are not absolute metric-depth evidence.",
+      "A view set can mix lenses without a calibrated physical stereo baseline. This does not establish a multi-camera rig mode or continuous SLAM, temporal tracking or loop closure.",
+      "The full model is restricted to noncommercial research by the VGGT-Omega-derived components and weights even though the top-level LICENSE is MIT.",
+      "No direct comparison with DAP was established in the reviewed primary sources. No local model inference or hardware performance validation was performed."
+    ],
+    "environment": "Python >=3.10, torch>=2.3, numpy, Pillow, safetensors and huggingface_hub>=0.23. Model metadata lists 1.15B parameters / 4.6GB float32 weights. GPU bfloat16 recommended; infer uses float16 on older CUDA devices, CPU path is present. No weights downloaded or inference run.",
+    "official_release_status": "inference_code_weights_demo_and_evaluation_released_2026-10-31; no local inference",
+    "reproduction_status": "Original paper, released inference/camera source, model file listing and licenses reviewed; original Figure 3 visually checked. No inference run.",
+    "evidence_level": "L2_original_paper_and_released_source_model_listing_no_local_inference",
+    "schema_version": "1.1",
+    "url_verification": "2026-11-02: official paper/project, actual source, model file listing and license distinctions checked.",
+    "evidence": [
+      "https://arxiv.org/abs/2610.36150v1",
+      "https://arxiv.org/html/2610.36150v1",
+      "https://jingong-chen.github.io/Any3R/",
+      "https://github.com/Jingong-Chen/Any3R",
+      "https://github.com/Jingong-Chen/Any3R/blob/main/any3r/model.py",
+      "https://github.com/Jingong-Chen/Any3R/blob/main/docs/cameras.md",
+      "https://github.com/Jingong-Chen/Any3R/blob/main/THIRD_PARTY_NOTICES.md",
+      "https://huggingface.co/Jingong/Any3R"
+    ]
+  },
+  {
+    "id": "dex2026",
+    "short_name": "DEX (Distortion Extenders)",
+    "title": "From Perspective to Fisheye Depth Estimation and Open-Vocabulary Segmentation",
+    "authors": [
+      "Rit Gangopadhyay",
+      "Alex Wong"
+    ],
+    "institutions": [
+      "Yale Vision Laboratory, Yale University"
+    ],
+    "year": 2026,
+    "venue": "ECCV 2026, pp. 245-265; DOI 10.1007/978-3-032-37627-5_14; arXiv v2 revised 2026-10-26",
+    "paper_url": "https://arxiv.org/abs/2608.27860v2",
+    "project_url": "https://github.com/Suchisrit/DEX",
+    "code_url": "https://github.com/Suchisrit/DEX",
+    "weights_url": null,
+    "license": {
+      "code": "Author repository contains Apache-2.0 LICENSE only; executable DEX source has not been released.",
+      "weights": "Unknown: no DEX checkpoints or checkpoint license verified."
+    },
+    "category": [
+      "monocular",
+      "fisheye",
+      "adapter",
+      "depth-and-segmentation"
+    ],
+    "camera_support": [
+      "fisheye"
+    ],
+    "native_panoramic": false,
+    "task_family": "single-image fisheye depth adaptation",
+    "accessed": "2026-11-02",
+    "input": {
+      "frames": "One raw fisheye RGB image; segmentation additionally receives text class labels.",
+      "projection": "Raw fisheye is the evaluated DEX input; no complete ERP interface or benchmark was established. Perspective images are training teachers, not evidence of a released unified inference interface.",
+      "intrinsics": "No measured calibration or rectification needed at inference; calibrated perspective intrinsics and synthetic KB transforms are required by the training objective.",
+      "resolution": "Paper evaluation uses 462x616 on ScanNet++ and 700x700 on KITTI-360. Released inference resize/API remains unavailable.",
+      "extrinsics": "Not required for the described single-image inference.",
+      "imu": "No",
+      "gravity": "No measured gravity input documented.",
+      "synchronization": "Single image, no temporal or external-sensor synchronization input."
+    },
+    "output": {
+      "primary": "Dense Euclidean radial range R from a selected frozen depth model plus DEX; alternatively open-vocabulary segmentation logits in a separate task configuration.",
+      "point_map": "No released direct point-map head or exporter verified. Reconstructing metric points requires appropriate camera rays and a metric base/scale.",
+      "normal": "No independent normal-output head documented.",
+      "confidence": "No additional calibrated depth-uncertainty head documented for DEX.",
+      "camera_parameters": "Paper analysis decodes KB distortion coefficients from extender activations; no released inference API verified."
+    },
+    "geometry_output": [
+      "radial_range"
+    ],
+    "depth_convention": "Depth variant uses Euclidean ray distance R, not camera-axis Z. Training converts perspective teacher Z to R; ScanNet++ evaluation converts R back to Z using KB calibration, while KITTI-360 uses R with MEI geometry.",
+    "scale": "Base/teacher dependent, not a universal metric-scale guarantee. DEX is tested with relative MiDaS/DepthAnything and metric UniDepthV2; released DEX checkpoint semantics cannot yet be audited.",
+    "metric_status": "mixed_checkpoints",
+    "pose_output": "No camera pose, trajectory or SLAM state output documented.",
+    "imu_required": false,
+    "runtime": "No local timing or peak-VRAM measurement; four RTX3090 GPUs for eight training epochs are not an inference requirement.",
+    "code_entry": "Not released: author repository contains LICENSE only as checked 2026-11-02.",
+    "innovation": "Low-rank feature-affinity selection forms convex combinations of learned extender modulators at frozen backbone blocks, aligned by synthetic perspective-to-fisheye training.",
+    "summary_zh": "在冻结的透视基础模型中插入轻量特征调制器，以透视图合成鱼眼并自监督对齐；直接预测原始鱼眼径向距离，还能适配开放词汇分割。没有核实完整 ERP 支持，官方仓库仍仅有许可文件。",
+    "engineering_notes": [
+      "Backfilled ECCV 2026 method, first submitted 2026-08-28; arXiv v2 was posted 2026-10-26, not a first publication this week. Springer confirms pp. 245-265, DOI 10.1007/978-3-032-37627-5_14.",
+      "The paper abstract says code is available, but on 2026-11-02 the author-linked repository contains only LICENSE and describes the release as coming soon. No executable DEX source or checkpoints were verified.",
+      "DEX is an adapter to frozen depth/segmentation models, not one standalone universal metric checkpoint. Scale depends on the selected teacher/base model; relative MiDaS/DepthAnything and metric UniDepthV2 must not be conflated.",
+      "Inference accepts raw fisheye RGB without calibration or rectification. Calibrated perspective images and synthetic Kannala-Brandt warps are used during training; known calibration is also used for geometry conversion in evaluation.",
+      "The depth variant predicts Euclidean ray range R. ScanNet++ evaluation converts R to camera Z using its calibration, whereas KITTI-360 is evaluated in R. These conventions are not interchangeable.",
+      "Real fisheye tests use ScanNet++ indoors and KITTI-360 outdoors; WoodScape evaluates segmentation. No full-ERP input or direct DAP comparison was verified.",
+      "Calibration coefficients can be decoded from extender activations in the paper analysis; a released camera-calibration API, point-map exporter and continuous pose/SLAM state were not verified."
+    ],
+    "environment": "Paper implementation: Adam, learning rate 1e-3, inner rank 20, batch 32 for depth, eight epochs on four RTX3090 GPUs. Installable dependencies and inference platform are not released.",
+    "official_release_status": "license_only_repository_code_and_checkpoints_coming_soon",
+    "reproduction_status": "Original paper and official repository reviewed; original Figure 2 visually checked. No DEX training or inference performed.",
+    "evidence_level": "L2_original_paper_and_official_repository_no_implementation_released",
+    "schema_version": "1.1",
+    "url_verification": "2026-11-02: original arXiv v2, Springer publication metadata and author-linked repository contents inspected.",
+    "evidence": [
+      "https://arxiv.org/abs/2608.27860v2",
+      "https://arxiv.org/html/2608.27860v2",
+      "https://github.com/Suchisrit/DEX",
+      "https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14"
     ]
   }
 ]
