@@ -1,6 +1,6 @@
 # Official-source index
 
-Literature search cutoff 2026-11-02. Incremental method and dataset checks: 2026-11-02; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
+Literature search cutoff 2026-11-09. Incremental method and dataset checks: 2026-11-09; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
 
 ## Any3R (2026)
 
@@ -111,6 +111,22 @@ OmniRay: Camera-Agnostic Monocular 3D Reconstruction with Composite Ray Fields
 - https://github.com/nam1410/omniray
 - https://raw.githubusercontent.com/nam1410/omniray/main/README.md
 
+## PVDepth (2026)
+
+PVDepth: Panoramic Video Depth Estimation via Geometry-Aware Spatiotemporal Adaptation
+
+- https://arxiv.org/abs/2611.07873v1
+- https://arxiv.org/html/2611.07873v1
+- https://icml.cc/Downloads/2026
+- https://icml.cc/virtual/2026/poster/64995
+- https://github.com/ChuanxinSong/PVDepth
+- https://github.com/ChuanxinSong/PVDepth/blob/main/infer_any_v2.py
+- https://github.com/ChuanxinSong/PVDepth/blob/main/depth_eval/run_eval.sh
+- https://github.com/ChuanxinSong/PVDepth/blob/main/LICENSE
+- https://chuanxinsong.github.io/pvdepth-project-page/
+- https://huggingface.co/Soon122/PVDepth
+- https://proceedings.mlr.press/v306/song26u.html
+
 ## PaGeR (2026)
 
 Unified Panoramic Geometry Estimation via Multi-View Foundation Models
@@ -123,6 +139,9 @@ Unified Panoramic Geometry Estimation via Multi-View Foundation Models
 - https://arxiv.org/pdf/2605.26368v2#page=7
 - https://arxiv.org/abs/2605.26368v2
 - https://github.com/prs-eth/PaGeR#pretrained-models
+- https://neurips.cc/Downloads/2026
+- https://neurips.cc/virtual/2026/poster/149348
+- https://github.com/prs-eth/PaGeR/commit/c465ffb6bc7ed6ea395de2f3ea3852c852cec5d5
 - https://arxiv.org/abs/2605.26368
 
 ## RePer-360 (2026)
@@ -519,6 +538,21 @@ OmniVLoc: Topo-metric Visual Localization for Omnidirectional Cameras
 - https://arxiv.org/html/2610.27522v1
 - https://arxiv.org/pdf/2610.27522v1
 
+## OpenVIO (2026)
+
+OpenVIO: A Versatile Open-Source Visual-Inertial Odometry System
+
+- https://arxiv.org/abs/2610.41671v1
+- https://arxiv.org/html/2610.41671v1
+- https://github.com/93won/openvio
+- https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md
+- https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/usage.md
+- https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/architecture.md
+- https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/config/panoair.yaml
+- https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/src/vio/sensor/equirectangular_camera_model.cc
+- https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/LICENSE
+- https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/configuration.md
+
 ## P2U-SLAM (2026)
 
 P2U-SLAM: A Monocular Wide-FoV SLAM System Based on Point Uncertainty and Pose Uncertainty
@@ -544,6 +578,18 @@ PanoAir: A Panoramic Visual-Inertial SLAM with Cross-Time Real-World UAV Dataset
 
 - https://github.com/YYWumm/PanoAir
 - https://arxiv.org/abs/2604.00852
+
+## PanoCARLA (dynamic) (2026)
+
+PanoCARLA: dynamic-scene synthetic panoramic RGB-D video
+
+- https://huggingface.co/datasets/Soon122/PanoCARLA
+- https://huggingface.co/api/datasets/Soon122/PanoCARLA
+- https://github.com/ChuanxinSong/PanoCARLA
+- https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py
+- https://proceedings.mlr.press/v306/song26u.html
+- https://arxiv.org/html/2611.07873v1
+- https://chuanxinsong.github.io/pvdepth-project-page/
 
 ## PanoCARLA-Static (2026)
 

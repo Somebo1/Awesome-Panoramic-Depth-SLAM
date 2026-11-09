@@ -504,5 +504,32 @@
     "sourceUrl": "https://jou719.github.io/Holo360D_homepage/assets/images/eccv_coverfigure.jpg",
     "sourceSha256": "1bbe0024dbd5972d3917b0d5e4970171703715a8ed9a3c569c5eb8a00799b2e5",
     "selectionNotes": "Official project image converted to WebP and proportionally resized without changing its content."
+  },
+  "ds_panocarla": {
+    "image": "assets/datasets/ds_panocarla.webp",
+    "thumbnail": "assets/datasets/ds_panocarla-thumb.webp",
+    "sourceType": "author-project-image",
+    "sourcePageUrl": "https://chuanxinsong.github.io/pvdepth-project-page/",
+    "sourceUrl": "https://chuanxinsong.github.io/pvdepth-project-page/assets/motivation-2-rgb-erp.webp",
+    "paperUrl": "https://proceedings.mlr.press/v306/song26u.html",
+    "sourceTitle": "PanoCARLA official Town03 Path7 source RGB frame at 2.10 seconds",
+    "caption": {
+      "en": "Official PanoCARLA Town03, Path7 ERP RGB sample at 2.10s, showing a synthetic street and dynamic traffic. This is an author-published source image, not a PVDepth prediction or a depth map.",
+      "zh": "官方 PanoCARLA Town03、Path7 在 2.10 秒的 ERP RGB 样例，展示合成街景与动态交通；这是作者公开的输入图像，不是 PVDepth 预测或深度图。"
+    },
+    "credit": {
+      "en": "Source: Chuanxin Song and Peixi Peng, official PVDepth/PanoCARLA project, spatiotemporal-challenge RGB sample.",
+      "zh": "来源：Chuanxin Song、Peixi Peng，官方 PVDepth/PanoCARLA 项目的时空畸变 RGB 样例。"
+    },
+    "kind": "dataset",
+    "verified": true,
+    "sourceChecked": "2026-11-09",
+    "imageSize": [
+      1024,
+      512
+    ],
+    "sourceLicense": "Dataset card states CC BY 4.0. Original authors credited; no separate project-asset terms were established. Collection-code license is separate.",
+    "verificationNote": "Original official 1024x512 full-ERP image and final full/thumbnail WebP individually viewed. No crop or generated replacement; an RGB source image is not relabeled as depth truth.",
+    "sourceSha256": "fce791754464452a7ae950d8aa6a2c6c42100b3b41dee13e9e535ffd375b9f4d"
   }
 }

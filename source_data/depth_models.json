@@ -2159,5 +2159,103 @@
       "https://github.com/Suchisrit/DEX",
       "https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14"
     ]
+  },
+  {
+    "id": "pvdepth2026",
+    "short_name": "PVDepth",
+    "title": "PVDepth: Panoramic Video Depth Estimation via Geometry-Aware Spatiotemporal Adaptation",
+    "authors": [
+      "Chuanxin Song",
+      "Peixi Peng"
+    ],
+    "institutions": [
+      "Peking University",
+      "Pengcheng Laboratory"
+    ],
+    "year": 2026,
+    "venue": "ICML 2026, PMLR 306:114962-114986; arXiv 2611.07873v1 deposited 2026-11-05",
+    "paper_url": "https://arxiv.org/abs/2611.07873v1",
+    "project_url": "https://chuanxinsong.github.io/pvdepth-project-page/",
+    "code_url": "https://github.com/ChuanxinSong/PVDepth",
+    "weights_url": "https://huggingface.co/Soon122/PVDepth",
+    "license": {
+      "code": "Original PVDepth components: Apache-2.0. DepthCrafter-derived inference components retain academic/research/education-only noncommercial and nonproduction terms; third-party component licenses remain separate.",
+      "weights": "UNet model card inherits DepthCrafter and Stable Video Diffusion licenses. No additional commercial rights are granted by LICENSE-PVDEPTH."
+    },
+    "category": [
+      "video",
+      "panoramic",
+      "ERP",
+      "relative",
+      "diffusion",
+      "temporal-consistency"
+    ],
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "native_panoramic": true,
+    "task_family": "panoramic video relative inverse-depth estimation",
+    "accessed": "2026-11-09",
+    "input": {
+      "frames": "Ordered ERP RGB frames, an ERP video or a single ERP image through the released general inference entry.",
+      "projection": "Complete ERP is the documented direct input; an internal co-centered cubemap temporal branch does not add physical stereo, raw-fisheye or standalone pinhole support.",
+      "intrinsics": "No measured pinhole intrinsics or distortion parameters are requested; ERP-to-sphere/cubemap mappings use known projection geometry.",
+      "resolution": "Default inference width1024 with proportional height aligned to a multiple of64; a 2:1 ERP is1024x512. Paper trains at640x320 and evaluates at1024x512. Default temporal window110 frames, overlap25.",
+      "extrinsics": "No supplied camera poses or external map needed for the described depth inference.",
+      "imu": "No",
+      "gravity": "No measured gravity input documented.",
+      "synchronization": "Ordered RGB frames; no external sensor synchronization input. Output visualization FPS is not an inference-throughput measurement."
+    },
+    "output": {
+      "primary": "Temporally consistent relative inverse radial-distance video, saved as *_disparity.npy with one map per input frame, plus optional PNG/MP4 visualizations.",
+      "point_map": "No direct point-map or metric 3D export head verified in the reviewed inference entry.",
+      "normal": "No independent surface-normal head documented.",
+      "confidence": "No calibrated depth confidence or uncertainty output documented.",
+      "camera_parameters": "No predicted intrinsics, extrinsics or camera trajectory."
+    },
+    "geometry_output": [
+      "inverse_depth",
+      "relative_depth_video"
+    ],
+    "depth_convention": "The serialized disparity is affine-ambiguous inverse radial distance, not metric range and not camera-axis Z. Ground-truth PanoCARLA Z is converted to Euclidean radial distance before stitching; evaluation fits scale and shift in disparity space before reciprocal depth conversion.",
+    "scale": "Relative / affine-ambiguous inverse depth. Evaluation resolves one scale and shift per video clip using reference depth; this does not make deployment output metric.",
+    "metric_status": "scale_shift_invariant",
+    "pose_output": "No camera pose, trajectory or SLAM state output documented.",
+    "imu_required": false,
+    "loop_closure": false,
+    "runtime": "Diffusion-based, not a verified real-time model. Author README reports about31GB VRAM for110frames at1024x512 and about10GB with slower sequential CPU offload; no local speed or memory reproduction.",
+    "code_entry": "run_infer_any.sh; infer_any_v2.py; pvdepth/pipeline_pvdepth.py; train_stage1_psni.py; train_stage2_pvdepth.py; depth_eval/run_eval.sh",
+    "innovation": "Adapts DepthCrafter using progressively sphere-aware initial noise and a cube-rectified temporal feature branch, retaining frozen temporal priors while learning ERP-specific spatial and fusion components.",
+    "summary_zh": "将 DepthCrafter 适配到完整 ERP 视频，以渐进球面噪声和 cubemap 时序分支改善几何与时间一致性；公开输出为保留尺度和偏移歧义的相对逆径向距离，代码与 UNet 权重已发布。",
+    "engineering_notes": [
+      "ICML 2026 is verified in the publisher PMLR306, pp.114962-114986 and the official conference program. The first arXiv deposit is 2026-11-05, but the public UNet model repository dates to 2026-07-23; do not describe this as a newly released model in November. It was previously deferred, not an existing verified catalog method.",
+      "The public inference entry accepts a single ERP image, an ERP image folder or an ERP video and saves relative inverse-depth as *_disparity.npy. It averages the three VAE output channels; a separate global min/max normalization is used only for visualization.",
+      "Predictions have scale-and-shift ambiguity in inverse radial-distance space. No intrinsic, pose, metric baseline or IMU input recovers absolute scale. The ERP cubemap branch is internal and does not establish a raw-fisheye or independent pinhole interface.",
+      "The September10 evaluator update distinguishes bounded (current default) from legacy (paper-reproduction) conversion after the same clip-level LAD2 scale-and-shift disparity alignment. Bounded clamps aligned disparity before inversion and clips depth to [0.1,80] m. Scores across protocols are not interchangeable.",
+      "Paper training uses outdoor PanoCARLA only. Main evaluation holds out Town02/10; indoor examples are qualitative rather than quantitative indoor depth validation. Reflective surfaces and diffusion compute remain limitations.",
+      "Real-video reprojection evaluation uses estimated ViPE poses and aligns other methods to ViPE depth; an alternative MapAnything pose source is also tested. These are estimated references, not independent depth or pose truth.",
+      "Actual inference, two-stage training and evaluator source files and an ungated UNet safetensors listing were checked. Full inference also requires the Stable Video Diffusion base components and their separate license/access conditions. No model weights were downloaded or inference executed.",
+      "The original PVDepth components are Apache-2.0, but DepthCrafter-derived inference components and weights retain academic/research/education-only, noncommercial/nonproduction restrictions. Do not label the full stack permissive Apache-2.0.",
+      "Table2 compares DA-2, UniK3D, PanoDA, DepthAnywhere and video/optimization baselines; no direct DAP comparison was established in the reviewed paper."
+    ],
+    "environment": "Official environment uses Python3.10, PyTorch2.6.0/CUDA12.4, Diffusers0.29.1, Transformers4.41.2, Accelerate0.30.1 and xFormers0.0.29.post2. Inference loads the PVDepth UNet plus stabilityai/stable-video-diffusion-img2vid-xt base; default5 denoising steps, optional model/sequential CPU offload. No local inference run.",
+    "official_release_status": "inference_training_evaluation_code_and_UNet_weights_released; base_model_components_and_licenses_required_separately",
+    "reproduction_status": "Original paper, actual inference/evaluator source, official model listing and mixed license terms reviewed; true Figure3 visually inspected. No inference or benchmark reproduction.",
+    "evidence_level": "L2_original_paper_released_source_and_official_model_listing_no_local_inference",
+    "schema_version": "1.1",
+    "url_verification": "2026-11-09: original arXiv v1, official PMLR publication and ICML program, source files, ungated UNet listing, author project and license distinctions checked.",
+    "evidence": [
+      "https://arxiv.org/abs/2611.07873v1",
+      "https://arxiv.org/html/2611.07873v1",
+      "https://icml.cc/Downloads/2026",
+      "https://icml.cc/virtual/2026/poster/64995",
+      "https://github.com/ChuanxinSong/PVDepth",
+      "https://github.com/ChuanxinSong/PVDepth/blob/main/infer_any_v2.py",
+      "https://github.com/ChuanxinSong/PVDepth/blob/main/depth_eval/run_eval.sh",
+      "https://github.com/ChuanxinSong/PVDepth/blob/main/LICENSE",
+      "https://chuanxinsong.github.io/pvdepth-project-page/",
+      "https://huggingface.co/Soon122/PVDepth",
+      "https://proceedings.mlr.press/v306/song26u.html"
+    ]
   }
 ]

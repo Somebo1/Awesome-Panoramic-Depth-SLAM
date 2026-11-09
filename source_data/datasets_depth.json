@@ -1522,5 +1522,134 @@
       }
     ],
     "checked": "2026-10-17"
+  },
+  {
+    "id": "ds_panocarla",
+    "name": "PanoCARLA (dynamic)",
+    "title": "PanoCARLA: dynamic-scene synthetic panoramic RGB-D video",
+    "year": 2026,
+    "venue": "PVDepth companion dataset, ICML 2026; existing release backfilled after the November5 arXiv deposit",
+    "authors": "Chuanxin Song; Peixi Peng",
+    "aliases": [
+      "PanoCARLA",
+      "PanoCARLA dynamic",
+      "PVDepth dataset"
+    ],
+    "cameras": [
+      "panoramic"
+    ],
+    "tasks": [
+      "depth",
+      "slam"
+    ],
+    "environment": [
+      "outdoor"
+    ],
+    "reality": "synthetic",
+    "sensors": [
+      "CARLA 0.9.16 virtual RGB/depth/semantic cameras"
+    ],
+    "sensorLabels": {
+      "en": [
+        "CARLA 0.9.16 virtual RGB/depth/semantic cameras"
+      ],
+      "zh": [
+        "CARLA 0.9.16 虚拟 RGB/深度/语义相机"
+      ]
+    },
+    "groundTruth": [
+      "Rendered radial depth",
+      "Simulator position and yaw",
+      "Rendered semantic labels"
+    ],
+    "groundTruthLabels": {
+      "en": [
+        "Rendered radial depth",
+        "Simulator position and yaw",
+        "Rendered semantic labels"
+      ],
+      "zh": [
+        "渲染径向深度",
+        "仿真位置与偏航角",
+        "渲染语义标签"
+      ]
+    },
+    "access": "registration",
+    "homepageUrl": "https://huggingface.co/datasets/Soon122/PanoCARLA",
+    "paperUrl": "https://proceedings.mlr.press/v306/song26u.html",
+    "downloadUrl": "https://huggingface.co/datasets/Soon122/PanoCARLA/tree/main",
+    "license": {
+      "en": "CC BY 4.0 for dataset annotations/images, stated on the official card. Access is gated: a Hugging Face account and acceptance/sharing of account information are required. The collection code license is separate; this review did not accept the gate or fetch restricted data files.",
+      "zh": "官方数据卡将数据图像和标注声明为 CC BY 4.0；获取有门控，须使用 Hugging Face 账户并接受条款／共享账户信息。采集代码许可单独适用；本轮未代为同意门控，也未获取受限数据文件。"
+    },
+    "summary": {
+      "en": "Outdoor CARLA videos with dynamic traffic: 126,696 ERP frames in 117 source clips, rendered radial depth, semantics and simulator poses. Gated access; separate from the Static variant and not arbitrary 6DoF motion.",
+      "zh": "包含动态交通的 CARLA 室外视频：117 个源片段共 126696 帧 ERP，提供渲染径向深度、语义与仿真位姿。获取有门控，与 Static 版分开，运动并非任意六自由度。"
+    },
+    "details": {
+      "en": {
+        "Release and access": "This is an earlier resource backfilled during the November9 review, not a new November dataset release. Official metadata dates creation to 2026-05-23 and last modification to 2026-10-08; current revision 450119731a3a5ca54ea7ecd62035c1a40776e383 is public but gated=auto. The public card and filenames were reviewed; restricted payloads were not downloaded.",
+        "Coverage and split": "The official card lists 126,696 frames, 117 source clips and 67 routes across eight outdoor towns. Training: Town01/03/04/05/06/07, 54 routes, 95 clips and 112,988 frames. Test: Town02/10, 13 routes, 22 clips and 13,708 frames. The API lists 117 HDF5 filenames; frame counts are author-card statistics rather than locally opened HDF5 counts.",
+        "Panoramic product": "Six synchronized, co-centered virtual camera views are rendered in CARLA 0.9.16 and combined into complete ERP. They form a cubemap capture representation, not a physical stereo rig or known translation baseline. Dynamic vehicles and pedestrians are retained; camera-height roaming also varies.",
+        "Depth and validity": "The full HDF5 card specifies float16 depth [T,1200,2400,1] in metres. The shared collection source converts optical-axis Z to Euclidean ray distance before ERP face selection. A raw CARLA decoding scale or far plane of 1000 m is not an evaluation valid-depth cutoff. Review finite/positive, sky and far-plane validity for the intended protocol.",
+        "Released poses": "Float32 poses [T,4] store (x,y,z,yaw): position in CARLA-world metres and yaw in degrees. Pitch and roll are fixed at zero and omitted, so the released motion does not cover arbitrary orientation despite the paper/project 6DoF headline. This is simulator annotation, not independent physical tracking truth.",
+        "Formats and indices": "Full train/test data are HDF5 with RGB uint8 [T,1200,2400,3], semantic IDs uint8, depth and poses. Original PNG/NPY layout is supplied only for the Town02/Town10 evaluation archive at 1024x512. setting_dynamic.json retains original-layout paths for all towns; use HDF5 for training towns instead of assuming those raw files are published.",
+        "Benchmark sampling": "Town02/Town10 test_benchmark JSON files define 2/10/20 FPS with sequence lengths 50/90/110. The original capture rate is 20 FPS. Dynamic-scene temporal errors require object-motion and occlusion handling; do not treat all image reprojection residuals as pure camera-trajectory error.",
+        "Relation to PanoCARLA-Static": "The variants reuse overall routes but regenerate camera-height motion, and are not frame-by-frame pixel/pose-aligned pairs. Static removes traffic while retaining moving cameras. Use each release's own poses and indices, keep town/route identity in splits, and do not transfer gated access policy to the ungated Static release."
+      },
+      "zh": {
+        "发布与获取": "本条是 11 月 9 日补录的既有资源，不是 11 月新发布数据。官方元数据记载 2026-05-23 创建、2026-10-08 最后修改，当前版本 450119731a3a5ca54ea7ecd62035c1a40776e383 为公开但 gated=auto。仅核查公开数据卡与文件名，未下载受限内容。",
+        "覆盖与划分": "官方数据卡列出 8 个室外城镇、67 条路线、117 个源片段及 126696 帧。训练使用 Town01/03/04/05/06/07，54 条路线、95 段、112988 帧；测试为 Town02/10，13 条路线、22 段、13708 帧。API 列出 117 个 HDF5 文件名；帧数来自作者数据卡，未在本地逐个打开 HDF5 重数。",
+        "全景产品": "CARLA 0.9.16 渲染六个同步、共光心虚拟相机视图并合成为完整 ERP；这是 cubemap 采集表示，不是实体立体 rig 或已知平移基线。保留动态车辆、行人，相机漫游高度也会变化。",
+        "深度与有效性": "完整 HDF5 数据卡规定深度为 float16 [T,1200,2400,1]、单位米；共用采集源码在 ERP 选面前将光轴 Z 转为欧氏射线距离。CARLA 原始解码缩放或 1000 米远平面不是评测有效深度上限；须按所用协议处理有限/正值、天空和远平面。",
+        "发布位姿": "float32 poses [T,4] 存储 (x,y,z,yaw)，位置为 CARLA 世界坐标的米，偏航为度；pitch、roll 固定为零而省略。因此虽论文/项目使用 6DoF 表述，发布运动并不覆盖任意朝向。标注来自仿真，不是独立实物跟踪真值。",
+        "格式与索引": "完整训练/测试数据以 HDF5 提供，RGB 为 uint8 [T,1200,2400,3]、语义为 uint8 类别，另有深度与位姿。原始 PNG/NPY 格式仅在 Town02/Town10 评测包中提供，分辨率 1024×512。setting_dynamic.json 对所有城镇保留原始布局路径；训练城镇须读 HDF5，不能据索引假定原始文件都已发布。",
+        "基准采样": "Town02/Town10 的 test_benchmark JSON 定义 2/10/20 FPS 和 50/90/110 帧长度，原始采集为 20 FPS。动态场景时间误差须处理物体独立运动与遮挡，不能把所有图像重投影误差归为相机轨迹误差。",
+        "与 PanoCARLA-Static 的关系": "两版复用大致路线，但重新随机生成相机高度，因此不是逐帧像素/位姿对齐的数据对。Static 去除动态交通，相机仍然移动。几何计算使用各版本自己的位姿与索引；划分保留城镇/路线身份，不能将动态版门控政策套用到无门控 Static 版。"
+      }
+    },
+    "notes": {
+      "en": [
+        "The November5 arXiv identifier is a manuscript deposit of already-published ICML2026 work, not the dataset creation date.",
+        "The official project preview is an author-published synthetic RGB frame; it is not model-predicted depth or evidence of independently tracked real poses.",
+        "Gated access remains intact. Public metadata and public preview inspection do not establish that restricted files were opened."
+      ],
+      "zh": [
+        "11 月 5 日 arXiv 编号对应已发表 ICML 2026 工作的论文上传，不是数据集创建日期。",
+        "官方项目预览是作者公开的合成 RGB 帧，不是模型预测深度，也不是真实独立跟踪位姿证据。",
+        "保留获取门控；检查公开元数据和样例不代表已打开受限文件。"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://huggingface.co/datasets/Soon122/PanoCARLA",
+        "title": "Official public card: gated access, dimensions, depth units, released pose parametrization and town-disjoint split"
+      },
+      {
+        "url": "https://huggingface.co/api/datasets/Soon122/PanoCARLA",
+        "title": "Official API: existing May23 repository, October8 data revision, gated=auto and 117 listed HDF5 clips"
+      },
+      {
+        "url": "https://github.com/ChuanxinSong/PanoCARLA",
+        "title": "Official shared collection pipeline and dataset/code license separation"
+      },
+      {
+        "url": "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py",
+        "title": "Actual conversion source: optical-axis Z converted to radial distance before ERP face selection"
+      },
+      {
+        "url": "https://proceedings.mlr.press/v306/song26u.html",
+        "title": "PVDepth formal ICML2026 companion paper"
+      },
+      {
+        "url": "https://arxiv.org/html/2611.07873v1",
+        "title": "November5 arXiv deposit: PanoCARLA collection and published evaluation protocol"
+      },
+      {
+        "url": "https://chuanxinsong.github.io/pvdepth-project-page/",
+        "title": "Official project: genuine Town03 Path7 RGB sample, published statistics and Static relation"
+      }
+    ],
+    "checked": "2026-11-09"
   }
 ]

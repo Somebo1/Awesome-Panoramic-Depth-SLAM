@@ -1168,5 +1168,35 @@
     "pdfSha256": "deb48b857da324f46899956fb65ce191faccd24be3328e5af9c789850a2ab468",
     "imageSha256": "7d6bba9b056d64a0b478a7e2109333ae83919ecab4202593f8bcb1731c2f944d",
     "verification": "Original page and final crop visually confirmed; diagram identity, boundaries, range conversion and two panels checked."
+  },
+  "pvdepth2026": {
+    "thumbnail": "assets/papers/pvdepth2026-thumb.webp",
+    "image": "assets/papers/pvdepth2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2611.07873v1",
+    "page": 4,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "en": "PVDepth adapts the video diffusion pipeline with sphere-aware initial noise and an internal cubemap temporal branch.",
+      "zh": "PVDepth 在视频扩散流程中加入球面初始噪声与内部 cubemap 时序分支。"
+    },
+    "credit": {
+      "en": "Source: Chuanxin Song and Peixi Peng, Figure 3 of the original paper.",
+      "zh": "来源：Chuanxin Song、Peixi Peng，原论文 Figure 3。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      90,
+      70.8,
+      522,
+      300.8
+    ],
+    "originalCaption": "Figure 3. Overview of the proposed PVDepth.",
+    "sourceLicense": "Original arXiv v1 is CC BY 4.0; figure attribution retained. Software/model license restrictions are separate.",
+    "reviewedAt": "2026-11-09",
+    "selectionNotes": "Original PDF page4 and final WebP individually viewed; complete inference, sphere-aware-noise, training and temporal-fusion branches plus legend retained.",
+    "pdfSha256": "a7d9149222a359515b995e1f8c9391d9bc8c42e38c19c60f40d649a9a2c7bcb2",
+    "imageSha256": "5fdb2db62a793ca76aeffdbbed5409d071b2220aa5e420160c13fe66096e6e76",
+    "verification": "Original full PDF page and final encoded crop visually inspected; identity, diagram boundaries, labels and readability checked."
   }
 }

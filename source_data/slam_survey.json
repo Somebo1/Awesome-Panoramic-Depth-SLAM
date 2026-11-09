@@ -1601,5 +1601,93 @@
       "https://zhuoxiaoli.github.io/HoloRecon_page/"
     ],
     "url_verification": "2026-11-02: original arXiv v1 and author project reviewed; code/checkpoint links not verified."
+  },
+  {
+    "id": "openvio2026",
+    "short_name": "OpenVIO",
+    "title": "OpenVIO: A Versatile Open-Source Visual-Inertial Odometry System",
+    "authors": [
+      "Seungwon Choi"
+    ],
+    "institutions": [
+      "Not stated in the reviewed manuscript"
+    ],
+    "year": 2026,
+    "venue": "arXiv preprint 2610.41671v1; submitted 30 October2026; formal acceptance unverified",
+    "paper_url": "https://arxiv.org/abs/2610.41671v1",
+    "project_url": "https://github.com/93won/openvio",
+    "code_url": "https://github.com/93won/openvio",
+    "weights_url": null,
+    "license": {
+      "code": "MIT for OpenVIO, as verified in the official LICENSE; bundled third-party dependencies retain their own terms.",
+      "weights": "Not applicable: the reviewed feature-based VIO does not require learned model weights."
+    },
+    "input": {
+      "frames": "Monocular or synchronized stereo images plus gyroscope and accelerometer samples. The stitched ERP mode uses one panoramic image stream and IMU; stereo is supported only for pinhole/fisheye pairs.",
+      "projection": "Already stitched full-spherical ERP from a two-lens 360 camera; alternatively calibrated pinhole-radtan or equidistant fisheye. These are released external input modes, not internal cubemap views.",
+      "intrinsics": "Calibrated pinhole/fisheye intrinsics are supplied. ERP uses image dimensions and a one-parameter lens-angle stitching correction k, optionally refined online.",
+      "extrinsics": "Camera-IMU transforms are initialized from configuration and can be refined online. Stereo uses a calibrated physical camera-to-camera transform and baseline; ERP is monocular, not ERP stereo.",
+      "imu": true,
+      "gravity": "Known gravity magnitude and calibrated IMU noise; the initializer estimates gravity direction, velocity and biases with sufficient motion.",
+      "resolution": "PanoAir configuration uses 1280x640 ERP at a 30Hz input rate; TUM-VI tests use 512x512 fisheye. No tensor model API or dense-depth resolution.",
+      "synchronization": "Image and IMU timestamps are required. Camera-IMU offset is estimated online; two-lens ERP additionally models the relative lens exposure offset. Stereo image pairs use the same timestamp."
+    },
+    "output": {
+      "primary": "Metric visual-inertial IMU trajectory, filter state, sparse persistent landmarks and exported keyframes/feature observations; no dense depth image.",
+      "point_map": "Only sparse triangulated/filtered landmarks are maintained, internally in inverse depth along a rotated anchor ray. This is not a dense range or Z-depth product.",
+      "camera_parameters": "Camera-IMU extrinsic and timing corrections; ERP stitching-angle k and back-lens exposure offset when enabled. No arbitrary lens-calibration recovery.",
+      "confidence": "Filter covariance and keyframe pose covariance, plus measurement gates; no calibrated dense-depth uncertainty map.",
+      "normal": "No normal output."
+    },
+    "depth_convention": "No dense depth output. Sparse landmarks use inverse depth in a local frame rotated so the anchor observation lies along +Z; camera-frame optical-axis Z and ERP radial range are not interchangeable.",
+    "scale": "Metric visual-inertial scale with calibrated IMU units and known gravity magnitude; optional pinhole/fisheye stereo adds a calibrated physical baseline. Global position/yaw gauge is unfixed; no absolute external pose reference is an input.",
+    "metric_status": "metric_visual_inertial",
+    "pose_output": "Yes: IMU pose at image exposure after initialization, exported as TUM time x y z qx qy qz qw; keyframes retain observations and covariance.",
+    "slam_family": "filter-based visual-inertial odometry with stitched ERP calibration",
+    "camera_support": [
+      "panoramic_erp",
+      "fisheye",
+      "perspective",
+      "stereo"
+    ],
+    "native_erp": true,
+    "native_panoramic": true,
+    "geometry_output": [
+      "pose",
+      "sparse_landmarks",
+      "calibration"
+    ],
+    "imu_required": true,
+    "loop_closure": false,
+    "runtime": "No local timing/peak-memory measurement. PanoAir input is30Hz; this is not a verified processing-throughput claim. Standalone C++ and optional ROS1/ROS2 nodes are provided.",
+    "code_entry": "src/vio/apps/vio.cc; build/bin/vio odometry; config/panoair.yaml, euroc[_stereo].yaml and tum_vi[_stereo].yaml",
+    "engineering_notes": [
+      "First submitted 2026-10-30 and backfilled during the November9 overlap review; it is not a paper first published this week. The actual estimator, camera-model source, configurations, optional ROS nodes and MIT LICENSE are present at reviewed master commit 997de9b8a66a372ab5b15506a1bde957592ad356.",
+      "Three released projection modes are distinct: ERP+IMU is monocular, while calibrated pinhole and fisheye support monocular or physical-baseline stereo+IMU. Two fisheye lenses inside a stitched ERP frame do not imply a separate ERP stereo mode.",
+      "Full ERP is accepted without an external pinhole adapter. PanoAir config excludes polar bands for tracking and uses one-parameter angular stitching correction and inter-lens exposure timing; this is not arbitrary rig dewarping or universal calibration.",
+      "Metric scale comes from visual-inertial estimation with calibrated sensor units and known gravity magnitude; the local position/yaw reference remains arbitrary. Stereo additionally has a calibrated physical baseline. This does not establish independent absolute global or wrist-level accuracy.",
+      "Loop closure and map reuse are explicitly excluded by the paper. A local landmark can be re-found after short occlusion; that mechanism is not global loop closure. Exported keyframes only provide an extension interface.",
+      "The filter stores selected sparse inverse-depth landmarks. No dense depth image, metric depth model, Gaussian map or surface mesh is produced by the reviewed system.",
+      "The PanoAir experiment uses one run per flight, excludes the first12.5s and reports mean ATE1.14m after rigid alignment; there are no independent calibration reference values. Its stitching prior uses earlier online estimates on the same dataset, without ground truth, so do not call it an untuned zero-shot calibration experiment.",
+      "No local build or estimator execution was performed. Input frame rate is not verified inference throughput, and no comparable runtime or peak-memory measurement is claimed."
+    ],
+    "official_release_status": "Actual estimator/camera source and MIT license released; v1.0.1 documentation adds optional ROS1/ROS2 nodes. No local reproduction.",
+    "summary_zh": "基于 MSCKF 与持久稀疏地标的开源 VIO，直接支持拼接 ERP 单目和针孔／鱼眼单目或实体双目，联合估计相机惯性时延、外参与全景拼接误差；需要 IMU，不含全局回环和稠密深度。",
+    "environment": "C++17, CMake>=3.16, OpenCV>=4.0, Eigen>=3.4, libpng; Ceres/spdlog bundled, GLFW/OpenGL viewer optional. Standalone build/bin/vio; optional ROS1 Noetic and ROS2 Humble/Jazzy. Build script may install system packages; not executed in this review.",
+    "accessed": "2026-11-09",
+    "evidence_level": "Original paper, released estimator/camera source, fixed-commit configuration and license reviewed; actual Figure2 visually inspected; no local estimator run.",
+    "reproduction_status": "Read-only source and original-paper inspection; not built or run locally.",
+    "evidence": [
+      "https://arxiv.org/abs/2610.41671v1",
+      "https://arxiv.org/html/2610.41671v1",
+      "https://github.com/93won/openvio",
+      "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md",
+      "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/usage.md",
+      "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/architecture.md",
+      "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/config/panoair.yaml",
+      "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/src/vio/sensor/equirectangular_camera_model.cc",
+      "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/LICENSE"
+    ],
+    "url_verification": "2026-11-09: original v1, released source and fixed-commit modes/online calibration/licensing checked."
   }
 ]

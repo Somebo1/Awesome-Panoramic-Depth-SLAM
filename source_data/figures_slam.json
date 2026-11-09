@@ -1080,5 +1080,35 @@
       534
     ],
     "verification": "Original full page and final diagram visually confirmed: correct paper and complete method diagram; caption retained separately."
+  },
+  "openvio2026": {
+    "thumbnail": "assets/papers/openvio2026-thumb.webp",
+    "image": "assets/papers/openvio2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2610.41671v1",
+    "page": 2,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "en": "OpenVIO processing joins optical-flow/landmark tracking, initialization and MSCKF-style state updates. Dashed camera1 and matching branches are stereo-only; ERP uses the monocular path.",
+      "zh": "OpenVIO 将光流／地标跟踪、初始化与 MSCKF 式状态更新结合；虚线 camera1 和匹配分支只用于双目，ERP 使用单目路径。"
+    },
+    "credit": {
+      "en": "Source: Seungwon Choi, Figure2 of the original OpenVIO paper.",
+      "zh": "来源：Seungwon Choi，OpenVIO 原论文 Figure2。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      53,
+      48,
+      559,
+      287
+    ],
+    "originalCaption": "Fig. 2. Processing of one image in OpenVIO.",
+    "sourceLicense": "Original arXivv1 is CC BY4.0; attribution retained. Software license is independently verified MIT.",
+    "reviewedAt": "2026-11-09",
+    "selectionNotes": "Original PDFpage2 and final WebP visually inspected; complete camera1, front-end, initialization, IMU, estimator, output and camera-model branches retained.",
+    "pdfSha256": "9615d3c7aa3b5543aef93554b4534faadcfc4c743ab638320251f7b0dc79c261",
+    "imageSha256": "7e79d20be5c04c784b05c3090a48f15161e844c34dac924b04a95de739b98b31",
+    "verification": "Original page and final encoded crop individually viewed; paper identity, Figure2 label, complete diagram boundaries and legibility confirmed."
   }
 }

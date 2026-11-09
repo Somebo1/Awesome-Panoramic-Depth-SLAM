@@ -819,23 +819,27 @@
       "https://huggingface.co/prs-eth/PaGeR-metric-depth",
       "https://arxiv.org/pdf/2605.26368v2#page=7",
       "https://arxiv.org/abs/2605.26368v2",
-      "https://github.com/prs-eth/PaGeR#pretrained-models"
+      "https://github.com/prs-eth/PaGeR#pretrained-models",
+      "https://neurips.cc/Downloads/2026",
+      "https://neurips.cc/virtual/2026/poster/149348",
+      "https://github.com/prs-eth/PaGeR/commit/c465ffb6bc7ed6ea395de2f3ea3852c852cec5d5"
     ],
     "engineering_notes": [
       "Reported paper metric results force indoor/outdoor scale head per dataset; default automatic router is a later release behavior.",
       "High-resolution ERP output does not increase the fixed six-face network input detail.",
       "Table 2 (arXiv v2, PDF p. 7) reports PaGeR ahead of DAP in 8 of 9 metric-depth dataset/metric cells; Matterport3D360 delta1 is the exception: 69.50% versus 80.19%. These are author-reported results, not local reproduction.",
       "Table 2, AbsRel (%)/RMSE (cm)/delta1 (%), PaGeR versus DAP: Matterport3D360 21.83/123.48/69.50 versus 30.16/168.88/80.19; Stanford2D3DS 10.94/45.43/90.94 versus 10.97/53.39/90.64; ZuriPano 31.97/530.85/39.30 versus 47.00/839.72/24.02.",
-      "The paper evaluates metric predictions without GT alignment over [0,75] m. Both DAP and PaGeR have separate indoor/outdoor heads. The paper forces the domain per dataset; its numbers do not establish the accuracy of the later automatic CLIP router or superiority on a different evaluation protocol."
+      "The paper evaluates metric predictions without GT alignment over [0,75] m. Both DAP and PaGeR have separate indoor/outdoor heads. The paper forces the domain per dataset; its numbers do not establish the accuracy of the later automatic CLIP router or superiority on a different evaluation protocol.",
+      "Official NeurIPS2026 program independently lists the exact PaGeR title. The November4 README commit records acceptance dated September24, not a new November acceptance or model/camera release; final proceedings DOI/pages remain unverified."
     ],
-    "accessed": "2026-10-20",
+    "accessed": "2026-11-09",
     "pose_output": "No online SLAM trajectory output verified",
     "runtime": "Unknown: no comparable timing or memory measurement executed locally.",
     "environment": "Official tested Linux, Python 3.10, PyTorch ≥2.0, CUDA ≥12.1.",
     "reproduction_status": "Official paper/release metadata reviewed; model inference not executed.",
     "evidence_level": "L2_partial_paper_and_official_release_metadata",
     "schema_version": "1.1",
-    "url_verification": "2026-10-20: arXiv v2 abstract and Table 2 (PDF p. 7) rechecked against the official project; official checkpoint/routing/release documentation reviewed. No newer arXiv version found on the abstract page (v2 dated 2026-05-27).",
+    "url_verification": "2026-10-20: arXiv v2 abstract and Table 2 (PDF p. 7) rechecked against the official project; official checkpoint/routing/release documentation reviewed. No newer arXiv version found on the abstract page (v2 dated 2026-05-27). 2026-11-09: official NeurIPS program and November4 README publication/citation update checked; no new capability or artifact release.",
     "camera_support": [
       "panoramic_erp",
       "perspective",
@@ -855,7 +859,7 @@
     "short_name": "PaGeR",
     "title": "Unified Panoramic Geometry Estimation via Multi-View Foundation Models",
     "year": 2026,
-    "venue": "NeurIPS 2026 (author project); arXiv 2605.26368",
+    "venue": "NeurIPS 2026, verified official conference program; arXiv 2605.26368",
     "paper_url": "https://arxiv.org/abs/2605.26368",
     "category": [
       "monocular",

@@ -778,5 +778,28 @@
       }
     ],
     "checked": "2026-11-02"
+  },
+  "ds_panocarla": {
+    "tier": "specialized",
+    "rank": 12,
+    "scope": {
+      "en": "Dynamic-scene synthetic panoramic video depth",
+      "zh": "动态场景合成全景视频深度"
+    },
+    "reason": {
+      "en": "A targeted outdoor ERP video benchmark with rendered radial depth and town-disjoint splits. Earlier available resource backfilled with its companion model; gated acquisition, constrained orientation and dynamic/static separation must be respected.",
+      "zh": "面向室外 ERP 视频的专项基准，提供渲染径向深度与城镇互斥划分。随模型补录既有资源；须注意门控获取、受限朝向与动态/静态版本区别。"
+    },
+    "evidence": [
+      {
+        "url": "https://huggingface.co/datasets/Soon122/PanoCARLA",
+        "title": "Official documented split, formats, gate and pose limits"
+      },
+      {
+        "url": "https://proceedings.mlr.press/v306/song26u.html",
+        "title": "Peer-reviewed task and benchmark context"
+      }
+    ],
+    "checked": "2026-11-09"
   }
 }

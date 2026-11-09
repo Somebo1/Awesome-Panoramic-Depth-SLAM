@@ -82,6 +82,14 @@ Figure 2, PDF page 3. OmniRay combines composite camera rays with a radial-dista
 - Screenshot: [assets/papers/omniray2026.webp](../site/assets/papers/omniray2026.webp)
 - Local PDF SHA-256: `b893bd46731114697c060f1b60f1d099ce0539ccd5b32c3e3d9732b3a1a72ba3`
 
+## PVDepth
+
+Figure 3, PDF page 4. PVDepth adapts the video diffusion pipeline with sphere-aware initial noise and an internal cubemap temporal branch.
+
+- PDF: https://arxiv.org/pdf/2611.07873v1
+- Screenshot: [assets/papers/pvdepth2026.webp](../site/assets/papers/pvdepth2026.webp)
+- Local PDF SHA-256: `a7d9149222a359515b995e1f8c9391d9bc8c42e38c19c60f40d649a9a2c7bcb2`
+
 ## PaGeR
 
 Figure 2, PDF page 4. Shared geometry backbone with scale-invariant/metric depth, normals and sky prediction.
@@ -361,6 +369,14 @@ Figure 2, PDF page 3. OmniVLoc combines ERP queries, IMU and a pose-annotated ma
 - PDF: https://arxiv.org/pdf/2610.27522v1
 - Screenshot: [assets/papers/omnivloc2026.webp](../site/assets/papers/omnivloc2026.webp)
 - Local PDF SHA-256: `986991795814ef0740e1260c723c975744812cdbea19fd02048d46539244c30e`
+
+## OpenVIO
+
+Figure 2, PDF page 2. OpenVIO processing joins optical-flow/landmark tracking, initialization and MSCKF-style state updates. Dashed camera1 and matching branches are stereo-only; ERP uses the monocular path.
+
+- PDF: https://arxiv.org/pdf/2610.41671v1
+- Screenshot: [assets/papers/openvio2026.webp](../site/assets/papers/openvio2026.webp)
+- Local PDF SHA-256: `9615d3c7aa3b5543aef93554b4534faadcfc4c743ab638320251f7b0dc79c261`
 
 ## P2U-SLAM
 

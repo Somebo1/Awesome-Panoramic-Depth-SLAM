@@ -74,6 +74,18 @@ PanoAir dataset overview with acquisition platform, trajectory distribution and 
 - Preview: [image](../site/assets/datasets/ds_panoair.webp)
 - Credit: Source: PanoAir authors, official project preview.
 
+## PanoCARLA (dynamic)
+
+Official PanoCARLA Town03, Path7 ERP RGB sample at 2.10s, showing a synthetic street and dynamic traffic. This is an author-published source image, not a PVDepth prediction or a depth map.
+
+- Source type: author-project-image
+- Page: https://chuanxinsong.github.io/pvdepth-project-page/
+- Original: https://chuanxinsong.github.io/pvdepth-project-page/assets/motivation-2-rgb-erp.webp
+- Identity: Official sample; PDF page: Not a PDF excerpt
+- Source SHA-256: `fce791754464452a7ae950d8aa6a2c6c42100b3b41dee13e9e535ffd375b9f4d`
+- Preview: [image](../site/assets/datasets/ds_panocarla.webp)
+- Credit: Source: Chuanxin Song and Peixi Peng, official PVDepth/PanoCARLA project, spatiotemporal-challenge RGB sample.
+
 ## PanoCARLA-Static
 
 Town06 path6 official static-scene preview at 1.00 s: RGB panorama above the depth visualization. Preview frames are not HDF5 frame indices.

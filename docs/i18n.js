@@ -1102,5 +1102,109 @@
   zhRecords.omniray2026[3][0]="论文于 2026-10-22 首次提交，已在 10 月 26 日收录；11 月 2 日复查项目及发布链接，不重复新增论文。";
   zhRecords.omniray2026[3][1]="截至 2026-11-02，官网仍标注代码与模型为 TBD。Code 链接现指向仅含项目网页和预计算点云浏览器的仓库，README 明确模型实现将在发表后开源；Checkpoint 链接返回 HTTP 401，未核实权重发布。";
   families["single-image fisheye depth adaptation"]="单图鱼眼深度适配";
+  Object.assign(summaries, {
+  "pvdepth2026": "Adapts DepthCrafter to full-ERP video with progressively sphere-aware noise and cube-rectified temporal features. Released outputs are temporally consistent relative inverse radial distance, with scale-and-shift ambiguity; code and UNet weights are available.",
+  "openvio2026": "MIT-licensed MSCKF-style VIO combines persistent sparse landmarks with direct stitched-ERP mono or calibrated pinhole/fisheye mono/stereo inputs. It requires IMU and estimates timing/extrinsic/stitch corrections, without loop closure or dense depth."
+});
+  Object.assign(zhRecords, {
+  "pvdepth2026": [
+    "通过公开通用推理入口输入有序 ERP RGB 帧、ERP 视频或单张 ERP。",
+    "时间一致的相对逆径向距离视频，保存为 *_disparity.npy，每个输入帧对应一张图，并可输出 PNG／MP4 可视化。",
+    "逆径向距离保留尺度与偏移歧义，评测逐视频对齐；不输出绝对米制深度。",
+    [
+      "PMLR306卷114962–114986页及ICML2026官方会议列表已确认正式出版。arXiv 首次上传为2026-11-05，但公开 UNet 仓库创建于2026-07-23，不能称为11月新发布模型；此前只是待核实候选，尚无重复的规范方法条目。",
+      "公开入口接受单张 ERP、ERP 图像文件夹或 ERP 视频，保存 *_disparity.npy 相对逆深度。输出取 VAE 三通道均值；全局最小／最大归一化仅用于可视化。",
+      "预测在逆径向距离空间保留尺度与偏移歧义；没有内参、已知基线、位姿或 IMU 输入来恢复绝对尺度。内部 cubemap 不证明原始鱼眼或独立针孔接口。",
+      "9月10日评测修正区分当前默认 bounded 与论文复现 legacy：两者均对每段视频进行 LAD2 逆距离尺度＋偏移对齐；bounded 在取倒数前设下界，再将深度限制到[0.1,80]米。不同协议分数不可直接混用。",
+      "论文仅用室外 PanoCARLA 训练，主要评测留出 Town02/10；室内展示为定性结果，未作室内定量深度验证。强反射和扩散计算开销仍是局限。",
+      "真实视频重投影评测使用 ViPE 估计位姿，并将其他方法对齐到 ViPE 深度，也另测MapAnything位姿。这些是估计参考，不是独立深度或位姿真值。",
+      "已核实真实推理、两阶段训练、评测源码和无需申请的 UNet safetensors 文件清单。完整推理另需 Stable Video Diffusion 基础组件及其独立获取／许可条件；本站未下载权重或运行推理。",
+      "原创 PVDepth 组件为 Apache-2.0，但 DepthCrafter 派生推理组件与权重保留学术、研究、教育用途限制，禁止商业或生产用途，不能将完整栈统称宽松 Apache-2.0。",
+      "表2比较 DA-2、UniK3D、PanoDA、DepthAnywhere 及视频／优化基线；已查原文未建立直接 DAP 比较。"
+    ]
+  ],
+  "openvio2026": [
+    "单目或同步双目图像，加陀螺仪和加速度计。拼接 ERP 模式为单路全景＋IMU；双目仅支持针孔／鱼眼相机对。",
+    "米制视觉惯性 IMU 轨迹、滤波状态、稀疏持久地标及导出的关键帧／观测，不输出稠密深度图。",
+    "依赖标定 IMU 与已知重力的米制视觉惯性尺度；全局位置／偏航参考仍任意，实体双目仅适用于针孔或鱼眼模式。",
+    [
+      "论文于 2026-10-30 首次提交，本轮回溯补录，不是本周首次发表；固定版本 997de9b8a66a372ab5b15506a1bde957592ad356 已包含真实估计器、相机模型、配置、可选 ROS 节点与 MIT 许可。",
+      "三种公开模式须区分：ERP＋IMU 为单目；针孔／鱼眼可选单目或带实体基线的双目＋IMU。拼接 ERP 内含两个鱼眼镜头不代表另有 ERP 双目模式。",
+      "完整 ERP 可直接输入，无需外部针孔适配。PanoAir 配置排除极区跟踪，使用单参数角度拼接修正及镜头间曝光时延；不等于任意 rig 去畸变或通用标定。",
+      "米制尺度依赖标定传感器单位、已知重力大小及视觉惯性可观测性；全局位置／偏航参考仍任意。双目另有实体标定基线，不能据此宣称独立绝对全局精度或腕部精度。",
+      "原文明确不包含回环与地图复用。短时遮挡后找回局部地标不等于全局回环；关键帧导出只是扩展接口。",
+      "仅维护所选稀疏逆深度地标，不提供稠密深度图、米制深度模型、高斯地图或表面网格。",
+      "PanoAir 每段仅运行一次，排除前 12.5 秒，刚体对齐后平均 ATE 为 1.14 米；在线标定无独立参考值。拼接先验来自同一数据集较早的在线估计，未用真值，但不能称为完全未调参的零样本标定。",
+      "本轮未编译或运行估计器；输入帧率不等于推理吞吐，未声称可比较的本机速度或峰值内存。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "pvdepth2026": {
+    "input": {
+      "frames": "通过公开通用推理入口输入有序 ERP RGB 帧、ERP 视频或单张 ERP。",
+      "projection": "明确直接输入完整 ERP；内部共心 cubemap 时序分支不产生物理立体基线，也不证明原始鱼眼或独立针孔入口。",
+      "intrinsics": "不要求实测针孔内参或畸变参数；采用 ERP—球面／cubemap 的已知投影几何。",
+      "resolution": "默认宽1024，高度等比例并对齐64倍数；2:1 ERP 为1024×512。论文训练640×320、评测1024×512；默认窗口110帧、重叠25帧。",
+      "extrinsics": "深度推理不输入相机位姿或外部地图。",
+      "imu": "无需。",
+      "gravity": "未记录实测重力输入。",
+      "synchronization": "仅有序 RGB，无外部传感器同步输入；可视化帧率不是推理吞吐率。"
+    },
+    "output": {
+      "primary": "时间一致的相对逆径向距离视频，保存为 *_disparity.npy，每个输入帧对应一张图，并可输出 PNG／MP4 可视化。",
+      "point_map": "已查推理入口未核实直接点图或公制三维导出头。",
+      "normal": "未记录独立法线输出头。",
+      "confidence": "未记录经过标定的深度置信度或不确定性输出。",
+      "camera_parameters": "不预测内参、外参或相机轨迹。",
+      "depth_convention": "保存的 disparity 是带仿射歧义的逆径向距离，不是米制 range 或光轴 Z。PanoCARLA 真值先从 Z 转为欧氏径向距离再拼接；评测在逆距离空间拟合尺度和偏移，再取倒数。",
+      "metric_status": "相对／仿射歧义逆深度；评测借助参考深度为整个视频片段拟合一对尺度与偏移，不代表部署时能恢复公制。",
+      "pose_output": "未记录相机位姿、轨迹或 SLAM 状态输出。",
+      "runtime": "扩散模型，未核实实时性。作者 README 报告110帧1024×512约31GB显存，较慢的顺序 CPU 卸载约10GB；本站未做速度或显存复现。"
+    }
+  },
+  "openvio2026": {
+    "input": {
+      "frames": "单目或同步双目图像，加陀螺仪和加速度计。拼接 ERP 模式为单路全景＋IMU；双目仅支持针孔／鱼眼相机对。",
+      "projection": "双镜头 360 相机已拼接的完整 ERP，或已标定的针孔径向切向模型、等距鱼眼；都是已发布的外部输入模式，不是内部 cubemap 视图。",
+      "intrinsics": "给定针孔／鱼眼内参。ERP 使用图像尺寸和单参数镜头角度拼接修正 k，可在线细化。",
+      "extrinsics": "配置提供相机—IMU 初始外参并可在线细化；双目还需给定实体相机间变换与基线，ERP 模式为单目。",
+      "imu": true,
+      "gravity": "使用已知重力大小和标定的 IMU 噪声；初始化在充分运动下估计重力方向、速度及偏置。",
+      "resolution": "PanoAir 配置为 1280×640 ERP、30Hz 输入；TUM-VI 测试为 512×512 鱼眼。没有张量模型接口或稠密深度分辨率。",
+      "synchronization": "需要图像与 IMU 时间戳；在线估计相机—IMU 时延，双镜头 ERP 还建模镜头间曝光时差；双目图像按相同时间戳配对。"
+    },
+    "output": {
+      "primary": "米制视觉惯性 IMU 轨迹、滤波状态、稀疏持久地标及导出的关键帧／观测，不输出稠密深度图。",
+      "point_map": "仅维护三角化或滤波的稀疏地标，在旋转锚点射线的局部坐标中使用逆深度；不是稠密 range 或 Z-depth 产品。",
+      "camera_parameters": "相机—IMU 外参和时延修正；启用时还估计 ERP 拼接角度 k 与后镜头曝光时差，不等于任意镜头标定恢复。",
+      "confidence": "滤波及关键帧位姿协方差与观测门限；不输出经过标定的稠密深度不确定性图。",
+      "normal": "不输出法线。",
+      "depth_convention": "没有稠密深度输出。稀疏地标在锚点观测旋转到局部 +Z 的坐标中用逆深度参数化；原始相机光轴 Z 与 ERP 径向距离不能互换。",
+      "metric_status": "依赖标定 IMU 单位与已知重力大小的米制视觉惯性尺度；全局位置／偏航仍有规范自由度，不能当作独立绝对真值。",
+      "pose_output": "初始化后输出图像曝光时刻的 IMU 位姿，以 TUM 的 time x y z qx qy qz qw 形式导出；关键帧保留观测及协方差。",
+      "runtime": "未进行本机计时或峰值内存测量。PanoAir 的 30Hz 是输入频率，不是已核验处理速度；提供独立 C++ 与可选 ROS1/ROS2 节点。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "pvdepth2026": {
+    "code": "原创 PVDepth 组件为 Apache-2.0；DepthCrafter 派生推理部分仍限学术／研究／教育用途，禁止商业与生产用途，第三方许可分别适用。",
+    "weights": "UNet 模型卡继承 DepthCrafter 与 Stable Video Diffusion 的许可；LICENSE-PVDEPTH 不额外授予模型权重商业权利。"
+  },
+  "openvio2026": {
+    "code": "OpenVIO 官方 LICENSE 为 MIT；内含第三方依赖保留各自条款。",
+    "weights": "不适用：所查特征式 VIO 不需要学习模型权重。"
+  }
+});
+  Object.assign(environments, {
+  "pvdepth2026": "官方使用 Python3.10、PyTorch2.6.0/CUDA12.4、Diffusers0.29.1、Transformers4.41.2、Accelerate0.30.1、xFormers0.0.29.post2。推理载入 PVDepth UNet 与 stabilityai/stable-video-diffusion-img2vid-xt 基础组件；默认5步去噪，可作模型／顺序 CPU 卸载。本站未运行推理。",
+  "openvio2026": "C++17、CMake≥3.16、OpenCV≥4.0、Eigen≥3.4、libpng；内含 Ceres/spdlog，可选 GLFW/OpenGL 查看器。独立程序 build/bin/vio，并提供 ROS1 Noetic、ROS2 Humble/Jazzy 节点；构建脚本可能安装系统依赖，本轮未执行。"
+});
+  Object.assign(families, {
+  "panoramic video relative inverse-depth estimation": "全景视频相对逆深度估计",
+  "filter-based visual-inertial odometry with stitched ERP calibration": "带拼接 ERP 标定的滤波式视觉惯性里程计"
+});
+  zhRecords.pager[3].push("NeurIPS2026官方会议列表已独立确认完整论文标题。11月4日README提交补记的是9月24日录用信息，并非11月新录用或新增模型／相机支持；最终会议论文集DOI和页码仍未核实。");
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

@@ -1,10 +1,10 @@
 window.ATLAS_DATA = {
-  "updated": "2026-11-02",
+  "updated": "2026-11-09",
   "repoUrl": "https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM",
   "title": "Panoramic Depth Atlas",
   "description": "Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.",
   "schemaVersion": "1.4",
-  "interfaceUpdated": "2026-11-02",
+  "interfaceUpdated": "2026-11-09",
   "records": [
     {
       "id": "any3r2026",
@@ -1693,6 +1693,167 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "pvdepth2026",
+      "collection": "depth",
+      "name": "PVDepth",
+      "title": "PVDepth: Panoramic Video Depth Estimation via Geometry-Aware Spatiotemporal Adaptation",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "ICML 2026, PMLR 306:114962-114986; arXiv 2611.07873v1 deposited 2026-11-05",
+      "authors": [
+        "Chuanxin Song",
+        "Peixi Peng"
+      ],
+      "institutions": [
+        "Peking University",
+        "Pengcheng Laboratory"
+      ],
+      "summary": "将 DepthCrafter 适配到完整 ERP 视频，以渐进球面噪声和 cubemap 时序分支改善几何与时间一致性；公开输出为保留尺度和偏移歧义的相对逆径向距离，代码与 UNet 权重已发布。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "relative",
+      "scaleNote": "Relative / affine-ambiguous inverse depth. Evaluation resolves one scale and shift per video clip using reference depth; this does not make deployment output metric.",
+      "aliases": [
+        "PVDepth",
+        "PSNI",
+        "CRTM"
+      ],
+      "metricStatus": "scale_shift_invariant",
+      "depthType": "inverse",
+      "outputs": [
+        "inverse_depth",
+        "relative_depth_video"
+      ],
+      "pose": false,
+      "inputSummary": "Ordered ERP RGB frames, an ERP video or a single ERP image through the released general inference entry.",
+      "outputSummary": "Temporally consistent relative inverse radial-distance video, saved as *_disparity.npy with one map per input frame, plus optional PNG/MP4 visualizations.",
+      "inputs": {
+        "frames": "Ordered ERP RGB frames, an ERP video or a single ERP image through the released general inference entry.",
+        "projection": "Complete ERP is the documented direct input; an internal co-centered cubemap temporal branch does not add physical stereo, raw-fisheye or standalone pinhole support.",
+        "intrinsics": "No measured pinhole intrinsics or distortion parameters are requested; ERP-to-sphere/cubemap mappings use known projection geometry.",
+        "resolution": "Default inference width1024 with proportional height aligned to a multiple of64; a 2:1 ERP is1024x512. Paper trains at640x320 and evaluates at1024x512. Default temporal window110 frames, overlap25.",
+        "extrinsics": "No supplied camera poses or external map needed for the described depth inference.",
+        "imu": "No",
+        "gravity": "No measured gravity input documented.",
+        "synchronization": "Ordered RGB frames; no external sensor synchronization input. Output visualization FPS is not an inference-throughput measurement."
+      },
+      "outputDetails": {
+        "primary": "Temporally consistent relative inverse radial-distance video, saved as *_disparity.npy with one map per input frame, plus optional PNG/MP4 visualizations.",
+        "point_map": "No direct point-map or metric 3D export head verified in the reviewed inference entry.",
+        "normal": "No independent surface-normal head documented.",
+        "confidence": "No calibrated depth confidence or uncertainty output documented.",
+        "camera_parameters": "No predicted intrinsics, extrinsics or camera trajectory.",
+        "depth_convention": "The serialized disparity is affine-ambiguous inverse radial distance, not metric range and not camera-axis Z. Ground-truth PanoCARLA Z is converted to Euclidean radial distance before stitching; evaluation fits scale and shift in disparity space before reciprocal depth conversion.",
+        "metric_status": "scale_shift_invariant",
+        "pose_output": "No camera pose, trajectory or SLAM state output documented.",
+        "runtime": "Diffusion-based, not a verified real-time model. Author README reports about31GB VRAM for110frames at1024x512 and about10GB with slower sequential CPU offload; no local speed or memory reproduction."
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/ChuanxinSong/PVDepth",
+      "paperUrl": "https://arxiv.org/abs/2611.07873v1",
+      "projectUrl": "https://chuanxinsong.github.io/pvdepth-project-page/",
+      "weightsUrl": "https://huggingface.co/Soon122/PVDepth",
+      "license": {
+        "code": "Original PVDepth components: Apache-2.0. DepthCrafter-derived inference components retain academic/research/education-only noncommercial and nonproduction terms; third-party component licenses remain separate.",
+        "weights": "UNet model card inherits DepthCrafter and Stable Video Diffusion licenses. No additional commercial rights are granted by LICENSE-PVDEPTH."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2611.07873v1",
+        "https://arxiv.org/html/2611.07873v1",
+        "https://icml.cc/Downloads/2026",
+        "https://icml.cc/virtual/2026/poster/64995",
+        "https://github.com/ChuanxinSong/PVDepth",
+        "https://github.com/ChuanxinSong/PVDepth/blob/main/infer_any_v2.py",
+        "https://github.com/ChuanxinSong/PVDepth/blob/main/depth_eval/run_eval.sh",
+        "https://github.com/ChuanxinSong/PVDepth/blob/main/LICENSE",
+        "https://chuanxinsong.github.io/pvdepth-project-page/",
+        "https://huggingface.co/Soon122/PVDepth",
+        "https://proceedings.mlr.press/v306/song26u.html"
+      ],
+      "notes": [
+        "ICML 2026 is verified in the publisher PMLR306, pp.114962-114986 and the official conference program. The first arXiv deposit is 2026-11-05, but the public UNet model repository dates to 2026-07-23; do not describe this as a newly released model in November. It was previously deferred, not an existing verified catalog method.",
+        "The public inference entry accepts a single ERP image, an ERP image folder or an ERP video and saves relative inverse-depth as *_disparity.npy. It averages the three VAE output channels; a separate global min/max normalization is used only for visualization.",
+        "Predictions have scale-and-shift ambiguity in inverse radial-distance space. No intrinsic, pose, metric baseline or IMU input recovers absolute scale. The ERP cubemap branch is internal and does not establish a raw-fisheye or independent pinhole interface.",
+        "The September10 evaluator update distinguishes bounded (current default) from legacy (paper-reproduction) conversion after the same clip-level LAD2 scale-and-shift disparity alignment. Bounded clamps aligned disparity before inversion and clips depth to [0.1,80] m. Scores across protocols are not interchangeable.",
+        "Paper training uses outdoor PanoCARLA only. Main evaluation holds out Town02/10; indoor examples are qualitative rather than quantitative indoor depth validation. Reflective surfaces and diffusion compute remain limitations.",
+        "Real-video reprojection evaluation uses estimated ViPE poses and aligns other methods to ViPE depth; an alternative MapAnything pose source is also tested. These are estimated references, not independent depth or pose truth.",
+        "Actual inference, two-stage training and evaluator source files and an ungated UNet safetensors listing were checked. Full inference also requires the Stable Video Diffusion base components and their separate license/access conditions. No model weights were downloaded or inference executed.",
+        "The original PVDepth components are Apache-2.0, but DepthCrafter-derived inference components and weights retain academic/research/education-only, noncommercial/nonproduction restrictions. Do not label the full stack permissive Apache-2.0.",
+        "Table2 compares DA-2, UniK3D, PanoDA, DepthAnywhere and video/optimization baselines; no direct DAP comparison was established in the reviewed paper.",
+        "inference_training_evaluation_code_and_UNet_weights_released; base_model_components_and_licenses_required_separately"
+      ],
+      "tags": [
+        "video",
+        "panoramic",
+        "ERP",
+        "relative",
+        "diffusion",
+        "temporal-consistency",
+        "inverse_depth",
+        "relative_depth_video"
+      ],
+      "family": "panoramic video relative inverse-depth estimation",
+      "imu": false,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-11-09",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_released_source_and_official_model_listing_no_local_inference",
+      "codeEntry": "run_infer_any.sh; infer_any_v2.py; pvdepth/pipeline_pvdepth.py; train_stage1_psni.py; train_stage2_pvdepth.py; depth_eval/run_eval.sh",
+      "environment": "Official environment uses Python3.10, PyTorch2.6.0/CUDA12.4, Diffusers0.29.1, Transformers4.41.2, Accelerate0.30.1 and xFormers0.0.29.post2. Inference loads the PVDepth UNet plus stabilityai/stable-video-diffusion-img2vid-xt base; default5 denoising steps, optional model/sequential CPU offload. No local inference run.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "The released inference entry accepts full ERP RGB. Internal co-centered cubemap temporal features are components, not an external adapter or proof of standalone pinhole/raw-fisheye input.",
+            "zh": "已发布推理入口直接接受完整 ERP RGB。内部共心 cubemap 时序特征只是组件，不是外部适配器，也不证明独立针孔／原始鱼眼输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.07873v1",
+            "https://github.com/ChuanxinSong/PVDepth/blob/main/infer_any_v2.py",
+            "https://huggingface.co/Soon122/PVDepth"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-11-09",
+      "figure": {
+        "thumbnail": "assets/papers/pvdepth2026-thumb.webp",
+        "image": "assets/papers/pvdepth2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2611.07873v1",
+        "page": 4,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "en": "PVDepth adapts the video diffusion pipeline with sphere-aware initial noise and an internal cubemap temporal branch.",
+          "zh": "PVDepth 在视频扩散流程中加入球面初始噪声与内部 cubemap 时序分支。"
+        },
+        "credit": {
+          "en": "Source: Chuanxin Song and Peixi Peng, Figure 3 of the original paper.",
+          "zh": "来源：Chuanxin Song、Peixi Peng，原论文 Figure 3。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          90,
+          70.8,
+          522,
+          300.8
+        ],
+        "originalCaption": "Figure 3. Overview of the proposed PVDepth.",
+        "sourceLicense": "Original arXiv v1 is CC BY 4.0; figure attribution retained. Software/model license restrictions are separate.",
+        "reviewedAt": "2026-11-09",
+        "selectionNotes": "Original PDF page4 and final WebP individually viewed; complete inference, sphere-aware-noise, training and temporal-fusion branches plus legend retained.",
+        "pdfSha256": "a7d9149222a359515b995e1f8c9391d9bc8c42e38c19c60f40d649a9a2c7bcb2",
+        "imageSha256": "5fdb2db62a793ca76aeffdbbed5409d071b2220aa5e420160c13fe66096e6e76",
+        "verification": "Original full PDF page and final encoded crop visually inspected; identity, diagram boundaries, labels and readability checked."
+      }
+    },
+    {
       "id": "pager",
       "collection": "depth",
       "name": "PaGeR",
@@ -1700,7 +1861,7 @@ window.ATLAS_DATA = {
       "year": 2026,
       "firstYear": 2026,
       "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
-      "venue": "NeurIPS 2026 (author project); arXiv 2605.26368",
+      "venue": "NeurIPS 2026, verified official conference program; arXiv 2605.26368",
       "authors": [
         "Vukasin Bozic",
         "Isidora Slavkovic",
@@ -1774,6 +1935,9 @@ window.ATLAS_DATA = {
         "https://arxiv.org/pdf/2605.26368v2#page=7",
         "https://arxiv.org/abs/2605.26368v2",
         "https://github.com/prs-eth/PaGeR#pretrained-models",
+        "https://neurips.cc/Downloads/2026",
+        "https://neurips.cc/virtual/2026/poster/149348",
+        "https://github.com/prs-eth/PaGeR/commit/c465ffb6bc7ed6ea395de2f3ea3852c852cec5d5",
         "https://arxiv.org/abs/2605.26368"
       ],
       "notes": [
@@ -1782,6 +1946,7 @@ window.ATLAS_DATA = {
         "Table 2 (arXiv v2, PDF p. 7) reports PaGeR ahead of DAP in 8 of 9 metric-depth dataset/metric cells; Matterport3D360 delta1 is the exception: 69.50% versus 80.19%. These are author-reported results, not local reproduction.",
         "Table 2, AbsRel (%)/RMSE (cm)/delta1 (%), PaGeR versus DAP: Matterport3D360 21.83/123.48/69.50 versus 30.16/168.88/80.19; Stanford2D3DS 10.94/45.43/90.94 versus 10.97/53.39/90.64; ZuriPano 31.97/530.85/39.30 versus 47.00/839.72/24.02.",
         "The paper evaluates metric predictions without GT alignment over [0,75] m. Both DAP and PaGeR have separate indoor/outdoor heads. The paper forces the domain per dataset; its numbers do not establish the accuracy of the later automatic CLIP router or superiority on a different evaluation protocol.",
+        "Official NeurIPS2026 program independently lists the exact PaGeR title. The November4 README commit records acceptance dated September24, not a new November acceptance or model/camera release; final proceedings DOI/pages remain unverified.",
         "code_and_weights"
       ],
       "tags": [
@@ -1800,7 +1965,7 @@ window.ATLAS_DATA = {
       "imu": "No",
       "loopClosure": "Not applicable",
       "nativePanoramic": true,
-      "sourceChecked": "2026-10-20",
+      "sourceChecked": "2026-11-09",
       "publiclyVerified": true,
       "verificationLevel": "L2_partial_paper_and_official_release_metadata",
       "codeEntry": [
@@ -8292,6 +8457,190 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "openvio2026",
+      "collection": "slam",
+      "name": "OpenVIO",
+      "title": "OpenVIO: A Versatile Open-Source Visual-Inertial Odometry System",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv preprint 2610.41671v1; submitted 30 October2026; formal acceptance unverified",
+      "authors": [
+        "Seungwon Choi"
+      ],
+      "institutions": [
+        "Not stated in the reviewed manuscript"
+      ],
+      "summary": "基于 MSCKF 与持久稀疏地标的开源 VIO，直接支持拼接 ERP 单目和针孔／鱼眼单目或实体双目，联合估计相机惯性时延、外参与全景拼接误差；需要 IMU，不含全局回环和稠密深度。",
+      "cameras": [
+        "panoramic",
+        "fisheye",
+        "wide",
+        "perspective",
+        "multi"
+      ],
+      "scale": "metric",
+      "scaleNote": "Metric visual-inertial scale with calibrated IMU units and known gravity magnitude; optional pinhole/fisheye stereo adds a calibrated physical baseline. Global position/yaw gauge is unfixed; no absolute external pose reference is an input.",
+      "aliases": [
+        "OpenVIO",
+        "Open VIO"
+      ],
+      "metricStatus": "metric_visual_inertial",
+      "depthType": "none",
+      "outputs": [
+        "pose",
+        "sparse_landmarks",
+        "calibration"
+      ],
+      "pose": true,
+      "inputSummary": "Monocular or synchronized stereo images plus gyroscope and accelerometer samples. The stitched ERP mode uses one panoramic image stream and IMU; stereo is supported only for pinhole/fisheye pairs.",
+      "outputSummary": "Metric visual-inertial IMU trajectory, filter state, sparse persistent landmarks and exported keyframes/feature observations; no dense depth image.",
+      "inputs": {
+        "frames": "Monocular or synchronized stereo images plus gyroscope and accelerometer samples. The stitched ERP mode uses one panoramic image stream and IMU; stereo is supported only for pinhole/fisheye pairs.",
+        "projection": "Already stitched full-spherical ERP from a two-lens 360 camera; alternatively calibrated pinhole-radtan or equidistant fisheye. These are released external input modes, not internal cubemap views.",
+        "intrinsics": "Calibrated pinhole/fisheye intrinsics are supplied. ERP uses image dimensions and a one-parameter lens-angle stitching correction k, optionally refined online.",
+        "extrinsics": "Camera-IMU transforms are initialized from configuration and can be refined online. Stereo uses a calibrated physical camera-to-camera transform and baseline; ERP is monocular, not ERP stereo.",
+        "imu": true,
+        "gravity": "Known gravity magnitude and calibrated IMU noise; the initializer estimates gravity direction, velocity and biases with sufficient motion.",
+        "resolution": "PanoAir configuration uses 1280x640 ERP at a 30Hz input rate; TUM-VI tests use 512x512 fisheye. No tensor model API or dense-depth resolution.",
+        "synchronization": "Image and IMU timestamps are required. Camera-IMU offset is estimated online; two-lens ERP additionally models the relative lens exposure offset. Stereo image pairs use the same timestamp."
+      },
+      "outputDetails": {
+        "primary": "Metric visual-inertial IMU trajectory, filter state, sparse persistent landmarks and exported keyframes/feature observations; no dense depth image.",
+        "point_map": "Only sparse triangulated/filtered landmarks are maintained, internally in inverse depth along a rotated anchor ray. This is not a dense range or Z-depth product.",
+        "camera_parameters": "Camera-IMU extrinsic and timing corrections; ERP stitching-angle k and back-lens exposure offset when enabled. No arbitrary lens-calibration recovery.",
+        "confidence": "Filter covariance and keyframe pose covariance, plus measurement gates; no calibrated dense-depth uncertainty map.",
+        "normal": "No normal output.",
+        "depth_convention": "No dense depth output. Sparse landmarks use inverse depth in a local frame rotated so the anchor observation lies along +Z; camera-frame optical-axis Z and ERP radial range are not interchangeable.",
+        "metric_status": "metric_visual_inertial",
+        "pose_output": "Yes: IMU pose at image exposure after initialization, exported as TUM time x y z qx qy qz qw; keyframes retain observations and covariance.",
+        "runtime": "No local timing/peak-memory measurement. PanoAir input is30Hz; this is not a verified processing-throughput claim. Standalone C++ and optional ROS1/ROS2 nodes are provided."
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/93won/openvio",
+      "paperUrl": "https://arxiv.org/abs/2610.41671v1",
+      "projectUrl": "https://github.com/93won/openvio",
+      "weightsUrl": "",
+      "license": {
+        "code": "MIT for OpenVIO, as verified in the official LICENSE; bundled third-party dependencies retain their own terms.",
+        "weights": "Not applicable: the reviewed feature-based VIO does not require learned model weights."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2610.41671v1",
+        "https://arxiv.org/html/2610.41671v1",
+        "https://github.com/93won/openvio",
+        "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md",
+        "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/usage.md",
+        "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/architecture.md",
+        "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/config/panoair.yaml",
+        "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/src/vio/sensor/equirectangular_camera_model.cc",
+        "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/LICENSE",
+        "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/configuration.md"
+      ],
+      "notes": [
+        "First submitted 2026-10-30 and backfilled during the November9 overlap review; it is not a paper first published this week. The actual estimator, camera-model source, configurations, optional ROS nodes and MIT LICENSE are present at reviewed master commit 997de9b8a66a372ab5b15506a1bde957592ad356.",
+        "Three released projection modes are distinct: ERP+IMU is monocular, while calibrated pinhole and fisheye support monocular or physical-baseline stereo+IMU. Two fisheye lenses inside a stitched ERP frame do not imply a separate ERP stereo mode.",
+        "Full ERP is accepted without an external pinhole adapter. PanoAir config excludes polar bands for tracking and uses one-parameter angular stitching correction and inter-lens exposure timing; this is not arbitrary rig dewarping or universal calibration.",
+        "Metric scale comes from visual-inertial estimation with calibrated sensor units and known gravity magnitude; the local position/yaw reference remains arbitrary. Stereo additionally has a calibrated physical baseline. This does not establish independent absolute global or wrist-level accuracy.",
+        "Loop closure and map reuse are explicitly excluded by the paper. A local landmark can be re-found after short occlusion; that mechanism is not global loop closure. Exported keyframes only provide an extension interface.",
+        "The filter stores selected sparse inverse-depth landmarks. No dense depth image, metric depth model, Gaussian map or surface mesh is produced by the reviewed system.",
+        "The PanoAir experiment uses one run per flight, excludes the first12.5s and reports mean ATE1.14m after rigid alignment; there are no independent calibration reference values. Its stitching prior uses earlier online estimates on the same dataset, without ground truth, so do not call it an untuned zero-shot calibration experiment.",
+        "No local build or estimator execution was performed. Input frame rate is not verified inference throughput, and no comparable runtime or peak-memory measurement is claimed.",
+        "Actual estimator/camera source and MIT license released; v1.0.1 documentation adds optional ROS1/ROS2 nodes. No local reproduction."
+      ],
+      "tags": [
+        "pose",
+        "sparse_landmarks",
+        "calibration"
+      ],
+      "family": "filter-based visual-inertial odometry with stitched ERP calibration",
+      "imu": true,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-11-09",
+      "publiclyVerified": true,
+      "verificationLevel": "Original paper, released estimator/camera source, fixed-commit configuration and license reviewed; actual Figure2 visually inspected; no local estimator run.",
+      "codeEntry": "src/vio/apps/vio.cc; build/bin/vio odometry; config/panoair.yaml, euroc[_stereo].yaml and tum_vi[_stereo].yaml",
+      "environment": "C++17, CMake>=3.16, OpenCV>=4.0, Eigen>=3.4, libpng; Ceres/spdlog bundled, GLFW/OpenGL viewer optional. Standalone build/bin/vio; optional ROS1 Noetic and ROS2 Humble/Jazzy. Build script may install system packages; not executed in this review.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Released EQUIRECTANGULAR mode consumes an already two-lens-stitched complete ERP directly, plus IMU. It is monocular; the ERP correction models angle and inter-lens exposure errors, not a separate stereo baseline.",
+            "zh": "公开 EQUIRECTANGULAR 模式直接接收已由双镜头拼接的完整 ERP 与 IMU，属于单目；修正角度及镜头间曝光误差，不构成独立双目基线。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.41671v1",
+            "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md",
+            "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/configuration.md"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Released calibrated FISHEYE_EQUIDISTANT input supports mono or physical-baseline stereo with IMU. This is a separate raw-fisheye input, not inferred from capture optics of an ERP stream.",
+            "zh": "已发布标定 FISHEYE_EQUIDISTANT 入口支持鱼眼单目或实体基线双目＋IMU，属于独立原始鱼眼模式，不是从 ERP 采集镜头推断。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.41671v1",
+            "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md",
+            "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/configuration.md"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Released PINHOLE_RADTAN input supports calibrated pinhole mono/stereo with IMU; stereo pair extrinsics are supplied.",
+            "zh": "公开 PINHOLE_RADTAN 入口支持已标定针孔单目／双目＋IMU，双目需给定相机对外参。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2610.41671v1",
+            "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md",
+            "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/configuration.md"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_recheck_2026-11-09",
+      "figure": {
+        "thumbnail": "assets/papers/openvio2026-thumb.webp",
+        "image": "assets/papers/openvio2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2610.41671v1",
+        "page": 2,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "en": "OpenVIO processing joins optical-flow/landmark tracking, initialization and MSCKF-style state updates. Dashed camera1 and matching branches are stereo-only; ERP uses the monocular path.",
+          "zh": "OpenVIO 将光流／地标跟踪、初始化与 MSCKF 式状态更新结合；虚线 camera1 和匹配分支只用于双目，ERP 使用单目路径。"
+        },
+        "credit": {
+          "en": "Source: Seungwon Choi, Figure2 of the original OpenVIO paper.",
+          "zh": "来源：Seungwon Choi，OpenVIO 原论文 Figure2。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          53,
+          48,
+          559,
+          287
+        ],
+        "originalCaption": "Fig. 2. Processing of one image in OpenVIO.",
+        "sourceLicense": "Original arXivv1 is CC BY4.0; attribution retained. Software license is independently verified MIT.",
+        "reviewedAt": "2026-11-09",
+        "selectionNotes": "Original PDFpage2 and final WebP visually inspected; complete camera1, front-end, initialization, IMU, estimator, output and camera-model branches retained.",
+        "pdfSha256": "9615d3c7aa3b5543aef93554b4534faadcfc4c743ab638320251f7b0dc79c261",
+        "imageSha256": "7e79d20be5c04c784b05c3090a48f15161e844c34dac924b04a95de739b98b31",
+        "verification": "Original page and final encoded crop individually viewed; paper identity, Figure2 label, complete diagram boundaries and legibility confirmed."
+      }
+    },
+    {
       "id": "p2uslam2026",
       "collection": "slam",
       "name": "P2U-SLAM",
@@ -8787,6 +9136,275 @@ window.ATLAS_DATA = {
         "sourceLicense": "Copyright remains with the original authors. Dataset and software licenses do not automatically establish preview-image reuse terms.",
         "verificationNote": "Visually inspected the actual official image or source PDF page, then inspected the labeled contact sheet. No generated illustration; no full dataset download.",
         "sourceSha256": "97953400065222a3a0771acae8dceb2c8aea48cb96ec5b120f5b237c7cb3f2f3"
+      }
+    },
+    {
+      "id": "ds_panocarla",
+      "name": "PanoCARLA (dynamic)",
+      "title": "PanoCARLA: dynamic-scene synthetic panoramic RGB-D video",
+      "year": 2026,
+      "venue": "PVDepth companion dataset, ICML 2026; existing release backfilled after the November5 arXiv deposit",
+      "authors": "Chuanxin Song; Peixi Peng",
+      "aliases": [
+        "PanoCARLA",
+        "PanoCARLA dynamic",
+        "PVDepth dataset"
+      ],
+      "cameras": [
+        "panoramic"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "outdoor"
+      ],
+      "reality": "synthetic",
+      "sensors": [
+        "CARLA 0.9.16 virtual RGB/depth/semantic cameras"
+      ],
+      "sensorLabels": {
+        "en": [
+          "CARLA 0.9.16 virtual RGB/depth/semantic cameras"
+        ],
+        "zh": [
+          "CARLA 0.9.16 虚拟 RGB/深度/语义相机"
+        ]
+      },
+      "groundTruth": [
+        "Rendered radial depth",
+        "Simulator position and yaw",
+        "Rendered semantic labels"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Rendered radial depth",
+          "Simulator position and yaw",
+          "Rendered semantic labels"
+        ],
+        "zh": [
+          "渲染径向深度",
+          "仿真位置与偏航角",
+          "渲染语义标签"
+        ]
+      },
+      "access": "registration",
+      "homepageUrl": "https://huggingface.co/datasets/Soon122/PanoCARLA",
+      "paperUrl": "https://proceedings.mlr.press/v306/song26u.html",
+      "downloadUrl": "https://huggingface.co/datasets/Soon122/PanoCARLA/tree/main",
+      "license": {
+        "en": "CC BY 4.0 for dataset annotations/images, stated on the official card. Access is gated: a Hugging Face account and acceptance/sharing of account information are required. The collection code license is separate; this review did not accept the gate or fetch restricted data files.",
+        "zh": "官方数据卡将数据图像和标注声明为 CC BY 4.0；获取有门控，须使用 Hugging Face 账户并接受条款／共享账户信息。采集代码许可单独适用；本轮未代为同意门控，也未获取受限数据文件。"
+      },
+      "summary": "包含动态交通的 CARLA 室外视频：117 个源片段共 126696 帧 ERP，提供渲染径向深度、语义与仿真位姿。获取有门控，与 Static 版分开，运动并非任意六自由度。",
+      "details": {
+        "en": {
+          "Release and access": "This is an earlier resource backfilled during the November9 review, not a new November dataset release. Official metadata dates creation to 2026-05-23 and last modification to 2026-10-08; current revision 450119731a3a5ca54ea7ecd62035c1a40776e383 is public but gated=auto. The public card and filenames were reviewed; restricted payloads were not downloaded.",
+          "Coverage and split": "The official card lists 126,696 frames, 117 source clips and 67 routes across eight outdoor towns. Training: Town01/03/04/05/06/07, 54 routes, 95 clips and 112,988 frames. Test: Town02/10, 13 routes, 22 clips and 13,708 frames. The API lists 117 HDF5 filenames; frame counts are author-card statistics rather than locally opened HDF5 counts.",
+          "Panoramic product": "Six synchronized, co-centered virtual camera views are rendered in CARLA 0.9.16 and combined into complete ERP. They form a cubemap capture representation, not a physical stereo rig or known translation baseline. Dynamic vehicles and pedestrians are retained; camera-height roaming also varies.",
+          "Depth and validity": "The full HDF5 card specifies float16 depth [T,1200,2400,1] in metres. The shared collection source converts optical-axis Z to Euclidean ray distance before ERP face selection. A raw CARLA decoding scale or far plane of 1000 m is not an evaluation valid-depth cutoff. Review finite/positive, sky and far-plane validity for the intended protocol.",
+          "Released poses": "Float32 poses [T,4] store (x,y,z,yaw): position in CARLA-world metres and yaw in degrees. Pitch and roll are fixed at zero and omitted, so the released motion does not cover arbitrary orientation despite the paper/project 6DoF headline. This is simulator annotation, not independent physical tracking truth.",
+          "Formats and indices": "Full train/test data are HDF5 with RGB uint8 [T,1200,2400,3], semantic IDs uint8, depth and poses. Original PNG/NPY layout is supplied only for the Town02/Town10 evaluation archive at 1024x512. setting_dynamic.json retains original-layout paths for all towns; use HDF5 for training towns instead of assuming those raw files are published.",
+          "Benchmark sampling": "Town02/Town10 test_benchmark JSON files define 2/10/20 FPS with sequence lengths 50/90/110. The original capture rate is 20 FPS. Dynamic-scene temporal errors require object-motion and occlusion handling; do not treat all image reprojection residuals as pure camera-trajectory error.",
+          "Relation to PanoCARLA-Static": "The variants reuse overall routes but regenerate camera-height motion, and are not frame-by-frame pixel/pose-aligned pairs. Static removes traffic while retaining moving cameras. Use each release's own poses and indices, keep town/route identity in splits, and do not transfer gated access policy to the ungated Static release."
+        },
+        "zh": {
+          "发布与获取": "本条是 11 月 9 日补录的既有资源，不是 11 月新发布数据。官方元数据记载 2026-05-23 创建、2026-10-08 最后修改，当前版本 450119731a3a5ca54ea7ecd62035c1a40776e383 为公开但 gated=auto。仅核查公开数据卡与文件名，未下载受限内容。",
+          "覆盖与划分": "官方数据卡列出 8 个室外城镇、67 条路线、117 个源片段及 126696 帧。训练使用 Town01/03/04/05/06/07，54 条路线、95 段、112988 帧；测试为 Town02/10，13 条路线、22 段、13708 帧。API 列出 117 个 HDF5 文件名；帧数来自作者数据卡，未在本地逐个打开 HDF5 重数。",
+          "全景产品": "CARLA 0.9.16 渲染六个同步、共光心虚拟相机视图并合成为完整 ERP；这是 cubemap 采集表示，不是实体立体 rig 或已知平移基线。保留动态车辆、行人，相机漫游高度也会变化。",
+          "深度与有效性": "完整 HDF5 数据卡规定深度为 float16 [T,1200,2400,1]、单位米；共用采集源码在 ERP 选面前将光轴 Z 转为欧氏射线距离。CARLA 原始解码缩放或 1000 米远平面不是评测有效深度上限；须按所用协议处理有限/正值、天空和远平面。",
+          "发布位姿": "float32 poses [T,4] 存储 (x,y,z,yaw)，位置为 CARLA 世界坐标的米，偏航为度；pitch、roll 固定为零而省略。因此虽论文/项目使用 6DoF 表述，发布运动并不覆盖任意朝向。标注来自仿真，不是独立实物跟踪真值。",
+          "格式与索引": "完整训练/测试数据以 HDF5 提供，RGB 为 uint8 [T,1200,2400,3]、语义为 uint8 类别，另有深度与位姿。原始 PNG/NPY 格式仅在 Town02/Town10 评测包中提供，分辨率 1024×512。setting_dynamic.json 对所有城镇保留原始布局路径；训练城镇须读 HDF5，不能据索引假定原始文件都已发布。",
+          "基准采样": "Town02/Town10 的 test_benchmark JSON 定义 2/10/20 FPS 和 50/90/110 帧长度，原始采集为 20 FPS。动态场景时间误差须处理物体独立运动与遮挡，不能把所有图像重投影误差归为相机轨迹误差。",
+          "与 PanoCARLA-Static 的关系": "两版复用大致路线，但重新随机生成相机高度，因此不是逐帧像素/位姿对齐的数据对。Static 去除动态交通，相机仍然移动。几何计算使用各版本自己的位姿与索引；划分保留城镇/路线身份，不能将动态版门控政策套用到无门控 Static 版。"
+        }
+      },
+      "notes": {
+        "en": [
+          "The November5 arXiv identifier is a manuscript deposit of already-published ICML2026 work, not the dataset creation date.",
+          "The official project preview is an author-published synthetic RGB frame; it is not model-predicted depth or evidence of independently tracked real poses.",
+          "Gated access remains intact. Public metadata and public preview inspection do not establish that restricted files were opened."
+        ],
+        "zh": [
+          "11 月 5 日 arXiv 编号对应已发表 ICML 2026 工作的论文上传，不是数据集创建日期。",
+          "官方项目预览是作者公开的合成 RGB 帧，不是模型预测深度，也不是真实独立跟踪位姿证据。",
+          "保留获取门控；检查公开元数据和样例不代表已打开受限文件。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://huggingface.co/datasets/Soon122/PanoCARLA",
+          "title": "Official public card: gated access, dimensions, depth units, released pose parametrization and town-disjoint split"
+        },
+        {
+          "url": "https://huggingface.co/api/datasets/Soon122/PanoCARLA",
+          "title": "Official API: existing May23 repository, October8 data revision, gated=auto and 117 listed HDF5 clips"
+        },
+        {
+          "url": "https://github.com/ChuanxinSong/PanoCARLA",
+          "title": "Official shared collection pipeline and dataset/code license separation"
+        },
+        {
+          "url": "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py",
+          "title": "Actual conversion source: optical-axis Z converted to radial distance before ERP face selection"
+        },
+        {
+          "url": "https://proceedings.mlr.press/v306/song26u.html",
+          "title": "PVDepth formal ICML2026 companion paper"
+        },
+        {
+          "url": "https://arxiv.org/html/2611.07873v1",
+          "title": "November5 arXiv deposit: PanoCARLA collection and published evaluation protocol"
+        },
+        {
+          "url": "https://chuanxinsong.github.io/pvdepth-project-page/",
+          "title": "Official project: genuine Town03 Path7 RGB sample, published statistics and Static relation"
+        }
+      ],
+      "checked": "2026-11-09",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "Outdoor CARLA videos with dynamic traffic: 126,696 ERP frames in 117 source clips, rendered radial depth, semantics and simulator poses. Gated access; separate from the Static variant and not arbitrary 6DoF motion.",
+        "zh": "包含动态交通的 CARLA 室外视频：117 个源片段共 126696 帧 ERP，提供渲染径向深度、语义与仿真位姿。获取有门控，与 Static 版分开，运动并非任意六自由度。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Release and access": "This is an earlier resource backfilled during the November9 review, not a new November dataset release. Official metadata dates creation to 2026-05-23 and last modification to 2026-10-08; current revision 450119731a3a5ca54ea7ecd62035c1a40776e383 is public but gated=auto. The public card and filenames were reviewed; restricted payloads were not downloaded.",
+          "Coverage and split": "The official card lists 126,696 frames, 117 source clips and 67 routes across eight outdoor towns. Training: Town01/03/04/05/06/07, 54 routes, 95 clips and 112,988 frames. Test: Town02/10, 13 routes, 22 clips and 13,708 frames. The API lists 117 HDF5 filenames; frame counts are author-card statistics rather than locally opened HDF5 counts.",
+          "Panoramic product": "Six synchronized, co-centered virtual camera views are rendered in CARLA 0.9.16 and combined into complete ERP. They form a cubemap capture representation, not a physical stereo rig or known translation baseline. Dynamic vehicles and pedestrians are retained; camera-height roaming also varies.",
+          "Depth and validity": "The full HDF5 card specifies float16 depth [T,1200,2400,1] in metres. The shared collection source converts optical-axis Z to Euclidean ray distance before ERP face selection. A raw CARLA decoding scale or far plane of 1000 m is not an evaluation valid-depth cutoff. Review finite/positive, sky and far-plane validity for the intended protocol.",
+          "Released poses": "Float32 poses [T,4] store (x,y,z,yaw): position in CARLA-world metres and yaw in degrees. Pitch and roll are fixed at zero and omitted, so the released motion does not cover arbitrary orientation despite the paper/project 6DoF headline. This is simulator annotation, not independent physical tracking truth.",
+          "Formats and indices": "Full train/test data are HDF5 with RGB uint8 [T,1200,2400,3], semantic IDs uint8, depth and poses. Original PNG/NPY layout is supplied only for the Town02/Town10 evaluation archive at 1024x512. setting_dynamic.json retains original-layout paths for all towns; use HDF5 for training towns instead of assuming those raw files are published.",
+          "Benchmark sampling": "Town02/Town10 test_benchmark JSON files define 2/10/20 FPS with sequence lengths 50/90/110. The original capture rate is 20 FPS. Dynamic-scene temporal errors require object-motion and occlusion handling; do not treat all image reprojection residuals as pure camera-trajectory error.",
+          "Relation to PanoCARLA-Static": "The variants reuse overall routes but regenerate camera-height motion, and are not frame-by-frame pixel/pose-aligned pairs. Static removes traffic while retaining moving cameras. Use each release's own poses and indices, keep town/route identity in splits, and do not transfer gated access policy to the ungated Static release."
+        },
+        "zh": {
+          "发布与获取": "本条是 11 月 9 日补录的既有资源，不是 11 月新发布数据。官方元数据记载 2026-05-23 创建、2026-10-08 最后修改，当前版本 450119731a3a5ca54ea7ecd62035c1a40776e383 为公开但 gated=auto。仅核查公开数据卡与文件名，未下载受限内容。",
+          "覆盖与划分": "官方数据卡列出 8 个室外城镇、67 条路线、117 个源片段及 126696 帧。训练使用 Town01/03/04/05/06/07，54 条路线、95 段、112988 帧；测试为 Town02/10，13 条路线、22 段、13708 帧。API 列出 117 个 HDF5 文件名；帧数来自作者数据卡，未在本地逐个打开 HDF5 重数。",
+          "全景产品": "CARLA 0.9.16 渲染六个同步、共光心虚拟相机视图并合成为完整 ERP；这是 cubemap 采集表示，不是实体立体 rig 或已知平移基线。保留动态车辆、行人，相机漫游高度也会变化。",
+          "深度与有效性": "完整 HDF5 数据卡规定深度为 float16 [T,1200,2400,1]、单位米；共用采集源码在 ERP 选面前将光轴 Z 转为欧氏射线距离。CARLA 原始解码缩放或 1000 米远平面不是评测有效深度上限；须按所用协议处理有限/正值、天空和远平面。",
+          "发布位姿": "float32 poses [T,4] 存储 (x,y,z,yaw)，位置为 CARLA 世界坐标的米，偏航为度；pitch、roll 固定为零而省略。因此虽论文/项目使用 6DoF 表述，发布运动并不覆盖任意朝向。标注来自仿真，不是独立实物跟踪真值。",
+          "格式与索引": "完整训练/测试数据以 HDF5 提供，RGB 为 uint8 [T,1200,2400,3]、语义为 uint8 类别，另有深度与位姿。原始 PNG/NPY 格式仅在 Town02/Town10 评测包中提供，分辨率 1024×512。setting_dynamic.json 对所有城镇保留原始布局路径；训练城镇须读 HDF5，不能据索引假定原始文件都已发布。",
+          "基准采样": "Town02/Town10 的 test_benchmark JSON 定义 2/10/20 FPS 和 50/90/110 帧长度，原始采集为 20 FPS。动态场景时间误差须处理物体独立运动与遮挡，不能把所有图像重投影误差归为相机轨迹误差。",
+          "与 PanoCARLA-Static 的关系": "两版复用大致路线，但重新随机生成相机高度，因此不是逐帧像素/位姿对齐的数据对。Static 去除动态交通，相机仍然移动。几何计算使用各版本自己的位姿与索引；划分保留城镇/路线身份，不能将动态版门控政策套用到无门控 Static 版。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "The November5 arXiv identifier is a manuscript deposit of already-published ICML2026 work, not the dataset creation date.",
+          "The official project preview is an author-published synthetic RGB frame; it is not model-predicted depth or evidence of independently tracked real poses.",
+          "Gated access remains intact. Public metadata and public preview inspection do not establish that restricted files were opened."
+        ],
+        "zh": [
+          "11 月 5 日 arXiv 编号对应已发表 ICML 2026 工作的论文上传，不是数据集创建日期。",
+          "官方项目预览是作者公开的合成 RGB 帧，不是模型预测深度，也不是真实独立跟踪位姿证据。",
+          "保留获取门控；检查公开元数据和样例不代表已打开受限文件。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "CC BY 4.0 for dataset annotations/images, stated on the official card. Access is gated: a Hugging Face account and acceptance/sharing of account information are required. The collection code license is separate; this review did not accept the gate or fetch restricted data files.",
+        "zh": "官方数据卡将数据图像和标注声明为 CC BY 4.0；获取有门控，须使用 Hugging Face 账户并接受条款／共享账户信息。采集代码许可单独适用；本轮未代为同意门控，也未获取受限数据文件。"
+      },
+      "sourceChecked": "2026-11-09",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "released",
+          "note": {
+            "en": "A released full ERP product is rendered from six co-centered virtual views; access is gated. Internal cubemap capture does not make a baseline stereo dataset.",
+            "zh": "已发布完整 ERP 产品由六个共心虚拟视图渲染合成，获取有门控；内部 cubemap 采集不构成有基线立体数据。"
+          },
+          "evidence": [
+            "https://huggingface.co/datasets/Soon122/PanoCARLA",
+            "https://huggingface.co/api/datasets/Soon122/PanoCARLA",
+            "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "focused_primary_source_recheck_2026-11-09",
+      "annotations": {
+        "depth": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "The official gated-release card supplies rendered ERP radial distance in metres. Restricted HDF5 values and masks were not read in this review; access acceptance and task-specific validity remain required.",
+            "zh": "官方门控发布的数据卡提供米制渲染 ERP 径向距离；本轮未读取受限 HDF5 数值和掩码，仍须取得访问权限并按任务处理有效性。"
+          }
+        },
+        "trajectory": {
+          "status": "yes",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Per-frame simulator (x,y,z,yaw) is documented; pitch/roll are fixed to zero. This is complete for the constrained capture motion, not arbitrary orientation or independently measured real trajectory truth.",
+            "zh": "逐帧文档提供仿真 (x,y,z,yaw)，俯仰与滚转固定为零；对该受限采集运动足够，但不覆盖任意朝向，也不是独立实测轨迹真值。"
+          }
+        },
+        "evidence": [
+          "https://huggingface.co/datasets/Soon122/PanoCARLA",
+          "https://huggingface.co/api/datasets/Soon122/PanoCARLA",
+          "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py",
+          "https://arxiv.org/html/2611.07873v1"
+        ],
+        "checked": "2026-11-09"
+      },
+      "curation": {
+        "tier": "specialized",
+        "rank": 12,
+        "scope": {
+          "en": "Dynamic-scene synthetic panoramic video depth",
+          "zh": "动态场景合成全景视频深度"
+        },
+        "reason": {
+          "en": "A targeted outdoor ERP video benchmark with rendered radial depth and town-disjoint splits. Earlier available resource backfilled with its companion model; gated acquisition, constrained orientation and dynamic/static separation must be respected.",
+          "zh": "面向室外 ERP 视频的专项基准，提供渲染径向深度与城镇互斥划分。随模型补录既有资源；须注意门控获取、受限朝向与动态/静态版本区别。"
+        },
+        "evidence": [
+          {
+            "url": "https://huggingface.co/datasets/Soon122/PanoCARLA",
+            "title": "Official documented split, formats, gate and pose limits"
+          },
+          {
+            "url": "https://proceedings.mlr.press/v306/song26u.html",
+            "title": "Peer-reviewed task and benchmark context"
+          }
+        ],
+        "checked": "2026-11-09"
+      },
+      "figure": {
+        "image": "assets/datasets/ds_panocarla.webp",
+        "thumbnail": "assets/datasets/ds_panocarla-thumb.webp",
+        "sourceType": "author-project-image",
+        "sourcePageUrl": "https://chuanxinsong.github.io/pvdepth-project-page/",
+        "sourceUrl": "https://chuanxinsong.github.io/pvdepth-project-page/assets/motivation-2-rgb-erp.webp",
+        "paperUrl": "https://proceedings.mlr.press/v306/song26u.html",
+        "sourceTitle": "PanoCARLA official Town03 Path7 source RGB frame at 2.10 seconds",
+        "caption": {
+          "en": "Official PanoCARLA Town03, Path7 ERP RGB sample at 2.10s, showing a synthetic street and dynamic traffic. This is an author-published source image, not a PVDepth prediction or a depth map.",
+          "zh": "官方 PanoCARLA Town03、Path7 在 2.10 秒的 ERP RGB 样例，展示合成街景与动态交通；这是作者公开的输入图像，不是 PVDepth 预测或深度图。"
+        },
+        "credit": {
+          "en": "Source: Chuanxin Song and Peixi Peng, official PVDepth/PanoCARLA project, spatiotemporal-challenge RGB sample.",
+          "zh": "来源：Chuanxin Song、Peixi Peng，官方 PVDepth/PanoCARLA 项目的时空畸变 RGB 样例。"
+        },
+        "kind": "dataset-preview",
+        "verified": true,
+        "sourceChecked": "2026-11-09",
+        "imageSize": [
+          1024,
+          512
+        ],
+        "sourceLicense": "Dataset card states CC BY 4.0. Original authors credited; no separate project-asset terms were established. Collection-code license is separate.",
+        "verificationNote": "Original official 1024x512 full-ERP image and final full/thumbnail WebP individually viewed. No crop or generated replacement; an RGB source image is not relabeled as depth truth.",
+        "sourceSha256": "fce791754464452a7ae950d8aa6a2c6c42100b3b41dee13e9e535ffd375b9f4d"
       }
     },
     {
@@ -20329,12 +20947,12 @@ window.ATLAS_DATA = {
     }
   ],
   "stats": {
-    "depth": 39,
-    "slam": 35,
-    "datasets": 40,
-    "panoramicDepth": 27,
-    "panoramicSLAM": 13,
-    "paperFigures": 74,
-    "datasetFigures": 40
+    "depth": 40,
+    "slam": 36,
+    "datasets": 41,
+    "panoramicDepth": 28,
+    "panoramicSLAM": 14,
+    "paperFigures": 76,
+    "datasetFigures": 41
   }
 };

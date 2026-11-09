@@ -7,7 +7,7 @@ import shutil
 from urllib.parse import urlparse
 
 ROOT=Path(__file__).resolve().parents[1]
-UPDATED='2026-11-02'
+UPDATED='2026-11-09'
 REPO_URL='https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM'
 
 # Explicit reviewed labels: substring search is not a test of camera support.
@@ -41,6 +41,7 @@ DEPTH['omnipoint2026']=('OmniPoint', ['panoramic', 'fisheye', 'wide', 'perspecti
 DEPTH['omniray2026']=('OmniRay', ['panoramic', 'fisheye', 'wide', 'perspective'], 'relative', 'points', '以单调径向基底、球谐残差和自由场残差组合相机射线，统一针孔、鱼眼和完整 ERP 的单图相对三维点图；不需要相机类型或内参，但不恢复绝对米制尺度。')
 DEPTH['dex2026']=('DEX (Distortion Extenders)', ['fisheye', 'wide'], 'mixed', 'range', '在冻结的透视基础模型中插入轻量特征调制器，以透视图合成鱼眼并自监督对齐；直接预测原始鱼眼径向距离，还能适配开放词汇分割。没有核实完整 ERP 支持，官方仓库仍仅有许可文件。')
 DEPTH['any3r2026']=('Any3R', ['panoramic', 'fisheye', 'wide', 'perspective'], 'relative', 'range', '以已知逐像素射线条件化角度位置编码与立体角损失，直接融合完整 ERP、鱼眼和针孔多视图，预测径向距离、点图和相对位姿；尺度仍不确定，需要相机标定。')
+DEPTH['pvdepth2026']=('PVDepth', ['panoramic'], 'relative', 'inverse', '将 DepthCrafter 适配到完整 ERP 视频，以渐进球面噪声和 cubemap 时序分支改善几何与时间一致性；公开输出为保留尺度和偏移歧义的相对逆径向距离，代码与 UNet 权重已发布。')
 CAMERAS={'panoramic_erp':'panoramic','erp':'panoramic','panoramic':'panoramic',
  'fisheye':'fisheye','wide_fov':'wide','wide-angle':'wide','wide-fov':'wide',
  'perspective':'perspective','pinhole':'perspective','multi-camera':'multi','multi_camera':'multi'}
@@ -63,14 +64,20 @@ NO_DENSE_DEPTH.update(['aprilvins2026','omnivloc2026'])
 SCALE_OVERRIDES['holorecon2026']='relative'
 CODE_OVERRIDES.update(dex2026='none',any3r2026='released',holorecon2026='unverified')
 SLAM_DEPTH['holorecon2026']='points'
+SCALE_OVERRIDES['openvio2026']='metric'
+CODE_OVERRIDES.update(openvio2026='released',pvdepth2026='released')
+NO_DENSE_DEPTH.add('openvio2026')
 DEPTH_METRIC_STATUS={k:('metric_learned' if v[2]=='metric' else 'scale_invariant' if v[2]=='relative' else
                       'mixed_checkpoints' if v[2]=='mixed' else 'unknown') for k,v in DEPTH.items()}
 DEPTH_METRIC_STATUS.update(unifuse='dataset_scale_only',panoformer='dataset_scale_only')
+DEPTH_METRIC_STATUS['pvdepth2026']='scale_shift_invariant'
 ALIASES={'depth_anything_v2':['DAv2','DA2 perspective'],'depth_anything_3':['DA3'],
          'dac':['DAC'],'unidac':['UniDAC'],'da2_panorama':['DA2','DA²'],
          'dap':['DAP'],'da360':['DA360'],'panda':['PanDA'],'depth_anywhere':['DepthAnywhere','DA'],
          'metric3d_v2':['Metric3D','Metric3Dv2'],'vggt_omega':['VGGT-Omega'],
          'video_depth_anything':['VideoDA','VDA']}
+
+ALIASES.update(pvdepth2026=['PVDepth','PSNI','CRTM'],openvio2026=['OpenVIO','Open VIO'])
 
 
 def txt(v):
@@ -271,7 +278,7 @@ def build():
     records.sort(key=lambda e:(e['collection']!='depth',-int(str(e.get('year',0))[:4]) if str(e.get('year',0))[:4].isdigit() else 0,e['name']))
     catalog=dict(updated=UPDATED,repoUrl=REPO_URL,title='Panoramic Depth Atlas',
         description='Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.',
-        schemaVersion='1.4',interfaceUpdated='2026-11-02',records=records,
+        schemaVersion='1.4',interfaceUpdated='2026-11-09',records=records,
         stats={'depth':len(depth)+len(added),'slam':len(slam),
                'datasets':len(datasets),
                'panoramicDepth':sum(e['collection']=='depth' and 'panoramic' in e['cameras'] for e in records),
@@ -299,8 +306,8 @@ def build():
     for e in records:
         evidence=[v if isinstance(v,str) else v.get('url','') for v in e['evidence']]
         sources.append(f"## {e['name']} ({e['year']})\n\n{e['title']}\n\n"+'\n'.join('- '+v for v in evidence if v)+'\n')
-    (ROOT/'references/sources.md').write_text('# Official-source index\n\nLiterature search cutoff '+UPDATED+'. Incremental method and dataset checks: 2026-11-02; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
-    camera_lines=['# Camera taxonomy / 相机分类\n\nIncremental classification additions checked 2026-11-02; earlier per-ID review dates are preserved. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.\n\nPinhole 指针孔透视输入；Wide-FOV 不作为独立投影分类。名称、广角和内部切片均不能替代输入接口证据。保留既有 perspective enum 与旧链接，新 pinhole 链接为别名。\n']
+    (ROOT/'references/sources.md').write_text('# Official-source index\n\nLiterature search cutoff '+UPDATED+'. Incremental method and dataset checks: 2026-11-09; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.\n\n'+'\n'.join(sources),encoding='utf-8',newline='\n')
+    camera_lines=['# Camera taxonomy / 相机分类\n\nIncremental classification additions checked 2026-11-09; earlier per-ID review dates are preserved. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.\n\nPinhole 指针孔透视输入；Wide-FOV 不作为独立投影分类。名称、广角和内部切片均不能替代输入接口证据。保留既有 perspective enum 与旧链接，新 pinhole 链接为别名。\n']
     for record in records:
         camera_lines.append('## '+record['name']+'\n\n'+', '.join(record['cameras'])+'\n')
         for support in record['cameraSupport']:

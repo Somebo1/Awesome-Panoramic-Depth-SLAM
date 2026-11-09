@@ -1,6 +1,6 @@
 # Camera taxonomy / 相机分类
 
-Incremental classification additions checked 2026-11-02; earlier per-ID review dates are preserved. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.
+Incremental classification additions checked 2026-11-09; earlier per-ID review dates are preserved. Main categories describe supported input projections, not internal patches or outputs. Wide FoV and physical multi-camera rigs are independent attributes. A full ERP input can have internal cubemap processing; PAL annular images are not full ERP. Direct means no external cross-projection adapter. A rendered or stitched dataset derivative is labeled separately.
 
 Pinhole 指针孔透视输入；Wide-FOV 不作为独立投影分类。名称、广角和内部切片均不能替代输入接口证据。保留既有 perspective enum 与旧链接，新 pinhole 链接为别名。
 
@@ -134,6 +134,17 @@ panoramic, fisheye, wide, perspective
   - https://nam1410.github.io/omniray/
 
 Review scope: focused_primary_source_recheck_2026-10-26
+
+## PVDepth
+
+panoramic
+
+- panoramic / direct: The released inference entry accepts full ERP RGB. Internal co-centered cubemap temporal features are components, not an external adapter or proof of standalone pinhole/raw-fisheye input. 已发布推理入口直接接受完整 ERP RGB。内部共心 cubemap 时序特征只是组件，不是外部适配器，也不证明独立针孔／原始鱼眼输入。
+  - https://arxiv.org/abs/2611.07873v1
+  - https://github.com/ChuanxinSong/PVDepth/blob/main/infer_any_v2.py
+  - https://huggingface.co/Soon122/PVDepth
+
+Review scope: focused_primary_source_recheck_2026-11-09
 
 ## PaGeR
 
@@ -592,6 +603,25 @@ panoramic
 
 Review scope: focused_primary_source_recheck_2026-10-26
 
+## OpenVIO
+
+panoramic, fisheye, wide, perspective, multi
+
+- panoramic / direct: Released EQUIRECTANGULAR mode consumes an already two-lens-stitched complete ERP directly, plus IMU. It is monocular; the ERP correction models angle and inter-lens exposure errors, not a separate stereo baseline. 公开 EQUIRECTANGULAR 模式直接接收已由双镜头拼接的完整 ERP 与 IMU，属于单目；修正角度及镜头间曝光误差，不构成独立双目基线。
+  - https://arxiv.org/abs/2610.41671v1
+  - https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md
+  - https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/configuration.md
+- fisheye / direct: Released calibrated FISHEYE_EQUIDISTANT input supports mono or physical-baseline stereo with IMU. This is a separate raw-fisheye input, not inferred from capture optics of an ERP stream. 已发布标定 FISHEYE_EQUIDISTANT 入口支持鱼眼单目或实体基线双目＋IMU，属于独立原始鱼眼模式，不是从 ERP 采集镜头推断。
+  - https://arxiv.org/abs/2610.41671v1
+  - https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md
+  - https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/configuration.md
+- perspective / direct: Released PINHOLE_RADTAN input supports calibrated pinhole mono/stereo with IMU; stereo pair extrinsics are supplied. 公开 PINHOLE_RADTAN 入口支持已标定针孔单目／双目＋IMU，双目需给定相机对外参。
+  - https://arxiv.org/abs/2610.41671v1
+  - https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/camera_models.md
+  - https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/doc/configuration.md
+
+Review scope: focused_primary_source_recheck_2026-11-09
+
 ## P2U-SLAM
 
 fisheye, wide
@@ -628,6 +658,17 @@ panoramic, fisheye, wide, perspective, multi
   - https://arxiv.org/abs/2604.00852
 
 Review scope: carried_forward_from_existing_source_review
+
+## PanoCARLA (dynamic)
+
+panoramic
+
+- panoramic / rendered: A released full ERP product is rendered from six co-centered virtual views; access is gated. Internal cubemap capture does not make a baseline stereo dataset. 已发布完整 ERP 产品由六个共心虚拟视图渲染合成，获取有门控；内部 cubemap 采集不构成有基线立体数据。
+  - https://huggingface.co/datasets/Soon122/PanoCARLA
+  - https://huggingface.co/api/datasets/Soon122/PanoCARLA
+  - https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py
+
+Review scope: focused_primary_source_recheck_2026-11-09
 
 ## PanoCARLA-Static
 

@@ -403,6 +403,23 @@ check('new panorama datasets preserve release inventory, estimated references an
   const b=boot('?collection=datasets&category=panoramic&lang=en');b.api.setFilter('trajectoryGT','yes');assert(b.api.getFilteredRecords().some(r=>r.id===syn.id));assert(!b.api.getFilteredRecords().some(r=>r.id===pano.id));b.api.setFilter('trajectoryGT','unknown');assert(b.api.getFilteredRecords().some(r=>r.id===pano.id));
   for(const id of [syn.id,pano.id]){b.api.setLanguage('zh');b.api.openRecord(id);assert.match(b.doc.getElementById('detail-content').textContent,/许可/);b.doc.getElementById('detail-dialog').close();}b.dom.window.close();
 });
+check('PVDepth preserves affine inverse range, released components and estimated evaluation references',()=>{
+  const r=catalog.records.find(r=>r.id==='pvdepth2026');assert(r);assert.deepEqual(r.cameras,['panoramic']);assert.equal(r.scale,'relative');assert.equal(r.metricStatus,'scale_shift_invariant');assert.equal(r.depthType,'inverse');assert.equal(r.pose,false);assert.equal(r.imu,false);assert.equal(r.codeStatus,'released');
+  assert.match(r.outputSummary,/disparity.npy/);assert.match(r.outputDetails.depth_convention,/radial/);assert.match(r.notes.join(' '),/bounded/);assert.match(r.notes.join(' '),/legacy/);assert.match(r.notes.join(' '),/MapAnything/);assert(!r.notes.some(n=>/360ORB/.test(n)));assert.match(r.venue,/PMLR 306/);
+  const b=boot('?collection=depth&category=panoramic&q=PVDepth&lang=en');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/MapAnything/);b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/偏移歧义/);b.dom.window.close();
+});
+check('OpenVIO supports ERP mono with IMU without claiming ERP stereo, dense depth or loop closure',()=>{
+  const r=catalog.records.find(r=>r.id==='openvio2026');assert(r);assert.equal(r.scale,'metric');assert.equal(r.depthType,'none');assert.equal(r.pose,true);assert.equal(r.imu,true);assert.equal(r.loopClosure,false);assert.equal(r.codeStatus,'released');
+  for(const camera of ['panoramic','fisheye','perspective','multi'])assert(r.cameras.includes(camera));assert(r.cameraSupport.every(s=>s.route==='direct'&&s.availability==='released'));
+  assert.match(r.inputs.frames,/stereo is supported only for pinhole\/fisheye/);assert.match(r.inputs.extrinsics,/ERP is monocular/);assert.match(r.scaleNote,/position\/yaw/);assert.match(r.notes.join(' '),/not global loop closure/);
+  const b=boot('?collection=slam&category=panoramic&q=OpenVIO&lang=en');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/No dense depth/);b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/需要 IMU|需要IMU/);b.dom.window.close();
+});
+check('dynamic PanoCARLA remains distinct from Static and retains gated rendered truth with constrained poses',()=>{
+  const r=catalog.records.find(r=>r.id==='ds_panocarla'),stat=catalog.records.find(r=>r.id==='ds_panocarla_static2026');assert(r&&stat);assert.equal(catalog.records.filter(r=>r.id==='ds_panocarla').length,1);assert.equal(r.access,'registration');assert.equal(r.reality,'synthetic');assert.deepEqual(r.cameras,['panoramic']);assert.deepEqual(r.tasks,['depth','slam']);
+  for(const kind of ['depth','trajectory']){assert.equal(r.annotations[kind].status,'yes');assert.deepEqual(r.annotations[kind].provenance,['rendered']);}
+  assert.match(r.datasetDetails.en['Released poses'],/pitch.*roll|Pitch and roll/);assert.match(r.datasetDetails.en['Coverage and split'],/126,696/);assert.match(r.datasetDetails.en['Relation to PanoCARLA-Static'],/not frame-by-frame/);assert.equal(r.cameraSupport[0].route,'rendered');assert.equal(r.curation.tier,'specialized');
+  const b=boot('?collection=datasets&category=panoramic&lang=en');b.api.setFilter('access','registration');assert(b.api.getFilteredRecords().some(x=>x.id===r.id));b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/gated/);b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/偏航|yaw/);b.dom.window.close();
+});
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};
 fs.mkdirSync(path.join(root,'tests/results'),{recursive:true});

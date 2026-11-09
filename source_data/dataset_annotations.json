@@ -1107,5 +1107,34 @@
       "https://huggingface.co/datasets/gxfzju/SynPano/tree/6ca1bf731c7b1417ea84c8830fff1a73aa08516c"
     ],
     "checked": "2026-11-02"
+  },
+  "ds_panocarla": {
+    "depth": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "The official gated-release card supplies rendered ERP radial distance in metres. Restricted HDF5 values and masks were not read in this review; access acceptance and task-specific validity remain required.",
+        "zh": "官方门控发布的数据卡提供米制渲染 ERP 径向距离；本轮未读取受限 HDF5 数值和掩码，仍须取得访问权限并按任务处理有效性。"
+      }
+    },
+    "trajectory": {
+      "status": "yes",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Per-frame simulator (x,y,z,yaw) is documented; pitch/roll are fixed to zero. This is complete for the constrained capture motion, not arbitrary orientation or independently measured real trajectory truth.",
+        "zh": "逐帧文档提供仿真 (x,y,z,yaw)，俯仰与滚转固定为零；对该受限采集运动足够，但不覆盖任意朝向，也不是独立实测轨迹真值。"
+      }
+    },
+    "evidence": [
+      "https://huggingface.co/datasets/Soon122/PanoCARLA",
+      "https://huggingface.co/api/datasets/Soon122/PanoCARLA",
+      "https://github.com/ChuanxinSong/PanoCARLA/blob/main/stage2/equi_extract_for_fov100_multiprocess.py",
+      "https://arxiv.org/html/2611.07873v1"
+    ],
+    "checked": "2026-11-09"
   }
 }

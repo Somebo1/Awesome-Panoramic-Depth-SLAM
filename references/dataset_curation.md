@@ -384,6 +384,17 @@ An accessible eight-scene ERP/pose resource for targeted tests. Recent and narro
 - https://github.com/guoxf304/SynPano-Dataset
 - https://huggingface.co/api/datasets/gxfzju/SynPano
 
+### PanoCARLA (dynamic)
+
+动态场景合成全景视频深度 / Dynamic-scene synthetic panoramic video depth
+
+面向室外 ERP 视频的专项基准，提供渲染径向深度与城镇互斥划分。随模型补录既有资源；须注意门控获取、受限朝向与动态/静态版本区别。
+
+A targeted outdoor ERP video benchmark with rendered radial depth and town-disjoint splits. Earlier available resource backfilled with its companion model; gated acquisition, constrained orientation and dynamic/static separation must be respected.
+
+- https://huggingface.co/datasets/Soon122/PanoCARLA
+- https://proceedings.mlr.press/v306/song26u.html
+
 ## 待发布或待核实 / Awaiting release or verification
 
 ### MILD / MILD-Sim
