@@ -50,6 +50,14 @@ Figure 3, PDF page 5. GeoPano view decomposition, panorama-aware attention, loca
 - Screenshot: [assets/papers/geopano2026.webp](../site/assets/papers/geopano2026.webp)
 - Local PDF SHA-256: `cf64e0e5fb5c7406151dd40ba6b563e55062660b9df573b2779dea3879924cf7`
 
+## LingBot-Depth
+
+Figure 2, PDF page 3. LingBot-Depth jointly embeds RGB and observed-depth tokens, then decodes refined depth from contextual RGB tokens.
+
+- PDF: https://arxiv.org/pdf/2601.17895v1
+- Screenshot: [assets/papers/lingbot_depth2026.webp](../site/assets/papers/lingbot_depth2026.webp)
+- Local PDF SHA-256: `480937fc369c02535a6eac4a69ccb47566e394bc898e8911cdbc63cbeeb30896`
+
 ## MCPDepth
 
 Figure 3, PDF page 5. Multicylindrical stereo matching, confidence prediction and depth fusion.

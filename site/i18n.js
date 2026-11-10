@@ -1206,5 +1206,64 @@
   "filter-based visual-inertial odometry with stitched ERP calibration": "带拼接 ERP 标定的滤波式视觉惯性里程计"
 });
   zhRecords.pager[3].push("NeurIPS2026官方会议列表已独立确认完整论文标题。11月4日README提交补记的是9月24日录用信息，并非11月新录用或新增模型／相机支持；最终会议论文集DOI和页码仍未核实。");
+  // Targeted LingBot-Depth source review, 2026-11-10.
+  Object.assign(summaries, {
+  "lingbot_depth2026": "Uses masked RGB-depth modeling to complete and refine metric Z-depth from RGB plus observed noisy or incomplete depth. Released inference requires a depth tensor; pinhole intrinsics enable derived points. Full-ERP and raw-fisheye support is unverified."
+});
+  Object.assign(zhRecords, {
+  "lingbot_depth2026": [
+    "单张 RGB 加必需的空间对齐已有深度图，可含噪声、空洞或稀疏采样；公开 forward 路径断言 depth 不得为 None。",
+    "输出精化的稠密公制相机轴向 Z-depth，键为 depth，形状(B,H,W)，以输入的米制深度为条件。",
+    "输出公制深度，以米制传感器输入和公制训练监督为条件；尚非已独立核实的纯 RGB 零样本公制估深接口，传感器尺度误差与域变化仍会影响结果。",
+    [
+      "论文为 Masked Depth Modeling for Spatial Perception，正式发表于 ECCV2026、LNCS17009卷453—470页，DOI10.1007/978-3-032-37035-8_25，出版社首次上线2026-09-09；arXiv v1 为2026-01-25。此次是补录旧遗漏，不是11月新发布。",
+      "infer 签名虽将 depth_in 默认写为 None，forward 实际断言深度不得为 None；应按 RGB 加已有深度的补全接口理解，深度张量内的缺失采样不等于省略整个张量。",
+      "RGB 与深度分别嵌入 patch 后联合注意力编码，再由上下文 RGB token 解码深度。源码将非有限深度归零，以大于0.01米作为深度 token 编码前的有效条件。",
+      "输出是公制相机 Z；预测深度可不传内参，派生点云需要归一化针孔 K。未核实独立 range、相机估计、位姿、法线或校准置信度输出。",
+      "论文4.2节将编码器迁移进 MoGe，移除深度嵌入分支和 ConvStack 解码器以做单目实验；该适配模型不能与当前 RGB-D 补全推理入口混同。",
+      "主要任务是深度补全与精化。重建、跟踪、抓取及单目迁移是下游实验，不代表此模型本身输出 SLAM 状态；未确立与纯 RGB 的 DAP 在同一协议下的直接优劣比较。",
+      "官方推荐 lingbot-depth-pretrain-vitl-14-v0.5；旧 v0.1 与稀疏深度补全权重另列。已核查公开无门控模型文件清单及推理源码，未下载权重或运行模型；所查99路径仓库树未找到训练代码。",
+      "权重 v0.5 与 mdm/model/v2.py 文件名均不等于 LingBot-Depth2.0。后续 LingBot-Vision 介绍了 Depth2.0，但所查模型表仅发布骨干权重，不能据此确认完整2.0补全检查点已开放。",
+      "训练含 FoundationStereo 估计的真实场景深度参考、理想渲染的合成深度以及公共数据；立体估计参考不等于独立实测真值，数据与模型许可及获取条件分别适用。",
+      "代码与所查权重模型卡声明 Apache-2.0；LEGAL.md 规定代码注释以中文版本为准，第三方组件与原始数据仍按各自条款使用。",
+      "已发布推理实现、示例、推荐 v0.5 及单独稀疏补全模型文件清单；所查仓库未找到训练代码。完整 LingBot-Depth2.0 补全模型仍未核实。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "lingbot_depth2026": {
+    "input": {
+      "frames": "单张 RGB 加必需的空间对齐已有深度图，可含噪声、空洞或稀疏采样；公开 forward 路径断言 depth 不得为 None。",
+      "projection": "所查接口为针孔 RGB-D 图像网格；尚无原始鱼眼或完整 ERP 推理路线证据。论文单目迁移实验属于另行适配的模型。",
+      "intrinsics": "预测深度时可不传内参；派生点云需要归一化针孔 K：fx、cx 除以宽 W，fy、cy 除以高 H。不估计内参或畸变。",
+      "resolution": "RGB 为[0,1]浮点张量(B,3,H,W)，深度为以米计的(B,H,W)，也接受无 batch 输入。内部 token 网格缩放后恢复原高宽；默认1200—3600个 token，resolution_level9 对应3600。",
+      "extrinsics": "不输入相机位姿或地图；RGB 与深度的配准及传感器外参标定须在推理前完成。",
+      "imu": "无需。",
+      "gravity": "未记录实测重力输入。",
+      "synchronization": "RGB 与传感器深度须在同一配准网格且时间对应；模型不标定或同步外部传感器，连续调用也不构成时序状态。"
+    },
+    "output": {
+      "primary": "输出精化的稠密公制相机轴向 Z-depth，键为 depth，形状(B,H,W)，以输入的米制深度为条件。",
+      "point_map": "仅提供内参时输出(B,H,W,3)的 points，由针孔反投影得到，并非独立学习点图头。",
+      "normal": "公开 infer 接口中未核实表面法线输出。",
+      "confidence": "若配置了 mask 头，则以0.5阈值输出二值有效掩码，不是校准置信度；apply_mask 可将无效深度和点设为正无穷。",
+      "camera_parameters": "不预测内参、外参或相机轨迹。",
+      "depth_convention": "深度为以米计的光轴 Z，不是欧氏径向距离。点转换为 X=(u-cx)Z/fx、Y=(v-cy)Z/fy、Z=depth，depth_scale 默认1.0；径向距离须取点范数。示例16位毫米深度先除以1000再输入。",
+      "metric_status": "以传感器米制深度为条件的公制输出。",
+      "pose_output": "不输出相机位姿、轨迹或 SLAM 状态。",
+      "runtime": "单帧补全与精化，内部自适应缩放；作者记录 CUDA 推理。论文640×480、30FPS是视频采集设置，未证明模型具有该吞吐率；本站未复现速度、显存或精度。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "lingbot_depth2026": {
+    "code": "官方仓库为 Apache-2.0；LEGAL.md 规定代码中文注释优先，第三方依赖保留各自条款。",
+    "weights": "所查官方 v0.5、旧 v0.1 与稀疏补全模型卡均声明 Apache-2.0；这些条款不证明完整 Depth2.0 模型已发布或获得相同许可。"
+  }
+});
+  Object.assign(environments, {
+  "lingbot_depth2026": "pyproject.toml 指定 Python≥3.9、torch==2.6.0、xformers==v0.0.29.post2，另需 torchvision、OpenCV、SciPy、NumPy、Pillow、huggingface_hub。入口为 mdm.model.v2.MDMModel；源码 use_fp16 实际启用 bfloat16 自动混合精度。本次未安装模型环境或运行推理。"
+});
+  families["RGB-D depth completion and refinement"]="RGB-D 深度补全与精化";
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

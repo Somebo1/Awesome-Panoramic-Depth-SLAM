@@ -420,6 +420,21 @@ check('dynamic PanoCARLA remains distinct from Static and retains gated rendered
   assert.match(r.datasetDetails.en['Released poses'],/pitch.*roll|Pitch and roll/);assert.match(r.datasetDetails.en['Coverage and split'],/126,696/);assert.match(r.datasetDetails.en['Relation to PanoCARLA-Static'],/not frame-by-frame/);assert.equal(r.cameraSupport[0].route,'rendered');assert.equal(r.curation.tier,'specialized');
   const b=boot('?collection=datasets&category=panoramic&lang=en');b.api.setFilter('access','registration');assert(b.api.getFilteredRecords().some(x=>x.id===r.id));b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/gated/);b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/偏航|yaw/);b.dom.window.close();
 });
+check('LingBot-Depth keeps observed depth, pinhole Z and checkpoint versions distinct',()=>{
+  const r=catalog.records.find(r=>r.id==='lingbot_depth2026');assert(r);
+  assert.deepEqual(r.cameras,['perspective']);assert.equal(r.nativePanoramic,false);assert.equal(r.pose,false);assert.equal(r.imu,false);assert.equal(r.loopClosure,false);
+  assert.equal(r.scale,'metric');assert.equal(r.metricStatus,'metric_depth_conditioned');assert.equal(r.depthType,'z');assert.equal(r.codeStatus,'released');
+  assert.match(r.inputs.frames,/required.*depth map/i);assert.match(r.inputs.intrinsics,/Optional.*required/);assert.match(r.outputDetails.depth_convention,/not Euclidean radial range/);
+  assert.match(r.outputDetails.point_map,/only when intrinsics/);assert.match(r.outputDetails.confidence,/binary.*not calibrated/);assert.match(r.notes.join(' '),/asserts that depth is not None/);
+  assert.match(r.weightsUrl,/v0\.5$/);assert.match(r.notes.join(' '),/backbone-only/);assert.match(r.notes.join(' '),/Training code was not found/);assert.match(r.venue,/ECCV 2026/);
+  assert.equal(r.figure.verified,true);assert.equal(r.figure.page,3);assert.equal(r.figure.figureLabel,'Figure 2');assert.match(r.figure.pdfSha256,/^[a-f0-9]{64}$/);
+  const b=boot('?collection=depth&category=perspective&q=LingBot&lang=en');assert.equal(b.api.getFilteredRecords().length,1);
+  const card=b.doc.querySelector('.paper-card');assert(card);assert(card.querySelector('img').getAttribute('src').includes(r.id));b.api.openRecord(r.id);
+  let detail=b.doc.getElementById('detail-content').textContent;assert.match(detail,/observed depth/);assert.match(detail,/v0\.5/);assert(!/[\u3400-\u9fff]/.test(detail));
+  b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);detail=b.doc.getElementById('detail-content').textContent;
+  assert.match(detail,/深度补全与精化/);assert.match(detail,/深度不得为 None|depth 不得为 None/);assert.match(detail,/光轴 Z/);b.doc.getElementById('detail-dialog').close();
+  b.api.setFilter('category','panoramic');assert.equal(b.api.getFilteredRecords().length,0);b.api.setFilter('category','fisheye');assert.equal(b.api.getFilteredRecords().length,0);b.dom.window.close();
+});
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};
 fs.mkdirSync(path.join(root,'tests/results'),{recursive:true});

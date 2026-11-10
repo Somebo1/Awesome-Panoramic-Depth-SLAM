@@ -6,7 +6,7 @@
 
 **[浏览网站 →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=zh)** · [全景定位与建图](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic&lang=zh) · [数据集](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=zh) · [完整 JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-最近一次增量文献检索截止：**2026-11-09**（本轮回溯覆盖 2026-10-19 起，含补漏区间；逐条证据日期单列）。当前 **117** 条记录：深度与几何 **40** 项（28 项包含全景流程，19 项有针孔输入证据）、SLAM / VO / VIO / 定位 **36** 项（14 项有明确 ERP 输入证据）、数据集 **41** 项（20 项涉及全景数据或明确的渲染、重采样协议）。分类可重叠；这是一份按研究任务组织的人工核验索引，不是性能排行榜或穷尽性综述。
+最近一次增量文献检索截止：**2026-11-09**（本轮回溯覆盖 2026-10-19 起，含补漏区间；逐条证据日期单列）。当前 **118** 条记录：深度与几何 **41** 项（28 项包含全景流程，20 项有针孔输入证据）、SLAM / VO / VIO / 定位 **36** 项（14 项有明确 ERP 输入证据）、数据集 **41** 项（20 项涉及全景数据或明确的渲染、重采样协议）。分类可重叠；这是一份按研究任务组织的人工核验索引，不是性能排行榜或穷尽性综述。
 
 ## 使用方式
 
@@ -66,6 +66,7 @@
 | 真实多相机立体 | MODE、MCPDepth |
 | 视频与多视图几何对照 | PVDepth、Video Depth Anything、Depth Anything 3、VGGT、VGGT-Ω |
 | 针孔 / 透视深度与几何基线 | Depth Anything V2、UniDepthV2、Metric3Dv2、Depth Pro、MoGe-2、MoGe-3、Marigold |
+| RGB-D 深度补全与精化 | LingBot-Depth（MDM） |
 | ERP 输入定位与建图 | OpenVIO、stella_vslam、HoloRecon、OmniVLoc、360VO、360-VIO、360DVO、PatchMatch-Stereo-Panorama、Cube-Splat、PanoLoop、360ORB-SLAM、ODGS-SLAM、PanoGS-SLAM、PanoAir |
 | 鱼眼、广视场与惯性 | DEX、OpenVIO、OpenVINS、ORB-SLAM3、Basalt、VINS-Fusion、OKVIS2/2-X、SVO Pro、OmniSLAM、LF-VISLAM、P2U-SLAM |
 | 学习式 VO 与 SLAM | DROID-SLAM、DPVO、DPV-SLAM、MASt3R-SLAM、DBA-Fusion、D3VO、CodeVIO |
@@ -104,7 +105,9 @@ DAC 与 UniDAC 可跨类别出现，因为存在经过标定的鱼眼 / 针孔�
 
 ## 更新记录与配图来源
 
-76 项方法均提供经过核验的论文配图；41 项数据集的预览图另行注明来源。
+77 项方法均提供经过核验的论文配图；41 项数据集的预览图另行注明来源。
+
+2026-11-10 定向补录 **LingBot-Depth（MDM，ECCV 2026）**：针孔 RGB 加已有深度的补全／精化，输出公制 Z-depth，内参仅在派生点云时必需；代码和推荐 v0.5 权重已发布，训练实现未核实。附真实 Figure 2 与完整双语规格，并区分后续 Depth2.0 和原始补全接口。见[核验依据](references/lingbot_depth_20261110_sources.md)。本次单项补录不推进上述每周检索截止日期。
 
 本周增量见 [2026-11-09 核验记录](references/weekly_20261109_sources.md)：补充 **PVDepth**（ICML 2026；11 月 5 日上传 arXiv，完整 ERP 视频的相对逆径向距离，已有代码与 UNet 权重）和 **OpenVIO**（10 月 30 日预印本；支持拼接 ERP 单目＋IMU，以及针孔／鱼眼单目或实体双目，无全局回环和稠密深度）。补录动态 **PanoCARLA**：126696 帧、117 段，渲染径向深度及仿真位置／偏航，获取有门控，与 Static 版分开。PaGeR 的 NeurIPS 身份进一步得到官方会议列表确认；11 月 4 日 README 修改不是新录用事件。检查了 56 个既有官方代码仓库与 84 个 arXiv 身份，保留本轮 Atom 请求超时的覆盖限制。
 

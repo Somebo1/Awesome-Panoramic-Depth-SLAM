@@ -6,7 +6,7 @@ A curated index of **panoramic, fisheye and pinhole depth estimation, visual odo
 
 **[Explore the website →](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?lang=en)** · [Panoramic localization and mapping](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=slam&category=panoramic&lang=en) · [Datasets](https://somebo1.github.io/Awesome-Panoramic-Depth-SLAM/?collection=datasets&category=all&lang=en) · [Full JSON](docs/data/catalog.json) · [CSV](docs/data/catalog.csv)
 
-Latest incremental literature-search cutoff: **2026-11-09**, with overlap from 2026-10-19; individual evidence dates remain separate. The atlas contains **117** records: **40** depth and geometry methods (28 include a panoramic pipeline, 19 have pinhole-input evidence), **36** SLAM / VO / VIO / localization methods (14 have explicit ERP input evidence), and **41** datasets (20 involve panoramic data or an explicit rendering or resampling protocol). Categories overlap. This is a manually verified index organized around research tasks, not a performance ranking or an exhaustive survey.
+Latest incremental literature-search cutoff: **2026-11-09**, with overlap from 2026-10-19; individual evidence dates remain separate. The atlas contains **118** records: **41** depth and geometry methods (28 include a panoramic pipeline, 20 have pinhole-input evidence), **36** SLAM / VO / VIO / localization methods (14 have explicit ERP input evidence), and **41** datasets (20 involve panoramic data or an explicit rendering or resampling protocol). Categories overlap. This is a manually verified index organized around research tasks, not a performance ranking or an exhaustive survey.
 
 ## Using the atlas
 
@@ -66,6 +66,7 @@ The canonical records are `source_data/datasets_depth.json` and `source_data/dat
 | Physical multi-camera stereo | MODE, MCPDepth |
 | Video and multi-view geometry references | PVDepth, Video Depth Anything, Depth Anything 3, VGGT, VGGT-Ω |
 | Pinhole depth and geometry baselines | Depth Anything V2, UniDepthV2, Metric3Dv2, Depth Pro, MoGe-2, MoGe-3, Marigold |
+| RGB-D completion and refinement | LingBot-Depth (MDM) |
 | Localization and mapping with ERP input | OpenVIO, stella_vslam, HoloRecon, OmniVLoc, 360VO, 360-VIO, 360DVO, PatchMatch-Stereo-Panorama, Cube-Splat, PanoLoop, 360ORB-SLAM, ODGS-SLAM, PanoGS-SLAM, PanoAir |
 | Fisheye, wide-FOV and inertial methods | DEX, OpenVIO, OpenVINS, ORB-SLAM3, Basalt, VINS-Fusion, OKVIS2/2-X, SVO Pro, OmniSLAM, LF-VISLAM, P2U-SLAM |
 | Learned VO and SLAM | DROID-SLAM, DPVO, DPV-SLAM, MASt3R-SLAM, DBA-Fusion, D3VO, CodeVIO |
@@ -104,7 +105,9 @@ DAC and UniDAC may appear in multiple categories because they document calibrate
 
 ## Update records and figure provenance
 
-All 76 methods include verified paper figures; previews for the 41 datasets are attributed separately.
+All 77 methods include verified paper figures; previews for the 41 datasets are attributed separately.
+
+A targeted addition on **2026-11-10** backfills **LingBot-Depth (MDM, ECCV 2026)**: pinhole RGB plus observed depth for completion/refinement, producing metric Z-depth with intrinsics required only for derived points. Inference code and recommended v0.5 weights are released; training implementation remains unverified. The original Figure 2 and complete bilingual specifications distinguish this interface from subsequent Depth2.0 work. See the [source audit](references/lingbot_depth_20261110_sources.md). This single-item addition does not advance the weekly search cutoff above.
 
 The [2026-11-09 incremental audit](references/weekly_20261109_sources.md) adds **PVDepth** (ICML 2026, arXiv deposit November 5: full-ERP relative inverse radial-distance video; existing code and UNet weights) and **OpenVIO** (October 30 preprint: stitched ERP mono+IMU, or pinhole/fisheye mono or physical stereo; no global loop closure or dense depth). Dynamic **PanoCARLA** is backfilled separately from Static: 126,696 frames in 117 clips, rendered radial depth and simulator position/yaw, with gated access. PaGeR venue evidence is strengthened by the official NeurIPS program; the November 4 README edit is not a new acceptance event. Metadata for 56 existing official repositories and 84 arXiv identities was checked; a timed-out Atom request is documented as a discovery limitation.
 

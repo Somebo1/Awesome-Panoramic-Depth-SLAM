@@ -4,7 +4,7 @@
   "title": "Panoramic Depth Atlas",
   "description": "Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.",
   "schemaVersion": "1.4",
-  "interfaceUpdated": "2026-11-09",
+  "interfaceUpdated": "2026-11-10",
   "records": [
     {
       "id": "any3r2026",
@@ -995,6 +995,186 @@
         "pdfSha256": "cf64e0e5fb5c7406151dd40ba6b563e55062660b9df573b2779dea3879924cf7",
         "imageSha256": "bf7323e86a5b5ebe5285af7ca7769c543d5efbbb31d32d9daf1f6527e5592d65",
         "verification": "Original PDF page 5 and both final WebP crops visually inspected; Figure 3 identity, stage labels, full artwork boundaries and readability checked. Page caption excluded and attribution/CC BY 4.0 retained in metadata."
+      }
+    },
+    {
+      "id": "lingbot_depth2026",
+      "collection": "depth",
+      "name": "LingBot-Depth",
+      "title": "Masked Depth Modeling for Spatial Perception",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "ECCV 2026, LNCS 17009, pp.453-470; first online2026-09-09; arXiv2601.17895v1 submitted2026-01-25",
+      "authors": [
+        "Bin Tan",
+        "Changjiang Sun",
+        "Xiage Qin",
+        "Hanat Adai",
+        "Zelin Fu",
+        "Tianxiang Zhou",
+        "Han Zhang",
+        "Yinghao Xu",
+        "Xing Zhu",
+        "Yujun Shen",
+        "Nan Xue"
+      ],
+      "institutions": [
+        "Robbyant",
+        "Ant Group"
+      ],
+      "summary": "以 RGB 与已有的噪声／缺失深度联合进行 Masked Depth Modeling，补全并精化公制 Z-depth；公开推理需要深度输入，可用针孔内参反投影点云，尚无完整 ERP 或原始鱼眼支持证据。",
+      "cameras": [
+        "perspective"
+      ],
+      "scale": "metric",
+      "scaleNote": "Metric depth conditioned on input sensor depth in metres and metric training supervision. This is not an independently verified RGB-only zero-shot metric estimator; sensor scale errors and domain shifts may affect results.",
+      "aliases": [
+        "LingBot-Depth",
+        "LingBot Depth",
+        "MDM",
+        "Masked Depth Modeling",
+        "LingBot-Depth v0.5"
+      ],
+      "metricStatus": "metric_depth_conditioned",
+      "depthType": "z",
+      "outputs": [
+        "z_depth",
+        "derived_point_map",
+        "validity_mask"
+      ],
+      "pose": false,
+      "inputSummary": "One RGB image plus a required spatially aligned observed depth map, which may be noisy, incomplete or sparse; the released forward path asserts depth is not None.",
+      "outputSummary": "Refined dense metric camera-axis Z-depth, returned as depth with shape (B,H,W), conditioned on supplied depth in metres.",
+      "inputs": {
+        "frames": "One RGB image plus a required spatially aligned observed depth map, which may be noisy, incomplete or sparse; the released forward path asserts depth is not None.",
+        "projection": "Reviewed input is a pinhole RGB-D image grid. No original raw-fisheye or full-ERP inference route was verified; RGB-only monocular transfer in the paper is a separate adapted model.",
+        "intrinsics": "Optional normalized pinhole K for depth inference; required to derive points. Normalize fx,cx by W and fy,cy by H. Intrinsics and distortion are not estimated.",
+        "resolution": "RGB float tensor (B,3,H,W) in [0,1], depth (B,H,W) in metres; unbatched inputs are accepted. Internal token-grid resizing is restored to the original H,W; default token range1200-3600, resolution_level9 selects3600.",
+        "extrinsics": "No camera poses or map are supplied. RGB-depth registration and any sensor extrinsic calibration must already be resolved before inference.",
+        "imu": "No",
+        "gravity": "No measured gravity input documented.",
+        "synchronization": "RGB and sensor depth must correspond on the same registered image grid. The model does not calibrate or synchronize separate sensors; consecutive calls do not establish a temporal state."
+      },
+      "outputDetails": {
+        "primary": "Refined dense metric camera-axis Z-depth, returned as depth with shape (B,H,W), conditioned on supplied depth in metres.",
+        "point_map": "Optional points with shape (B,H,W,3) only when intrinsics are supplied; obtained by pinhole backprojection, not an independent learned point-map head.",
+        "normal": "No surface-normal output verified in the released infer API.",
+        "confidence": "An optional mask head is thresholded at0.5 to return a binary validity mask, not calibrated confidence; apply_mask may set invalid depth/points to positive infinity.",
+        "camera_parameters": "No predicted intrinsics, extrinsics or trajectory.",
+        "depth_convention": "Depth is optical-axis Z in metres, not Euclidean radial range. The point conversion uses X=(u-cx)Z/fx, Y=(v-cy)Z/fy, Z=depth with depth_scale default1.0; radial distance would be norm(points). Example uint16 millimetre input is divided by1000 before inference.",
+        "metric_status": "metric_depth_conditioned",
+        "pose_output": "No camera pose, trajectory or SLAM state output.",
+        "runtime": "Single-frame completion/refinement with adaptive internal resizing; CUDA inference is documented. The paper video capture rate of30FPS at640x480 is not a measured model throughput. No local speed, memory or accuracy reproduction."
+      },
+      "codeStatus": "released",
+      "codeUrl": "https://github.com/Robbyant/lingbot-depth",
+      "paperUrl": "https://arxiv.org/abs/2601.17895v1",
+      "projectUrl": "https://technology.robbyant.com/lingbot-depth",
+      "weightsUrl": "https://huggingface.co/robbyant/lingbot-depth-pretrain-vitl-14-v0.5",
+      "license": {
+        "code": "Apache-2.0 in the official repository; LEGAL.md gives Chinese code comments precedence. Third-party dependencies retain their own terms.",
+        "weights": "Reviewed official v0.5, original v0.1 and sparse-completion Hugging Face model cards declare Apache-2.0; do not infer the license or release of a full Depth2.0 model from these artifacts."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2601.17895v1",
+        "https://link.springer.com/chapter/10.1007/978-3-032-37035-8_25",
+        "https://github.com/Robbyant/lingbot-depth",
+        "https://technology.robbyant.com/lingbot-depth",
+        "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/model/v2.py",
+        "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/utils/geo.py",
+        "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/model/encoder.py",
+        "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/README.md",
+        "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/pyproject.toml",
+        "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/LICENSE",
+        "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/LEGAL.md",
+        "https://huggingface.co/robbyant/lingbot-depth-pretrain-vitl-14-v0.5",
+        "https://huggingface.co/robbyant/lingbot-depth-pretrain-vitl-14",
+        "https://huggingface.co/robbyant/lingbot-depth-postrain-dc-vitl14",
+        "https://github.com/Robbyant/lingbot-vision",
+        "https://arxiv.org/abs/2607.05247"
+      ],
+      "notes": [
+        "Identity: Masked Depth Modeling for Spatial Perception, ECCV2026, LNCS17009, pp.453-470, DOI10.1007/978-3-032-37035-8_25; publisher first-online date2026-09-09. Original arXiv v1 was submitted2026-01-25. This is an older omission, not a new November release.",
+        "The released infer signature permits depth_in=None syntactically, but forward asserts that depth is not None. Treat RGB plus observed depth as the documented completion interface; missing sensor samples within the depth tensor are different from omitting the tensor.",
+        "The backbone embeds RGB and depth patches separately and jointly attends to them; the decoder uses contextual RGB tokens. Source preprocessing treats nonfinite depth as zero and depth>0.01m as valid before depth-token encoding.",
+        "Depth is metric camera-axis Z. Intrinsics are optional for predicting depth, but normalized pinhole K is necessary for derived points. No independent range, camera-estimation, pose, normal or calibrated-confidence output was verified.",
+        "Paper Section4.2 transfers the encoder into MoGe and removes the depth embedding branch and ConvStack decoder for monocular experiments. That adapted downstream model must not be confused with the released RGB-D completion entry.",
+        "Depth completion/refinement is the primary task. Reconstruction, tracking, grasping and monocular transfer are downstream experiments; they do not turn this entry into a standalone SLAM system or establish direct accuracy superiority to RGB-only DAP under a matched protocol.",
+        "Recommended official checkpoint is lingbot-depth-pretrain-vitl-14-v0.5; v0.1 and a sparse-depth-completion checkpoint are separate. Public ungated model listings and inference files were verified, without downloading weights or running inference. Training code was not found in the reviewed99-path repository tree.",
+        "Checkpoint v0.5 and the source filename mdm/model/v2.py are not LingBot-Depth2.0. The later LingBot-Vision project describes Depth2.0, while its reviewed model zoo releases backbone-only weights; a full2.0 completion checkpoint was not established by that listing.",
+        "Training uses curated real depth references estimated with FoundationStereo and ideal rendered synthetic depth, plus public datasets. Estimated stereo references must not be described as independent measured truth; model/data license and access conditions remain separate.",
+        "Code and reviewed checkpoint model cards declare Apache-2.0. LEGAL.md gives Chinese code comments precedence over translations; third-party dependencies and original data retain their own terms.",
+        "Inference implementation, examples, recommended v0.5 and separate sparse-completion checkpoint listings released; training code not found in reviewed tree. Full LingBot-Depth2.0 completion artifacts not verified."
+      ],
+      "tags": [
+        "pinhole",
+        "RGB-D",
+        "depth-completion",
+        "depth-refinement",
+        "masked-depth-modeling",
+        "metric",
+        "z_depth",
+        "derived_point_map",
+        "validity_mask"
+      ],
+      "family": "RGB-D depth completion and refinement",
+      "imu": false,
+      "loopClosure": false,
+      "nativePanoramic": false,
+      "sourceChecked": "2026-11-10",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_released_inference_source_and_official_model_listing_no_local_inference",
+      "codeEntry": "mdm/model/v2.py::MDMModel.infer/forward; mdm/model/encoder.py; mdm/utils/geo.py::depth_to_pointcloud",
+      "environment": "pyproject.toml requires Python>=3.9, torch==2.6.0 and xformers==v0.0.29.post2, plus torchvision/OpenCV/SciPy/NumPy/Pillow/huggingface_hub. Inference uses mdm.model.v2.MDMModel; use_fp16 actually selects bfloat16 autocast in the reviewed source. No model installation or local inference.",
+      "cameraSupport": [
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "released",
+          "note": {
+            "en": "Released inference accepts aligned pinhole RGB plus observed depth; K is optional for depth and required for derived points. Raw fisheye/full ERP support is unverified. Sensor stereo hardware is not a multi-view model input.",
+            "zh": "公开推理接受对齐的针孔 RGB 与已有深度；预测深度可不传 K，派生点云需要 K。原始鱼眼／完整 ERP 支持未核实；传感器内部立体硬件不等于模型多视图输入。"
+          },
+          "evidence": [
+            "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/model/v2.py",
+            "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/utils/geo.py",
+            "https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/README.md"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_review_2026-11-10",
+      "figure": {
+        "thumbnail": "assets/papers/lingbot_depth2026-thumb.webp",
+        "image": "assets/papers/lingbot_depth2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2601.17895v1",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "en": "LingBot-Depth jointly embeds RGB and observed-depth tokens, then decodes refined depth from contextual RGB tokens.",
+          "zh": "LingBot-Depth 联合编码 RGB 与可用深度 token，再由上下文 RGB token 解码精化深度。"
+        },
+        "credit": {
+          "en": "Source: Bin Tan et al., Masked Depth Modeling for Spatial Perception, original Figure2. CC BY4.0 (https://creativecommons.org/licenses/by/4.0/); cropped and resized from arXiv v1.",
+          "zh": "来源：Bin Tan 等，Masked Depth Modeling for Spatial Perception，原论文 Figure2。CC BY4.0（https://creativecommons.org/licenses/by/4.0/）；由 arXiv v1 裁剪并缩放。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          88,
+          68,
+          520,
+          288
+        ],
+        "originalCaption": "Figure 2. Illustration of the proposed Masked Depth Modeling framework.",
+        "sourceLicense": "Original arXiv v1 links to CC BY4.0: https://creativecommons.org/licenses/by/4.0/ . Figure2 is cropped and resized with attribution; software and checkpoint licenses are separate.",
+        "reviewedAt": "2026-11-10",
+        "selectionNotes": "Original PDF page3 and final encoded WebP individually viewed. Complete RGB/sensor-depth input, ViT encoder, latent token branches, output, legend and referenced input-depth inset retained.",
+        "pdfSha256": "480937fc369c02535a6eac4a69ccb47566e394bc898e8911cdbc63cbeeb30896",
+        "imageSha256": "b9f894996504211b4eac4c289936ec4b6eec219f14fc4f149ec7fb6b40554af9",
+        "verification": "Original full PDF page and final encoded crop visually inspected; method identity, all diagram boundaries, inset, labels and readability checked."
       }
     },
     {
@@ -20947,12 +21127,12 @@
     }
   ],
   "stats": {
-    "depth": 40,
+    "depth": 41,
     "slam": 36,
     "datasets": 41,
     "panoramicDepth": 28,
     "panoramicSLAM": 14,
-    "paperFigures": 76,
+    "paperFigures": 77,
     "datasetFigures": 41
   }
 }

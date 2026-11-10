@@ -72,6 +72,27 @@ GeoPano: Towards Geometrically Accurate 3D Reconstruction from a Single Panorama
 - https://arxiv.org/pdf/2610.21297
 - https://creativecommons.org/licenses/by/4.0/
 
+## LingBot-Depth (2026)
+
+Masked Depth Modeling for Spatial Perception
+
+- https://arxiv.org/abs/2601.17895v1
+- https://link.springer.com/chapter/10.1007/978-3-032-37035-8_25
+- https://github.com/Robbyant/lingbot-depth
+- https://technology.robbyant.com/lingbot-depth
+- https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/model/v2.py
+- https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/utils/geo.py
+- https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/model/encoder.py
+- https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/README.md
+- https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/pyproject.toml
+- https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/LICENSE
+- https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/LEGAL.md
+- https://huggingface.co/robbyant/lingbot-depth-pretrain-vitl-14-v0.5
+- https://huggingface.co/robbyant/lingbot-depth-pretrain-vitl-14
+- https://huggingface.co/robbyant/lingbot-depth-postrain-dc-vitl14
+- https://github.com/Robbyant/lingbot-vision
+- https://arxiv.org/abs/2607.05247
+
 ## MCPDepth (2026)
 
 MCPDepth: Omnidirectional Depth Estimation via Stereo Matching from Multi-Cylindrical Panoramas

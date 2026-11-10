@@ -1198,5 +1198,35 @@
     "pdfSha256": "a7d9149222a359515b995e1f8c9391d9bc8c42e38c19c60f40d649a9a2c7bcb2",
     "imageSha256": "5fdb2db62a793ca76aeffdbbed5409d071b2220aa5e420160c13fe66096e6e76",
     "verification": "Original full PDF page and final encoded crop visually inspected; identity, diagram boundaries, labels and readability checked."
+  },
+  "lingbot_depth2026": {
+    "thumbnail": "assets/papers/lingbot_depth2026-thumb.webp",
+    "image": "assets/papers/lingbot_depth2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2601.17895v1",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "en": "LingBot-Depth jointly embeds RGB and observed-depth tokens, then decodes refined depth from contextual RGB tokens.",
+      "zh": "LingBot-Depth 联合编码 RGB 与可用深度 token，再由上下文 RGB token 解码精化深度。"
+    },
+    "credit": {
+      "en": "Source: Bin Tan et al., Masked Depth Modeling for Spatial Perception, original Figure2. CC BY4.0 (https://creativecommons.org/licenses/by/4.0/); cropped and resized from arXiv v1.",
+      "zh": "来源：Bin Tan 等，Masked Depth Modeling for Spatial Perception，原论文 Figure2。CC BY4.0（https://creativecommons.org/licenses/by/4.0/）；由 arXiv v1 裁剪并缩放。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      88,
+      68,
+      520,
+      288
+    ],
+    "originalCaption": "Figure 2. Illustration of the proposed Masked Depth Modeling framework.",
+    "sourceLicense": "Original arXiv v1 links to CC BY4.0: https://creativecommons.org/licenses/by/4.0/ . Figure2 is cropped and resized with attribution; software and checkpoint licenses are separate.",
+    "reviewedAt": "2026-11-10",
+    "selectionNotes": "Original PDF page3 and final encoded WebP individually viewed. Complete RGB/sensor-depth input, ViT encoder, latent token branches, output, legend and referenced input-depth inset retained.",
+    "pdfSha256": "480937fc369c02535a6eac4a69ccb47566e394bc898e8911cdbc63cbeeb30896",
+    "imageSha256": "b9f894996504211b4eac4c289936ec4b6eec219f14fc4f149ec7fb6b40554af9",
+    "verification": "Original full PDF page and final encoded crop visually inspected; method identity, all diagram boundaries, inset, labels and readability checked."
   }
 }

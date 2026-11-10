@@ -79,6 +79,17 @@ panoramic
 
 Review scope: carried_forward_from_existing_source_review
 
+## LingBot-Depth
+
+perspective
+
+- perspective / direct: Released inference accepts aligned pinhole RGB plus observed depth; K is optional for depth and required for derived points. Raw fisheye/full ERP support is unverified. Sensor stereo hardware is not a multi-view model input. 公开推理接受对齐的针孔 RGB 与已有深度；预测深度可不传 K，派生点云需要 K。原始鱼眼／完整 ERP 支持未核实；传感器内部立体硬件不等于模型多视图输入。
+  - https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/model/v2.py
+  - https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/mdm/utils/geo.py
+  - https://github.com/Robbyant/lingbot-depth/blob/f3a237e434ae987bc38281476d6cfb5df3e4d739/README.md
+
+Review scope: focused_primary_source_review_2026-11-10
+
 ## MCPDepth
 
 panoramic, multi
