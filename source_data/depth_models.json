@@ -2092,10 +2092,10 @@
     "paper_url": "https://arxiv.org/abs/2608.27860v2",
     "project_url": "https://github.com/Suchisrit/DEX",
     "code_url": "https://github.com/Suchisrit/DEX",
-    "weights_url": null,
+    "weights_url": "https://huggingface.co/Rit888/DEX",
     "license": {
-      "code": "Author repository contains Apache-2.0 LICENSE only; executable DEX source has not been released.",
-      "weights": "Unknown: no DEX checkpoints or checkpoint license verified."
+      "code": "Official LICENSE is Apache-2.0, but the same pinned README says research purposes only. The scope conflict is unresolved; third-party base-model/dependency terms remain separate.",
+      "weights": "Rit888/DEX model card declares Apache-2.0 for the three DEX checkpoints. Full-stack rights are not resolved by that card because base models retain separate terms and the repository README contains a research-only statement."
     },
     "category": [
       "monocular",
@@ -2108,56 +2108,68 @@
     ],
     "native_panoramic": false,
     "task_family": "single-image fisheye depth adaptation",
-    "accessed": "2026-11-02",
+    "accessed": "2026-11-23",
     "input": {
-      "frames": "One raw fisheye RGB image; segmentation additionally receives text class labels.",
+      "frames": "One raw fisheye RGB image for released monocular-depth adaptation; segmentation/text-label input is a paper capability whose code remains pending.",
       "projection": "Raw fisheye is the evaluated DEX input; no complete ERP interface or benchmark was established. Perspective images are training teachers, not evidence of a released unified inference interface.",
       "intrinsics": "No measured calibration or rectification needed at inference; calibrated perspective intrinsics and synthetic KB transforms are required by the training objective.",
-      "resolution": "Paper evaluation uses 462x616 on ScanNet++ and 700x700 on KITTI-360. Released inference resize/API remains unavailable.",
+      "resolution": "Released evaluator uses462x616 ScanNet++ and700x700 KITTI-360 crops, with configurable shapes/backbone alignment. Source files and split/mask entries are public; no local inference.",
       "extrinsics": "Not required for the described single-image inference.",
       "imu": "No",
       "gravity": "No measured gravity input documented.",
       "synchronization": "Single image, no temporal or external-sensor synchronization input."
     },
     "output": {
-      "primary": "Dense Euclidean radial range R from a selected frozen depth model plus DEX; alternatively open-vocabulary segmentation logits in a separate task configuration.",
+      "primary": "Default released depth configuration predicts Euclidean radial range R through a selected frozen backbone plus DEX. Training with output_reference_frame=depth instead changes the target to raw Z; segmentation is not part of the verified MDE release.",
       "point_map": "No released direct point-map head or exporter verified. Reconstructing metric points requires appropriate camera rays and a metric base/scale.",
       "normal": "No independent normal-output head documented.",
       "confidence": "No additional calibrated depth-uncertainty head documented for DEX.",
-      "camera_parameters": "Paper analysis decodes KB distortion coefficients from extender activations; no released inference API verified."
+      "camera_parameters": "Paper analysis decodes distortion coefficients from extender activations; no standalone calibration-export API verified in the reviewed MDE evaluator."
     },
     "geometry_output": [
       "radial_range"
     ],
-    "depth_convention": "Depth variant uses Euclidean ray distance R, not camera-axis Z. Training converts perspective teacher Z to R; ScanNet++ evaluation converts R back to Z using KB calibration, while KITTI-360 uses R with MEI geometry.",
-    "scale": "Base/teacher dependent, not a universal metric-scale guarantee. DEX is tested with relative MiDaS/DepthAnything and metric UniDepthV2; released DEX checkpoint semantics cannot yet be audited.",
+    "depth_convention": "Default output_reference_frame=distance trains Euclidean radial range R by converting teacher Z. An explicitly retrained depth-mode configuration predicts raw Z instead. ScanNet++ evaluator converts default R back to Z using KB calibration; KITTI-360 evaluates R. Check checkpoint/training mode rather than assuming all configurations share one convention.",
+    "scale": "Backbone/teacher and checkpoint dependent: relative MiDaS/DepthAnything versus metric UniDepthV2. Released scores fit per-image scale and shift to ground truth and do not establish unaligned metric accuracy.",
     "metric_status": "mixed_checkpoints",
     "pose_output": "No camera pose, trajectory or SLAM state output documented.",
     "imu_required": false,
     "runtime": "No local timing or peak-VRAM measurement; four RTX3090 GPUs for eight training epochs are not an inference requirement.",
-    "code_entry": "Not released: author repository contains LICENSE only as checked 2026-11-02.",
+    "code_entry": "main.py; train.py; eval.py; model.py; utils/depth_evaluate.py; src/monocular_depth/unidepth_model.py",
     "innovation": "Low-rank feature-affinity selection forms convex combinations of learned extender modulators at frozen backbone blocks, aligned by synthetic perspective-to-fisheye training.",
-    "summary_zh": "在冻结的透视基础模型中插入轻量特征调制器，以透视图合成鱼眼并自监督对齐；直接预测原始鱼眼径向距离，还能适配开放词汇分割。没有核实完整 ERP 支持，官方仓库仍仅有许可文件。",
+    "summary_zh": "以轻量DEX调制冻结基础模型，适配原始鱼眼径向深度；11月10日已开放深度训练／评测代码与三种适配权重，分割仍待发布。默认range与可选Z训练模式及真值尺度／偏移对齐需区分。",
     "engineering_notes": [
-      "Backfilled ECCV 2026 method, first submitted 2026-08-28; arXiv v2 was posted 2026-10-26, not a first publication this week. Springer confirms pp. 245-265, DOI 10.1007/978-3-032-37627-5_14.",
-      "The paper abstract says code is available, but on 2026-11-02 the author-linked repository contains only LICENSE and describes the release as coming soon. No executable DEX source or checkpoints were verified.",
-      "DEX is an adapter to frozen depth/segmentation models, not one standalone universal metric checkpoint. Scale depends on the selected teacher/base model; relative MiDaS/DepthAnything and metric UniDepthV2 must not be conflated.",
-      "Inference accepts raw fisheye RGB without calibration or rectification. Calibrated perspective images and synthetic Kannala-Brandt warps are used during training; known calibration is also used for geometry conversion in evaluation.",
-      "The depth variant predicts Euclidean ray range R. ScanNet++ evaluation converts R to camera Z using its calibration, whereas KITTI-360 is evaluated in R. These conventions are not interchangeable.",
-      "Real fisheye tests use ScanNet++ indoors and KITTI-360 outdoors; WoodScape evaluates segmentation. No full-ERP input or direct DAP comparison was verified.",
-      "Calibration coefficients can be decoded from extender activations in the paper analysis; a released camera-calibration API, point-map exporter and continuous pose/SLAM state were not verified."
+      "ECCV2026 identity and arXiv v2 remain unchanged. November10 is a new MDE implementation/checkpoint release after the earlier LICENSE-only inspection, not a new paper.",
+      "Pinned source includes main.py/train.py/eval.py/model.py and depth evaluation/conversion utilities. The official README explicitly limits the current release to monocular depth; open-vocabulary segmentation remains coming soon.",
+      "Ungated Rit888/DEX at ec31e44facec227a1ac676cd5090d0a02800b006 lists dex_unidepth.pth, dex_midas.pth and dex_depthanything.pth. These are adapter checkpoints; corresponding frozen backbone weights are still needed separately.",
+      "The UniDepth wrapper imports UniDepthV2 and loads lpiccinelli/unidepth-v2old-vits14. Do not treat the old paper training environment or a generic UniDepth name as the exact released checkpoint identity.",
+      "Default distance-mode predicts radial range; explicit depth-mode training keeps raw Z. ScanNet++ scoring converts R to Z, while KITTI-360 scores R. Calibration-free prediction does not remove calibrated training/evaluation conversions.",
+      "Actual evaluator applies horizontal-flip averaging and per-image least-squares scale+shift alignment. ScanNet++ aligns/scores0.01-20m; KITTI-360 aligns0.5-40m but scores0.01-80m. The resulting scores are not unaligned metric-depth evidence.",
+      "The newly public DEX_KITTI360_Eval card describes400 images and4001400x1400 float32 radial-distance maps in metres, with zero invalid samples; these are a derived KITTI-360 evaluation subset, not a new independent capture or automatically dense measured truth. No data payload downloaded.",
+      "LICENSE and checkpoint card declare Apache-2.0, while the pinned README says research purposes only. Preserve the unresolved scope conflict rather than granting blanket permissive use.",
+      "No full-ERP input, direct DAP comparison, independently calibrated uncertainty or continuous pose output was verified in this release."
     ],
-    "environment": "Paper implementation: Adam, learning rate 1e-3, inner rank 20, batch 32 for depth, eight epochs on four RTX3090 GPUs. Installable dependencies and inference platform are not released.",
-    "official_release_status": "license_only_repository_code_and_checkpoints_coming_soon",
-    "reproduction_status": "Original paper and official repository reviewed; original Figure 2 visually checked. No DEX training or inference performed.",
-    "evidence_level": "L2_original_paper_and_official_repository_no_implementation_released",
+    "environment": "Official README: Python3.8, torch2.2.0+cu118, torchvision0.17.0, torchaudio2.2.0 and xformers0.0.24; typing-extensions<4.13, NumPy<2.0. UniDepth adapter loads lpiccinelli/unidepth-v2old-vits14; base weights/data remain separate. No local installation/inference.",
+    "official_release_status": "Partial release: monocular depth training/evaluation code and three DEX checkpoints released2026-11-10; open-vocabulary segmentation implementation still coming soon.",
+    "reproduction_status": "Original paper, pinned MDE implementation/evaluator and public model/data listings reviewed; no model weights downloaded and no estimator run.",
+    "evidence_level": "L2_original_paper_released_MDE_source_and_official_model_listing_no_local_inference",
     "schema_version": "1.1",
-    "url_verification": "2026-11-02: original arXiv v2, Springer publication metadata and author-linked repository contents inspected.",
+    "url_verification": "2026-11-23: November10 MDE source tree, actual evaluator, three ungated checkpoint listings,400-pair derived evaluation listing and conflicting license statements checked. Open-vocabulary segmentation code remains pending.",
     "evidence": [
       "https://arxiv.org/abs/2608.27860v2",
       "https://arxiv.org/html/2608.27860v2",
       "https://github.com/Suchisrit/DEX",
-      "https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14"
+      "https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14",
+      "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/README.md",
+      "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/model.py",
+      "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/eval.py",
+      "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/utils/depth_evaluate.py",
+      "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/utils/fisheye_ray_conversion.py",
+      "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/src/monocular_depth/unidepth_model.py",
+      "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/LICENSE",
+      "https://huggingface.co/Rit888/DEX",
+      "https://huggingface.co/api/models/Rit888/DEX",
+      "https://huggingface.co/datasets/Rit888/DEX_KITTI360_Eval"
     ]
   },
   {
@@ -2372,5 +2384,90 @@
       "https://github.com/Robbyant/lingbot-vision",
       "https://arxiv.org/abs/2607.05247"
     ]
+  },
+  {
+    "short_name": "EG360",
+    "title": "EG360: Efficient and Generalizable 360-degree Depth Estimation via Adaptive Panorama-Perspective Distillation and Spherical Cross-Level Feature Fusion",
+    "authors": [
+      "Laiyan Ding",
+      "Chongxi Meng",
+      "Rui Huang"
+    ],
+    "institutions": [
+      "The Chinese University of Hong Kong, Shenzhen",
+      "Tongji University"
+    ],
+    "year": 2026,
+    "venue": "arXiv2611.16793v1, submitted2026-11-12; formal venue not verified",
+    "paper_url": "https://arxiv.org/abs/2611.16793v1",
+    "category": [
+      "monocular",
+      "ERP",
+      "metric",
+      "distillation",
+      "efficient"
+    ],
+    "task_family": "efficient panoramic metric depth estimation",
+    "input": {
+      "frames": "One full equirectangular RGB image; DAP and MoGe2 are training teachers, not required runtime inputs.",
+      "projection": "Direct full-ERP student input. Cubemap teacher supervision during training does not establish a raw-fisheye or standalone pinhole student interface.",
+      "intrinsics": "No measured lens calibration requested for ERP inference; fixed spherical and virtual90-degree cubemap geometry are used in training.",
+      "resolution": "Training at512x1024 ERP. Author efficiency results use native model input resolutions; actual released resize/API is not verified.",
+      "extrinsics": "No measured poses or map for single-image inference.",
+      "imu": "No",
+      "gravity": "TartanAir training panoramas are rectified upright offline; no runtime measured-gravity input is documented.",
+      "synchronization": "Single image; stitching quality remains external to the depth estimator."
+    },
+    "output": {
+      "primary": "Dense metric Euclidean radial depth over the ERP grid, obtained by reciprocating the predicted metric inverse-depth map.",
+      "point_map": "No verified released point-map head or exporter; spherical rays can derive points if output scale is valid.",
+      "normal": "No surface-normal output documented.",
+      "confidence": "No calibrated depth-confidence output documented.",
+      "camera_parameters": "No estimated calibration or camera trajectory."
+    },
+    "geometry_output": [
+      "radial_range"
+    ],
+    "depth_convention": "Paper Section3 defines D=1/s from a metric inverse-depth head. Teacher cubemap optical-axis Z is explicitly converted to radial range before inverse-depth distillation. Final ERP depth is range, not Z. Sky teacher targets are set to1000m, not a measured finite sky distance.",
+    "scale": "Learned metric supervision and teacher scale; evaluations use no ground-truth alignment. This is an author-reported metric prediction, not a local absolute-accuracy guarantee.",
+    "metric_status": "metric_learned",
+    "runtime": "Author reports6.593M parameters,23.492GFLOPs and28.509ms/35.08FPS on Jetson Orin NX16GB MAXN, PyTorch eager AMP FP16 batch1 after structural reparameterization. Mean of300 post-warm-up forward passes, excluding I/O and CPU preprocessing; no local reproduction.",
+    "innovation": "ZipDepth-based student uses geometry-adaptive DAP/MoGe2 teacher weighting and spherical cross-level attention with panoramic local feed-forward processing.",
+    "engineering_notes": [
+      "APPD distills inverse radial depth from DAP on ERP and MoGe2 on cubemap views. Normalized plane-fitting residuals assign larger panoramic-teacher weight to planar faces.",
+      "Training uses562815 labeled synthetic pairs plus73701 unlabeled real panoramas. Synthetic depth supervision and estimated teacher targets have different provenance; teachers are not sensors or independent ground truth.",
+      "SCFF fuses the two coarsest encoder levels using spherical-direction bias and panoramic padding. The selected Figure3 shows this module, rather than a full-system overview.",
+      "Table3 evaluates without ground-truth alignment. DAP has lower AbsRel than EG360 on all three compared sets:0.137/0.072/0.195 versus0.173/0.094/0.237. The value is the reported efficiency/accuracy tradeoff, not demonstrated accuracy superiority to DAP.",
+      "Jetson timings exclude I/O/CPU preprocessing and use each model native resolution. Retrained lightweight baselines and unchanged foundation-model checkpoints follow different preparation; do not generalize35FPS to an entire robot perception pipeline.",
+      "Original abstract promises future code. No verified official student implementation, checkpoint, reusable API or software/model license was found; the released ZipDepth base is not an EG360 release."
+    ],
+    "evidence": [
+      "https://arxiv.org/abs/2611.16793v1",
+      "https://arxiv.org/html/2611.16793v1"
+    ],
+    "id": "eg3602026",
+    "summary_zh": "以几何自适应权重蒸馏 DAP 与 MoGe2，并融合球面跨层特征，预测完整 ERP 公制径向深度；重点是嵌入式效率，官方学生代码与权重尚未核实。",
+    "accessed": "2026-11-23",
+    "schema_version": "1.1",
+    "evidence_level": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+    "reproduction_status": "Original paper and official release sources reviewed; original figure visually inspected. No estimator training or inference reproduced.",
+    "url_verification": "2026-11-23: original paper identity, geometry, evaluation protocol and currently visible official artifacts checked.",
+    "license": {
+      "code": "No verified implementation license found.",
+      "weights": "No verified released checkpoint or checkpoint terms found."
+    },
+    "project_url": null,
+    "code_url": null,
+    "weights_url": null,
+    "imu_required": false,
+    "loop_closure": false,
+    "environment": "Paper implementation only; exact installable environment not verified. No local estimator run.",
+    "code_entry": "No verified released estimator source entry.",
+    "official_release_status": "No verified official estimator code or weights found as checked2026-11-23.",
+    "pose_output": "No camera pose, trajectory or SLAM state output.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "native_panoramic": true
   }
 ]

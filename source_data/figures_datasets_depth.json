@@ -531,5 +531,37 @@
     "sourceLicense": "Dataset card states CC BY 4.0. Original authors credited; no separate project-asset terms were established. Collection-code license is separate.",
     "verificationNote": "Original official 1024x512 full-ERP image and final full/thumbnail WebP individually viewed. No crop or generated replacement; an RGB source image is not relabeled as depth truth.",
     "sourceSha256": "fce791754464452a7ae950d8aa6a2c6c42100b3b41dee13e9e535ffd375b9f4d"
+  },
+  "ds_spatialfoundry": {
+    "thumbnail": "assets/datasets/ds_spatialfoundry-thumb.webp",
+    "image": "assets/datasets/ds_spatialfoundry.webp",
+    "paperUrl": "https://arxiv.org/pdf/2611.17318v1",
+    "sourceType": "paper-pdf",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "en": "Original-paper example of synthetic scene modalities, including ERP RGB and colorized depth; full numeric release is unconfirmed.",
+      "zh": "原论文展示合成场景模态，含ERP RGB与着色深度；完整数值数据发布尚未确认。"
+    },
+    "credit": {
+      "en": "Source: Ethan Lin and Yang Song, original Figure 2; cropped and resized for literature review.",
+      "zh": "来源：Ethan Lin、Yang Song，原论文Figure 2；为文献介绍裁剪并缩放。"
+    },
+    "kind": "dataset-preview",
+    "verified": true,
+    "cropBox": [
+      106,
+      78,
+      506,
+      346
+    ],
+    "originalCaption": "Figure 2: Aligned observations and 3D representations.",
+    "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+    "reviewedAt": "2026-11-23",
+    "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+    "pdfSha256": "fb9aeda2b948c747f0af4d26fad535ce3053487cc18614df5343947105444359",
+    "imageSha256": "61f386e934940e2fa84162b74135d568d44080aee6654fd6a8aad252efbfe2de",
+    "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content.",
+    "sourcePageUrl": "https://arxiv.org/abs/2611.17318v1"
   }
 }

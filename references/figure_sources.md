@@ -42,6 +42,14 @@ Figure 3, PDF page 4. DepthMaster unifies pinhole and ERP as perspective patches
 - Screenshot: [assets/papers/depthmaster2026.webp](../site/assets/papers/depthmaster2026.webp)
 - Local PDF SHA-256: `c435b22c372b556129b6029e2446d9ee86a2f29f5069ffbcd4adc8e894e8b92e`
 
+## EG360
+
+Figure 3, PDF page 4. SCFF combines spherical cross-level attention and a panoramic local feed-forward module.
+
+- PDF: https://arxiv.org/pdf/2611.16793v1
+- Screenshot: [assets/papers/eg3602026.webp](../site/assets/papers/eg3602026.webp)
+- Local PDF SHA-256: `3620519b85e3324a3d4853d05ac05417074eead99bfe434ef79ca0482bb65f16`
+
 ## GeoPano
 
 Figure 3, PDF page 5. GeoPano view decomposition, panorama-aware attention, local point-map prediction and global point-cloud fusion.
@@ -102,7 +110,7 @@ Figure 3, PDF page 4. PVDepth adapts the video diffusion pipeline with sphere-aw
 
 Figure 2, PDF page 4. Shared geometry backbone with scale-invariant/metric depth, normals and sky prediction.
 
-- PDF: https://arxiv.org/pdf/2605.26368
+- PDF: https://arxiv.org/pdf/2605.26368v2
 - Screenshot: [assets/papers/pager.webp](../site/assets/papers/pager.webp)
 - Local PDF SHA-256: `88cf2516fac672870f10dc364c14742a87f7501dae6ce2122507561725868193`
 
@@ -346,6 +354,14 @@ Figure 4, PDF page 5. Fisheye/IMU sliding-window estimation, sequence-local tag 
 - Screenshot: [assets/papers/aprilvins2026.webp](../site/assets/papers/aprilvins2026.webp)
 - Local PDF SHA-256: `c55449b7590f8959e584f156d3e98f197489c72e0f7980398b5ecc709d98a9fc`
 
+## CoSphere-SLAM
+
+Figure 2, PDF page 3. Per-agent panoramic maps are aligned through spherical loop matching and similarity-graph optimization before ray-based Gaussian fusion.
+
+- PDF: https://arxiv.org/pdf/2611.22235v1
+- Screenshot: [assets/papers/cosphereslam2026.webp](../site/assets/papers/cosphereslam2026.webp)
+- Local PDF SHA-256: `11bfb791c99c3f30da205c6222f12ad32b2d8a8336c3cf227682e9be9cbbd8d3`
+
 ## Cube-Splat
 
 Figure 2, PDF page 6. ERP or PAL panoramas are factorized into cubemap views for shared-pose tracking and Gaussian-map optimization.
@@ -353,6 +369,14 @@ Figure 2, PDF page 6. ERP or PAL panoramas are factorized into cubemap views for
 - PDF: https://arxiv.org/pdf/2609.21347
 - Screenshot: [assets/papers/cubesplat2026.webp](../site/assets/papers/cubesplat2026.webp)
 - Local PDF SHA-256: `03cf13240d68f267d2c79f3eabe7c4c3784d9e914337811e384580e0984acf8c`
+
+## DEFDVO
+
+Figure 1, PDF page 1. DEFDVO combines spherical-prior deformable features, spherical patch sampling and seam-aware tracking with spherical BA.
+
+- PDF: https://arxiv.org/pdf/2611.19095v1
+- Screenshot: [assets/papers/defdvo2026.webp](../site/assets/papers/defdvo2026.webp)
+- Local PDF SHA-256: `e876a3ccee7887c06e50edd741aee3e7fec3ef86a171c4c841ba1146e33acd12`
 
 ## HoloRecon
 
@@ -417,6 +441,22 @@ Figure 2, PDF page 4. Chunked panoramic reconstruction with yaw-robust retrieval
 - PDF: https://diglib7.eg.org/bitstreams/55a9089c-0201-403e-bd17-e58872d044fd/download
 - Screenshot: [assets/papers/panoloop2026.webp](../site/assets/papers/panoloop2026.webp)
 - Local PDF SHA-256: `afe4c6ca289ce4f28d31a5ef1e7635698f8d0e6ea51080a70edd1a2acfb353db`
+
+## S²D-FVO
+
+Figure 2, PDF page 4. Spherical BA guides depth learning, whose predictions provide scale references for tracking and loop correction.
+
+- PDF: https://arxiv.org/pdf/2611.11934v1
+- Screenshot: [assets/papers/s2dfvo2026.webp](../site/assets/papers/s2dfvo2026.webp)
+- Local PDF SHA-256: `2babb50c793f715f47a14293c8df41c83882dba16db395a7a5d39884d5324955`
+
+## sqrtVINS 360 (Hilti2026)
+
+Figure 2, PDF page 2. Calibrated dual-fisheye and IMU tracking feed loop/cross-view constraints into a calibration-and-scale-aware factor graph.
+
+- PDF: https://arxiv.org/pdf/2611.20568v1
+- Screenshot: [assets/papers/sqrtvins3602026.webp](../site/assets/papers/sqrtvins3602026.webp)
+- Local PDF SHA-256: `79f0615ee716a76ea991e65af22450ee34d4460178f44d1c4ff98c87d7d85938`
 
 ## MASt3R-SLAM
 

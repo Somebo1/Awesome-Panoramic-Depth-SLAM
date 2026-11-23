@@ -427,3 +427,14 @@ A targeted seven-scene benchmark with paper-described LiDAR references; complete
 
 - https://arxiv.org/html/2610.36876v1
 - https://zhuoxiaoli.github.io/HoloRecon_page/
+
+### Spatial Foundry
+
+合成室内深度与相机路线几何 / Synthetic indoor depth and camera-path geometry
+
+新场景级多模态资源明确ERP／针孔几何，但完整压缩包、划分及数据条款尚未核实，应排在成熟可获取基准后。
+
+A new scene-based multimodal resource with explicit ERP/pinhole geometry, but no verified full archive, split or data terms. Place after mature accessible benchmarks.
+
+- https://arxiv.org/abs/2611.17318v1
+- https://ranolabs.com/Blog/spatial-foundry

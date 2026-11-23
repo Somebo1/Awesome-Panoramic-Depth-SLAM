@@ -1,6 +1,6 @@
 # Official-source index
 
-Literature search cutoff 2026-11-09. Incremental method and dataset checks: 2026-11-09; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
+Literature search cutoff 2026-11-23. Incremental method and dataset checks: 2026-11-09; earlier per-record review dates remain distinct. Per-record dates and ledgers describe review scope; no local reproduction is claimed.
 
 ## Any3R (2026)
 
@@ -35,6 +35,16 @@ From Perspective to Fisheye Depth Estimation and Open-Vocabulary Segmentation
 - https://arxiv.org/html/2608.27860v2
 - https://github.com/Suchisrit/DEX
 - https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14
+- https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/README.md
+- https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/model.py
+- https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/eval.py
+- https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/utils/depth_evaluate.py
+- https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/utils/fisheye_ray_conversion.py
+- https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/src/monocular_depth/unidepth_model.py
+- https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/LICENSE
+- https://huggingface.co/Rit888/DEX
+- https://huggingface.co/api/models/Rit888/DEX
+- https://huggingface.co/datasets/Rit888/DEX_KITTI360_Eval
 
 ## Depth Any Panoramas (2026)
 
@@ -62,6 +72,13 @@ DepthMaster: Unified Monocular Depth Estimation for Perspective and Panoramic Im
 - https://github.com/PolyU-VCLab/DepthMaster/blob/main/eval_panorama/configs/eval_panorama.json
 - https://github.com/PolyU-VCLab/DepthMaster/blob/main/eval_panorama/eval/utils/infer.py
 - https://huggingface.co/VCLab-PolyU/DepthMaster
+
+## EG360 (2026)
+
+EG360: Efficient and Generalizable 360-degree Depth Estimation via Adaptive Panorama-Perspective Distillation and Spherical Cross-Level Feature Fusion
+
+- https://arxiv.org/abs/2611.16793v1
+- https://arxiv.org/html/2611.16793v1
 
 ## GeoPano (2026)
 
@@ -163,7 +180,8 @@ Unified Panoramic Geometry Estimation via Multi-View Foundation Models
 - https://neurips.cc/Downloads/2026
 - https://neurips.cc/virtual/2026/poster/149348
 - https://github.com/prs-eth/PaGeR/commit/c465ffb6bc7ed6ea395de2f3ea3852c852cec5d5
-- https://arxiv.org/abs/2605.26368
+- https://arxiv.org/abs/2605.26368v3
+- https://arxiv.org/html/2605.26368v3
 
 ## RePer-360 (2026)
 
@@ -476,6 +494,15 @@ Towards Accurate End-Effector Localization for UMI-Style Robotic Manipulation Te
 - https://mild-web.github.io/
 - https://github.com/mild-web/mild-web.github.io
 
+## CoSphere-SLAM (2026)
+
+CoSphere-SLAM: Multi-Agent Panoramic Gaussian Splatting SLAM with Spherical Loop Closure
+
+- https://arxiv.org/abs/2611.22235v1
+- https://arxiv.org/html/2611.22235v1
+- https://cosphere-slam.github.io/
+- https://github.com/cosphere-slam/cosphere-slam.github.io
+
 ## Cube-Splat (2026)
 
 Cube-Splat: High-Fidelity 360° Gaussian Splatting SLAM via Cubemap Factorization and Adjoint-Consistent Optimization
@@ -487,6 +514,15 @@ Cube-Splat: High-Fidelity 360° Gaussian Splatting SLAM via Cubemap Factorizatio
 - https://arxiv.org/pdf/2609.21347
 - https://github.com/guoxf304/CubeSplat
 - https://wangkaiwei.org/publications/
+
+## DEFDVO (2026)
+
+DEFDVO: Deformable Deep Visual Odometry for Equirectangular Images
+
+- https://arxiv.org/abs/2611.19095v1
+- https://arxiv.org/html/2611.19095v1
+- https://github.com/BurakSevsay/DEFDVO
+- https://github.com/BurakSevsay/DEFDVO/blob/ebb70e4f793cc53dafcc60a07ae226da9b2dc64b/README.md
 
 ## Hilti–Trimble–Oxford 2026 · Indoor (2026)
 
@@ -650,6 +686,14 @@ PanoRecon Benchmark for Long-Range Panoramic Reconstruction
 - https://arxiv.org/html/2610.36876v1
 - https://zhuoxiaoli.github.io/HoloRecon_page/
 
+## Spatial Foundry (2026)
+
+Spatial Foundry: A Multimodal Dataset for Spatial Intelligence
+
+- https://arxiv.org/abs/2611.17318v1
+- https://arxiv.org/html/2611.17318v1
+- https://ranolabs.com/Blog/spatial-foundry
+
 ## SynPano (2026)
 
 SynPano: A Synthetic Panoramic Dataset for SLAM
@@ -659,6 +703,21 @@ SynPano: A Synthetic Panoramic Dataset for SLAM
 - https://huggingface.co/api/datasets/gxfzju/SynPano
 - https://huggingface.co/datasets/gxfzju/SynPano/resolve/6ca1bf731c7b1417ea84c8830fff1a73aa08516c/island_lake/groundtruth.txt
 - https://huggingface.co/datasets/gxfzju/SynPano/tree/6ca1bf731c7b1417ea84c8830fff1a73aa08516c
+
+## S²D-FVO (2026)
+
+Scale-Consistent Monocular Fisheye Visual Odometry via Spherical Bundle Adjustment-Guided Unsupervised Depth Learning
+
+- https://arxiv.org/abs/2611.11934v1
+- https://arxiv.org/html/2611.11934v1
+
+## sqrtVINS 360 (Hilti2026) (2026)
+
+sqrtVINS-Based 360 Visual-Inertial SLAM Systems: Hilti-Trimble SLAM Challenge 2026 Entry
+
+- https://arxiv.org/abs/2611.20568v1
+- https://arxiv.org/html/2611.20568v1
+- https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026
 
 ## MASt3R-SLAM (2025)
 
@@ -676,6 +735,7 @@ OKVIS2-X: Open Keyframe-Based Visual-Inertial SLAM Configurable With Dense Depth
 - Official README provides T-RO citation/DOI, depth-fusion apps, metric scaling and causal/final trajectory files.
 - https://arxiv.org/abs/2510.04612
 - https://github.com/ethz-mrl/OKVIS2-X
+- https://github.com/ethz-mrl/OKVIS2-X/commit/a246c7addc87840ed5e95e82e2d737b94e810711
 
 ## Oxford Spires (2025)
 

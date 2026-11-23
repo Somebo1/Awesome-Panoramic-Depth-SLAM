@@ -522,7 +522,7 @@
   {
     "weights_url": "https://github.com/ethz-mrl/OKVIS2-X#how-do-i-get-set-up",
     "pose_output": "Yes: estimated 6DoF trajectory; wrist/TCP additionally needs extrinsics",
-    "accessed": "2026-10-17",
+    "accessed": "2026-11-23",
     "native_panoramic": false,
     "native_erp": false,
     "panoramic_representation": "Not native ERP",
@@ -561,8 +561,13 @@
     "source_urls": [
       "https://arxiv.org/abs/2510.04612",
       "https://github.com/ethz-mrl/OKVIS2-X",
-      "https://github.com/ethz-mrl/OKVIS2-X"
-    ]
+      "https://github.com/ethz-mrl/OKVIS2-X",
+      "https://github.com/ethz-mrl/OKVIS2-X/commit/a246c7addc87840ed5e95e82e2d737b94e810711"
+    ],
+    "engineering_notes": [
+      "November11 official commit a246c7addc87840ed5e95e82e2d737b94e810711 fixes camera/distortion parameter-vector checks from cols() to size() in equidistant, radial-tangential and pinhole-camera code. This is a calibration-parameter handling fix, not a new camera/ERP mode or demonstrated accuracy improvement."
+    ],
+    "url_verification": "2026-11-23: November11 patch contents reviewed; no new camera support inferred and no local build run."
   },
   {
     "weights_url": "Not applicable: no learned weights required",
@@ -1689,5 +1694,385 @@
       "https://github.com/93won/openvio/blob/997de9b8a66a372ab5b15506a1bde957592ad356/LICENSE"
     ],
     "url_verification": "2026-11-09: original v1, released source and fixed-commit modes/online calibration/licensing checked."
+  },
+  {
+    "short_name": "S²D-FVO",
+    "title": "Scale-Consistent Monocular Fisheye Visual Odometry via Spherical Bundle Adjustment-Guided Unsupervised Depth Learning",
+    "authors": [
+      "Wanhui Luo",
+      "Hongbo Zhao",
+      "Yi Zhou",
+      "Qijun Chen",
+      "Yiming Nie",
+      "Rui Fan"
+    ],
+    "institutions": [
+      "Tongji University",
+      "Hunan University",
+      "Academy of Military Science"
+    ],
+    "year": 2026,
+    "venue": "arXiv2611.11934v1, submitted2026-11-09; formal journal acceptance not verified",
+    "paper_url": "https://arxiv.org/abs/2611.11934v1",
+    "category": [
+      "fisheye",
+      "ERP",
+      "pinhole",
+      "monocular",
+      "VO",
+      "learned-depth",
+      "loop-closure"
+    ],
+    "slam_family": "spherical bundle adjustment with learned-depth reference and loop closure",
+    "input": {
+      "frames": "One ordered calibrated monocular image stream. Main experiments use raw fisheye; SectionV-A separately evaluates perspective and ERP streams.",
+      "projection": "Fisheye images are remapped to ERP for tracking/DepthNet. ERP and pinhole support also have separate TartanAirV2 depth and VO experiments in TablesXIV-XV; support is not inferred from remapping alone.",
+      "intrinsics": "Known projection and unprojection/calibration for the chosen central camera model. Fisheye experiments include unified, Kannala-Brandt, polynomial and equidistant models.",
+      "resolution": "Main DepthNet training uses512x512 remapped images and10-frame training windows. Independent ERP/perspective experiment input dimensions are not established as a released API.",
+      "extrinsics": "No inter-camera baseline, external map or supplied deployment trajectory is required for the described monocular path.",
+      "imu": "No",
+      "gravity": "No IMU/gravity measurement input documented.",
+      "synchronization": "Ordered single-camera frames; no multi-camera or external sensor synchronization requirement."
+    },
+    "output": {
+      "primary": "Estimated camera trajectory and sparse3D landmarks, plus DepthNet radial-depth maps used as scale references.",
+      "point_map": "Optimized sparse landmarks; no independent released dense point-map head/exporter verified.",
+      "normal": "No surface-normal output documented.",
+      "confidence": "No calibrated depth/scale uncertainty estimate; paper identifies uncertainty-aware regularization as future work.",
+      "camera_parameters": "Uses known projection; estimates poses rather than unknown sensor intrinsics."
+    },
+    "geometry_output": [
+      "radial_range",
+      "camera_poses",
+      "sparse_landmarks"
+    ],
+    "depth_convention": "Depth references are Euclidean radial distance along unit rays. Spherical BA aligns the median landmark range to median DepthNet range rather than imposing per-point depth equality. This does not make radial range equal camera-axis Z.",
+    "scale": "Learned DepthNet supplies a training-dependent scale reference. Monocular geometry still has an unobservable gauge; trajectory evaluation uses one global Sim(3) alignment, and the foundation-depth comparison median-aligns depth. Scale consistency is not independently verified absolute metric scale.",
+    "metric_status": "learned_depth_reference_sim3_evaluated",
+    "pose_output": "Yes: estimated monocular camera trajectory and loop-corrected poses, with unverified absolute metric scale.",
+    "loop_closure": true,
+    "runtime": "Paper reports approximately10FPS on Intel Core Ultra9 285K plus RTX5090 with ONNX Runtime. Local mapping and verified-loop correction are additional asynchronous processes; no local timing reproduction.",
+    "environment": "Paper: C++, g2o/Levenberg-Marquardt; ResNet18 DepthNet, SuperPoint and SphereGlue exported from PyTorch to ONNX Runtime. Exact public build/configuration not verified.",
+    "innovation": "Uses two-component spherical-log-map reprojection residuals with median-range regularization, coupling SBA-guided DepthNet learning and depth-guided VO; loop constraints use global Sim(3) optimization.",
+    "engineering_notes": [
+      "Main fisheye remapping alone does not prove full-ERP input. Separate SectionV-A experiments explicitly test TartanAirV2 ERP and perspective depth/VO, so all three projection classes are paper-supported.",
+      "DepthNet is pretrained on UniDAC pseudo depth before SBA-guided photometric training. The unsupervised label does not mean the model has no learned scale prior or pseudo-label initialization.",
+      "SectionIV-C aligns each estimated trajectory to reference by one global Sim(3). TableVII median-aligns foundation-model depth comparisons. These scores do not establish an unaligned metric trajectory or direct DAP superiority.",
+      "The paper contains genuine geometric loop verification and global Sim(3) pose-graph correction. Do not omit loop closure just because the title calls the system VO.",
+      "Raw fisheye input requires camera calibration for spherical unprojection/remapping. No IMU or calibrated stereo baseline is used by the described monocular path.",
+      "NIO-Fisheye, synthetic Blender-Fisheye and derived ScanNet++/TartanAir splits are described, but promised future split publication is not a verified data download.",
+      "Median depth suppresses isolated outliers but not systematic network bias; weak parallax and pure rotation undermine landmark depth. No calibrated uncertainty solution is claimed."
+    ],
+    "evidence": [
+      "https://arxiv.org/abs/2611.11934v1",
+      "https://arxiv.org/html/2611.11934v1"
+    ],
+    "id": "s2dfvo2026",
+    "summary_zh": "以球面 BA 与学习径向深度参考耦合单目跟踪，并用 Sim(3) 回环校正；论文明确测试鱼眼、ERP及针孔，评测尺度对齐与实现／数据发布状态须分别看待。",
+    "accessed": "2026-11-23",
+    "schema_version": "1.1",
+    "evidence_level": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+    "reproduction_status": "Original paper and official release sources reviewed; original figure visually inspected. No estimator training or inference reproduced.",
+    "url_verification": "2026-11-23: original paper identity, geometry, evaluation protocol and currently visible official artifacts checked.",
+    "license": {
+      "code": "No verified implementation license found.",
+      "weights": "No verified released checkpoint or checkpoint terms found."
+    },
+    "project_url": null,
+    "code_url": null,
+    "weights_url": null,
+    "imu_required": false,
+    "code_entry": "No verified released estimator source entry.",
+    "official_release_status": "No verified official estimator code or weights found as checked2026-11-23.",
+    "camera_support": [
+      "panoramic_erp",
+      "fisheye",
+      "pinhole"
+    ],
+    "native_panoramic": true
+  },
+  {
+    "short_name": "CoSphere-SLAM",
+    "title": "CoSphere-SLAM: Multi-Agent Panoramic Gaussian Splatting SLAM with Spherical Loop Closure",
+    "authors": [
+      "Qi Shao",
+      "Zhihao Cao",
+      "Shuhao Zhai",
+      "Taoyu Wu",
+      "Zhuoxiao Li",
+      "Anh Nguyen",
+      "Long Hu",
+      "Xianzhi Li",
+      "Hong Liang",
+      "Baoru Huang",
+      "Liang Li"
+    ],
+    "institutions": [
+      "Harbin Engineering University",
+      "University of Liverpool",
+      "ETH Zurich",
+      "National University of Singapore",
+      "University of Macau",
+      "Xi’an Jiaotong-Liverpool University",
+      "The Hong Kong University of Science and Technology (Guangzhou)",
+      "Imperial College London",
+      "Huazhong University of Science and Technology"
+    ],
+    "year": 2026,
+    "venue": "arXiv2611.22235v1, submitted2026-11-17; project marked under review",
+    "paper_url": "https://arxiv.org/abs/2611.22235v1",
+    "project_url": "https://cosphere-slam.github.io/",
+    "category": [
+      "ERP",
+      "multi-agent",
+      "SLAM",
+      "3DGS",
+      "loop-closure",
+      "relative-scale"
+    ],
+    "slam_family": "multi-agent panoramic Gaussian SLAM with similarity-graph correction",
+    "input": {
+      "frames": "Monocular ERP image streams from multiple independently moving panoramic agents, without known initial inter-agent poses or scales.",
+      "projection": "Full ERP is the external input; each frame is internally resampled into six co-centered90-degree cube faces. No raw-fisheye or standalone pinhole estimator entry was verified.",
+      "intrinsics": "Known ERP spherical geometry and fixed virtual face rotations/calibration; real raw-lens/stitching calibration remains external.",
+      "resolution": "Paper local tracking uses six256x256 faces; local mapping1024x512 ERP, offline global refinement2048x1024.",
+      "extrinsics": "Inter-agent transforms are estimated from shared views, not supplied as a pre-calibrated rig. Virtual cube-face rotations are fixed and share one center.",
+      "imu": "No",
+      "gravity": "No measured gravity input documented.",
+      "synchronization": "Independent cross-session streams can be matched by revisits; no hard synchronized camera rig is required. Scene overlap and static structure are needed."
+    },
+    "output": {
+      "primary": "Per-keyframe camera-to-world similarities, aligned agent trajectories and a fused3D Gaussian map; local spherical depths support tracking and mapping.",
+      "point_map": "A fused Gaussian scene representation with3D means, not an independently verified dense point-map network head.",
+      "normal": "No independent normal-output head documented.",
+      "confidence": "Directional loop-edge weights model error sources; this is not a calibrated per-pixel depth uncertainty product.",
+      "camera_parameters": "Inter-agent/per-keyframe transforms and scale corrections are estimated; raw camera intrinsics are not predicted."
+    },
+    "geometry_output": [
+      "radial_range",
+      "camera_poses",
+      "gaussian_map"
+    ],
+    "depth_convention": "Local spherical depth D:S2->R+ and Gaussian rendering follow viewing rays, rather than using a single positive camera-axis Z for the full sphere. Metric3D priors are aligned across overlapping faces; the exact released Z-to-range conversion/export cannot be audited while estimator code is pending.",
+    "scale": "Relative monocular geometry with per-keyframe Sim(3) scale-drift correction. Learned Metric3D depth priors do not establish an externally measured global metric scale; the paper reserves inertial/ranging metric scale for future work.",
+    "metric_status": "monocular_scale_ambiguous",
+    "pose_output": "Yes: estimated agent trajectories and keyframe similarities, with an unobservable global monocular scale.",
+    "loop_closure": true,
+    "runtime": "Author reports1.0 inputFPS per-agent online tracking with7.8GiB GPU memory. Alignment and75k global refinement steps at0.32s/step are offline on one A100; this is not demonstrated end-to-end real-time collaborative SLAM. No local run.",
+    "innovation": "Spherical SO(3) loop correlation and global Sim(3) consensus reject symmetric false closures; directional per-keyframe pose graphs decouple optical-flow directions from depth magnitudes before ray-based Gaussian fusion.",
+    "engineering_notes": [
+      "Full-ERP support is explicit. Co-centered cubemap faces are an internal projection, not extra physical stereo. The multi-camera attribute here refers to independent real agent streams, not those virtual faces.",
+      "Metric3D supplies early depth priors, but later keyframes rely on multiview flow and closures. Global similarity optimization corrects drift without observing absolute metric scale.",
+      "The server uses ring descriptors, tilt search and FFT yaw correlation, then global Sim(3) consensus. Tested tilt-search settings are finite; arbitrary-heading descriptions do not prove exhaustive SO(3) invariance under all tilts.",
+      "Holo360D is split into200 virtual agent trajectories over50 source videos, with5 development and45 test scenes. The360Loc experiment uses18 independent day/night trajectories; neither derived protocol is a newly released raw dataset or independently measured truth.",
+      "A100 global map refinement is offline. Per-agent1Hz tracking, local mapping steps and server optimization must not be conflated with one end-to-end real-time rate.",
+      "Official project provides an interactive map demo and explicitly promises code/benchmark tools in the future. Its webpage source/assets are not an estimator implementation; no verified full code or weights download was found."
+    ],
+    "evidence": [
+      "https://arxiv.org/abs/2611.22235v1",
+      "https://arxiv.org/html/2611.22235v1",
+      "https://cosphere-slam.github.io/",
+      "https://github.com/cosphere-slam/cosphere-slam.github.io"
+    ],
+    "id": "cosphereslam2026",
+    "summary_zh": "以球面回环匹配、全局Sim(3)一致性和逐关键帧尺度校正融合多智能体ERP高斯地图；仍有单目尺度歧义，服务器细化离线进行，实现待发布。",
+    "accessed": "2026-11-23",
+    "schema_version": "1.1",
+    "evidence_level": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+    "reproduction_status": "Original paper and official release sources reviewed; original figure visually inspected. No estimator training or inference reproduced.",
+    "url_verification": "2026-11-23: original paper identity, geometry, evaluation protocol and currently visible official artifacts checked.",
+    "license": {
+      "code": "No verified implementation license found.",
+      "weights": "No verified released checkpoint or checkpoint terms found."
+    },
+    "code_url": null,
+    "weights_url": null,
+    "imu_required": false,
+    "environment": "Paper implementation only; exact installable environment not verified. No local estimator run.",
+    "code_entry": "No verified released estimator source entry.",
+    "official_release_status": "No verified official estimator code or weights found as checked2026-11-23.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "native_panoramic": true
+  },
+  {
+    "short_name": "DEFDVO",
+    "title": "DEFDVO: Deformable Deep Visual Odometry for Equirectangular Images",
+    "authors": [
+      "Burak Sevsay",
+      "Egor Bondarev",
+      "Erkut Akdag"
+    ],
+    "institutions": [
+      "Eindhoven University of Technology"
+    ],
+    "year": 2026,
+    "venue": "arXiv2611.19095v1, submitted2026-11-14; authors report WACV2027 acceptance, final proceedings not verified",
+    "paper_url": "https://arxiv.org/abs/2611.19095v1",
+    "project_url": "https://github.com/BurakSevsay/DEFDVO",
+    "code_url": "https://github.com/BurakSevsay/DEFDVO",
+    "category": [
+      "ERP",
+      "monocular",
+      "VO",
+      "deformable-convolution",
+      "inverse-range"
+    ],
+    "slam_family": "patch-based learning visual odometry with ERP seam-aware bundle adjustment",
+    "input": {
+      "frames": "An ordered full-ERP RGB video stream, with no supplied depth, IMU or deployment poses.",
+      "projection": "Direct2:1 ERP throughout learned features, correlation and spherical BA; no independent raw-fisheye or pinhole mode verified.",
+      "intrinsics": "Spherical mapping derived from ERP dimensions: fx=W/(2pi), fy=H/pi, principal point at image center; these are not measured pinhole intrinsics.",
+      "resolution": "Training ERP2048x1024 processed at0.5 scale; inference default192 patches/frame,0.5 scale. On360DVO this gives1920x960 from3840x1920 originals.",
+      "extrinsics": "No supplied extrinsics, camera baseline or prebuilt map.",
+      "imu": "No",
+      "gravity": "No measured gravity input documented.",
+      "synchronization": "Ordered single-camera stream; source video10FPS is distinct from author-reported inference7.1FPS."
+    },
+    "output": {
+      "primary": "Estimated world-to-camera trajectory and inverse radial range at sparse image patches, jointly optimized in a recurrent patch graph.",
+      "point_map": "Sparse patch geometry can be backprojected from inverse range; no independent dense-depth or dense point-map product verified.",
+      "normal": "No surface-normal output documented.",
+      "confidence": "Learned correspondence weights, not an independently calibrated depth-confidence product.",
+      "camera_parameters": "Poses are estimated; raw camera calibration is not predicted."
+    },
+    "geometry_output": [
+      "inverse_depth",
+      "camera_poses",
+      "sparse_patch_geometry"
+    ],
+    "depth_convention": "Each patch stores d=1/||P||, inverse Euclidean radial range on the full sphere. It replaces DPVO inverse Z; horizontal residuals are wrapped modulo ERP width. Positive inverse range is not positive camera-axis Z.",
+    "scale": "Relative monocular geometry. Training pose loss and trajectory evaluation use Sim(3) alignment; source metric labels and ATE reported in metres do not establish deployment metric scale.",
+    "metric_status": "scale_invariant",
+    "pose_output": "Yes: estimated monocular camera trajectory, up to a similarity transform.",
+    "loop_closure": false,
+    "runtime": "Author reports7.1FPS with192 patches and1920x960 input on RTX A5000. Full-resolution3840x1920 costs about450ms/frame versus140ms at half scale; no local run.",
+    "environment": "Paper uses DPVO-style recurrent graph, DCNv2, spherical geometry and GPU differentiable BA; training120k steps on H100. No released installable estimator source/weights verified.",
+    "innovation": "Combines analytic spherical sampling with learned latitude-conditioned deformable offsets, spherical-gradient patch selection and seam-aware feature/correlation/BA/loss operations.",
+    "engineering_notes": [
+      "External full ERP input is explicit. Six TartanAir source views are co-centered render products and do not establish physical stereo input.",
+      "Sparse inverse radial range replaces inverse optical-axis Z. Patch candidates exclude latitudes beyond75degrees as a near-pole safeguard, not a claim of dense depth over every spherical pixel.",
+      "Training uses TartanAirV2 synthetic ERP only; the real360DVO benchmark supplies SfM references, not independent tracked pose truth. Preserve the two separate TartanAir evaluation splits.",
+      "Both pose loss and ATE evaluation are Sim(3)-aligned. The paper reports relative trajectory accuracy, not an unaligned absolute metric guarantee or a direct DAP depth comparison.",
+      "Loop closure and global optimization are explicitly future work, so this is VO rather than a verified full loop-closing SLAM system.",
+      "The abstract states code is available, but official main at ebb70e4f793cc53dafcc60a07ae226da9b2dc64b contains only README saying release soon. No estimator, weights or license was verified.",
+      "WACV2027 acceptance is author-reported in the arXiv record; do not label future proceedings as already published or create a duplicate conference-version record."
+    ],
+    "evidence": [
+      "https://arxiv.org/abs/2611.19095v1",
+      "https://arxiv.org/html/2611.19095v1",
+      "https://github.com/BurakSevsay/DEFDVO",
+      "https://github.com/BurakSevsay/DEFDVO/blob/ebb70e4f793cc53dafcc60a07ae226da9b2dc64b/README.md"
+    ],
+    "id": "defdvo2026",
+    "summary_zh": "在DPVO式ERP里程计中加入球面先验可变形特征、跨接缝优化和球面采样，输出相对位姿与稀疏逆径向距离；回环属未来工作，官方仓库目前仍只有README。",
+    "accessed": "2026-11-23",
+    "schema_version": "1.1",
+    "evidence_level": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+    "reproduction_status": "Original paper and official release sources reviewed; original figure visually inspected. No estimator training or inference reproduced.",
+    "url_verification": "2026-11-23: original paper identity, geometry, evaluation protocol and currently visible official artifacts checked.",
+    "license": {
+      "code": "No verified implementation license found.",
+      "weights": "No verified released checkpoint or checkpoint terms found."
+    },
+    "weights_url": null,
+    "imu_required": false,
+    "code_entry": "No verified released estimator source entry.",
+    "official_release_status": "No verified official estimator code or weights found as checked2026-11-23.",
+    "camera_support": [
+      "panoramic_erp"
+    ],
+    "native_panoramic": true
+  },
+  {
+    "short_name": "sqrtVINS 360 (Hilti2026)",
+    "title": "sqrtVINS-Based 360 Visual-Inertial SLAM Systems: Hilti-Trimble SLAM Challenge 2026 Entry",
+    "authors": [
+      "Jungwoo Lee",
+      "Hogyun Kim",
+      "Jiwon Choi",
+      "Jinyong Jeong",
+      "Younggun Cho"
+    ],
+    "institutions": [
+      "Inha University",
+      "Riibotics"
+    ],
+    "year": 2026,
+    "venue": "2026 Hilti-Trimble SLAM Challenge technical report; arXiv2611.20568v1 submitted2026-11-16",
+    "paper_url": "https://arxiv.org/abs/2611.20568v1",
+    "category": [
+      "fisheye",
+      "dual-camera",
+      "VIO",
+      "SLAM",
+      "IMU",
+      "loop-closure"
+    ],
+    "slam_family": "dual-fisheye visual-inertial filtering with offline factor-graph refinement",
+    "input": {
+      "frames": "The two supplied synchronized front/rear raw-fisheye streams plus IMU from the Hilti2026 rig; no LiDAR or input depth is used.",
+      "projection": "Both cameras use calibrated EUCM. ERP projection appears internally for descriptors/database; a stitched full-ERP external estimator entry is not demonstrated.",
+      "intrinsics": "EUCM intrinsic and distortion calibration is required and tightly regularized during backend refinement; no calibration-free claim.",
+      "resolution": "The report does not establish a released common resize/API; use original challenge calibration/image resolution consistently.",
+      "extrinsics": "Known camera-camera and camera-IMU calibration, including the real inter-camera baseline. Backend refines shared E01 under strong priors.",
+      "imu": "Yes",
+      "gravity": "IMU supplies a vertical reference for the weak-Manhattan line model; horizontal directions remain unconstrained.",
+      "synchronization": "Dual fisheye and IMU timing/calibration from the challenge rig are necessary; front/rear views are a physical baseline, not cubemap faces."
+    },
+    "output": {
+      "primary": "Locally metric cam0 visual-inertial trajectory, subsequently corrected by loop/cross-camera constraints and non-causal GTSAM batch refinement.",
+      "point_map": "Sparse BA landmarks support optimization; no dense depth image or dense map product established.",
+      "normal": "No normal-output head.",
+      "confidence": "Factor covariances/regularization are not a calibrated dense-depth confidence product.",
+      "camera_parameters": "Shared camera intrinsics, extrinsics and one global scale correction are refined under priors."
+    },
+    "geometry_output": [
+      "camera_poses",
+      "sparse_landmarks"
+    ],
+    "depth_convention": "No dense-depth output is established. Sparse triangulated landmarks and metric trajectory constraints use calibrated dual-camera/IMU geometry, not learned monocular range or camera-axis depth maps.",
+    "scale": "Locally metric VIO with calibrated IMU; known inter-camera baseline and cross-view observations support a tightly regularized global scale correction. Gauge choices remain for global origin and yaw.",
+    "metric_status": "metric_visual_inertial_and_known_baseline",
+    "pose_output": "Yes: cam0 pose trajectory; final loop/BA-refined export is non-causal.",
+    "imu_required": true,
+    "loop_closure": true,
+    "runtime": "No reproducible end-to-end throughput/latency result was established in the challenge report. Final trajectory uses later loop/BA observations and is non-causal; no local run.",
+    "environment": "Report uses a sqrtVINS point/line frontend, SuperPoint/LightGlue, ELSED, Zero-DCE++, YOLO26, SALAD, GTSAM and ROS2. Availability of the exact complete challenge workspace and component licenses remains unverified.",
+    "innovation": "Combines low-light/static/dynamic image conditioning and point-line square-root VIO with EUCM-compatible structureless BA, loop/cross-view factors and regularized calibration/scale refinement.",
+    "engineering_notes": [
+      "The360 hardware name refers to two raw fisheye inputs plus IMU. An internal ERP descriptor view does not prove a standalone full-ERP or pinhole interface.",
+      "The known nonzero camera baseline supplies genuine cross-view metric evidence; it is different from virtual co-centered projection faces. No provided LiDAR or dense depth is fed to this system.",
+      "Final output is non-causal because later loops and bundle adjustment revise earlier poses. Do not label the challenge-optimized trajectory a zero-latency online VIO stream.",
+      "The report uses the challenge estimated reference trajectory/floorplan protocol. Alignment with a floor plan or ranking comments do not independently validate reference accuracy.",
+      "sqrtVINS is a pre-existing frontend; this report describes a distinct dual-fisheye challenge configuration and backend, not a new publication of the underlying frontend.",
+      "No verified author-linked full challenge implementation, checkpoint bundle or complete reuse terms was established. The paper reference to a ROS2 workspace is not a verified repository release."
+    ],
+    "evidence": [
+      "https://arxiv.org/abs/2611.20568v1",
+      "https://arxiv.org/html/2611.20568v1",
+      "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026"
+    ],
+    "id": "sqrtvins3602026",
+    "summary_zh": "面向Hilti2026，以已标定双鱼眼＋IMU平方根VIO连接回环、跨相机约束与非因果GTSAM细化；米制依据来自IMU和真实基线，内部ERP描述子不代表完整ERP输入。",
+    "accessed": "2026-11-23",
+    "schema_version": "1.1",
+    "evidence_level": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+    "reproduction_status": "Original paper and official release sources reviewed; original figure visually inspected. No estimator training or inference reproduced.",
+    "url_verification": "2026-11-23: original paper identity, geometry, evaluation protocol and currently visible official artifacts checked.",
+    "license": {
+      "code": "No verified implementation license found.",
+      "weights": "No verified released checkpoint or checkpoint terms found."
+    },
+    "project_url": null,
+    "code_url": null,
+    "weights_url": null,
+    "code_entry": "No verified released estimator source entry.",
+    "official_release_status": "No verified official estimator code or weights found as checked2026-11-23.",
+    "camera_support": [
+      "fisheye"
+    ],
+    "native_panoramic": false
   }
 ]

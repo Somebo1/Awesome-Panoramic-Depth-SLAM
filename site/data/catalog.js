@@ -1,10 +1,10 @@
 window.ATLAS_DATA = {
-  "updated": "2026-11-09",
+  "updated": "2026-11-23",
   "repoUrl": "https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM",
   "title": "Panoramic Depth Atlas",
   "description": "Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.",
   "schemaVersion": "1.4",
-  "interfaceUpdated": "2026-11-10",
+  "interfaceUpdated": "2026-11-23",
   "records": [
     {
       "id": "any3r2026",
@@ -376,13 +376,13 @@ window.ATLAS_DATA = {
       "institutions": [
         "Yale Vision Laboratory, Yale University"
       ],
-      "summary": "在冻结的透视基础模型中插入轻量特征调制器，以透视图合成鱼眼并自监督对齐；直接预测原始鱼眼径向距离，还能适配开放词汇分割。没有核实完整 ERP 支持，官方仓库仍仅有许可文件。",
+      "summary": "以轻量DEX调制冻结基础模型，适配原始鱼眼径向深度；11月10日已开放深度训练／评测代码与三种适配权重，分割仍待发布。默认range与可选Z训练模式及真值尺度／偏移对齐需区分。",
       "cameras": [
         "fisheye",
         "wide"
       ],
       "scale": "mixed",
-      "scaleNote": "Base/teacher dependent, not a universal metric-scale guarantee. DEX is tested with relative MiDaS/DepthAnything and metric UniDepthV2; released DEX checkpoint semantics cannot yet be audited.",
+      "scaleNote": "Backbone/teacher and checkpoint dependent: relative MiDaS/DepthAnything versus metric UniDepthV2. Released scores fit per-image scale and shift to ground truth and do not establish unaligned metric accuracy.",
       "aliases": [],
       "metricStatus": "mixed_checkpoints",
       "depthType": "range",
@@ -390,53 +390,65 @@ window.ATLAS_DATA = {
         "radial_range"
       ],
       "pose": false,
-      "inputSummary": "One raw fisheye RGB image; segmentation additionally receives text class labels.",
-      "outputSummary": "Dense Euclidean radial range R from a selected frozen depth model plus DEX; alternatively open-vocabulary segmentation logits in a separate task configuration.",
+      "inputSummary": "One raw fisheye RGB image for released monocular-depth adaptation; segmentation/text-label input is a paper capability whose code remains pending.",
+      "outputSummary": "Default released depth configuration predicts Euclidean radial range R through a selected frozen backbone plus DEX. Training with output_reference_frame=depth instead changes the target to raw Z; segmentation is not part of the verified MDE release.",
       "inputs": {
-        "frames": "One raw fisheye RGB image; segmentation additionally receives text class labels.",
+        "frames": "One raw fisheye RGB image for released monocular-depth adaptation; segmentation/text-label input is a paper capability whose code remains pending.",
         "projection": "Raw fisheye is the evaluated DEX input; no complete ERP interface or benchmark was established. Perspective images are training teachers, not evidence of a released unified inference interface.",
         "intrinsics": "No measured calibration or rectification needed at inference; calibrated perspective intrinsics and synthetic KB transforms are required by the training objective.",
-        "resolution": "Paper evaluation uses 462x616 on ScanNet++ and 700x700 on KITTI-360. Released inference resize/API remains unavailable.",
+        "resolution": "Released evaluator uses462x616 ScanNet++ and700x700 KITTI-360 crops, with configurable shapes/backbone alignment. Source files and split/mask entries are public; no local inference.",
         "extrinsics": "Not required for the described single-image inference.",
         "imu": "No",
         "gravity": "No measured gravity input documented.",
         "synchronization": "Single image, no temporal or external-sensor synchronization input."
       },
       "outputDetails": {
-        "primary": "Dense Euclidean radial range R from a selected frozen depth model plus DEX; alternatively open-vocabulary segmentation logits in a separate task configuration.",
+        "primary": "Default released depth configuration predicts Euclidean radial range R through a selected frozen backbone plus DEX. Training with output_reference_frame=depth instead changes the target to raw Z; segmentation is not part of the verified MDE release.",
         "point_map": "No released direct point-map head or exporter verified. Reconstructing metric points requires appropriate camera rays and a metric base/scale.",
         "normal": "No independent normal-output head documented.",
         "confidence": "No additional calibrated depth-uncertainty head documented for DEX.",
-        "camera_parameters": "Paper analysis decodes KB distortion coefficients from extender activations; no released inference API verified.",
-        "depth_convention": "Depth variant uses Euclidean ray distance R, not camera-axis Z. Training converts perspective teacher Z to R; ScanNet++ evaluation converts R back to Z using KB calibration, while KITTI-360 uses R with MEI geometry.",
+        "camera_parameters": "Paper analysis decodes distortion coefficients from extender activations; no standalone calibration-export API verified in the reviewed MDE evaluator.",
+        "depth_convention": "Default output_reference_frame=distance trains Euclidean radial range R by converting teacher Z. An explicitly retrained depth-mode configuration predicts raw Z instead. ScanNet++ evaluator converts default R back to Z using KB calibration; KITTI-360 evaluates R. Check checkpoint/training mode rather than assuming all configurations share one convention.",
         "metric_status": "mixed_checkpoints",
         "pose_output": "No camera pose, trajectory or SLAM state output documented.",
         "runtime": "No local timing or peak-VRAM measurement; four RTX3090 GPUs for eight training epochs are not an inference requirement."
       },
-      "codeStatus": "none",
+      "codeStatus": "partial",
       "codeUrl": "https://github.com/Suchisrit/DEX",
       "paperUrl": "https://arxiv.org/abs/2608.27860v2",
       "projectUrl": "https://github.com/Suchisrit/DEX",
-      "weightsUrl": "",
+      "weightsUrl": "https://huggingface.co/Rit888/DEX",
       "license": {
-        "code": "Author repository contains Apache-2.0 LICENSE only; executable DEX source has not been released.",
-        "weights": "Unknown: no DEX checkpoints or checkpoint license verified."
+        "code": "Official LICENSE is Apache-2.0, but the same pinned README says research purposes only. The scope conflict is unresolved; third-party base-model/dependency terms remain separate.",
+        "weights": "Rit888/DEX model card declares Apache-2.0 for the three DEX checkpoints. Full-stack rights are not resolved by that card because base models retain separate terms and the repository README contains a research-only statement."
       },
       "evidence": [
         "https://arxiv.org/abs/2608.27860v2",
         "https://arxiv.org/html/2608.27860v2",
         "https://github.com/Suchisrit/DEX",
-        "https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14"
+        "https://link.springer.com/chapter/10.1007/978-3-032-37627-5_14",
+        "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/README.md",
+        "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/model.py",
+        "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/eval.py",
+        "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/utils/depth_evaluate.py",
+        "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/utils/fisheye_ray_conversion.py",
+        "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/src/monocular_depth/unidepth_model.py",
+        "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/LICENSE",
+        "https://huggingface.co/Rit888/DEX",
+        "https://huggingface.co/api/models/Rit888/DEX",
+        "https://huggingface.co/datasets/Rit888/DEX_KITTI360_Eval"
       ],
       "notes": [
-        "Backfilled ECCV 2026 method, first submitted 2026-08-28; arXiv v2 was posted 2026-10-26, not a first publication this week. Springer confirms pp. 245-265, DOI 10.1007/978-3-032-37627-5_14.",
-        "The paper abstract says code is available, but on 2026-11-02 the author-linked repository contains only LICENSE and describes the release as coming soon. No executable DEX source or checkpoints were verified.",
-        "DEX is an adapter to frozen depth/segmentation models, not one standalone universal metric checkpoint. Scale depends on the selected teacher/base model; relative MiDaS/DepthAnything and metric UniDepthV2 must not be conflated.",
-        "Inference accepts raw fisheye RGB without calibration or rectification. Calibrated perspective images and synthetic Kannala-Brandt warps are used during training; known calibration is also used for geometry conversion in evaluation.",
-        "The depth variant predicts Euclidean ray range R. ScanNet++ evaluation converts R to camera Z using its calibration, whereas KITTI-360 is evaluated in R. These conventions are not interchangeable.",
-        "Real fisheye tests use ScanNet++ indoors and KITTI-360 outdoors; WoodScape evaluates segmentation. No full-ERP input or direct DAP comparison was verified.",
-        "Calibration coefficients can be decoded from extender activations in the paper analysis; a released camera-calibration API, point-map exporter and continuous pose/SLAM state were not verified.",
-        "license_only_repository_code_and_checkpoints_coming_soon"
+        "ECCV2026 identity and arXiv v2 remain unchanged. November10 is a new MDE implementation/checkpoint release after the earlier LICENSE-only inspection, not a new paper.",
+        "Pinned source includes main.py/train.py/eval.py/model.py and depth evaluation/conversion utilities. The official README explicitly limits the current release to monocular depth; open-vocabulary segmentation remains coming soon.",
+        "Ungated Rit888/DEX at ec31e44facec227a1ac676cd5090d0a02800b006 lists dex_unidepth.pth, dex_midas.pth and dex_depthanything.pth. These are adapter checkpoints; corresponding frozen backbone weights are still needed separately.",
+        "The UniDepth wrapper imports UniDepthV2 and loads lpiccinelli/unidepth-v2old-vits14. Do not treat the old paper training environment or a generic UniDepth name as the exact released checkpoint identity.",
+        "Default distance-mode predicts radial range; explicit depth-mode training keeps raw Z. ScanNet++ scoring converts R to Z, while KITTI-360 scores R. Calibration-free prediction does not remove calibrated training/evaluation conversions.",
+        "Actual evaluator applies horizontal-flip averaging and per-image least-squares scale+shift alignment. ScanNet++ aligns/scores0.01-20m; KITTI-360 aligns0.5-40m but scores0.01-80m. The resulting scores are not unaligned metric-depth evidence.",
+        "The newly public DEX_KITTI360_Eval card describes400 images and4001400x1400 float32 radial-distance maps in metres, with zero invalid samples; these are a derived KITTI-360 evaluation subset, not a new independent capture or automatically dense measured truth. No data payload downloaded.",
+        "LICENSE and checkpoint card declare Apache-2.0, while the pinned README says research purposes only. Preserve the unresolved scope conflict rather than granting blanket permissive use.",
+        "No full-ERP input, direct DAP comparison, independently calibrated uncertainty or continuous pose output was verified in this release.",
+        "Partial release: monocular depth training/evaluation code and three DEX checkpoints released2026-11-10; open-vocabulary segmentation implementation still coming soon."
       ],
       "tags": [
         "monocular",
@@ -449,30 +461,33 @@ window.ATLAS_DATA = {
       "imu": false,
       "loopClosure": "Not applicable",
       "nativePanoramic": false,
-      "sourceChecked": "2026-11-02",
+      "sourceChecked": "2026-11-23",
       "publiclyVerified": true,
-      "verificationLevel": "L2_original_paper_and_official_repository_no_implementation_released",
-      "codeEntry": "Not released: author repository contains LICENSE only as checked 2026-11-02.",
-      "environment": "Paper implementation: Adam, learning rate 1e-3, inner rank 20, batch 32 for depth, eight epochs on four RTX3090 GPUs. Installable dependencies and inference platform are not released.",
+      "verificationLevel": "L2_original_paper_released_MDE_source_and_official_model_listing_no_local_inference",
+      "codeEntry": "main.py; train.py; eval.py; model.py; utils/depth_evaluate.py; src/monocular_depth/unidepth_model.py",
+      "environment": "Official README: Python3.8, torch2.2.0+cu118, torchvision0.17.0, torchaudio2.2.0 and xformers0.0.24; typing-extensions<4.13, NumPy<2.0. UniDepth adapter loads lpiccinelli/unidepth-v2old-vits14; base weights/data remain separate. No local installation/inference.",
       "cameraSupport": [
         {
           "geometry": "fisheye",
           "route": "direct",
-          "availability": "paper",
+          "availability": "released",
           "note": {
-            "en": "DEX directly consumes raw fisheye RGB at inference without rectification or supplied calibration. Training uses calibrated perspective teachers and synthetic KB distortions. The repository remains license-only; no full ERP support verified.",
-            "zh": "DEX 推理直接处理原始鱼眼 RGB，无需去畸变或给定标定。训练用标定透视教师与合成 KB 畸变。仓库仍仅有许可文件，未核实完整 ERP 支持。"
+            "en": "Raw-fisheye monocular-depth training/evaluation and adapter checkpoints are released. No complete ERP interface verified; calibration is needed for teacher/evaluation conversions, not the described raw-image prediction.",
+            "zh": "已发布原始鱼眼单目深度训练／评测及适配权重；未核实完整ERP接口。教师／评测几何转换需要标定，所述原始图像预测不要求输入标定。"
           },
           "evidence": [
             "https://arxiv.org/abs/2608.27860v2",
             "https://arxiv.org/html/2608.27860v2",
-            "https://github.com/Suchisrit/DEX"
+            "https://github.com/Suchisrit/DEX",
+            "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/model.py",
+            "https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/utils/depth_evaluate.py",
+            "https://huggingface.co/Rit888/DEX"
           ]
         }
       ],
       "projectionSubtypes": [],
       "additionalSupport": [],
-      "cameraReview": "focused_primary_source_recheck_2026-11-02",
+      "cameraReview": "focused_released_MDE_source_recheck_2026-11-23",
       "figure": {
         "thumbnail": "assets/papers/dex2026-thumb.webp",
         "image": "assets/papers/dex2026.webp",
@@ -839,6 +854,153 @@ window.ATLAS_DATA = {
         "pdfSha256": "c435b22c372b556129b6029e2446d9ee86a2f29f5069ffbcd4adc8e894e8b92e",
         "imageSha256": "3157854e8bd99a01274dcbccf73d4d938810984288203faea90965ce667c30da",
         "verification": "Original PDF page and final crop visually inspected; identity, figure number, complete boundaries and legibility checked."
+      }
+    },
+    {
+      "id": "eg3602026",
+      "collection": "depth",
+      "name": "EG360",
+      "title": "EG360: Efficient and Generalizable 360-degree Depth Estimation via Adaptive Panorama-Perspective Distillation and Spherical Cross-Level Feature Fusion",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv2611.16793v1, submitted2026-11-12; formal venue not verified",
+      "authors": [
+        "Laiyan Ding",
+        "Chongxi Meng",
+        "Rui Huang"
+      ],
+      "institutions": [
+        "The Chinese University of Hong Kong, Shenzhen",
+        "Tongji University"
+      ],
+      "summary": "以几何自适应权重蒸馏 DAP 与 MoGe2，并融合球面跨层特征，预测完整 ERP 公制径向深度；重点是嵌入式效率，官方学生代码与权重尚未核实。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "metric",
+      "scaleNote": "Learned metric supervision and teacher scale; evaluations use no ground-truth alignment. This is an author-reported metric prediction, not a local absolute-accuracy guarantee.",
+      "aliases": [
+        "EG360",
+        "APPD",
+        "SCFF"
+      ],
+      "metricStatus": "metric_learned",
+      "depthType": "range",
+      "outputs": [
+        "radial_range"
+      ],
+      "pose": false,
+      "inputSummary": "One full equirectangular RGB image; DAP and MoGe2 are training teachers, not required runtime inputs.",
+      "outputSummary": "Dense metric Euclidean radial depth over the ERP grid, obtained by reciprocating the predicted metric inverse-depth map.",
+      "inputs": {
+        "frames": "One full equirectangular RGB image; DAP and MoGe2 are training teachers, not required runtime inputs.",
+        "projection": "Direct full-ERP student input. Cubemap teacher supervision during training does not establish a raw-fisheye or standalone pinhole student interface.",
+        "intrinsics": "No measured lens calibration requested for ERP inference; fixed spherical and virtual90-degree cubemap geometry are used in training.",
+        "resolution": "Training at512x1024 ERP. Author efficiency results use native model input resolutions; actual released resize/API is not verified.",
+        "extrinsics": "No measured poses or map for single-image inference.",
+        "imu": "No",
+        "gravity": "TartanAir training panoramas are rectified upright offline; no runtime measured-gravity input is documented.",
+        "synchronization": "Single image; stitching quality remains external to the depth estimator."
+      },
+      "outputDetails": {
+        "primary": "Dense metric Euclidean radial depth over the ERP grid, obtained by reciprocating the predicted metric inverse-depth map.",
+        "point_map": "No verified released point-map head or exporter; spherical rays can derive points if output scale is valid.",
+        "normal": "No surface-normal output documented.",
+        "confidence": "No calibrated depth-confidence output documented.",
+        "camera_parameters": "No estimated calibration or camera trajectory.",
+        "depth_convention": "Paper Section3 defines D=1/s from a metric inverse-depth head. Teacher cubemap optical-axis Z is explicitly converted to radial range before inverse-depth distillation. Final ERP depth is range, not Z. Sky teacher targets are set to1000m, not a measured finite sky distance.",
+        "metric_status": "metric_learned",
+        "pose_output": "No camera pose, trajectory or SLAM state output.",
+        "runtime": "Author reports6.593M parameters,23.492GFLOPs and28.509ms/35.08FPS on Jetson Orin NX16GB MAXN, PyTorch eager AMP FP16 batch1 after structural reparameterization. Mean of300 post-warm-up forward passes, excluding I/O and CPU preprocessing; no local reproduction."
+      },
+      "codeStatus": "none",
+      "codeUrl": "",
+      "paperUrl": "https://arxiv.org/abs/2611.16793v1",
+      "projectUrl": "",
+      "weightsUrl": "",
+      "license": {
+        "code": "No verified implementation license found.",
+        "weights": "No verified released checkpoint or checkpoint terms found."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2611.16793v1",
+        "https://arxiv.org/html/2611.16793v1"
+      ],
+      "notes": [
+        "APPD distills inverse radial depth from DAP on ERP and MoGe2 on cubemap views. Normalized plane-fitting residuals assign larger panoramic-teacher weight to planar faces.",
+        "Training uses562815 labeled synthetic pairs plus73701 unlabeled real panoramas. Synthetic depth supervision and estimated teacher targets have different provenance; teachers are not sensors or independent ground truth.",
+        "SCFF fuses the two coarsest encoder levels using spherical-direction bias and panoramic padding. The selected Figure3 shows this module, rather than a full-system overview.",
+        "Table3 evaluates without ground-truth alignment. DAP has lower AbsRel than EG360 on all three compared sets:0.137/0.072/0.195 versus0.173/0.094/0.237. The value is the reported efficiency/accuracy tradeoff, not demonstrated accuracy superiority to DAP.",
+        "Jetson timings exclude I/O/CPU preprocessing and use each model native resolution. Retrained lightweight baselines and unchanged foundation-model checkpoints follow different preparation; do not generalize35FPS to an entire robot perception pipeline.",
+        "Original abstract promises future code. No verified official student implementation, checkpoint, reusable API or software/model license was found; the released ZipDepth base is not an EG360 release.",
+        "No verified official estimator code or weights found as checked2026-11-23."
+      ],
+      "tags": [
+        "monocular",
+        "ERP",
+        "metric",
+        "distillation",
+        "efficient",
+        "radial_range"
+      ],
+      "family": "efficient panoramic metric depth estimation",
+      "imu": false,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-11-23",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+      "codeEntry": "No verified released estimator source entry.",
+      "environment": "Paper implementation only; exact installable environment not verified. No local estimator run.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Direct full-ERP student input. Cubemap teacher supervision during training does not establish a raw-fisheye or standalone pinhole student interface.",
+            "zh": "学生模型直接接受完整 ERP；训练中的 cubemap 教师不证明学生支持原始鱼眼或独立针孔输入。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.16793v1",
+            "https://arxiv.org/html/2611.16793v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_review_2026-11-23",
+      "figure": {
+        "thumbnail": "assets/papers/eg3602026-thumb.webp",
+        "image": "assets/papers/eg3602026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2611.16793v1",
+        "sourceType": "paper-pdf",
+        "page": 4,
+        "figureLabel": "Figure 3",
+        "caption": {
+          "en": "SCFF combines spherical cross-level attention and a panoramic local feed-forward module.",
+          "zh": "SCFF结合球面跨层注意力与全景局部前馈模块。"
+        },
+        "credit": {
+          "en": "Source: Laiyan Ding et al., original Figure 3; cropped and resized for literature review.",
+          "zh": "来源：Laiyan Ding等，原论文Figure 3；为文献介绍裁剪并缩放。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          315,
+          69,
+          568,
+          161
+        ],
+        "originalCaption": "Figure 3. Diagram of Spherical Cross-Level Feature Fusion.",
+        "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+        "reviewedAt": "2026-11-23",
+        "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained. Figure3 shows the SCFF module rather than a full-system overview.",
+        "pdfSha256": "3620519b85e3324a3d4853d05ac05417074eead99bfe434ef79ca0482bb65f16",
+        "imageSha256": "9b6a9249584fee3c3eadcc49787276795227e82f630985cc3aacba8de7d5fb30",
+        "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
       }
     },
     {
@@ -2041,7 +2203,7 @@ window.ATLAS_DATA = {
       "year": 2026,
       "firstYear": 2026,
       "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
-      "venue": "NeurIPS 2026, verified official conference program; arXiv 2605.26368",
+      "venue": "NeurIPS 2026, verified official conference program; arXiv2605.26368v3 revised2026-11-10; proceedings DOI/pages unverified",
       "authors": [
         "Vukasin Bozic",
         "Isidora Slavkovic",
@@ -2099,7 +2261,7 @@ window.ATLAS_DATA = {
       },
       "codeStatus": "released",
       "codeUrl": "https://github.com/prs-eth/PaGeR",
-      "paperUrl": "https://arxiv.org/abs/2605.26368",
+      "paperUrl": "https://arxiv.org/abs/2605.26368v3",
       "projectUrl": "https://pager360.github.io/",
       "weightsUrl": "https://huggingface.co/prs-eth/PaGeR",
       "license": {
@@ -2118,7 +2280,8 @@ window.ATLAS_DATA = {
         "https://neurips.cc/Downloads/2026",
         "https://neurips.cc/virtual/2026/poster/149348",
         "https://github.com/prs-eth/PaGeR/commit/c465ffb6bc7ed6ea395de2f3ea3852c852cec5d5",
-        "https://arxiv.org/abs/2605.26368"
+        "https://arxiv.org/abs/2605.26368v3",
+        "https://arxiv.org/html/2605.26368v3"
       ],
       "notes": [
         "Reported paper metric results force indoor/outdoor scale head per dataset; default automatic router is a later release behavior.",
@@ -2127,6 +2290,7 @@ window.ATLAS_DATA = {
         "Table 2, AbsRel (%)/RMSE (cm)/delta1 (%), PaGeR versus DAP: Matterport3D360 21.83/123.48/69.50 versus 30.16/168.88/80.19; Stanford2D3DS 10.94/45.43/90.94 versus 10.97/53.39/90.64; ZuriPano 31.97/530.85/39.30 versus 47.00/839.72/24.02.",
         "The paper evaluates metric predictions without GT alignment over [0,75] m. Both DAP and PaGeR have separate indoor/outdoor heads. The paper forces the domain per dataset; its numbers do not establish the accuracy of the later automatic CLIP router or superiority on a different evaluation protocol.",
         "Official NeurIPS2026 program independently lists the exact PaGeR title. The November4 README commit records acceptance dated September24, not a new November acceptance or model/camera release; final proceedings DOI/pages remain unverified.",
+        "November10 arXiv v3 adds a Holo360D evaluation column and additional ablations/protocol discussion. The original nine DAP comparison cells from v2 remain numerically unchanged, including the losing Matterport3D360 delta1 case; no new checkpoint or dataset release follows from this manuscript revision. The existing Figure2 crop is honestly pinned to original v2, matching its local PDF hash.",
         "code_and_weights"
       ],
       "tags": [
@@ -2145,7 +2309,7 @@ window.ATLAS_DATA = {
       "imu": "No",
       "loopClosure": "Not applicable",
       "nativePanoramic": true,
-      "sourceChecked": "2026-11-09",
+      "sourceChecked": "2026-11-23",
       "publiclyVerified": true,
       "verificationLevel": "L2_partial_paper_and_official_release_metadata",
       "codeEntry": [
@@ -2189,7 +2353,7 @@ window.ATLAS_DATA = {
       "figure": {
         "thumbnail": "assets/papers/pager-thumb.webp",
         "image": "assets/papers/pager.webp",
-        "paperUrl": "https://arxiv.org/pdf/2605.26368",
+        "paperUrl": "https://arxiv.org/pdf/2605.26368v2",
         "page": 4,
         "figureLabel": "Figure 2",
         "caption": {
@@ -2214,7 +2378,9 @@ window.ATLAS_DATA = {
         "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
         "pdfSha256": "88cf2516fac672870f10dc364c14742a87f7501dae6ce2122507561725868193",
         "imageSha256": "884636e4174249d78c86df1bd29ffc6a389dab86db47f2ab6ff5ebbcbf38be73",
-        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+        "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked.",
+        "sourcePinnedAt": "2026-11-23",
+        "sourcePinReason": "Local original PDF header is v2 and SHA-256 matches manifest; current paper revision v3 is separate from this unchanged attributed figure crop."
       }
     },
     {
@@ -6960,6 +7126,176 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "cosphereslam2026",
+      "collection": "slam",
+      "name": "CoSphere-SLAM",
+      "title": "CoSphere-SLAM: Multi-Agent Panoramic Gaussian Splatting SLAM with Spherical Loop Closure",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv2611.22235v1, submitted2026-11-17; project marked under review",
+      "authors": [
+        "Qi Shao",
+        "Zhihao Cao",
+        "Shuhao Zhai",
+        "Taoyu Wu",
+        "Zhuoxiao Li",
+        "Anh Nguyen",
+        "Long Hu",
+        "Xianzhi Li",
+        "Hong Liang",
+        "Baoru Huang",
+        "Liang Li"
+      ],
+      "institutions": [
+        "Harbin Engineering University",
+        "University of Liverpool",
+        "ETH Zurich",
+        "National University of Singapore",
+        "University of Macau",
+        "Xi’an Jiaotong-Liverpool University",
+        "The Hong Kong University of Science and Technology (Guangzhou)",
+        "Imperial College London",
+        "Huazhong University of Science and Technology"
+      ],
+      "summary": "以球面回环匹配、全局Sim(3)一致性和逐关键帧尺度校正融合多智能体ERP高斯地图；仍有单目尺度歧义，服务器细化离线进行，实现待发布。",
+      "cameras": [
+        "panoramic",
+        "multi"
+      ],
+      "scale": "relative",
+      "scaleNote": "Relative monocular geometry with per-keyframe Sim(3) scale-drift correction. Learned Metric3D depth priors do not establish an externally measured global metric scale; the paper reserves inertial/ranging metric scale for future work.",
+      "aliases": [
+        "CoSphere",
+        "CoSphere-SLAM",
+        "3DGS"
+      ],
+      "metricStatus": "monocular_scale_ambiguous",
+      "depthType": "range",
+      "outputs": [
+        "radial_range",
+        "camera_poses",
+        "gaussian_map"
+      ],
+      "pose": true,
+      "inputSummary": "Monocular ERP image streams from multiple independently moving panoramic agents, without known initial inter-agent poses or scales.",
+      "outputSummary": "Per-keyframe camera-to-world similarities, aligned agent trajectories and a fused3D Gaussian map; local spherical depths support tracking and mapping.",
+      "inputs": {
+        "frames": "Monocular ERP image streams from multiple independently moving panoramic agents, without known initial inter-agent poses or scales.",
+        "projection": "Full ERP is the external input; each frame is internally resampled into six co-centered90-degree cube faces. No raw-fisheye or standalone pinhole estimator entry was verified.",
+        "intrinsics": "Known ERP spherical geometry and fixed virtual face rotations/calibration; real raw-lens/stitching calibration remains external.",
+        "resolution": "Paper local tracking uses six256x256 faces; local mapping1024x512 ERP, offline global refinement2048x1024.",
+        "extrinsics": "Inter-agent transforms are estimated from shared views, not supplied as a pre-calibrated rig. Virtual cube-face rotations are fixed and share one center.",
+        "imu": "No",
+        "gravity": "No measured gravity input documented.",
+        "synchronization": "Independent cross-session streams can be matched by revisits; no hard synchronized camera rig is required. Scene overlap and static structure are needed."
+      },
+      "outputDetails": {
+        "primary": "Per-keyframe camera-to-world similarities, aligned agent trajectories and a fused3D Gaussian map; local spherical depths support tracking and mapping.",
+        "point_map": "A fused Gaussian scene representation with3D means, not an independently verified dense point-map network head.",
+        "normal": "No independent normal-output head documented.",
+        "confidence": "Directional loop-edge weights model error sources; this is not a calibrated per-pixel depth uncertainty product.",
+        "camera_parameters": "Inter-agent/per-keyframe transforms and scale corrections are estimated; raw camera intrinsics are not predicted.",
+        "depth_convention": "Local spherical depth D:S2->R+ and Gaussian rendering follow viewing rays, rather than using a single positive camera-axis Z for the full sphere. Metric3D priors are aligned across overlapping faces; the exact released Z-to-range conversion/export cannot be audited while estimator code is pending.",
+        "metric_status": "monocular_scale_ambiguous",
+        "pose_output": "Yes: estimated agent trajectories and keyframe similarities, with an unobservable global monocular scale.",
+        "runtime": "Author reports1.0 inputFPS per-agent online tracking with7.8GiB GPU memory. Alignment and75k global refinement steps at0.32s/step are offline on one A100; this is not demonstrated end-to-end real-time collaborative SLAM. No local run."
+      },
+      "codeStatus": "none",
+      "codeUrl": "",
+      "paperUrl": "https://arxiv.org/abs/2611.22235v1",
+      "projectUrl": "https://cosphere-slam.github.io/",
+      "weightsUrl": "",
+      "license": {
+        "code": "No verified implementation license found.",
+        "weights": "No verified released checkpoint or checkpoint terms found."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2611.22235v1",
+        "https://arxiv.org/html/2611.22235v1",
+        "https://cosphere-slam.github.io/",
+        "https://github.com/cosphere-slam/cosphere-slam.github.io"
+      ],
+      "notes": [
+        "Full-ERP support is explicit. Co-centered cubemap faces are an internal projection, not extra physical stereo. The multi-camera attribute here refers to independent real agent streams, not those virtual faces.",
+        "Metric3D supplies early depth priors, but later keyframes rely on multiview flow and closures. Global similarity optimization corrects drift without observing absolute metric scale.",
+        "The server uses ring descriptors, tilt search and FFT yaw correlation, then global Sim(3) consensus. Tested tilt-search settings are finite; arbitrary-heading descriptions do not prove exhaustive SO(3) invariance under all tilts.",
+        "Holo360D is split into200 virtual agent trajectories over50 source videos, with5 development and45 test scenes. The360Loc experiment uses18 independent day/night trajectories; neither derived protocol is a newly released raw dataset or independently measured truth.",
+        "A100 global map refinement is offline. Per-agent1Hz tracking, local mapping steps and server optimization must not be conflated with one end-to-end real-time rate.",
+        "Official project provides an interactive map demo and explicitly promises code/benchmark tools in the future. Its webpage source/assets are not an estimator implementation; no verified full code or weights download was found.",
+        "No verified official estimator code or weights found as checked2026-11-23."
+      ],
+      "tags": [
+        "ERP",
+        "multi-agent",
+        "SLAM",
+        "3DGS",
+        "loop-closure",
+        "relative-scale",
+        "radial_range",
+        "camera_poses",
+        "gaussian_map"
+      ],
+      "family": "multi-agent panoramic Gaussian SLAM with similarity-graph correction",
+      "imu": false,
+      "loopClosure": true,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-11-23",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+      "codeEntry": "No verified released estimator source entry.",
+      "environment": "Paper implementation only; exact installable environment not verified. No local estimator run.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Full ERP is the external input; each frame is internally resampled into six co-centered90-degree cube faces. No raw-fisheye or standalone pinhole estimator entry was verified.",
+            "zh": "外部直接输入完整ERP，内部重采样为六个共心90度cubemap面；未核实原始鱼眼或独立针孔入口。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.22235v1",
+            "https://arxiv.org/html/2611.22235v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_review_2026-11-23",
+      "figure": {
+        "thumbnail": "assets/papers/cosphereslam2026-thumb.webp",
+        "image": "assets/papers/cosphereslam2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2611.22235v1",
+        "sourceType": "paper-pdf",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "en": "Per-agent panoramic maps are aligned through spherical loop matching and similarity-graph optimization before ray-based Gaussian fusion.",
+          "zh": "各智能体全景地图经球面回环与相似图优化对齐，再按射线融合高斯。"
+        },
+        "credit": {
+          "en": "Source: Qi Shao et al., original Figure 2; cropped and resized for literature review.",
+          "zh": "来源：Qi Shao等，原论文Figure 2；为文献介绍裁剪并缩放。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          48,
+          54,
+          562,
+          273
+        ],
+        "originalCaption": "Fig. 2. Overview of CoSphere-SLAM.",
+        "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+        "reviewedAt": "2026-11-23",
+        "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+        "pdfSha256": "11bfb791c99c3f30da205c6222f12ad32b2d8a8336c3cf227682e9be9cbbd8d3",
+        "imageSha256": "69c7956b1ef42089f3dae9e0608f9b3d99b07c59122650f986c8ee02e9342519",
+        "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
+      }
+    },
+    {
       "id": "cubesplat2026",
       "collection": "slam",
       "name": "Cube-Splat",
@@ -7090,6 +7426,158 @@ window.ATLAS_DATA = {
           866
         ],
         "pdfSha256": "03cf13240d68f267d2c79f3eabe7c4c3784d9e914337811e384580e0984acf8c"
+      }
+    },
+    {
+      "id": "defdvo2026",
+      "collection": "slam",
+      "name": "DEFDVO",
+      "title": "DEFDVO: Deformable Deep Visual Odometry for Equirectangular Images",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv2611.19095v1, submitted2026-11-14; authors report WACV2027 acceptance, final proceedings not verified",
+      "authors": [
+        "Burak Sevsay",
+        "Egor Bondarev",
+        "Erkut Akdag"
+      ],
+      "institutions": [
+        "Eindhoven University of Technology"
+      ],
+      "summary": "在DPVO式ERP里程计中加入球面先验可变形特征、跨接缝优化和球面采样，输出相对位姿与稀疏逆径向距离；回环属未来工作，官方仓库目前仍只有README。",
+      "cameras": [
+        "panoramic"
+      ],
+      "scale": "relative",
+      "scaleNote": "Relative monocular geometry. Training pose loss and trajectory evaluation use Sim(3) alignment; source metric labels and ATE reported in metres do not establish deployment metric scale.",
+      "aliases": [
+        "DEFDVO",
+        "Deformable Deep Visual Odometry"
+      ],
+      "metricStatus": "scale_invariant",
+      "depthType": "inverse",
+      "outputs": [
+        "inverse_depth",
+        "camera_poses",
+        "sparse_patch_geometry"
+      ],
+      "pose": true,
+      "inputSummary": "An ordered full-ERP RGB video stream, with no supplied depth, IMU or deployment poses.",
+      "outputSummary": "Estimated world-to-camera trajectory and inverse radial range at sparse image patches, jointly optimized in a recurrent patch graph.",
+      "inputs": {
+        "frames": "An ordered full-ERP RGB video stream, with no supplied depth, IMU or deployment poses.",
+        "projection": "Direct2:1 ERP throughout learned features, correlation and spherical BA; no independent raw-fisheye or pinhole mode verified.",
+        "intrinsics": "Spherical mapping derived from ERP dimensions: fx=W/(2pi), fy=H/pi, principal point at image center; these are not measured pinhole intrinsics.",
+        "resolution": "Training ERP2048x1024 processed at0.5 scale; inference default192 patches/frame,0.5 scale. On360DVO this gives1920x960 from3840x1920 originals.",
+        "extrinsics": "No supplied extrinsics, camera baseline or prebuilt map.",
+        "imu": "No",
+        "gravity": "No measured gravity input documented.",
+        "synchronization": "Ordered single-camera stream; source video10FPS is distinct from author-reported inference7.1FPS."
+      },
+      "outputDetails": {
+        "primary": "Estimated world-to-camera trajectory and inverse radial range at sparse image patches, jointly optimized in a recurrent patch graph.",
+        "point_map": "Sparse patch geometry can be backprojected from inverse range; no independent dense-depth or dense point-map product verified.",
+        "normal": "No surface-normal output documented.",
+        "confidence": "Learned correspondence weights, not an independently calibrated depth-confidence product.",
+        "camera_parameters": "Poses are estimated; raw camera calibration is not predicted.",
+        "depth_convention": "Each patch stores d=1/||P||, inverse Euclidean radial range on the full sphere. It replaces DPVO inverse Z; horizontal residuals are wrapped modulo ERP width. Positive inverse range is not positive camera-axis Z.",
+        "metric_status": "scale_invariant",
+        "pose_output": "Yes: estimated monocular camera trajectory, up to a similarity transform.",
+        "runtime": "Author reports7.1FPS with192 patches and1920x960 input on RTX A5000. Full-resolution3840x1920 costs about450ms/frame versus140ms at half scale; no local run."
+      },
+      "codeStatus": "none",
+      "codeUrl": "https://github.com/BurakSevsay/DEFDVO",
+      "paperUrl": "https://arxiv.org/abs/2611.19095v1",
+      "projectUrl": "https://github.com/BurakSevsay/DEFDVO",
+      "weightsUrl": "",
+      "license": {
+        "code": "No verified implementation license found.",
+        "weights": "No verified released checkpoint or checkpoint terms found."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2611.19095v1",
+        "https://arxiv.org/html/2611.19095v1",
+        "https://github.com/BurakSevsay/DEFDVO",
+        "https://github.com/BurakSevsay/DEFDVO/blob/ebb70e4f793cc53dafcc60a07ae226da9b2dc64b/README.md"
+      ],
+      "notes": [
+        "External full ERP input is explicit. Six TartanAir source views are co-centered render products and do not establish physical stereo input.",
+        "Sparse inverse radial range replaces inverse optical-axis Z. Patch candidates exclude latitudes beyond75degrees as a near-pole safeguard, not a claim of dense depth over every spherical pixel.",
+        "Training uses TartanAirV2 synthetic ERP only; the real360DVO benchmark supplies SfM references, not independent tracked pose truth. Preserve the two separate TartanAir evaluation splits.",
+        "Both pose loss and ATE evaluation are Sim(3)-aligned. The paper reports relative trajectory accuracy, not an unaligned absolute metric guarantee or a direct DAP depth comparison.",
+        "Loop closure and global optimization are explicitly future work, so this is VO rather than a verified full loop-closing SLAM system.",
+        "The abstract states code is available, but official main at ebb70e4f793cc53dafcc60a07ae226da9b2dc64b contains only README saying release soon. No estimator, weights or license was verified.",
+        "WACV2027 acceptance is author-reported in the arXiv record; do not label future proceedings as already published or create a duplicate conference-version record.",
+        "No verified official estimator code or weights found as checked2026-11-23."
+      ],
+      "tags": [
+        "ERP",
+        "monocular",
+        "VO",
+        "deformable-convolution",
+        "inverse-range",
+        "inverse_depth",
+        "camera_poses",
+        "sparse_patch_geometry"
+      ],
+      "family": "patch-based learning visual odometry with ERP seam-aware bundle adjustment",
+      "imu": false,
+      "loopClosure": false,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-11-23",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+      "codeEntry": "No verified released estimator source entry.",
+      "environment": "Paper uses DPVO-style recurrent graph, DCNv2, spherical geometry and GPU differentiable BA; training120k steps on H100. No released installable estimator source/weights verified.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Direct2:1 ERP throughout learned features, correlation and spherical BA; no independent raw-fisheye or pinhole mode verified.",
+            "zh": "特征、相关性与球面BA均处理2:1 ERP；未核实原始鱼眼或独立针孔模式。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.19095v1",
+            "https://arxiv.org/html/2611.19095v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_review_2026-11-23",
+      "figure": {
+        "thumbnail": "assets/papers/defdvo2026-thumb.webp",
+        "image": "assets/papers/defdvo2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2611.19095v1",
+        "sourceType": "paper-pdf",
+        "page": 1,
+        "figureLabel": "Figure 1",
+        "caption": {
+          "en": "DEFDVO combines spherical-prior deformable features, spherical patch sampling and seam-aware tracking with spherical BA.",
+          "zh": "DEFDVO融合球面先验可变形特征、球面patch采样及带球面BA的跨接缝跟踪。"
+        },
+        "credit": {
+          "en": "Source: Burak Sevsay et al., original Figure 1; cropped and resized for literature review.",
+          "zh": "来源：Burak Sevsay等，原论文Figure 1；为文献介绍裁剪并缩放。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          316,
+          221,
+          556,
+          362
+        ],
+        "originalCaption": "Figure 1. DEFDVO overview.",
+        "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+        "reviewedAt": "2026-11-23",
+        "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+        "pdfSha256": "e876a3ccee7887c06e50edd741aee3e7fec3ef86a171c4c841ba1146e33acd12",
+        "imageSha256": "32fc69fd492d00958075c9be6377da7ad101d9e4820710954ce0d5340bd37824",
+        "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
       }
     },
     {
@@ -10326,6 +10814,273 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "ds_spatialfoundry",
+      "name": "Spatial Foundry",
+      "title": "Spatial Foundry: A Multimodal Dataset for Spatial Intelligence",
+      "authors": [
+        "Ethan Lin",
+        "Yang Song"
+      ],
+      "year": 2026,
+      "venue": "arXiv2611.17318v1, submitted2026-11-12; complete public data access unconfirmed",
+      "aliases": [
+        "SpatialFoundry",
+        "RanoLabs Spatial Foundry"
+      ],
+      "cameras": [
+        "panoramic",
+        "perspective"
+      ],
+      "tasks": [
+        "depth",
+        "slam"
+      ],
+      "environment": [
+        "indoor"
+      ],
+      "reality": "synthetic",
+      "sensors": [
+        "Rendered pinhole and ERP RGB-D",
+        "Virtual camera paths",
+        "Blender/Infinigen scene geometry"
+      ],
+      "sensorLabels": {
+        "en": [
+          "Rendered pinhole and ERP RGB-D",
+          "Virtual camera paths",
+          "Blender/Infinigen scene geometry"
+        ],
+        "zh": [
+          "渲染针孔与ERP RGB-D",
+          "虚拟相机路线",
+          "Blender／Infinigen场景几何"
+        ]
+      },
+      "groundTruth": [
+        "Paper-described rendered metric geometry",
+        "Paper-described camera poses; release unconfirmed"
+      ],
+      "groundTruthLabels": {
+        "en": [
+          "Paper-described rendered metric geometry",
+          "Paper-described camera poses; release unconfirmed"
+        ],
+        "zh": [
+          "论文描述的渲染公制几何",
+          "论文描述的相机位姿，发布待核实"
+        ]
+      },
+      "access": "unknown",
+      "homepageUrl": "https://ranolabs.com/Blog/spatial-foundry",
+      "paperUrl": "https://arxiv.org/abs/2611.17318v1",
+      "downloadUrl": "https://ranolabs.com/Blog/spatial-foundry",
+      "license": {
+        "en": "No complete data-archive or source-asset reuse license verified. Paper/arXiv rights and Infinigen/asset terms do not establish a blanket dataset license; the project-page preview is not a complete numeric-data release.",
+        "zh": "尚未核实完整数据压缩包或源资产的再利用许可。论文／arXiv条款与Infinigen／素材条款不等于整个数据集获得统一许可，项目预览不等于数值数据完整发布。"
+      },
+      "summary": "5280个合成住宅布置配置关联针孔／ERP RGB、公制几何与相机路线视频；原论文有真实预览，但完整数值深度／位姿下载、划分及许可仍待核实。",
+      "details": {
+        "en": {
+          "Scope and inventory": "Paper describes5280 furnished configurations, not5280 independent captured houses or image files. Layouts are generated and reviewed, then assembled in Blender with Infinigen assets; multiple furnishings can share one layout.",
+          "Image products and calibration": "Section3.2 describes calibrated pinhole views and explicitly equirectangular panoramic views with declared orientation. Source scenes are synthetic and image products rendered; no raw fisheye, physical stereo or IMU release established.",
+          "Depth and geometry": "Numeric depth is described with units, validity masks and projection/convention metadata, while Figure2 shows a colorized preview. No downloadable depth arrays were inspected; the general Z-versus-range convention and export completeness remain unconfirmed. Preview colors are not the numeric ground-truth files.",
+          "Camera paths and synchronization": "Paper associates native frame ID, timestamp and camera-to-world pose Twc with video. These are synthetic camera-path references in shared metric scene coordinates, not independent real tracking. Frame manifests/calibration and full temporal coverage were not downloaded.",
+          "Additional modalities": "Floor plans, metric meshes, point clouds, persistent instance IDs/3D boxes, object transforms and editable scene states are described. Display-space floor separation and texture-colored point clouds are visualization choices, not extra measured sensors.",
+          "Splits and leakage": "No canonical downloadable train/validation/test manifests established. Group all observations, furnishing variants and before/after edits that share a layout or scene when constructing a split.",
+          "Access and maturity": "Original paper and official project identity are verified. HTTP200 project HTML was reachable, but only a client-rendered shell was available to this audit; a complete numeric input/depth/pose archive, authentication/access process and data license were not established. Listed as pending after mature benchmarks."
+        },
+        "zh": {
+          "范围与规模": "论文介绍5280个住宅布置配置，不是5280栋独立实拍住宅或图像文件。布局生成并经人工检查后，以Blender及Infinigen素材组装，同一布局可有多种布置。",
+          "图像产品与标定": "3.2节明确描述已标定针孔图和带方向定义的ERP全景；源场景为合成，图像由渲染产生，未确立原始鱼眼、物理立体或IMU发布。",
+          "深度与几何": "论文描述带单位、有效掩码及投影／深度约定元数据的数值深度；Figure2仅是着色预览。本轮未查看可下载深度数组，通用Z／range约定及导出完整性仍待核实，预览颜色不能当作数值真值文件。",
+          "相机路线与同步": "论文将原生帧ID、时间戳及相机到世界Twc位姿和视频关联，均在共享公制场景坐标下生成；这是合成相机路线参考，不是独立真实跟踪。本轮未下载帧清单、标定或核实全时段覆盖。",
+          "其他模态": "论文介绍平面图、公制网格、点云、持久实例ID／三维框、物体变换及可编辑状态。展示时分离楼层、以纹理给点云着色是可视化选择，不是额外实测传感器。",
+          "划分与泄漏": "尚未确立可下载的官方训练／验证／测试清单；自行划分须把共享布局或场景的视图、不同布置及编辑前后样本归为一组。",
+          "获取与成熟度": "原论文与官方项目身份已核实；项目HTML可返回HTTP200，但本轮只取得客户端渲染外壳，尚未确立完整图像／深度／位姿压缩包、身份验证／获取流程与数据许可。按待核实资源排在成熟基准之后。"
+        }
+      },
+      "notes": {
+        "en": [
+          "Paper-described modalities are not claims that their full numeric products are already downloadable.",
+          "Rendered camera poses are simulator references; previews and source-scene edits do not prove an independently measured depth/trajectory benchmark."
+        ],
+        "zh": [
+          "论文描述某个模态，不表示其完整数值产品已可下载。",
+          "渲染相机位姿是仿真参考，预览或源场景编辑不证明独立实测的深度／轨迹基准。"
+        ]
+      },
+      "evidence": [
+        {
+          "url": "https://arxiv.org/abs/2611.17318v1",
+          "title": "Original dataset identity and5280 synthetic configurations"
+        },
+        {
+          "url": "https://arxiv.org/html/2611.17318v1",
+          "title": "Sections3-4: explicit ERP, pinhole, depth/pose metadata and rendering provenance"
+        },
+        {
+          "url": "https://ranolabs.com/Blog/spatial-foundry",
+          "title": "Official project identity; full numeric release not established"
+        }
+      ],
+      "checked": "2026-11-23",
+      "collection": "datasets",
+      "localizedSummary": {
+        "en": "5280 furnished synthetic residential configurations link pinhole/ERP RGB, metric geometry and camera-path videos. Original paper previews are available; complete numeric depth/pose downloads, splits and terms remain unconfirmed.",
+        "zh": "5280个合成住宅布置配置关联针孔／ERP RGB、公制几何与相机路线视频；原论文有真实预览，但完整数值深度／位姿下载、划分及许可仍待核实。"
+      },
+      "datasetDetails": {
+        "en": {
+          "Scope and inventory": "Paper describes5280 furnished configurations, not5280 independent captured houses or image files. Layouts are generated and reviewed, then assembled in Blender with Infinigen assets; multiple furnishings can share one layout.",
+          "Image products and calibration": "Section3.2 describes calibrated pinhole views and explicitly equirectangular panoramic views with declared orientation. Source scenes are synthetic and image products rendered; no raw fisheye, physical stereo or IMU release established.",
+          "Depth and geometry": "Numeric depth is described with units, validity masks and projection/convention metadata, while Figure2 shows a colorized preview. No downloadable depth arrays were inspected; the general Z-versus-range convention and export completeness remain unconfirmed. Preview colors are not the numeric ground-truth files.",
+          "Camera paths and synchronization": "Paper associates native frame ID, timestamp and camera-to-world pose Twc with video. These are synthetic camera-path references in shared metric scene coordinates, not independent real tracking. Frame manifests/calibration and full temporal coverage were not downloaded.",
+          "Additional modalities": "Floor plans, metric meshes, point clouds, persistent instance IDs/3D boxes, object transforms and editable scene states are described. Display-space floor separation and texture-colored point clouds are visualization choices, not extra measured sensors.",
+          "Splits and leakage": "No canonical downloadable train/validation/test manifests established. Group all observations, furnishing variants and before/after edits that share a layout or scene when constructing a split.",
+          "Access and maturity": "Original paper and official project identity are verified. HTTP200 project HTML was reachable, but only a client-rendered shell was available to this audit; a complete numeric input/depth/pose archive, authentication/access process and data license were not established. Listed as pending after mature benchmarks."
+        },
+        "zh": {
+          "范围与规模": "论文介绍5280个住宅布置配置，不是5280栋独立实拍住宅或图像文件。布局生成并经人工检查后，以Blender及Infinigen素材组装，同一布局可有多种布置。",
+          "图像产品与标定": "3.2节明确描述已标定针孔图和带方向定义的ERP全景；源场景为合成，图像由渲染产生，未确立原始鱼眼、物理立体或IMU发布。",
+          "深度与几何": "论文描述带单位、有效掩码及投影／深度约定元数据的数值深度；Figure2仅是着色预览。本轮未查看可下载深度数组，通用Z／range约定及导出完整性仍待核实，预览颜色不能当作数值真值文件。",
+          "相机路线与同步": "论文将原生帧ID、时间戳及相机到世界Twc位姿和视频关联，均在共享公制场景坐标下生成；这是合成相机路线参考，不是独立真实跟踪。本轮未下载帧清单、标定或核实全时段覆盖。",
+          "其他模态": "论文介绍平面图、公制网格、点云、持久实例ID／三维框、物体变换及可编辑状态。展示时分离楼层、以纹理给点云着色是可视化选择，不是额外实测传感器。",
+          "划分与泄漏": "尚未确立可下载的官方训练／验证／测试清单；自行划分须把共享布局或场景的视图、不同布置及编辑前后样本归为一组。",
+          "获取与成熟度": "原论文与官方项目身份已核实；项目HTML可返回HTTP200，但本轮只取得客户端渲染外壳，尚未确立完整图像／深度／位姿压缩包、身份验证／获取流程与数据许可。按待核实资源排在成熟基准之后。"
+        }
+      },
+      "datasetNotes": {
+        "en": [
+          "Paper-described modalities are not claims that their full numeric products are already downloadable.",
+          "Rendered camera poses are simulator references; previews and source-scene edits do not prove an independently measured depth/trajectory benchmark."
+        ],
+        "zh": [
+          "论文描述某个模态，不表示其完整数值产品已可下载。",
+          "渲染相机位姿是仿真参考，预览或源场景编辑不证明独立实测的深度／轨迹基准。"
+        ]
+      },
+      "datasetLicense": {
+        "en": "No complete data-archive or source-asset reuse license verified. Paper/arXiv rights and Infinigen/asset terms do not establish a blanket dataset license; the project-page preview is not a complete numeric-data release.",
+        "zh": "尚未核实完整数据压缩包或源资产的再利用许可。论文／arXiv条款与Infinigen／素材条款不等于整个数据集获得统一许可，项目预览不等于数值数据完整发布。"
+      },
+      "sourceChecked": "2026-11-23",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "rendered",
+          "availability": "announced",
+          "note": {
+            "en": "Paper explicitly specifies equirectangular rendered products; full numeric release not confirmed.",
+            "zh": "论文明确ERP渲染产品，完整数值发布尚未确认。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.17318v1",
+            "https://arxiv.org/html/2611.17318v1"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "rendered",
+          "availability": "announced",
+          "note": {
+            "en": "Calibrated pinhole views are described as rendered products; no physical stereo rig verified.",
+            "zh": "论文描述已标定针孔渲染图，未核实物理立体rig。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.17318v1",
+            "https://arxiv.org/html/2611.17318v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "nativePanoramic": false,
+      "cameraReview": "focused_primary_source_review_2026-11-23",
+      "annotations": {
+        "depth": {
+          "status": "unknown",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Paper describes rendered metric depth, conventions and masks, but full downloadable arrays and coverage are unconfirmed. Figure2 is a colorized illustration.",
+            "zh": "论文描述渲染公制深度、约定及掩码，但完整数组下载与覆盖未确认；Figure2是着色示意。"
+          }
+        },
+        "trajectory": {
+          "status": "unknown",
+          "provenance": [
+            "rendered"
+          ],
+          "note": {
+            "en": "Paper describes per-frame rendered camera-to-world poses/timestamps. Numeric manifests and full released coverage are unconfirmed; not independently tracked real truth.",
+            "zh": "论文描述逐帧渲染相机到世界位姿及时间戳；数值清单与完整发布覆盖未确认，也非独立跟踪的真实真值。"
+          }
+        },
+        "evidence": [
+          "https://arxiv.org/abs/2611.17318v1",
+          "https://arxiv.org/html/2611.17318v1",
+          "https://ranolabs.com/Blog/spatial-foundry"
+        ],
+        "checked": "2026-11-23"
+      },
+      "curation": {
+        "tier": "pending",
+        "rank": 4,
+        "scope": {
+          "en": "Synthetic indoor depth and camera-path geometry",
+          "zh": "合成室内深度与相机路线几何"
+        },
+        "reason": {
+          "en": "A new scene-based multimodal resource with explicit ERP/pinhole geometry, but no verified full archive, split or data terms. Place after mature accessible benchmarks.",
+          "zh": "新场景级多模态资源明确ERP／针孔几何，但完整压缩包、划分及数据条款尚未核实，应排在成熟可获取基准后。"
+        },
+        "evidence": [
+          {
+            "url": "https://arxiv.org/abs/2611.17318v1",
+            "title": "Original modality inventory"
+          },
+          {
+            "url": "https://ranolabs.com/Blog/spatial-foundry",
+            "title": "Official project release-access review"
+          }
+        ],
+        "checked": "2026-11-23"
+      },
+      "figure": {
+        "thumbnail": "assets/datasets/ds_spatialfoundry-thumb.webp",
+        "image": "assets/datasets/ds_spatialfoundry.webp",
+        "paperUrl": "https://arxiv.org/pdf/2611.17318v1",
+        "sourceType": "paper-pdf",
+        "page": 3,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "en": "Original-paper example of synthetic scene modalities, including ERP RGB and colorized depth; full numeric release is unconfirmed.",
+          "zh": "原论文展示合成场景模态，含ERP RGB与着色深度；完整数值数据发布尚未确认。"
+        },
+        "credit": {
+          "en": "Source: Ethan Lin and Yang Song, original Figure 2; cropped and resized for literature review.",
+          "zh": "来源：Ethan Lin、Yang Song，原论文Figure 2；为文献介绍裁剪并缩放。"
+        },
+        "kind": "dataset-preview",
+        "verified": true,
+        "cropBox": [
+          106,
+          78,
+          506,
+          346
+        ],
+        "originalCaption": "Figure 2: Aligned observations and 3D representations.",
+        "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+        "reviewedAt": "2026-11-23",
+        "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+        "pdfSha256": "fb9aeda2b948c747f0af4d26fad535ce3053487cc18614df5343947105444359",
+        "imageSha256": "61f386e934940e2fa84162b74135d568d44080aee6654fd6a8aad252efbfe2de",
+        "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content.",
+        "sourcePageUrl": "https://arxiv.org/abs/2611.17318v1"
+      }
+    },
+    {
       "id": "ds_synpano",
       "name": "SynPano",
       "title": "SynPano: A Synthetic Panoramic Dataset for SLAM",
@@ -10578,6 +11333,348 @@ window.ATLAS_DATA = {
       }
     },
     {
+      "id": "s2dfvo2026",
+      "collection": "slam",
+      "name": "S²D-FVO",
+      "title": "Scale-Consistent Monocular Fisheye Visual Odometry via Spherical Bundle Adjustment-Guided Unsupervised Depth Learning",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "arXiv2611.11934v1, submitted2026-11-09; formal journal acceptance not verified",
+      "authors": [
+        "Wanhui Luo",
+        "Hongbo Zhao",
+        "Yi Zhou",
+        "Qijun Chen",
+        "Yiming Nie",
+        "Rui Fan"
+      ],
+      "institutions": [
+        "Tongji University",
+        "Hunan University",
+        "Academy of Military Science"
+      ],
+      "summary": "以球面 BA 与学习径向深度参考耦合单目跟踪，并用 Sim(3) 回环校正；论文明确测试鱼眼、ERP及针孔，评测尺度对齐与实现／数据发布状态须分别看待。",
+      "cameras": [
+        "panoramic",
+        "fisheye",
+        "wide",
+        "perspective"
+      ],
+      "scale": "relative",
+      "scaleNote": "Learned DepthNet supplies a training-dependent scale reference. Monocular geometry still has an unobservable gauge; trajectory evaluation uses one global Sim(3) alignment, and the foundation-depth comparison median-aligns depth. Scale consistency is not independently verified absolute metric scale.",
+      "aliases": [
+        "S2D-FVO",
+        "S²D-FVO",
+        "SBA-guided depth"
+      ],
+      "metricStatus": "learned_depth_reference_sim3_evaluated",
+      "depthType": "range",
+      "outputs": [
+        "radial_range",
+        "camera_poses",
+        "sparse_landmarks"
+      ],
+      "pose": true,
+      "inputSummary": "One ordered calibrated monocular image stream. Main experiments use raw fisheye; SectionV-A separately evaluates perspective and ERP streams.",
+      "outputSummary": "Estimated camera trajectory and sparse3D landmarks, plus DepthNet radial-depth maps used as scale references.",
+      "inputs": {
+        "frames": "One ordered calibrated monocular image stream. Main experiments use raw fisheye; SectionV-A separately evaluates perspective and ERP streams.",
+        "projection": "Fisheye images are remapped to ERP for tracking/DepthNet. ERP and pinhole support also have separate TartanAirV2 depth and VO experiments in TablesXIV-XV; support is not inferred from remapping alone.",
+        "intrinsics": "Known projection and unprojection/calibration for the chosen central camera model. Fisheye experiments include unified, Kannala-Brandt, polynomial and equidistant models.",
+        "resolution": "Main DepthNet training uses512x512 remapped images and10-frame training windows. Independent ERP/perspective experiment input dimensions are not established as a released API.",
+        "extrinsics": "No inter-camera baseline, external map or supplied deployment trajectory is required for the described monocular path.",
+        "imu": "No",
+        "gravity": "No IMU/gravity measurement input documented.",
+        "synchronization": "Ordered single-camera frames; no multi-camera or external sensor synchronization requirement."
+      },
+      "outputDetails": {
+        "primary": "Estimated camera trajectory and sparse3D landmarks, plus DepthNet radial-depth maps used as scale references.",
+        "point_map": "Optimized sparse landmarks; no independent released dense point-map head/exporter verified.",
+        "normal": "No surface-normal output documented.",
+        "confidence": "No calibrated depth/scale uncertainty estimate; paper identifies uncertainty-aware regularization as future work.",
+        "camera_parameters": "Uses known projection; estimates poses rather than unknown sensor intrinsics.",
+        "depth_convention": "Depth references are Euclidean radial distance along unit rays. Spherical BA aligns the median landmark range to median DepthNet range rather than imposing per-point depth equality. This does not make radial range equal camera-axis Z.",
+        "metric_status": "learned_depth_reference_sim3_evaluated",
+        "pose_output": "Yes: estimated monocular camera trajectory and loop-corrected poses, with unverified absolute metric scale.",
+        "runtime": "Paper reports approximately10FPS on Intel Core Ultra9 285K plus RTX5090 with ONNX Runtime. Local mapping and verified-loop correction are additional asynchronous processes; no local timing reproduction."
+      },
+      "codeStatus": "none",
+      "codeUrl": "",
+      "paperUrl": "https://arxiv.org/abs/2611.11934v1",
+      "projectUrl": "",
+      "weightsUrl": "",
+      "license": {
+        "code": "No verified implementation license found.",
+        "weights": "No verified released checkpoint or checkpoint terms found."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2611.11934v1",
+        "https://arxiv.org/html/2611.11934v1"
+      ],
+      "notes": [
+        "Main fisheye remapping alone does not prove full-ERP input. Separate SectionV-A experiments explicitly test TartanAirV2 ERP and perspective depth/VO, so all three projection classes are paper-supported.",
+        "DepthNet is pretrained on UniDAC pseudo depth before SBA-guided photometric training. The unsupervised label does not mean the model has no learned scale prior or pseudo-label initialization.",
+        "SectionIV-C aligns each estimated trajectory to reference by one global Sim(3). TableVII median-aligns foundation-model depth comparisons. These scores do not establish an unaligned metric trajectory or direct DAP superiority.",
+        "The paper contains genuine geometric loop verification and global Sim(3) pose-graph correction. Do not omit loop closure just because the title calls the system VO.",
+        "Raw fisheye input requires camera calibration for spherical unprojection/remapping. No IMU or calibrated stereo baseline is used by the described monocular path.",
+        "NIO-Fisheye, synthetic Blender-Fisheye and derived ScanNet++/TartanAir splits are described, but promised future split publication is not a verified data download.",
+        "Median depth suppresses isolated outliers but not systematic network bias; weak parallax and pure rotation undermine landmark depth. No calibrated uncertainty solution is claimed.",
+        "No verified official estimator code or weights found as checked2026-11-23."
+      ],
+      "tags": [
+        "fisheye",
+        "ERP",
+        "pinhole",
+        "monocular",
+        "VO",
+        "learned-depth",
+        "loop-closure",
+        "radial_range",
+        "camera_poses",
+        "sparse_landmarks"
+      ],
+      "family": "spherical bundle adjustment with learned-depth reference and loop closure",
+      "imu": false,
+      "loopClosure": true,
+      "nativePanoramic": true,
+      "sourceChecked": "2026-11-23",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+      "codeEntry": "No verified released estimator source entry.",
+      "environment": "Paper: C++, g2o/Levenberg-Marquardt; ResNet18 DepthNet, SuperPoint and SphereGlue exported from PyTorch to ONNX Runtime. Exact public build/configuration not verified.",
+      "cameraSupport": [
+        {
+          "geometry": "panoramic",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Fisheye images are remapped to ERP for tracking/DepthNet. ERP and pinhole support also have separate TartanAirV2 depth and VO experiments in TablesXIV-XV; support is not inferred from remapping alone.",
+            "zh": "鱼眼内部重映射到 ERP；表XIV—XV还单独评测 TartanAirV2 的 ERP／针孔深度与VO，三类支持并非仅由内部重映射推断。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.11934v1",
+            "https://arxiv.org/html/2611.11934v1"
+          ]
+        },
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Fisheye images are remapped to ERP for tracking/DepthNet. ERP and pinhole support also have separate TartanAirV2 depth and VO experiments in TablesXIV-XV; support is not inferred from remapping alone.",
+            "zh": "鱼眼内部重映射到 ERP；表XIV—XV还单独评测 TartanAirV2 的 ERP／针孔深度与VO，三类支持并非仅由内部重映射推断。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.11934v1",
+            "https://arxiv.org/html/2611.11934v1"
+          ]
+        },
+        {
+          "geometry": "perspective",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Fisheye images are remapped to ERP for tracking/DepthNet. ERP and pinhole support also have separate TartanAirV2 depth and VO experiments in TablesXIV-XV; support is not inferred from remapping alone.",
+            "zh": "鱼眼内部重映射到 ERP；表XIV—XV还单独评测 TartanAirV2 的 ERP／针孔深度与VO，三类支持并非仅由内部重映射推断。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.11934v1",
+            "https://arxiv.org/html/2611.11934v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_review_2026-11-23",
+      "figure": {
+        "thumbnail": "assets/papers/s2dfvo2026-thumb.webp",
+        "image": "assets/papers/s2dfvo2026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2611.11934v1",
+        "sourceType": "paper-pdf",
+        "page": 4,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "en": "Spherical BA guides depth learning, whose predictions provide scale references for tracking and loop correction.",
+          "zh": "球面BA指导深度学习，预测深度再为跟踪与回环校正提供尺度参考。"
+        },
+        "credit": {
+          "en": "Source: Wanhui Luo et al., original Figure 2; cropped and resized for literature review.",
+          "zh": "来源：Wanhui Luo等，原论文Figure 2；为文献介绍裁剪并缩放。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          47,
+          58,
+          565,
+          260
+        ],
+        "originalCaption": "Fig. 2. An overview of the proposed S2D-FVO framework.",
+        "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+        "reviewedAt": "2026-11-23",
+        "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+        "pdfSha256": "2babb50c793f715f47a14293c8df41c83882dba16db395a7a5d39884d5324955",
+        "imageSha256": "35575a742149d00f2d63ed43c33bd30c4da12150430bbb7d3c19707b48b4ab84",
+        "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
+      }
+    },
+    {
+      "id": "sqrtvins3602026",
+      "collection": "slam",
+      "name": "sqrtVINS 360 (Hilti2026)",
+      "title": "sqrtVINS-Based 360 Visual-Inertial SLAM Systems: Hilti-Trimble SLAM Challenge 2026 Entry",
+      "year": 2026,
+      "firstYear": 2026,
+      "yearConvention": "Formal publication year when identified; otherwise preprint/software year. Check venue/version notes.",
+      "venue": "2026 Hilti-Trimble SLAM Challenge technical report; arXiv2611.20568v1 submitted2026-11-16",
+      "authors": [
+        "Jungwoo Lee",
+        "Hogyun Kim",
+        "Jiwon Choi",
+        "Jinyong Jeong",
+        "Younggun Cho"
+      ],
+      "institutions": [
+        "Inha University",
+        "Riibotics"
+      ],
+      "summary": "面向Hilti2026，以已标定双鱼眼＋IMU平方根VIO连接回环、跨相机约束与非因果GTSAM细化；米制依据来自IMU和真实基线，内部ERP描述子不代表完整ERP输入。",
+      "cameras": [
+        "fisheye",
+        "wide",
+        "multi"
+      ],
+      "scale": "metric",
+      "scaleNote": "Locally metric VIO with calibrated IMU; known inter-camera baseline and cross-view observations support a tightly regularized global scale correction. Gauge choices remain for global origin and yaw.",
+      "aliases": [
+        "sqrtVINS 360",
+        "sqrtVINS Hilti2026",
+        "dual-fisheye Hilti"
+      ],
+      "metricStatus": "metric_visual_inertial_and_known_baseline",
+      "depthType": "none",
+      "outputs": [
+        "camera_poses",
+        "sparse_landmarks"
+      ],
+      "pose": true,
+      "inputSummary": "The two supplied synchronized front/rear raw-fisheye streams plus IMU from the Hilti2026 rig; no LiDAR or input depth is used.",
+      "outputSummary": "Locally metric cam0 visual-inertial trajectory, subsequently corrected by loop/cross-camera constraints and non-causal GTSAM batch refinement.",
+      "inputs": {
+        "frames": "The two supplied synchronized front/rear raw-fisheye streams plus IMU from the Hilti2026 rig; no LiDAR or input depth is used.",
+        "projection": "Both cameras use calibrated EUCM. ERP projection appears internally for descriptors/database; a stitched full-ERP external estimator entry is not demonstrated.",
+        "intrinsics": "EUCM intrinsic and distortion calibration is required and tightly regularized during backend refinement; no calibration-free claim.",
+        "resolution": "The report does not establish a released common resize/API; use original challenge calibration/image resolution consistently.",
+        "extrinsics": "Known camera-camera and camera-IMU calibration, including the real inter-camera baseline. Backend refines shared E01 under strong priors.",
+        "imu": "Yes",
+        "gravity": "IMU supplies a vertical reference for the weak-Manhattan line model; horizontal directions remain unconstrained.",
+        "synchronization": "Dual fisheye and IMU timing/calibration from the challenge rig are necessary; front/rear views are a physical baseline, not cubemap faces."
+      },
+      "outputDetails": {
+        "primary": "Locally metric cam0 visual-inertial trajectory, subsequently corrected by loop/cross-camera constraints and non-causal GTSAM batch refinement.",
+        "point_map": "Sparse BA landmarks support optimization; no dense depth image or dense map product established.",
+        "normal": "No normal-output head.",
+        "confidence": "Factor covariances/regularization are not a calibrated dense-depth confidence product.",
+        "camera_parameters": "Shared camera intrinsics, extrinsics and one global scale correction are refined under priors.",
+        "depth_convention": "No dense-depth output is established. Sparse triangulated landmarks and metric trajectory constraints use calibrated dual-camera/IMU geometry, not learned monocular range or camera-axis depth maps.",
+        "metric_status": "metric_visual_inertial_and_known_baseline",
+        "pose_output": "Yes: cam0 pose trajectory; final loop/BA-refined export is non-causal.",
+        "runtime": "No reproducible end-to-end throughput/latency result was established in the challenge report. Final trajectory uses later loop/BA observations and is non-causal; no local run."
+      },
+      "codeStatus": "none",
+      "codeUrl": "",
+      "paperUrl": "https://arxiv.org/abs/2611.20568v1",
+      "projectUrl": "",
+      "weightsUrl": "",
+      "license": {
+        "code": "No verified implementation license found.",
+        "weights": "No verified released checkpoint or checkpoint terms found."
+      },
+      "evidence": [
+        "https://arxiv.org/abs/2611.20568v1",
+        "https://arxiv.org/html/2611.20568v1",
+        "https://github.com/Hilti-Research/hilti-trimble-slam-challenge-2026"
+      ],
+      "notes": [
+        "The360 hardware name refers to two raw fisheye inputs plus IMU. An internal ERP descriptor view does not prove a standalone full-ERP or pinhole interface.",
+        "The known nonzero camera baseline supplies genuine cross-view metric evidence; it is different from virtual co-centered projection faces. No provided LiDAR or dense depth is fed to this system.",
+        "Final output is non-causal because later loops and bundle adjustment revise earlier poses. Do not label the challenge-optimized trajectory a zero-latency online VIO stream.",
+        "The report uses the challenge estimated reference trajectory/floorplan protocol. Alignment with a floor plan or ranking comments do not independently validate reference accuracy.",
+        "sqrtVINS is a pre-existing frontend; this report describes a distinct dual-fisheye challenge configuration and backend, not a new publication of the underlying frontend.",
+        "No verified author-linked full challenge implementation, checkpoint bundle or complete reuse terms was established. The paper reference to a ROS2 workspace is not a verified repository release.",
+        "No verified official estimator code or weights found as checked2026-11-23."
+      ],
+      "tags": [
+        "fisheye",
+        "dual-camera",
+        "VIO",
+        "SLAM",
+        "IMU",
+        "loop-closure",
+        "camera_poses",
+        "sparse_landmarks"
+      ],
+      "family": "dual-fisheye visual-inertial filtering with offline factor-graph refinement",
+      "imu": true,
+      "loopClosure": true,
+      "nativePanoramic": false,
+      "sourceChecked": "2026-11-23",
+      "publiclyVerified": true,
+      "verificationLevel": "L2_original_paper_and_official_release_review_no_local_estimator_run",
+      "codeEntry": "No verified released estimator source entry.",
+      "environment": "Report uses a sqrtVINS point/line frontend, SuperPoint/LightGlue, ELSED, Zero-DCE++, YOLO26, SALAD, GTSAM and ROS2. Availability of the exact complete challenge workspace and component licenses remains unverified.",
+      "cameraSupport": [
+        {
+          "geometry": "fisheye",
+          "route": "direct",
+          "availability": "paper",
+          "note": {
+            "en": "Both cameras use calibrated EUCM. ERP projection appears internally for descriptors/database; a stitched full-ERP external estimator entry is not demonstrated.",
+            "zh": "两相机均用已标定EUCM；ERP仅用于内部描述子／数据库，未证明外部拼接完整ERP入口。"
+          },
+          "evidence": [
+            "https://arxiv.org/abs/2611.20568v1",
+            "https://arxiv.org/html/2611.20568v1"
+          ]
+        }
+      ],
+      "projectionSubtypes": [],
+      "additionalSupport": [],
+      "cameraReview": "focused_primary_source_review_2026-11-23",
+      "figure": {
+        "thumbnail": "assets/papers/sqrtvins3602026-thumb.webp",
+        "image": "assets/papers/sqrtvins3602026.webp",
+        "paperUrl": "https://arxiv.org/pdf/2611.20568v1",
+        "sourceType": "paper-pdf",
+        "page": 2,
+        "figureLabel": "Figure 2",
+        "caption": {
+          "en": "Calibrated dual-fisheye and IMU tracking feed loop/cross-view constraints into a calibration-and-scale-aware factor graph.",
+          "zh": "标定双鱼眼与IMU跟踪将回环／跨视图约束送入联合标定与尺度的因子图。"
+        },
+        "credit": {
+          "en": "Source: Jungwoo Lee et al., original Figure 2; cropped and resized for literature review.",
+          "zh": "来源：Jungwoo Lee等，原论文Figure 2；为文献介绍裁剪并缩放。"
+        },
+        "kind": "method",
+        "verified": true,
+        "cropBox": [
+          55,
+          47,
+          558,
+          224
+        ],
+        "originalCaption": "Fig. 2. Overview of the proposed 360-camera visual-inertial SLAM pipeline.",
+        "sourceLicense": "Original authors retain figure rights; arXiv source license link: see original abstract-page license notice. Software/data rights are separate; no blanket permissive reuse license inferred.",
+        "reviewedAt": "2026-11-23",
+        "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+        "pdfSha256": "79f0615ee716a76ea991e65af22450ee34d4460178f44d1c4ff98c87d7d85938",
+        "imageSha256": "e35e2d2747082aa02027da9968b73dccf33997252291ca396f2727536aefe339",
+        "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
+      }
+    },
+    {
       "id": "mast3rslam2025",
       "collection": "slam",
       "name": "MASt3R-SLAM",
@@ -10741,9 +11838,11 @@ window.ATLAS_DATA = {
       "evidence": [
         "Official README provides T-RO citation/DOI, depth-fusion apps, metric scaling and causal/final trajectory files.",
         "https://arxiv.org/abs/2510.04612",
-        "https://github.com/ethz-mrl/OKVIS2-X"
+        "https://github.com/ethz-mrl/OKVIS2-X",
+        "https://github.com/ethz-mrl/OKVIS2-X/commit/a246c7addc87840ed5e95e82e2d737b94e810711"
       ],
       "notes": [
+        "November11 official commit a246c7addc87840ed5e95e82e2d737b94e810711 fixes camera/distortion parameter-vector checks from cols() to size() in equidistant, radial-tangential and pinhole-camera code. This is a calibration-parameter handling fix, not a new camera/ERP mode or demonstrated accuracy improvement.",
         "Configured calibrated fusion does not mean arbitrary mono depth can be substituted. ERP loader/model unverified.",
         "Official source and dataset-specific configurations available"
       ],
@@ -10752,7 +11851,7 @@ window.ATLAS_DATA = {
       "imu": true,
       "loopClosure": true,
       "nativePanoramic": false,
-      "sourceChecked": "2026-10-17",
+      "sourceChecked": "2026-11-23",
       "publiclyVerified": true,
       "verificationLevel": "Official paper/repository/documentation read; no local reproduction",
       "codeEntry": "Unknown",
@@ -21127,12 +22226,12 @@ window.ATLAS_DATA = {
     }
   ],
   "stats": {
-    "depth": 41,
-    "slam": 36,
-    "datasets": 41,
-    "panoramicDepth": 28,
-    "panoramicSLAM": 14,
-    "paperFigures": 77,
-    "datasetFigures": 41
+    "depth": 42,
+    "slam": 40,
+    "datasets": 42,
+    "panoramicDepth": 29,
+    "panoramicSLAM": 17,
+    "paperFigures": 82,
+    "datasetFigures": 42
   }
 };

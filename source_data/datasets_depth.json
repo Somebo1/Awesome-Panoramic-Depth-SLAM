@@ -1651,5 +1651,120 @@
       }
     ],
     "checked": "2026-11-09"
+  },
+  {
+    "id": "ds_spatialfoundry",
+    "name": "Spatial Foundry",
+    "title": "Spatial Foundry: A Multimodal Dataset for Spatial Intelligence",
+    "authors": [
+      "Ethan Lin",
+      "Yang Song"
+    ],
+    "year": 2026,
+    "venue": "arXiv2611.17318v1, submitted2026-11-12; complete public data access unconfirmed",
+    "aliases": [
+      "SpatialFoundry",
+      "RanoLabs Spatial Foundry"
+    ],
+    "cameras": [
+      "panoramic",
+      "perspective"
+    ],
+    "tasks": [
+      "depth",
+      "slam"
+    ],
+    "environment": [
+      "indoor"
+    ],
+    "reality": "synthetic",
+    "sensors": [
+      "Rendered pinhole and ERP RGB-D",
+      "Virtual camera paths",
+      "Blender/Infinigen scene geometry"
+    ],
+    "sensorLabels": {
+      "en": [
+        "Rendered pinhole and ERP RGB-D",
+        "Virtual camera paths",
+        "Blender/Infinigen scene geometry"
+      ],
+      "zh": [
+        "渲染针孔与ERP RGB-D",
+        "虚拟相机路线",
+        "Blender／Infinigen场景几何"
+      ]
+    },
+    "groundTruth": [
+      "Paper-described rendered metric geometry",
+      "Paper-described camera poses; release unconfirmed"
+    ],
+    "groundTruthLabels": {
+      "en": [
+        "Paper-described rendered metric geometry",
+        "Paper-described camera poses; release unconfirmed"
+      ],
+      "zh": [
+        "论文描述的渲染公制几何",
+        "论文描述的相机位姿，发布待核实"
+      ]
+    },
+    "access": "unknown",
+    "homepageUrl": "https://ranolabs.com/Blog/spatial-foundry",
+    "paperUrl": "https://arxiv.org/abs/2611.17318v1",
+    "downloadUrl": "https://ranolabs.com/Blog/spatial-foundry",
+    "license": {
+      "en": "No complete data-archive or source-asset reuse license verified. Paper/arXiv rights and Infinigen/asset terms do not establish a blanket dataset license; the project-page preview is not a complete numeric-data release.",
+      "zh": "尚未核实完整数据压缩包或源资产的再利用许可。论文／arXiv条款与Infinigen／素材条款不等于整个数据集获得统一许可，项目预览不等于数值数据完整发布。"
+    },
+    "summary": {
+      "en": "5280 furnished synthetic residential configurations link pinhole/ERP RGB, metric geometry and camera-path videos. Original paper previews are available; complete numeric depth/pose downloads, splits and terms remain unconfirmed.",
+      "zh": "5280个合成住宅布置配置关联针孔／ERP RGB、公制几何与相机路线视频；原论文有真实预览，但完整数值深度／位姿下载、划分及许可仍待核实。"
+    },
+    "details": {
+      "en": {
+        "Scope and inventory": "Paper describes5280 furnished configurations, not5280 independent captured houses or image files. Layouts are generated and reviewed, then assembled in Blender with Infinigen assets; multiple furnishings can share one layout.",
+        "Image products and calibration": "Section3.2 describes calibrated pinhole views and explicitly equirectangular panoramic views with declared orientation. Source scenes are synthetic and image products rendered; no raw fisheye, physical stereo or IMU release established.",
+        "Depth and geometry": "Numeric depth is described with units, validity masks and projection/convention metadata, while Figure2 shows a colorized preview. No downloadable depth arrays were inspected; the general Z-versus-range convention and export completeness remain unconfirmed. Preview colors are not the numeric ground-truth files.",
+        "Camera paths and synchronization": "Paper associates native frame ID, timestamp and camera-to-world pose Twc with video. These are synthetic camera-path references in shared metric scene coordinates, not independent real tracking. Frame manifests/calibration and full temporal coverage were not downloaded.",
+        "Additional modalities": "Floor plans, metric meshes, point clouds, persistent instance IDs/3D boxes, object transforms and editable scene states are described. Display-space floor separation and texture-colored point clouds are visualization choices, not extra measured sensors.",
+        "Splits and leakage": "No canonical downloadable train/validation/test manifests established. Group all observations, furnishing variants and before/after edits that share a layout or scene when constructing a split.",
+        "Access and maturity": "Original paper and official project identity are verified. HTTP200 project HTML was reachable, but only a client-rendered shell was available to this audit; a complete numeric input/depth/pose archive, authentication/access process and data license were not established. Listed as pending after mature benchmarks."
+      },
+      "zh": {
+        "范围与规模": "论文介绍5280个住宅布置配置，不是5280栋独立实拍住宅或图像文件。布局生成并经人工检查后，以Blender及Infinigen素材组装，同一布局可有多种布置。",
+        "图像产品与标定": "3.2节明确描述已标定针孔图和带方向定义的ERP全景；源场景为合成，图像由渲染产生，未确立原始鱼眼、物理立体或IMU发布。",
+        "深度与几何": "论文描述带单位、有效掩码及投影／深度约定元数据的数值深度；Figure2仅是着色预览。本轮未查看可下载深度数组，通用Z／range约定及导出完整性仍待核实，预览颜色不能当作数值真值文件。",
+        "相机路线与同步": "论文将原生帧ID、时间戳及相机到世界Twc位姿和视频关联，均在共享公制场景坐标下生成；这是合成相机路线参考，不是独立真实跟踪。本轮未下载帧清单、标定或核实全时段覆盖。",
+        "其他模态": "论文介绍平面图、公制网格、点云、持久实例ID／三维框、物体变换及可编辑状态。展示时分离楼层、以纹理给点云着色是可视化选择，不是额外实测传感器。",
+        "划分与泄漏": "尚未确立可下载的官方训练／验证／测试清单；自行划分须把共享布局或场景的视图、不同布置及编辑前后样本归为一组。",
+        "获取与成熟度": "原论文与官方项目身份已核实；项目HTML可返回HTTP200，但本轮只取得客户端渲染外壳，尚未确立完整图像／深度／位姿压缩包、身份验证／获取流程与数据许可。按待核实资源排在成熟基准之后。"
+      }
+    },
+    "notes": {
+      "en": [
+        "Paper-described modalities are not claims that their full numeric products are already downloadable.",
+        "Rendered camera poses are simulator references; previews and source-scene edits do not prove an independently measured depth/trajectory benchmark."
+      ],
+      "zh": [
+        "论文描述某个模态，不表示其完整数值产品已可下载。",
+        "渲染相机位姿是仿真参考，预览或源场景编辑不证明独立实测的深度／轨迹基准。"
+      ]
+    },
+    "evidence": [
+      {
+        "url": "https://arxiv.org/abs/2611.17318v1",
+        "title": "Original dataset identity and5280 synthetic configurations"
+      },
+      {
+        "url": "https://arxiv.org/html/2611.17318v1",
+        "title": "Sections3-4: explicit ERP, pinhole, depth/pose metadata and rendering provenance"
+      },
+      {
+        "url": "https://ranolabs.com/Blog/spatial-foundry",
+        "title": "Official project identity; full numeric release not established"
+      }
+    ],
+    "checked": "2026-11-23"
   }
 ]

@@ -110,6 +110,18 @@ Official seven-scene PanoRecon LiDAR-reference montage. Reference geometry, not 
 - Preview: [image](../site/assets/datasets/ds_panorecon.webp)
 - Credit: Source: Zhuoxiao Li et al., HoloRecon / PanoRecon official project, seven-scene reference-geometry preview.
 
+## Spatial Foundry
+
+Original-paper example of synthetic scene modalities, including ERP RGB and colorized depth; full numeric release is unconfirmed.
+
+- Source type: paper-pdf
+- Page: https://arxiv.org/abs/2611.17318v1
+- Original: https://arxiv.org/pdf/2611.17318v1
+- Identity: Figure 2; PDF page: 3
+- Source SHA-256: `fb9aeda2b948c747f0af4d26fad535ce3053487cc18614df5343947105444359`
+- Preview: [image](../site/assets/datasets/ds_spatialfoundry.webp)
+- Credit: Source: Ethan Lin and Yang Song, original Figure 2; cropped and resized for literature review.
+
 ## SynPano
 
 Official resized, uncropped ERP RGB preview from apartment/images/0108.png. A Blender-rendered color frame, not a measured scene or a depth map.

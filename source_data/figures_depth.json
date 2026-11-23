@@ -812,7 +812,7 @@
   "pager": {
     "thumbnail": "assets/papers/pager-thumb.webp",
     "image": "assets/papers/pager.webp",
-    "paperUrl": "https://arxiv.org/pdf/2605.26368",
+    "paperUrl": "https://arxiv.org/pdf/2605.26368v2",
     "page": 4,
     "figureLabel": "Figure 2",
     "caption": {
@@ -837,7 +837,9 @@
     "selectionNotes": "Method overview cropped from downloaded original paper PDF; caption stored separately.",
     "pdfSha256": "88cf2516fac672870f10dc364c14742a87f7501dae6ce2122507561725868193",
     "imageSha256": "884636e4174249d78c86df1bd29ffc6a389dab86db47f2ab6ff5ebbcbf38be73",
-    "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked."
+    "verification": "Original PDF page and final crop visually inspected; paper identity, figure label, and complete figure boundaries checked.",
+    "sourcePinnedAt": "2026-11-23",
+    "sourcePinReason": "Local original PDF header is v2 and SHA-256 matches manifest; current paper revision v3 is separate from this unchanged attributed figure crop."
   },
   "reper360": {
     "thumbnail": "assets/papers/reper360-thumb.webp",
@@ -1228,5 +1230,36 @@
     "pdfSha256": "480937fc369c02535a6eac4a69ccb47566e394bc898e8911cdbc63cbeeb30896",
     "imageSha256": "b9f894996504211b4eac4c289936ec4b6eec219f14fc4f149ec7fb6b40554af9",
     "verification": "Original full PDF page and final encoded crop visually inspected; method identity, all diagram boundaries, inset, labels and readability checked."
+  },
+  "eg3602026": {
+    "thumbnail": "assets/papers/eg3602026-thumb.webp",
+    "image": "assets/papers/eg3602026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2611.16793v1",
+    "sourceType": "paper-pdf",
+    "page": 4,
+    "figureLabel": "Figure 3",
+    "caption": {
+      "en": "SCFF combines spherical cross-level attention and a panoramic local feed-forward module.",
+      "zh": "SCFF结合球面跨层注意力与全景局部前馈模块。"
+    },
+    "credit": {
+      "en": "Source: Laiyan Ding et al., original Figure 3; cropped and resized for literature review.",
+      "zh": "来源：Laiyan Ding等，原论文Figure 3；为文献介绍裁剪并缩放。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      315,
+      69,
+      568,
+      161
+    ],
+    "originalCaption": "Figure 3. Diagram of Spherical Cross-Level Feature Fusion.",
+    "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+    "reviewedAt": "2026-11-23",
+    "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained. Figure3 shows the SCFF module rather than a full-system overview.",
+    "pdfSha256": "3620519b85e3324a3d4853d05ac05417074eead99bfe434ef79ca0482bb65f16",
+    "imageSha256": "9b6a9249584fee3c3eadcc49787276795227e82f630985cc3aacba8de7d5fb30",
+    "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
   }
 }

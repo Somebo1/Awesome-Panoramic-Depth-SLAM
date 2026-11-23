@@ -1110,5 +1110,129 @@
     "pdfSha256": "9615d3c7aa3b5543aef93554b4534faadcfc4c743ab638320251f7b0dc79c261",
     "imageSha256": "7e79d20be5c04c784b05c3090a48f15161e844c34dac924b04a95de739b98b31",
     "verification": "Original page and final encoded crop individually viewed; paper identity, Figure2 label, complete diagram boundaries and legibility confirmed."
+  },
+  "s2dfvo2026": {
+    "thumbnail": "assets/papers/s2dfvo2026-thumb.webp",
+    "image": "assets/papers/s2dfvo2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2611.11934v1",
+    "sourceType": "paper-pdf",
+    "page": 4,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "en": "Spherical BA guides depth learning, whose predictions provide scale references for tracking and loop correction.",
+      "zh": "球面BA指导深度学习，预测深度再为跟踪与回环校正提供尺度参考。"
+    },
+    "credit": {
+      "en": "Source: Wanhui Luo et al., original Figure 2; cropped and resized for literature review.",
+      "zh": "来源：Wanhui Luo等，原论文Figure 2；为文献介绍裁剪并缩放。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      47,
+      58,
+      565,
+      260
+    ],
+    "originalCaption": "Fig. 2. An overview of the proposed S2D-FVO framework.",
+    "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+    "reviewedAt": "2026-11-23",
+    "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+    "pdfSha256": "2babb50c793f715f47a14293c8df41c83882dba16db395a7a5d39884d5324955",
+    "imageSha256": "35575a742149d00f2d63ed43c33bd30c4da12150430bbb7d3c19707b48b4ab84",
+    "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
+  },
+  "cosphereslam2026": {
+    "thumbnail": "assets/papers/cosphereslam2026-thumb.webp",
+    "image": "assets/papers/cosphereslam2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2611.22235v1",
+    "sourceType": "paper-pdf",
+    "page": 3,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "en": "Per-agent panoramic maps are aligned through spherical loop matching and similarity-graph optimization before ray-based Gaussian fusion.",
+      "zh": "各智能体全景地图经球面回环与相似图优化对齐，再按射线融合高斯。"
+    },
+    "credit": {
+      "en": "Source: Qi Shao et al., original Figure 2; cropped and resized for literature review.",
+      "zh": "来源：Qi Shao等，原论文Figure 2；为文献介绍裁剪并缩放。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      48,
+      54,
+      562,
+      273
+    ],
+    "originalCaption": "Fig. 2. Overview of CoSphere-SLAM.",
+    "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+    "reviewedAt": "2026-11-23",
+    "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+    "pdfSha256": "11bfb791c99c3f30da205c6222f12ad32b2d8a8336c3cf227682e9be9cbbd8d3",
+    "imageSha256": "69c7956b1ef42089f3dae9e0608f9b3d99b07c59122650f986c8ee02e9342519",
+    "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
+  },
+  "defdvo2026": {
+    "thumbnail": "assets/papers/defdvo2026-thumb.webp",
+    "image": "assets/papers/defdvo2026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2611.19095v1",
+    "sourceType": "paper-pdf",
+    "page": 1,
+    "figureLabel": "Figure 1",
+    "caption": {
+      "en": "DEFDVO combines spherical-prior deformable features, spherical patch sampling and seam-aware tracking with spherical BA.",
+      "zh": "DEFDVO融合球面先验可变形特征、球面patch采样及带球面BA的跨接缝跟踪。"
+    },
+    "credit": {
+      "en": "Source: Burak Sevsay et al., original Figure 1; cropped and resized for literature review.",
+      "zh": "来源：Burak Sevsay等，原论文Figure 1；为文献介绍裁剪并缩放。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      316,
+      221,
+      556,
+      362
+    ],
+    "originalCaption": "Figure 1. DEFDVO overview.",
+    "sourceLicense": "Original authors retain figure rights; arXiv source license link: http://arxiv.org/licenses/nonexclusive-distrib/1.0/. Software/data rights are separate; no blanket permissive reuse license inferred.",
+    "reviewedAt": "2026-11-23",
+    "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+    "pdfSha256": "e876a3ccee7887c06e50edd741aee3e7fec3ef86a171c4c841ba1146e33acd12",
+    "imageSha256": "32fc69fd492d00958075c9be6377da7ad101d9e4820710954ce0d5340bd37824",
+    "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
+  },
+  "sqrtvins3602026": {
+    "thumbnail": "assets/papers/sqrtvins3602026-thumb.webp",
+    "image": "assets/papers/sqrtvins3602026.webp",
+    "paperUrl": "https://arxiv.org/pdf/2611.20568v1",
+    "sourceType": "paper-pdf",
+    "page": 2,
+    "figureLabel": "Figure 2",
+    "caption": {
+      "en": "Calibrated dual-fisheye and IMU tracking feed loop/cross-view constraints into a calibration-and-scale-aware factor graph.",
+      "zh": "标定双鱼眼与IMU跟踪将回环／跨视图约束送入联合标定与尺度的因子图。"
+    },
+    "credit": {
+      "en": "Source: Jungwoo Lee et al., original Figure 2; cropped and resized for literature review.",
+      "zh": "来源：Jungwoo Lee等，原论文Figure 2；为文献介绍裁剪并缩放。"
+    },
+    "kind": "method",
+    "verified": true,
+    "cropBox": [
+      55,
+      47,
+      558,
+      224
+    ],
+    "originalCaption": "Fig. 2. Overview of the proposed 360-camera visual-inertial SLAM pipeline.",
+    "sourceLicense": "Original authors retain figure rights; arXiv source license link: see original abstract-page license notice. Software/data rights are separate; no blanket permissive reuse license inferred.",
+    "reviewedAt": "2026-11-23",
+    "selectionNotes": "Complete original PDF page, final encoded crop and thumbnail individually viewed; all diagram branches or dataset panels and labels retained.",
+    "pdfSha256": "79f0615ee716a76ea991e65af22450ee34d4460178f44d1c4ff98c87d7d85938",
+    "imageSha256": "e35e2d2747082aa02027da9968b73dccf33997252291ca396f2727536aefe339",
+    "verification": "Original complete page and final WebP/thumbnail visually inspected for identity, boundaries, attribution and readable scientific content."
   }
 }

@@ -38,12 +38,15 @@ Review scope: carried_forward_from_existing_source_review
 
 fisheye, wide
 
-- fisheye / direct: DEX directly consumes raw fisheye RGB at inference without rectification or supplied calibration. Training uses calibrated perspective teachers and synthetic KB distortions. The repository remains license-only; no full ERP support verified. DEX 推理直接处理原始鱼眼 RGB，无需去畸变或给定标定。训练用标定透视教师与合成 KB 畸变。仓库仍仅有许可文件，未核实完整 ERP 支持。
+- fisheye / direct: Raw-fisheye monocular-depth training/evaluation and adapter checkpoints are released. No complete ERP interface verified; calibration is needed for teacher/evaluation conversions, not the described raw-image prediction. 已发布原始鱼眼单目深度训练／评测及适配权重；未核实完整ERP接口。教师／评测几何转换需要标定，所述原始图像预测不要求输入标定。
   - https://arxiv.org/abs/2608.27860v2
   - https://arxiv.org/html/2608.27860v2
   - https://github.com/Suchisrit/DEX
+  - https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/model.py
+  - https://github.com/Suchisrit/DEX/blob/dae031b9e9a9ee4c32a9bd6737caac8491d90081/utils/depth_evaluate.py
+  - https://huggingface.co/Rit888/DEX
 
-Review scope: focused_primary_source_recheck_2026-11-02
+Review scope: focused_released_MDE_source_recheck_2026-11-23
 
 ## Depth Any Panoramas
 
@@ -67,6 +70,16 @@ perspective, panoramic
   - https://arxiv.org/abs/2606.12368
 
 Review scope: focused_primary_source_recheck_2026-10-20
+
+## EG360
+
+panoramic
+
+- panoramic / direct: Direct full-ERP student input. Cubemap teacher supervision during training does not establish a raw-fisheye or standalone pinhole student interface. 学生模型直接接受完整 ERP；训练中的 cubemap 教师不证明学生支持原始鱼眼或独立针孔输入。
+  - https://arxiv.org/abs/2611.16793v1
+  - https://arxiv.org/html/2611.16793v1
+
+Review scope: focused_primary_source_review_2026-11-23
 
 ## GeoPano
 
@@ -518,6 +531,16 @@ fisheye
 
 Review scope: carried_forward_from_existing_source_review
 
+## CoSphere-SLAM
+
+panoramic, multi
+
+- panoramic / direct: Full ERP is the external input; each frame is internally resampled into six co-centered90-degree cube faces. No raw-fisheye or standalone pinhole estimator entry was verified. 外部直接输入完整ERP，内部重采样为六个共心90度cubemap面；未核实原始鱼眼或独立针孔入口。
+  - https://arxiv.org/abs/2611.22235v1
+  - https://arxiv.org/html/2611.22235v1
+
+Review scope: focused_primary_source_review_2026-11-23
+
 ## Cube-Splat
 
 panoramic, wide
@@ -526,6 +549,16 @@ panoramic, wide
   - https://github.com/guoxf304/CubeSplat
 
 Review scope: focused_primary_source_recheck_2026-10-20
+
+## DEFDVO
+
+panoramic
+
+- panoramic / direct: Direct2:1 ERP throughout learned features, correlation and spherical BA; no independent raw-fisheye or pinhole mode verified. 特征、相关性与球面BA均处理2:1 ERP；未核实原始鱼眼或独立针孔模式。
+  - https://arxiv.org/abs/2611.19095v1
+  - https://arxiv.org/html/2611.19095v1
+
+Review scope: focused_primary_source_review_2026-11-23
 
 ## Hilti–Trimble–Oxford 2026 · Indoor
 
@@ -723,6 +756,19 @@ panoramic
 
 Review scope: focused_primary_source_recheck_2026-11-02
 
+## Spatial Foundry
+
+panoramic, perspective
+
+- panoramic / rendered: Paper explicitly specifies equirectangular rendered products; full numeric release not confirmed. 论文明确ERP渲染产品，完整数值发布尚未确认。
+  - https://arxiv.org/abs/2611.17318v1
+  - https://arxiv.org/html/2611.17318v1
+- perspective / rendered: Calibrated pinhole views are described as rendered products; no physical stereo rig verified. 论文描述已标定针孔渲染图，未核实物理立体rig。
+  - https://arxiv.org/abs/2611.17318v1
+  - https://arxiv.org/html/2611.17318v1
+
+Review scope: focused_primary_source_review_2026-11-23
+
 ## SynPano
 
 panoramic
@@ -732,6 +778,32 @@ panoramic
   - https://huggingface.co/api/datasets/gxfzju/SynPano
 
 Review scope: focused_primary_source_recheck_2026-11-02
+
+## S²D-FVO
+
+panoramic, fisheye, wide, perspective
+
+- panoramic / direct: Fisheye images are remapped to ERP for tracking/DepthNet. ERP and pinhole support also have separate TartanAirV2 depth and VO experiments in TablesXIV-XV; support is not inferred from remapping alone. 鱼眼内部重映射到 ERP；表XIV—XV还单独评测 TartanAirV2 的 ERP／针孔深度与VO，三类支持并非仅由内部重映射推断。
+  - https://arxiv.org/abs/2611.11934v1
+  - https://arxiv.org/html/2611.11934v1
+- fisheye / direct: Fisheye images are remapped to ERP for tracking/DepthNet. ERP and pinhole support also have separate TartanAirV2 depth and VO experiments in TablesXIV-XV; support is not inferred from remapping alone. 鱼眼内部重映射到 ERP；表XIV—XV还单独评测 TartanAirV2 的 ERP／针孔深度与VO，三类支持并非仅由内部重映射推断。
+  - https://arxiv.org/abs/2611.11934v1
+  - https://arxiv.org/html/2611.11934v1
+- perspective / direct: Fisheye images are remapped to ERP for tracking/DepthNet. ERP and pinhole support also have separate TartanAirV2 depth and VO experiments in TablesXIV-XV; support is not inferred from remapping alone. 鱼眼内部重映射到 ERP；表XIV—XV还单独评测 TartanAirV2 的 ERP／针孔深度与VO，三类支持并非仅由内部重映射推断。
+  - https://arxiv.org/abs/2611.11934v1
+  - https://arxiv.org/html/2611.11934v1
+
+Review scope: focused_primary_source_review_2026-11-23
+
+## sqrtVINS 360 (Hilti2026)
+
+fisheye, wide, multi
+
+- fisheye / direct: Both cameras use calibrated EUCM. ERP projection appears internally for descriptors/database; a stitched full-ERP external estimator entry is not demonstrated. 两相机均用已标定EUCM；ERP仅用于内部描述子／数据库，未证明外部拼接完整ERP入口。
+  - https://arxiv.org/abs/2611.20568v1
+  - https://arxiv.org/html/2611.20568v1
+
+Review scope: focused_primary_source_review_2026-11-23
 
 ## MASt3R-SLAM
 

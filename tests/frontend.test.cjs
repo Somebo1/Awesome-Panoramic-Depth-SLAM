@@ -384,7 +384,7 @@ check('calibrated Any3R and DEX retain distinct camera, gauge and release semant
   assert.equal(any.scale,'relative');assert.equal(any.depthType,'range');assert.equal(any.pose,true);assert.equal(any.imu,false);assert.equal(any.loopClosure,false);assert.equal(any.codeStatus,'released');
   for(const camera of ['panoramic','fisheye','perspective'])assert(any.cameras.includes(camera));assert(!any.cameras.includes('multi'));
   assert.match(any.inputs.intrinsics,/required|calibration/);assert.match(any.outputDetails.depth_convention,/not optical-axis Z/);assert.match(any.license.weights,/Noncommercial/);assert.match(any.license.code,/trunk/);
-  assert.deepEqual(dex.cameras,['fisheye','wide']);assert.equal(dex.nativePanoramic,false);assert.equal(dex.scale,'mixed');assert.equal(dex.depthType,'range');assert.equal(dex.codeStatus,'none');assert.equal(dex.pose,false);
+  assert.deepEqual(dex.cameras,['fisheye','wide']);assert.equal(dex.nativePanoramic,false);assert.equal(dex.scale,'mixed');assert.equal(dex.depthType,'range');assert.equal(dex.codeStatus,'partial');assert.equal(dex.pose,false);
   assert.match(dex.notes.join(' '),/LICENSE/);assert.match(dex.outputDetails.depth_convention,/back to Z/);
   for(const [id,category,phrase] of [['any3r2026','panoramic','已知'],['dex2026','fisheye','单图鱼眼深度适配']]){
     const b=boot('?collection=depth&category='+category+'&lang=zh');assert(b.api.getFilteredRecords().some(r=>r.id===id));b.api.openRecord(id);assert.match(b.doc.getElementById('detail-content').textContent,new RegExp(phrase));b.dom.window.close();
@@ -434,6 +434,40 @@ check('LingBot-Depth keeps observed depth, pinhole Z and checkpoint versions dis
   b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);detail=b.doc.getElementById('detail-content').textContent;
   assert.match(detail,/深度补全与精化/);assert.match(detail,/深度不得为 None|depth 不得为 None/);assert.match(detail,/光轴 Z/);b.doc.getElementById('detail-dialog').close();
   b.api.setFilter('category','panoramic');assert.equal(b.api.getFilteredRecords().length,0);b.api.setFilter('category','fisheye');assert.equal(b.api.getFilteredRecords().length,0);b.dom.window.close();
+});
+check('EG360 keeps metric radial depth and the DAP accuracy-efficiency comparison qualified',()=>{
+  const r=catalog.records.find(r=>r.id==='eg3602026');assert(r);assert.deepEqual(r.cameras,['panoramic']);assert.equal(r.scale,'metric');assert.equal(r.depthType,'range');assert.equal(r.pose,false);assert.equal(r.codeStatus,'none');
+  assert.match(r.outputDetails.depth_convention,/Z.*radial range/);assert.match(r.notes.join(' '),/DAP has lower AbsRel/);assert.match(r.outputDetails.runtime,/excluding I\/O and CPU preprocessing/);assert.equal(r.figure.figureLabel,'Figure 3');
+  const b=boot('?collection=depth&category=panoramic&q=EG360&lang=en');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord(r.id);assert(!/[\u3400-\u9fff]/.test(b.doc.getElementById('detail-content').textContent));b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/径向|公制/);b.dom.window.close();
+});
+check('S2D-FVO separately documents ERP and pinhole experiments, loop closure and aligned scale',()=>{
+  const r=catalog.records.find(r=>r.id==='s2dfvo2026');assert(r);for(const c of ['panoramic','fisheye','perspective'])assert(r.cameras.includes(c));assert(!r.cameras.includes('multi'));
+  assert.equal(r.loopClosure,true);assert.equal(r.imu,false);assert.equal(r.scale,'relative');assert.equal(r.depthType,'range');assert.equal(r.codeStatus,'none');assert(r.cameraSupport.every(c=>c.availability==='paper'));
+  assert.match(r.inputs.projection,/TablesXIV-XV/);assert.match(r.scaleNote,/Sim\(3\)/);assert.match(r.notes.join(' '),/UniDAC pseudo depth/);
+  const b=boot('?collection=slam&category=panoramic&q=S2D-FVO&lang=zh');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/回环/);b.dom.window.close();
+});
+check('CoSphere separates independent agents from co-centered faces and offline refinement',()=>{
+  const r=catalog.records.find(r=>r.id==='cosphereslam2026');assert(r);assert.deepEqual(r.cameras,['panoramic','multi']);assert.equal(r.scale,'relative');assert.equal(r.loopClosure,true);assert.equal(r.imu,false);assert.equal(r.codeStatus,'none');assert.match(r.inputs.extrinsics,/not supplied/);
+  assert.match(r.notes.join(' '),/independent real agent streams/);assert.match(r.outputDetails.runtime,/offline/);assert.match(r.scaleNote,/future work/);
+  const b=boot('?collection=slam&category=panoramic&q=CoSphere&lang=en');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/offline/);b.dom.window.close();
+});
+check('DEFDVO preserves sparse inverse range, relative pose and the README-only release',()=>{
+  const r=catalog.records.find(r=>r.id==='defdvo2026');assert(r);assert.deepEqual(r.cameras,['panoramic']);assert.equal(r.scale,'relative');assert.equal(r.depthType,'inverse');assert.equal(r.loopClosure,false);assert.equal(r.imu,false);assert.equal(r.codeStatus,'none');assert(r.codeUrl);
+  assert.match(r.outputDetails.depth_convention,/inverse Euclidean radial range/);assert.match(r.notes.join(' '),/only README/);assert.match(r.notes.join(' '),/future work/);assert.match(r.scaleNote,/Sim\(3\)/);
+  const b=boot('?collection=slam&category=panoramic&q=DEFDVO&lang=zh');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/稀疏|逆径向/);b.dom.window.close();
+});
+check('sqrtVINS challenge entry uses dual fisheye and IMU rather than an external ERP interface',()=>{
+  const r=catalog.records.find(r=>r.id==='sqrtvins3602026');assert(r);assert(r.cameras.includes('fisheye')&&r.cameras.includes('multi'));assert(!r.cameras.includes('panoramic'));assert.equal(r.imu,true);assert.equal(r.loopClosure,true);assert.equal(r.scale,'metric');assert.equal(r.depthType,'none');assert.equal(r.codeStatus,'none');assert.match(r.inputs.extrinsics,/baseline/);assert.match(r.outputSummary,/non-causal/);
+  const b=boot('?collection=slam&category=fisheye&q=sqrtVINS&lang=en');assert.equal(b.api.getFilteredRecords().length,1);b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/non-causal/);b.dom.window.close();
+});
+check('Spatial Foundry remains a pending synthetic resource with unconfirmed numeric GT access',()=>{
+  const r=catalog.records.find(r=>r.id==='ds_spatialfoundry');assert(r);assert.equal(r.reality,'synthetic');assert.deepEqual(r.environment,['indoor']);assert.equal(r.access,'unknown');assert.equal(r.curation.tier,'pending');
+  for(const k of ['depth','trajectory']){assert.equal(r.annotations[k].status,'unknown');assert.deepEqual(r.annotations[k].provenance,['rendered']);}assert(r.cameraSupport.every(c=>c.route==='rendered'&&c.availability==='announced'));assert.equal(r.figure.kind,'dataset-preview');assert.equal(r.figure.verified,true);
+  const b=boot('?collection=datasets&category=panoramic&lang=en');b.api.setFilter('reality','synthetic');b.api.setFilter('depthGT','unknown');assert(b.api.getFilteredRecords().some(x=>x.id===r.id));b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/unconfirmed|unverified|not established/);b.doc.getElementById('detail-dialog').close();b.api.setLanguage('zh');b.api.openRecord(r.id);assert.match(b.doc.getElementById('detail-content').textContent,/待核实|未确认/);b.dom.window.close();
+});
+check('weekly releases preserve DEX alignment and license scope, PaGeR figure version and OKVIS fix scope',()=>{
+  const byId=new Map(catalog.records.map(r=>[r.id,r]));const dex=byId.get('dex2026');assert.equal(dex.codeStatus,'partial');assert.match(dex.weightsUrl,/Rit888\/DEX$/);assert.match(dex.license.code,/conflict/);assert.match(dex.notes.join(' '),/scale\+shift alignment/);assert.match(dex.notes.join(' '),/0\.5-40m/);assert(dex.cameraSupport.every(c=>c.availability==='released'));
+  const pager=byId.get('pager');assert.match(pager.paperUrl,/v3$/);assert.match(pager.figure.paperUrl,/v2$/);assert.match(pager.notes.join(' '),/nine DAP comparison cells.*unchanged/);assert.match(byId.get('okvis2x2025').notes.join(' '),/cols\(\).*size\(\)/);
 });
 assert.deepEqual(a.errors,[]);a.dom.window.close();
 const report={suite:'real-catalog DOM integration (not browser visual QA)',passed:passed.length,checks:passed,records:catalog.records.length};

@@ -1136,5 +1136,33 @@
       "https://arxiv.org/html/2611.07873v1"
     ],
     "checked": "2026-11-09"
+  },
+  "ds_spatialfoundry": {
+    "depth": {
+      "status": "unknown",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Paper describes rendered metric depth, conventions and masks, but full downloadable arrays and coverage are unconfirmed. Figure2 is a colorized illustration.",
+        "zh": "论文描述渲染公制深度、约定及掩码，但完整数组下载与覆盖未确认；Figure2是着色示意。"
+      }
+    },
+    "trajectory": {
+      "status": "unknown",
+      "provenance": [
+        "rendered"
+      ],
+      "note": {
+        "en": "Paper describes per-frame rendered camera-to-world poses/timestamps. Numeric manifests and full released coverage are unconfirmed; not independently tracked real truth.",
+        "zh": "论文描述逐帧渲染相机到世界位姿及时间戳；数值清单与完整发布覆盖未确认，也非独立跟踪的真实真值。"
+      }
+    },
+    "evidence": [
+      "https://arxiv.org/abs/2611.17318v1",
+      "https://arxiv.org/html/2611.17318v1",
+      "https://ranolabs.com/Blog/spatial-foundry"
+    ],
+    "checked": "2026-11-23"
   }
 }

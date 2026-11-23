@@ -801,5 +801,28 @@
       }
     ],
     "checked": "2026-11-09"
+  },
+  "ds_spatialfoundry": {
+    "tier": "pending",
+    "rank": 4,
+    "scope": {
+      "en": "Synthetic indoor depth and camera-path geometry",
+      "zh": "合成室内深度与相机路线几何"
+    },
+    "reason": {
+      "en": "A new scene-based multimodal resource with explicit ERP/pinhole geometry, but no verified full archive, split or data terms. Place after mature accessible benchmarks.",
+      "zh": "新场景级多模态资源明确ERP／针孔几何，但完整压缩包、划分及数据条款尚未核实，应排在成熟可获取基准后。"
+    },
+    "evidence": [
+      {
+        "url": "https://arxiv.org/abs/2611.17318v1",
+        "title": "Original modality inventory"
+      },
+      {
+        "url": "https://ranolabs.com/Blog/spatial-foundry",
+        "title": "Official project release-access review"
+      }
+    ],
+    "checked": "2026-11-23"
   }
 }

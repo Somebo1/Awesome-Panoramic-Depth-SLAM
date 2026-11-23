@@ -1265,5 +1265,287 @@
   "lingbot_depth2026": "pyproject.toml 指定 Python≥3.9、torch==2.6.0、xformers==v0.0.29.post2，另需 torchvision、OpenCV、SciPy、NumPy、Pillow、huggingface_hub。入口为 mdm.model.v2.MDMModel；源码 use_fp16 实际启用 bfloat16 自动混合精度。本次未安装模型环境或运行推理。"
 });
   families["RGB-D depth completion and refinement"]="RGB-D 深度补全与精化";
+  // Verified weekly additions and releases, 2026-11-23.
+  Object.assign(summaries, {
+  "eg3602026": "A compact ERP student distills DAP and MoGe2 using geometry-adaptive teacher weights and spherical feature fusion. It predicts metric radial depth and emphasizes embedded efficiency; official code and weights remain unverified.",
+  "s2dfvo2026": "Couples spherical bundle adjustment and learned radial-depth references for monocular tracking, with Sim(3) loop correction. Fisheye, ERP and pinhole are explicitly tested in the paper; scale-aligned evaluation and unpublished artifacts remain separate limitations.",
+  "cosphereslam2026": "Collaborative ERP Gaussian SLAM uses spherical loop matching, global Sim(3) consensus and per-keyframe scale correction to merge agent maps. The result remains monocular-relative, includes offline server refinement, and estimator code is pending.",
+  "defdvo2026": "A DPVO-style ERP odometry model adds spherical-prior deformable features, seam-aware optimization and spherical patch sampling. It estimates relative poses and sparse inverse radial range; loop closure is future work and the official repository is still README-only.",
+  "sqrtvins3602026": "A Hilti2026 system combines calibrated dual-fisheye+IMU square-root VIO with loop/cross-view factors and non-causal GTSAM refinement. Its metric evidence comes from IMU and a real baseline; internal ERP descriptors do not establish full-ERP input.",
+  "dex2026": "A frozen-backbone adapter predicts raw-fisheye depth. November10 releases MDE training/evaluation code and three adapter checkpoints, while segmentation remains pending. Default radial range, optional raw-Z training and GT scale/shift alignment are distinct."
+});
+  Object.assign(zhRecords, {
+  "eg3602026": [
+    "单张完整 ERP RGB；DAP 与 MoGe2 仅为训练教师，无需运行时输入。",
+    "输出 ERP 网格上的稠密公制欧氏径向深度，由预测的公制逆深度取倒数得到。",
+    "公制监督与教师提供学习尺度，评测无真值对齐；属于作者报告的公制预测，不代表本站独立验证绝对精度。",
+    [
+      "APPD 同时蒸馏 DAP 的 ERP 逆径向深度与 MoGe2 的 cubemap 逆径向深度；归一化平面拟合残差使平面视图获得更大的全景教师权重。",
+      "训练含562815组合成有标签图对与73701张无标签真实全景；仿真监督和教师估计参考来源不同，教师不是传感器或独立真值。",
+      "SCFF 以球面方向偏置和全景填充融合两个最粗编码层。所选 Figure3 是该模块图，不是整套系统总览。",
+      "表3无真值对齐；DAP 在三个评测集的 AbsRel 均更低：0.137／0.072／0.195 对比 EG360 的0.173／0.094／0.237。价值是作者报告的效率与精度折中，不能写成精度超过 DAP。",
+      "Jetson 计时不含I/O与CPU预处理，且采用各模型原生分辨率；轻量基线有重训练，基础模型直接用既有权重，不能把35FPS推广为机器人整条感知链路吞吐。",
+      "原摘要承诺未来代码；未核实官方学生实现、检查点、API或许可，已公开 ZipDepth 基础模型不等于 EG360 发布。",
+      "原摘要承诺未来开放代码；截至本轮未核实 EG360 学生实现、检查点及其许可，ZipDepth 基础权重不等于 EG360 已发布。"
+    ]
+  ],
+  "s2dfvo2026": [
+    "单路有序、已标定单目图像；主实验为原始鱼眼，V-A节另行测试针孔与 ERP 序列。",
+    "估计相机轨迹与稀疏三维路标，DepthNet 同时提供用于尺度参考的径向深度图。",
+    "DepthNet提供与训练有关的尺度参考，单目几何仍有规范歧义；轨迹经一次全局Sim(3)对齐，基础深度比较做中位数对齐，尺度一致不等于独立验证的绝对米制。",
+    [
+      "主鱼眼流程的ERP重映射本身不证明全景输入；V-A节另有TartanAirV2完整ERP及针孔深度／VO实验，因此三类相机均有论文证据。",
+      "DepthNet先用UniDAC伪深度预训练，再作球面BA指导的光度训练；“无监督”不代表没有学习尺度先验或伪标签初始化。",
+      "IV-C节对轨迹作一次全局Sim(3)对齐，表VII对基础模型深度作中位数对齐；这些数字不证明未对齐米制轨迹或直接超过DAP。",
+      "论文确有几何回环验证与全局Sim(3)位姿图校正，标题写VO不代表没有回环。",
+      "原始鱼眼需要标定以球面反投影／重映射，所述单目流程无需IMU或已标定双目基线。",
+      "论文介绍NIO-Fisheye、Blender-Fisheye及派生ScanNet++／TartanAir划分，但承诺未来公布划分不等于数据已可下载。",
+      "深度中位数可抑制孤立离群点，无法去掉系统偏差；低视差与纯旋转削弱路标深度，未声称已解决校准不确定性。",
+      "已核查原论文；尚未核实官方系统、DepthNet权重与新增数据／划分的完整公开发布。"
+    ]
+  ],
+  "cosphereslam2026": [
+    "多台独立运动的全景相机提供单目ERP流，不给定初始智能体间位姿或尺度。",
+    "输出逐关键帧相机到世界的相似变换、对齐智能体轨迹及融合3D高斯地图；局部球面深度辅助跟踪建图。",
+    "相对单目几何加逐关键帧Sim(3)漂移校正；Metric3D学习先验不等于外部测量的米制全局尺度，论文将惯性／测距米制约束列为未来工作。",
+    [
+      "论文明确完整ERP输入；共心cubemap只是内部投影，不产生物理立体。多相机属性指不同真实智能体的相机流，而不是六个虚拟面。",
+      "Metric3D仅提供早期深度先验，后续关键帧依赖多视图光流和回环；相似变换优化能减漂移，不能观测绝对米制尺度。",
+      "服务器先用环描述子、倾角搜索与FFT偏航相关，再作全局Sim(3)一致性验证；实际倾角搜索配置有限，不能据任意朝向描述推断覆盖所有SO(3)变化。",
+      "Holo360D的50段源视频派生200条虚拟智能体路线，5场景开发、45测试；360Loc用18条独立昼夜路线。派生协议不等于新原始数据发布或独立实测真值。",
+      "A100全局细化离线运行；每智能体1Hz、局部建图耗时和服务器优化不能合成一个实时整链路速率。",
+      "官方项目提供地图交互预览并承诺后续开放代码／基准工具；网页代码和资源不是估计器实现，尚无已核实完整代码或权重。",
+      "官方项目只有论文、图像和交互地图预览，明确承诺后续公开代码及基准工具；未核实估计器实现和权重，网页源码不等于算法发布。"
+    ]
+  ],
+  "defdvo2026": [
+    "有序完整ERP RGB视频；不输入深度、IMU或运行轨迹。",
+    "估计世界到相机轨迹，以及递归patch图中联合优化的稀疏逆径向距离。",
+    "相对单目几何；训练位姿损失和轨迹评测均使用Sim(3)对齐。米制源标签与以米报告ATE不证明推理绝对米制。",
+    [
+      "论文明确外部完整ERP输入；TartanAir六个源面是共心渲染产品，不构成物理立体输入。",
+      "稀疏逆径向距离替代逆光轴Z；patch候选限制在±75度纬度内以避极点，不能宣称每个球面像素都有稠密深度。",
+      "仅用TartanAirV2合成ERP训练；真实360DVO基准是SfM参考，不是独立跟踪真值，两个TartanAir评测划分分别保留。",
+      "训练位姿损失与ATE均作Sim(3)对齐；论文支持相对轨迹精度，未证明绝对米制或直接DAP深度优劣。",
+      "论文明确将回环与全局优化列为未来工作，因此按VO收录，不标为已有回环SLAM。",
+      "摘要称代码可用，但官方main提交ebb70e4下只有README并写即将发布；未核实估计器、权重或许可。",
+      "WACV2027录用来自作者arXiv说明，最终论文集未核实，不当作已经出版或重复新条目。",
+      "摘要称代码可用，但已核实官方main只有README并写即将发布；估计器、权重和许可尚未开放核实。"
+    ]
+  ],
+  "sqrtvins3602026": [
+    "Hilti2026平台提供的同步前／后原始鱼眼双流＋IMU，不输入LiDAR或深度图。",
+    "输出局部公制cam0视觉惯性轨迹，再经回环／跨相机约束和非因果GTSAM批优化校正。",
+    "标定IMU提供局部公制VIO，已知相机基线和跨视图约束支持强正则全局尺度修正；全局原点和偏航仍需规范选择。",
+    [
+      "“360”硬件名指双原始鱼眼＋IMU；内部ERP描述子视图不证明独立完整ERP或针孔入口。",
+      "非零真实相机基线提供跨视图米制约束，与共心虚拟面不同；不向本系统输入LiDAR或稠密深度。",
+      "最终轨迹非因果，后续回环与BA会修正过去位姿，不能把挑战优化轨迹当作零延迟在线VIO流。",
+      "报告使用挑战估计参考轨迹／平面图协议；与平面图对齐或排名说明不独立验证参考精度。",
+      "sqrtVINS是已有前端，本报告介绍不同的双鱼眼挑战配置与后端，不是底层前端重新发表。",
+      "尚未确立作者链接的完整挑战实现、权重组合和许可；文中ROS2工作区描述不等于已验证代码发布。",
+      "已核查技术报告，尚未确立作者链接的完整挑战实现、权重组合及再利用条款；文中ROS2工作区描述不等于已核实发布。"
+    ]
+  ],
+  "dex2026": [
+    "单张原始鱼眼RGB用于已发布深度适配；分割的文本类别输入仍是论文能力，代码待发布。",
+    "默认发布深度配置由冻结基础模型＋DEX输出欧氏径向距离R；显式以output_reference_frame=depth重训练则改为原始Z，分割不在已核实MDE发布范围。",
+    "尺度随骨干／教师及权重变化：相对MiDaS／DepthAnything和公制UniDepthV2须区分。公开评测逐图拟合真值尺度与偏移，不证明未对齐的米制精度。",
+    [
+      "ECCV2026身份及arXiv v2未变；11月10日是在此前仅LICENSE核查之后新增深度实现与权重，不是新论文。",
+      "已查main.py／train.py／eval.py／model.py及深度评测／转换源码；README明确当前仅开放单目深度，开放词汇分割仍即将发布。",
+      "公开无门控Rit888/DEX在ec31e44修订列出dex_unidepth.pth、dex_midas.pth、dex_depthanything.pth，均为适配权重，冻结基础模型另行获取。",
+      "UniDepth包装器实际导入UniDepthV2并加载lpiccinelli/unidepth-v2old-vits14；不能以旧训练环境或泛称UniDepth代替确切发布版本。",
+      "默认distance模式为径向range，显式depth模式训练保留原始Z；ScanNet++评测把R转Z，KITTI-360评测R。预测免标定不代表训练／评测几何转换不需标定。",
+      "实际评测先水平翻转平均，再逐图作最小二乘尺度＋偏移对齐。ScanNet++对齐／评分0.01—20米；KITTI-360对齐0.5—40米、评分0.01—80米，不是未对齐公制证据。",
+      "新公开DEX_KITTI360_Eval模型卡描述400图及400张1400×1400、float32米制径向距离图，零表示无效；这是KITTI-360派生评测子集，不是新独立采集或自动等于稠密实测真值，本轮未下载载荷。",
+      "LICENSE与权重模型卡声明Apache-2.0，但同一README限定研究用途；保留尚未澄清的适用范围冲突，不宣称全栈宽松许可。",
+      "本次发布仍未核实完整ERP、直接DAP比较、独立校准不确定性或连续位姿输出。",
+      "部分发布：11月10日开放单目深度训练／评测与三种适配权重，开放词汇分割代码仍待发布。"
+    ]
+  ]
+});
+  Object.assign(specifications, {
+  "eg3602026": {
+    "input": {
+      "frames": "单张完整 ERP RGB；DAP 与 MoGe2 仅为训练教师，无需运行时输入。",
+      "projection": "学生模型直接接受完整 ERP；训练中的 cubemap 教师不证明学生支持原始鱼眼或独立针孔输入。",
+      "intrinsics": "ERP 推理未要求实测镜头标定；训练使用已知球面及虚拟90度 cubemap 几何。",
+      "resolution": "论文以512×1024 ERP训练；效率比较采用各模型原生输入分辨率，尚未核实公开 resize/API。",
+      "extrinsics": "单图推理无需实测位姿或地图。",
+      "imu": "无需。",
+      "gravity": "训练中 TartanAir 全景离线转正；未记录运行时实测重力输入。",
+      "synchronization": "单图输入；拼接质量由外部流程负责。"
+    },
+    "output": {
+      "primary": "输出 ERP 网格上的稠密公制欧氏径向深度，由预测的公制逆深度取倒数得到。",
+      "point_map": "未核实公开点图头或导出器；尺度有效时可结合球面射线派生三维点。",
+      "normal": "未记录表面法线输出。",
+      "confidence": "未记录校准深度置信度输出。",
+      "camera_parameters": "不估计标定或相机轨迹。",
+      "depth_convention": "论文3节以 D=1/s 定义输出；MoGe2 的 cubemap 光轴 Z 先转换为径向距离再蒸馏逆距离。最终 ERP 为 range；天空教师目标设为1000米，并非天空实测有限距离。",
+      "metric_status": "学习公制尺度，论文评测不使用真值对齐。",
+      "pose_output": "不输出相机位姿、轨迹或 SLAM 状态。",
+      "runtime": "作者报告：重参数化后6.593M参数、23.492GFLOPs，在 Jetson Orin NX16GB MAXN、PyTorch eager、AMP FP16、batch1下28.509ms／35.08FPS；预热后300次前向均值，不含I/O与CPU预处理，本站未复现。"
+    }
+  },
+  "s2dfvo2026": {
+    "input": {
+      "frames": "单路有序、已标定单目图像；主实验为原始鱼眼，V-A节另行测试针孔与 ERP 序列。",
+      "projection": "鱼眼内部重映射到 ERP；表XIV—XV还单独评测 TartanAirV2 的 ERP／针孔深度与VO，三类支持并非仅由内部重映射推断。",
+      "intrinsics": "需要所选中心相机的投影／反投影与标定；鱼眼覆盖统一、Kannala–Brandt、多项式及等距模型。",
+      "resolution": "主 DepthNet 以512×512重映射图和10帧训练窗口训练；独立 ERP／针孔实验尺寸尚无公开 API 可核对。",
+      "extrinsics": "所述单目推理不要求多相机基线、外部地图或已知运行轨迹。",
+      "imu": "无需。",
+      "gravity": "未记录IMU或实测重力输入。",
+      "synchronization": "单路有序图像，无多相机或外部传感器同步要求。"
+    },
+    "output": {
+      "primary": "估计相机轨迹与稀疏三维路标，DepthNet 同时提供用于尺度参考的径向深度图。",
+      "point_map": "优化稀疏路标；未核实独立稠密点图头或公开导出器。",
+      "normal": "未记录法线输出。",
+      "confidence": "没有校准的深度／尺度不确定性输出，论文将不确定性感知正则列为未来工作。",
+      "camera_parameters": "使用已知投影，估计相机位姿而非未知传感器内参。",
+      "depth_convention": "深度为单位射线上的欧氏径向距离；球面BA约束路标与 DepthNet 的深度中位数，而非逐点强制相等，range不等于光轴Z。",
+      "metric_status": "学习深度提供尺度参考，轨迹按全局Sim(3)对齐评测。",
+      "pose_output": "输出单目估计轨迹和回环后位姿；绝对米制尺度未获独立验证。",
+      "runtime": "作者报告在 Core Ultra9 285K＋RTX5090、ONNX Runtime下约10FPS；局部建图和已验证回环校正另有异步开销，本站未复现。"
+    }
+  },
+  "cosphereslam2026": {
+    "input": {
+      "frames": "多台独立运动的全景相机提供单目ERP流，不给定初始智能体间位姿或尺度。",
+      "projection": "外部直接输入完整ERP，内部重采样为六个共心90度cubemap面；未核实原始鱼眼或独立针孔入口。",
+      "intrinsics": "使用已知ERP球面几何、虚拟面固定旋转与标定；真实镜头和拼接标定由外部完成。",
+      "resolution": "局部跟踪为6×256×256，局部ERP建图1024×512，离线全局细化2048×1024。",
+      "extrinsics": "智能体间变换由重叠观测估计，不是已标定刚性rig；虚拟cube面共享光心且旋转固定。",
+      "imu": "无需。",
+      "gravity": "未记录实测重力输入。",
+      "synchronization": "可跨会话通过重访匹配，不要求硬同步相机rig；需场景重叠与静态结构。"
+    },
+    "output": {
+      "primary": "输出逐关键帧相机到世界的相似变换、对齐智能体轨迹及融合3D高斯地图；局部球面深度辅助跟踪建图。",
+      "point_map": "高斯场景含三维均值，并非已核实的独立稠密点图网络头。",
+      "normal": "未记录独立法线头。",
+      "confidence": "回环方向权重建模不同误差来源，不是校准逐像素深度不确定性。",
+      "camera_parameters": "估计智能体间／关键帧变换及尺度修正，不预测原始相机内参。",
+      "depth_convention": "局部球面深度D:S²→R+和高斯渲染沿观测射线定义，不能用一个正光轴Z覆盖全景；Metric3D先验跨重叠面尺度对齐，代码未发布时无法核查实际Z转range及导出细节。",
+      "metric_status": "单目尺度仍不确定，逐关键帧Sim(3)仅校正漂移。",
+      "pose_output": "输出智能体估计轨迹及关键帧相似变换，全局单目尺度不可观。",
+      "runtime": "作者报告每智能体在线1Hz输入、7.8GiB显存；A100上75k次、每步0.32秒的全局细化与对齐是离线的，尚非端到端实时协作SLAM，本站未运行。"
+    }
+  },
+  "defdvo2026": {
+    "input": {
+      "frames": "有序完整ERP RGB视频；不输入深度、IMU或运行轨迹。",
+      "projection": "特征、相关性与球面BA均处理2:1 ERP；未核实原始鱼眼或独立针孔模式。",
+      "intrinsics": "由ERP尺寸定义球面映射：fx=W/(2π)、fy=H/π、主点为图心，不是实测针孔内参。",
+      "resolution": "2048×1024训练源ERP按0.5倍处理；默认每帧192个patch、0.5倍推理，360DVO由3840×1920降为1920×960。",
+      "extrinsics": "无需给定外参、相机基线或已有地图。",
+      "imu": "无需。",
+      "gravity": "未记录实测重力输入。",
+      "synchronization": "有序单路图像，原视频10FPS与模型报告的7.1FPS推理不同。"
+    },
+    "output": {
+      "primary": "估计世界到相机轨迹，以及递归patch图中联合优化的稀疏逆径向距离。",
+      "point_map": "可由逆距离反投影稀疏patch几何，未核实独立稠密深度或点图产品。",
+      "normal": "未记录表面法线输出。",
+      "confidence": "学习匹配权重，不是已校准的深度置信度。",
+      "camera_parameters": "估计位姿，不预测原始相机标定。",
+      "depth_convention": "每个patch保存d=1/‖P‖，是全景欧氏逆径向距离，替换DPVO逆Z；水平残差按ERP宽度环绕，正逆距离不能当正相机Z。",
+      "metric_status": "尺度不变／相对单目几何，训练和轨迹评测含Sim(3)对齐。",
+      "pose_output": "输出相机估计轨迹，保留相似变换歧义。",
+      "runtime": "作者在RTX A5000、192patch、1920×960下报告7.1FPS；全分辨率约450ms／帧，半分辨率约140ms／帧，本站未运行。"
+    }
+  },
+  "sqrtvins3602026": {
+    "input": {
+      "frames": "Hilti2026平台提供的同步前／后原始鱼眼双流＋IMU，不输入LiDAR或深度图。",
+      "projection": "两相机均用已标定EUCM；ERP仅用于内部描述子／数据库，未证明外部拼接完整ERP入口。",
+      "intrinsics": "需要EUCM内参与畸变标定，后端在强正则下细化，不是免标定方法。",
+      "resolution": "报告未提供已发布统一resize/API；应保持挑战原图与标定分辨率一致。",
+      "extrinsics": "需相机间和相机—IMU标定及真实基线；后端在先验下细化共享E01。",
+      "imu": "需要。",
+      "gravity": "IMU为弱曼哈顿线模型提供竖直参考，水平方向不固定。",
+      "synchronization": "需要挑战双鱼眼与IMU的时序和标定；前后相机具有真实基线，不是虚拟cubemap面。"
+    },
+    "output": {
+      "primary": "输出局部公制cam0视觉惯性轨迹，再经回环／跨相机约束和非因果GTSAM批优化校正。",
+      "point_map": "稀疏BA路标参与优化，未确立稠密深度或稠密地图产品。",
+      "normal": "无法线输出头。",
+      "confidence": "因子协方差和正则不等于校准稠密深度置信度。",
+      "camera_parameters": "在先验下细化共享内参、外参和一个全局尺度修正。",
+      "depth_convention": "未确立稠密深度输出；稀疏三角化路标及公制轨迹由标定双相机／IMU约束，不是学习式单目range或Z深度图。",
+      "metric_status": "IMU与已知物理基线约束公制局部尺度。",
+      "pose_output": "输出cam0轨迹；最终回环／BA细化导出使用未来观测，属于非因果。",
+      "runtime": "报告未确立可复现端到端吞吐／延迟；最终轨迹依赖后续回环与BA，不能视为零延迟在线VIO，本轮未运行。"
+    }
+  },
+  "dex2026": {
+    "input": {
+      "frames": "单张原始鱼眼RGB用于已发布深度适配；分割的文本类别输入仍为论文能力，代码待发布。",
+      "projection": "已评测DEX直接输入原始鱼眼，未确立完整ERP接口；透视图用于训练教师，不等于已发布统一相机推理入口。",
+      "intrinsics": "所述预测无需实测标定或校正；训练依赖已标定透视内参与合成KB变换，评测也需要标定做几何转换。",
+      "resolution": "公开评测采用ScanNet++的462×616与KITTI-360的700×700裁剪，可配置尺寸并按骨干对齐；已有split／mask文件，本站未推理。",
+      "extrinsics": "所述单图预测不要求外参。",
+      "imu": "无需。",
+      "gravity": "未记录实测重力输入。",
+      "synchronization": "单张图像，无时序或外部传感器同步输入。"
+    },
+    "output": {
+      "primary": "默认深度配置由冻结骨干＋DEX输出径向R；显式depth模式重训练则输出原始Z，分割不在已核实MDE发布范围。",
+      "point_map": "未核实独立点图头或导出器；公制点需要正确射线与尺度。",
+      "normal": "未记录独立法线头。",
+      "confidence": "DEX未记录额外校准的深度不确定性头。",
+      "camera_parameters": "论文分析可从激活解码畸变系数，但MDE发布中未核实独立标定导出API。",
+      "depth_convention": "默认output_reference_frame=distance先将教师Z转R；显式depth训练保留原始Z。ScanNet++将默认R按KB标定转Z后评测，KITTI-360评测R，必须核对检查点／训练模式。",
+      "metric_status": "骨干与检查点决定尺度，含相对和公制来源。",
+      "pose_output": "不输出相机位姿、轨迹或SLAM状态。",
+      "runtime": "未本地测量速度／显存；论文四张RTX3090训练配置不等于推理硬件要求。"
+    }
+  }
+});
+  Object.assign(licenses, {
+  "eg3602026": {
+    "code": "未核实可用实现的许可。",
+    "weights": "未核实已发布权重及其条款。"
+  },
+  "s2dfvo2026": {
+    "code": "未核实可用实现的许可。",
+    "weights": "未核实已发布权重及其条款。"
+  },
+  "cosphereslam2026": {
+    "code": "未核实可用实现的许可。",
+    "weights": "未核实已发布权重及其条款。"
+  },
+  "defdvo2026": {
+    "code": "未核实可用实现的许可。",
+    "weights": "未核实已发布权重及其条款。"
+  },
+  "sqrtvins3602026": {
+    "code": "未核实可用实现的许可。",
+    "weights": "未核实已发布权重及其条款。"
+  },
+  "dex2026": {
+    "code": "官方LICENSE为Apache-2.0，但同一固定README声明仅限研究用途，适用范围冲突尚未澄清；第三方基础模型与依赖保留各自条款。",
+    "weights": "Rit888/DEX模型卡对三种适配权重声明Apache-2.0；基础模型另有条款，且仓库README含研究用途限制，模型卡不解决全栈权利范围。"
+  }
+});
+  Object.assign(environments, {
+  "eg3602026": "论文使用 PyTorch、RTX2080Ti训练，AdamW、AMP FP16；Jetson测试配置另列。未核实可安装的官方环境，本轮未运行模型。",
+  "s2dfvo2026": "论文实现为C++、g2o／LM；ResNet18 DepthNet、SuperPoint、SphereGlue由PyTorch导出ONNX并以ONNX Runtime执行，公开构建配置未核实，本轮未运行。",
+  "cosphereslam2026": "论文采用DROID-SLAM、Metric3D及高斯渲染，服务器A100离线细化；完整公开依赖与可复现安装环境尚未核实，本轮未运行。",
+  "defdvo2026": "论文使用DPVO式递归图、DCNv2与GPU可微BA，H100训练120k步；官方可安装实现与权重尚未核实，本轮未运行。",
+  "sqrtvins3602026": "报告采用sqrtVINS点线前端、SuperPoint／LightGlue、ELSED、Zero-DCE++、YOLO26、SALAD、GTSAM与ROS2；完整挑战工作区及组件许可未核实，本轮未运行。",
+  "dex2026": "官方README使用Python3.8、torch2.2.0+cu118、torchvision0.17.0、torchaudio2.2.0及xformers0.0.24，typing-extensions<4.13、NumPy<2.0；UniDepth包装器加载unidepth-v2old-vits14，基础权重／数据另备。本轮未安装或运行。"
+});
+  families["efficient panoramic metric depth estimation"]="高效全景公制深度估计";
+  families["spherical bundle adjustment with learned-depth reference and loop closure"]="带学习深度参考与回环的球面BA";
+  families["multi-agent panoramic Gaussian SLAM with similarity-graph correction"]="带相似图校正的多智能体全景高斯SLAM";
+  families["patch-based learning visual odometry with ERP seam-aware bundle adjustment"]="带ERP接缝球面BA的patch学习式里程计";
+  families["dual-fisheye visual-inertial filtering with offline factor-graph refinement"]="双鱼眼视觉惯性滤波与离线因子图细化";
+  families["single-image fisheye depth adaptation"]="单图鱼眼深度适配";
+  zhRecords.pager[3].push("11月10日arXiv v3新增Holo360D评测列及消融／协议说明，原v2的9个DAP比较单元数值不变，包括Matterport3D360的δ₁例外；修订不等于新权重或新数据发布。原Figure2配图已固定指向PDF v2，与本地指纹一致。");
+  zhRecords.okvis2x2025[3].push("11月11日官方提交a246c7a将等距、径向切向及针孔相机的参数向量检查由cols()改为size()；这是标定参数处理修复，不是新增ERP／相机模式，也未独立证明精度提升。");
   window.ATLAS_I18N = { ui, summaries, zhRecords, families, licenses, environments, specifications };
 })();

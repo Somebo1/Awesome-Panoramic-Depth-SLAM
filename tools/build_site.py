@@ -7,7 +7,7 @@ import shutil
 from urllib.parse import urlparse
 
 ROOT=Path(__file__).resolve().parents[1]
-UPDATED='2026-11-09'
+UPDATED='2026-11-23'
 REPO_URL='https://github.com/Somebo1/Awesome-Panoramic-Depth-SLAM'
 
 # Explicit reviewed labels: substring search is not a test of camera support.
@@ -43,6 +43,8 @@ DEPTH['dex2026']=('DEX (Distortion Extenders)', ['fisheye', 'wide'], 'mixed', 'r
 DEPTH['any3r2026']=('Any3R', ['panoramic', 'fisheye', 'wide', 'perspective'], 'relative', 'range', '以已知逐像素射线条件化角度位置编码与立体角损失，直接融合完整 ERP、鱼眼和针孔多视图，预测径向距离、点图和相对位姿；尺度仍不确定，需要相机标定。')
 DEPTH['pvdepth2026']=('PVDepth', ['panoramic'], 'relative', 'inverse', '将 DepthCrafter 适配到完整 ERP 视频，以渐进球面噪声和 cubemap 时序分支改善几何与时间一致性；公开输出为保留尺度和偏移歧义的相对逆径向距离，代码与 UNet 权重已发布。')
 DEPTH['lingbot_depth2026']=('LingBot-Depth', ['perspective'], 'metric', 'z', '以 RGB 与已有的噪声／缺失深度联合进行 Masked Depth Modeling，补全并精化公制 Z-depth；公开推理需要深度输入，可用针孔内参反投影点云，尚无完整 ERP 或原始鱼眼支持证据。')
+DEPTH['eg3602026']=('EG360',['panoramic'],'metric','range','以几何自适应权重蒸馏 DAP 与 MoGe2，并融合球面跨层特征，预测完整 ERP 公制径向深度；重点是嵌入式效率，官方学生代码与权重尚未核实。')
+DEPTH['dex2026']=('DEX (Distortion Extenders)',['fisheye','wide'],'mixed','range','以轻量DEX调制冻结基础模型，适配原始鱼眼径向深度；11月10日已开放深度训练／评测代码与三种适配权重，分割仍待发布。默认range与可选Z训练模式及真值尺度／偏移对齐需区分。')
 CAMERAS={'panoramic_erp':'panoramic','erp':'panoramic','panoramic':'panoramic',
  'fisheye':'fisheye','wide_fov':'wide','wide-angle':'wide','wide-fov':'wide',
  'perspective':'perspective','pinhole':'perspective','multi-camera':'multi','multi_camera':'multi'}
@@ -68,6 +70,10 @@ SLAM_DEPTH['holorecon2026']='points'
 SCALE_OVERRIDES['openvio2026']='metric'
 CODE_OVERRIDES.update(openvio2026='released',pvdepth2026='released',lingbot_depth2026='released')
 NO_DENSE_DEPTH.add('openvio2026')
+SCALE_OVERRIDES.update(s2dfvo2026='relative',cosphereslam2026='relative',defdvo2026='relative',sqrtvins3602026='metric')
+CODE_OVERRIDES.update(dex2026='partial',eg3602026='none',s2dfvo2026='none',cosphereslam2026='none',defdvo2026='none',sqrtvins3602026='none')
+SLAM_DEPTH.update(s2dfvo2026='range',cosphereslam2026='range',defdvo2026='inverse',sqrtvins3602026='none')
+NO_DENSE_DEPTH.add('sqrtvins3602026')
 DEPTH_METRIC_STATUS={k:('metric_learned' if v[2]=='metric' else 'scale_invariant' if v[2]=='relative' else
                       'mixed_checkpoints' if v[2]=='mixed' else 'unknown') for k,v in DEPTH.items()}
 DEPTH_METRIC_STATUS.update(unifuse='dataset_scale_only',panoformer='dataset_scale_only')
@@ -79,6 +85,7 @@ ALIASES={'depth_anything_v2':['DAv2','DA2 perspective'],'depth_anything_3':['DA3
          'metric3d_v2':['Metric3D','Metric3Dv2'],'vggt_omega':['VGGT-Omega'],
          'video_depth_anything':['VideoDA','VDA']}
 
+ALIASES.update(eg3602026=['EG360','APPD','SCFF'],s2dfvo2026=['S2D-FVO','S²D-FVO','SBA-guided depth'],cosphereslam2026=['CoSphere','CoSphere-SLAM'],defdvo2026=['DEFDVO','Deformable Deep Visual Odometry'],sqrtvins3602026=['sqrtVINS 360','sqrtVINS Hilti2026','dual-fisheye Hilti'])
 ALIASES['lingbot_depth2026']=['LingBot-Depth','LingBot Depth','MDM','Masked Depth Modeling','LingBot-Depth v0.5']
 ALIASES.update(pvdepth2026=['PVDepth','PSNI','CRTM'],openvio2026=['OpenVIO','Open VIO'])
 
@@ -281,7 +288,7 @@ def build():
     records.sort(key=lambda e:(e['collection']!='depth',-int(str(e.get('year',0))[:4]) if str(e.get('year',0))[:4].isdigit() else 0,e['name']))
     catalog=dict(updated=UPDATED,repoUrl=REPO_URL,title='Panoramic Depth Atlas',
         description='Panoramic, fisheye and wide-FOV depth estimation and SLAM literature.',
-        schemaVersion='1.4',interfaceUpdated='2026-11-10',records=records,
+        schemaVersion='1.4',interfaceUpdated='2026-11-23',records=records,
         stats={'depth':len(depth)+len(added),'slam':len(slam),
                'datasets':len(datasets),
                'panoramicDepth':sum(e['collection']=='depth' and 'panoramic' in e['cameras'] for e in records),
